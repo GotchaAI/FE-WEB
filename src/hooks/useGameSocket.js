@@ -6,19 +6,19 @@ import SockJS from 'sockjs-client';
  * useGameSocket 커스텀 훅
  *
  * 게임 웹소켓 서버에 연결
- * nickname과 roomId를 기반으로 초기 연결을 수행
+ * nickName과 roomId를 기반으로 초기 연결을 수행
  * 서버에 접속 정보를 publish
  * 연결 실패 시 5000ms 간격으로 재연결 시도
  */
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const SOCKET_BASE_URL = process.env.REACT_APP_SOCKET_BASE_URL;
 
-const useGameSocket = ({ nickname, roomId }) => {
+const useGameSocket = ({ nickName, roomId }) => {
 	const stompClientRef = useRef(null);
 
 	useEffect(() => {
 		const client = new Client({
-			webSocketFactory: () => new SockJS(`${BASE_URL}/ws-connect`),
+			webSocketFactory: () => new SockJS(`${SOCKET_BASE_URL}${process.env.REACT_APP_WS_ENDPOINT}`),
 			reconnectDelay: 5000,
 			debug: (str) => console.log('STOMP 핸드쉐이킹', str),
 		});
@@ -29,7 +29,7 @@ const useGameSocket = ({ nickname, roomId }) => {
 			// 초기 연결 알림 전송
 			client.publish({
 				destination: '/pub/connect',
-				body: JSON.stringify({ nickname: nickname }),
+				body: JSON.stringify({ nickName: nickName }),
 			});
 
 		}
@@ -47,7 +47,7 @@ const useGameSocket = ({ nickname, roomId }) => {
 			// 웹소켓 해제
 			client.deactivate();
 		}
-	}, [nickname, roomId]);
+	}, [nickName, roomId]);
 
 	return {};
 };

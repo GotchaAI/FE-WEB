@@ -1,8 +1,8 @@
 import { Client } from '@stomp/stompjs';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import SockJS from 'sockjs-client';
 
-const useSocket = ({ nickname, roomId }) => {
+const useGameSocket = ({ nickname, roomId }) => {
 	const stompClientRef = useRef(null);
 
 	useEffect(() => {
@@ -36,9 +36,9 @@ const useSocket = ({ nickname, roomId }) => {
 			// 웹소켓 해제
 			client.deactivate();
 		}
-	}, [username, roomId]);
+	}, [nickname, roomId]);
 
 	return {};
 };
 
-export default useSocket;
+export default useGameSocket;

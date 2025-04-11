@@ -1,9 +1,18 @@
-import HomePage from "pages/HomePage";
+import HomeLayout, { loader as homeLoader } from "pages/home/HomeLayout";
+import HomePage from "pages/home/HomePage";
 
 const home = [
   {
-    index: true,
-    element: <HomePage />,
+    index: "/",
+
+    element: <HomeLayout />,
+    loader: homeLoader,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+    ],
   },
 ];
 

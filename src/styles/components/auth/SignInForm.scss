@@ -1,0 +1,89 @@
+// 로그인 폼
+.sign-in-form-container {
+  z-index: 5;
+  position: relative;
+  width: 430px;
+  //height: 54.72%;
+  margin-top: 48px;
+
+  .sign-in-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+
+    input {
+      border: solid 2px black;
+
+      border-radius: 16px;
+      width: 100%;
+      height: 53px;
+
+      padding-left: 22px;
+      font-size: 20px;
+    }
+
+    input::placeholder {
+      color: rgba(153, 153, 153, 1);
+    }
+  }
+
+  // 아이디 저장, 자동로그인
+  .sign-in-option-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 18px;
+    .email-save-container,
+    .auto-sign-in-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .active {
+        background-color: rgba(137, 200, 129, 1);
+      }
+    }
+
+    button {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      border: solid 2px rgba(153, 153, 153, 1);
+      background-color: white;
+    }
+
+    span {
+      font-size: 20px;
+    }
+  }
+
+  // 로그인 버튼
+  .sign-in-btn,
+  .guest-sign-in-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 430px;
+    height: 53px;
+    border-radius: 16px;
+    border: solid 2px black;
+
+    font-size: 20px;
+  }
+
+  .sign-in-btn {
+    margin-top: 28px;
+    background-color: rgba(137, 200, 129, 1);
+  }
+
+  .guest-sign-in-btn {
+    margin-top: 16px;
+    background-color: rgba(233, 255, 159, 1);
+  }
+}

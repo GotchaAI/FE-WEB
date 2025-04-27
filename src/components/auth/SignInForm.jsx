@@ -36,7 +36,7 @@ const SignInForm = ({ errorMessage, savedEmail }) => {
     // 저장된 정보 로딩
     setEmail(savedEmail);
     setEmailSave(true);
-  }, []);
+  }, [savedEmail, setEmail]);
 
   // 아이디 저장 핸들러
   const emailSaveHandler = () => {

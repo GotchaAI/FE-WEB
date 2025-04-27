@@ -32,6 +32,7 @@ const SignInForm = ({ errorMessage, savedEmail }) => {
   // 아이디 저장
   useEffect(() => {
     if (!savedEmail) return;
+    // 저장된 정보 로딩
     setEmail(savedEmail);
     setEmailSave(true);
   }, []);
@@ -41,6 +42,7 @@ const SignInForm = ({ errorMessage, savedEmail }) => {
     setEmailSave(!emailSave);
   };
 
+  // 자동 로그인 핸들러
   const autoSigninHandler = () => {
     setAutoSignin(!autoSignin);
   };
@@ -76,28 +78,30 @@ const SignInForm = ({ errorMessage, savedEmail }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
-        {errorMessage && (
-          <div className="sign-in-error-message">{errorMessage}</div>
-        )}
       </div>
+
+      {errorMessage && (
+        <span className="sign-in-error-message">{errorMessage}</span>
+      )}
 
       <div className="sign-in-option-container">
         <div className="email-save-container">
-          <button
-            type="button"
+          <input
+            type="checkbox"
+            id="save-id-btn"
             onClick={emailSaveHandler}
             className={`email-save-btn ${emailSave ? "active" : ""}`}
           />
-          <span>아이디 저장</span>
+          <label htmlFor="save-id-btn">아이디 저장</label>
         </div>
         <div className="auto-sign-in-container">
-          <button
-            type="button"
+          <input
+            type="checkbox"
+            id="auto-sign-in-btn"
             onClick={autoSigninHandler}
             className={`auto-sign-in-btn ${autoSignin ? "active" : ""}`}
           />
-          <span>자동로그인</span>
+          <label htmlFor="auto-sign-in-btn">자동로그인</label>
         </div>
       </div>
 

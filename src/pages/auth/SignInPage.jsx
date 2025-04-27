@@ -4,7 +4,6 @@ import { ROOT_URL } from "constants/url";
 import { useEffect, useState } from "react";
 import { redirect, useActionData } from "react-router-dom";
 import { guestSignInAPI, signInAPI, tokenReissueAPI } from "services/auth/auth";
-import { userToken } from "store/auth";
 import "styles/pages/auth/SignInPage.scss";
 import { getAuthToken } from "utils/token";
 
@@ -85,6 +84,7 @@ export const action = async ({ request }) => {
   const data = await request.formData();
 
   // 로그인 폼
+  // TODO : isAuto 적용 논의 중... 확정 날 경우 추가
   const authForm = {
     email: data.get("email"),
     password: data.get("password"),
@@ -100,7 +100,7 @@ export const action = async ({ request }) => {
       ? signInAPI(authForm)
       : guestSignInAPI());
 
-    const { setAccessToken } = userToken.getState();
+    const { setAccessToken } = getAuthToken();
     const accessToken = res.accessToken;
     const expireTime = res.expiredAt;
 

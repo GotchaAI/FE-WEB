@@ -1,13 +1,12 @@
 import axios from "axios";
 import { LOCAL_SERVER_IP } from "constants/api";
 import { SIGN_IN_URL } from "constants/url";
-import dayjs from "dayjs";
 import { tokenReissueAPI } from "services/auth/auth";
-import { userToken } from "store/auth";
+import { getAuthToken } from "utils/token";
 
 const baseConfig = {
   baseURL: LOCAL_SERVER_IP,
-  timeout: 8000,
+  timeout: 3000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -20,11 +19,9 @@ const instance = axios.create(baseConfig); // 인터셉터 미적용
 tokenInstance.interceptors.request.use(
   async (config) => {
     // JWT_AT : 임시 토큰 발급
-    const { accessToken, expireTime, setAccessToken } = userToken.getState();
-    const isTokenExpired = expireTime && dayjs().isAfter(dayjs(expireTime));
-    console.log(expireTime);
-    console.log(dayjs());
-    console.log(isTokenExpired);
+    const { accessToken, setAccessToken } = getAuthToken();
+    const isTokenExpired = isTokenExpired();
+
     if (isTokenExpired || !accessToken) {
       try {
         const res = await tokenReissueAPI();
@@ -37,7 +34,7 @@ tokenInstance.interceptors.request.use(
       } catch (error) {
         // 리프레시 토큰 만료, 오류
         console.error("토큰 재발급 실패", error);
-        window.location.href = SIGN_IN_URL; // 또는 modal 등 처리 가능
+        window.location.href = SIGN_IN_URL;
         return Promise.reject(error);
       }
     } else {
@@ -57,10 +54,11 @@ tokenInstance.interceptors.response.use(
   async (error) => {
     // AT 만료
     const originalRequest = error.config;
+    // TODO : 에러 코드 정해질 시 if문 내용 변경
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      const { setAccessToken } = userToken.getState();
+      const { setAccessToken } = getAuthToken();
       try {
         const res = await tokenReissueAPI();
 
@@ -75,7 +73,7 @@ tokenInstance.interceptors.response.use(
 
         return axios.request(originalRequest);
       } catch (error) {
-        window.location.href = SIGN_IN_URL; // 또는 modal 등 처리 가능
+        window.location.href = SIGN_IN_URL;
         return Promise.reject(error);
       }
     }

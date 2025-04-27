@@ -2,7 +2,7 @@ import axios from "axios";
 import { LOCAL_SERVER_IP } from "constants/api";
 import { SIGN_IN_URL } from "constants/url";
 import { tokenReissueAPI } from "services/auth/auth";
-import { getAuthToken } from "utils/token";
+import { getAuthToken, isTokenExpired } from "utils/token";
 
 const baseConfig = {
   baseURL: LOCAL_SERVER_IP,
@@ -20,9 +20,9 @@ tokenInstance.interceptors.request.use(
   async (config) => {
     // JWT_AT : 임시 토큰 발급
     const { accessToken, setAccessToken } = getAuthToken();
-    const isTokenExpired = isTokenExpired();
+    const isExpired = isTokenExpired();
 
-    if (isTokenExpired || !accessToken) {
+    if (isExpired || !accessToken) {
       try {
         const res = await tokenReissueAPI();
 

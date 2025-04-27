@@ -47,7 +47,7 @@
     .auto-sign-in-container {
       position: relative;
       display: flex;
-      align-items: center;
+      align-items: start;
       gap: 5.35px;
 
       .active {
@@ -62,9 +62,9 @@
         width: 16.05px;
         height: 16.05px;
         border-radius: 6px;
-        border: solid 2px rgba(153, 153, 153, 1);
+        border: solid 1.84px rgba(153, 153, 153, 1);
         background-color: white;
-
+        margin: 0;
         cursor: pointer;
 
         &:checked {
@@ -79,7 +79,10 @@
     }
 
     label {
+      display: flex;
+      align-items: center;
       font-size: 12px;
+      height: 15px;
     }
   }
 

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { userToken } from "store/auth";
 
 /**
@@ -5,8 +6,8 @@ import { userToken } from "store/auth";
  * @returns {object} accessToken 및 setAccessToken
  */
 const getAuthToken = () => {
-  const { accessToken, setAccessToken } = userToken.getState();
-  return { accessToken, setAccessToken };
+  const { accessToken, expireTime, setAccessToken } = userToken.getState();
+  return { accessToken, expireTime, setAccessToken };
 };
 
 /**
@@ -21,4 +22,13 @@ const isAccessToken = async () => {
   return true;
 };
 
-export { getAuthToken, isAccessToken };
+/**
+ * 토큰 만료 여부 확인
+ * @return true/false
+ */
+const isTokenExpired = () => {
+  const { expireTime } = getAuthToken();
+  return expireTime && dayjs().isAfter(dayjs(expireTime));
+};
+
+export { getAuthToken, isAccessToken, isTokenExpired };

@@ -14,7 +14,7 @@ const getAuthToken = () => {
  * 토큰 유무 확인
  * @returns true/false
  */
-const isAccessToken = async () => {
+const isAccessToken = () => {
   const { accessToken } = getAuthToken();
   if (!accessToken) {
     return false;

@@ -1,5 +1,5 @@
-import cloudImage from "asstes/cloud.png";
-import logoImage from "asstes/commons/logo.png";
+import cloudImage from "assets/cloud.png";
+import logoImage from "assets/commons/logo.png";
 import SignInForm from "components/auth/SignInForm";
 import { ACCOUNT_URL, SIGN_UP_URL } from "constants/url";
 import { Link } from "react-router-dom";

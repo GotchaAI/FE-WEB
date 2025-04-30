@@ -84,11 +84,10 @@ export const action = async ({ request }) => {
   const data = await request.formData();
 
   // 로그인 폼
-  // TODO : isAuto 적용 논의 중... 확정 날 경우 추가
   const authForm = {
     email: data.get("email"),
     password: data.get("password"),
-    // isAuto : data.get("autoSignin")
+    autoSignIn: data.get("autoSignin"),
   };
 
   // 로그인 타입(user/guest)

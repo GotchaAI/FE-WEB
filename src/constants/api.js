@@ -6,6 +6,7 @@ export const LOCAL_SERVER_IP = process.env.REACT_APP_LOCAL_SERVER_IP;
 export const SIGN_IN_API = process.env.REACT_APP_SIGN_IN_API;
 export const GUEST_SIGN_IN_API = process.env.REACT_APP_GUEST_SIGN_IN_API;
 export const TOKEN_REISSUE_API = process.env.REACT_APP_TOKEN_REISSUE_API;
+export const CSRF_TOKEN_API = process.env.REACT_APP_CSRF_TOKEN_API;
 
 // 사용자 정보 조회
 export const USER_ME_API = process.env.REACT_APP_USER_ME_API;

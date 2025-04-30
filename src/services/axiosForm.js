@@ -2,7 +2,7 @@ import axios from "axios";
 import { LOCAL_SERVER_IP } from "constants/api";
 import { SIGN_IN_URL } from "constants/url";
 import { tokenReissueAPI } from "services/auth/auth";
-import { getAuthToken, isTokenExpired } from "utils/token";
+import { getAuthToken, getCsrfToken, isTokenExpired } from "utils/token";
 
 const baseConfig = {
   baseURL: LOCAL_SERVER_IP,
@@ -15,6 +15,19 @@ const baseConfig = {
 
 const tokenInstance = axios.create(baseConfig); // 토큰 인터셉터 적용
 const instance = axios.create(baseConfig); // 인터셉터 미적용
+
+const attachCsrfInterceptor = (axiosInstance) => {
+  axiosInstance.interceptors.request.use((config) => {
+    const csrfToken = getCsrfToken();
+    if (csrfToken) {
+      config.headers["X-XSRF-TOKEN"] = csrfToken;
+    }
+    return config;
+  });
+};
+
+attachCsrfInterceptor(tokenInstance);
+attachCsrfInterceptor(instance);
 
 tokenInstance.interceptors.request.use(
   async (config) => {

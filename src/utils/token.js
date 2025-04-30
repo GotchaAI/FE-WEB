@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { Cookies } from "react-cookie";
 import { userToken } from "store/auth";
 
 /**
@@ -31,4 +32,14 @@ const isTokenExpired = () => {
   return expireTime && dayjs().isAfter(dayjs(expireTime));
 };
 
-export { getAuthToken, isAccessToken, isTokenExpired };
+/**
+ * csrf토큰 반환
+ * @return true/false
+ */
+const getCsrfToken = () => {
+  const cookies = new Cookies();
+  const csrfToken = cookies.get("XSRF-TOKEN");
+  return csrfToken;
+};
+
+export { getAuthToken, isAccessToken, isTokenExpired, getCsrfToken };

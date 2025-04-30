@@ -9,8 +9,8 @@ export const signInAPI = async (authForm) => {
   return await apiInterface("post", SIGN_IN_API, authForm, {}, false);
 };
 
-export const guestSignInAPI = async (authForm) => {
-  return await apiInterface("post", GUEST_SIGN_IN_API, authForm, {}, false);
+export const guestSignInAPI = async () => {
+  return await apiInterface("post", GUEST_SIGN_IN_API, {}, {}, false);
 };
 
 export const tokenReissueAPI = async () => {

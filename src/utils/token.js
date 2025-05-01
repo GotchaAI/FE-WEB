@@ -31,4 +31,4 @@ const isTokenExpired = () => {
   return expireTime && dayjs().isAfter(dayjs(expireTime));
 };
 
-export { getAuthToken, isAccessToken, isTokenExpired, getCsrfToken };
+export { getAuthToken, isAccessToken, isTokenExpired };

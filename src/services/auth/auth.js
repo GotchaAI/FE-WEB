@@ -1,5 +1,4 @@
 import {
-  CSRF_TOKEN_API,
   GUEST_SIGN_IN_API,
   SIGN_IN_API,
   TOKEN_REISSUE_API,
@@ -16,8 +15,4 @@ export const guestSignInAPI = async () => {
 
 export const tokenReissueAPI = async () => {
   return await apiInterface("post", TOKEN_REISSUE_API, {}, {}, false);
-};
-
-export const csrfTokenGetAPI = async () => {
-  return await apiInterface("get", CSRF_TOKEN_API, {}, {}, false);
 };

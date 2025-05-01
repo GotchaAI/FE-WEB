@@ -6,8 +6,3 @@ export const userToken = create((set) => ({
   setAccessToken: (newToken, expireTime) =>
     set({ accessToken: newToken, expireTime: expireTime }),
 }));
-
-export const csrfToken = create((set) => ({
-  csrfToken: "",
-  setCsrfToken: (newToken) => set({ csrfToken: newToken }),
-}));

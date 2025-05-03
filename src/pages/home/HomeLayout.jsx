@@ -1,11 +1,12 @@
-import { Outlet } from "react-router-dom";
 import { tokenReissueAPI } from "services/auth/auth";
+import "styles/pages/home/HomeLayout.scss";
 import { getAuthToken } from "utils/token";
+import HomePage from "./HomePage";
 
 const HomeLayout = () => {
   return (
     <div className="home-layout-container">
-      <Outlet />
+      <HomePage />
     </div>
   );
 };
@@ -24,6 +25,8 @@ export const loader = async () => {
       setAccessToken(newAccessToken, expireTime);
     } catch (e) {
       console.error(e);
+      return { isSignIn: false };
     }
   }
+  return { isSignIn: true };
 };

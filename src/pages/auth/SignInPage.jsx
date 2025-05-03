@@ -11,12 +11,10 @@ import { getAuthToken } from "utils/token";
  *
  * - 로그인 container를 담당하는 컴포넌트
  * - action 함수로부터 전달된 에러 메시지(useActionData)를 받아 하위 컴포넌트에 전달(오류 메세지)
- * - 로컬 스토리지에 저장된 이메일(savedEmail)이 있으면 하위 컴포넌트에 전달
  *
  * 주요 역할:
  * 1. 로그인 결과에 따른 에러 메시지 처리
- * 2. 저장된 이메일(localStorage) 초기값으로 설정
- * 3. <SignIn /> 컴포넌트에 필요한 props 전달
+ * 2. <SignIn /> 컴포넌트에 필요한 props 전달
  */
 
 const SignInPage = () => {

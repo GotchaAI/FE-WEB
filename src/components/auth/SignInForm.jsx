@@ -35,7 +35,7 @@ const SignInForm = ({ errorMessage }) => {
       setEmailSave(true);
       setEmail(email);
     }
-  }, []);
+  }, [setEmail]);
 
   // 아이디 저장 핸들러
   const emailSaveHandler = () => {

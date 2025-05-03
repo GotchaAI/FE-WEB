@@ -3,5 +3,10 @@ export const isValidEmail = (email) => {
 };
 
 export const isValidPassword = (password) => {
-  return /[!@#$%^&*(),.?":{}|<>]/.test(password) && password.length >= 8;
+  const hasLetter = /[a-zA-Z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+  const isLongEnough = password.length >= 8;
+
+  return hasLetter && hasNumber && hasSpecial && isLongEnough;
 };

@@ -38,13 +38,13 @@ const SignInForm = ({ errorMessage }) => {
   }, [setEmail]);
 
   // 아이디 저장 핸들러
-  const emailSaveHandler = () => {
-    setEmailSave(!emailSave);
+  const emailSaveHandler = (e) => {
+    setEmailSave(e.target.checked);
   };
 
   // 자동 로그인 핸들러
-  const autoSigninHandler = () => {
-    setAutoSignin(!autoSignin);
+  const autoSigninHandler = (e) => {
+    setAutoSignin(e.target.checked);
   };
 
   // 로그인 제출 전 로직
@@ -99,7 +99,7 @@ const SignInForm = ({ errorMessage }) => {
             type="checkbox"
             id="save-id-btn"
             checked={emailSave}
-            onClick={emailSaveHandler}
+            onChange={emailSaveHandler}
             className={`email-save-btn ${emailSave ? "active" : ""}`}
           />
           <label htmlFor="save-id-btn">아이디 저장</label>
@@ -108,7 +108,7 @@ const SignInForm = ({ errorMessage }) => {
           <input
             type="checkbox"
             id="auto-sign-in-btn"
-            onClick={autoSigninHandler}
+            onChange={autoSigninHandler}
             className={`auto-sign-in-btn ${autoSignin ? "active" : ""}`}
           />
           <label htmlFor="auto-sign-in-btn">자동로그인</label>

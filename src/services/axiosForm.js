@@ -1,5 +1,6 @@
 import axios from "axios";
 import { LOCAL_SERVER_IP } from "constants/api";
+import { REFRESH_TOKEN_EXPIRED } from "constants/errorCode";
 import { SIGN_IN_URL } from "constants/url";
 import { tokenReissueAPI } from "services/auth/auth";
 import { getAuthToken, isTokenExpired } from "utils/token";
@@ -54,9 +55,10 @@ tokenInstance.interceptors.response.use(
     // AT 만료
     const originalRequest = error.config;
     // TODO : 에러 코드 정해질 시 if문 내용 변경
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-
+    if (
+      error.response?.status === 401 &&
+      error.response?.data.code !== REFRESH_TOKEN_EXPIRED
+    ) {
       const { setAccessToken } = getAuthToken();
       try {
         const res = await tokenReissueAPI();

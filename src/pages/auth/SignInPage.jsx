@@ -1,7 +1,6 @@
 import SignIn from "components/auth/SignIn";
 import { signInErrorMessage } from "constants/errorMessage";
 import { ROOT_URL } from "constants/url";
-import { useEffect, useState } from "react";
 import { redirect, useActionData } from "react-router-dom";
 import { guestSignInAPI, signInAPI, tokenReissueAPI } from "services/auth/auth";
 import "styles/pages/auth/SignInPage.scss";
@@ -22,18 +21,10 @@ import { getAuthToken } from "utils/token";
 
 const SignInPage = () => {
   const errorMessage = useActionData();
-  const [savedEmail, setSavedEmail] = useState("");
-
-  useEffect(() => {
-    const email = localStorage.getItem("savedEmail");
-    if (email) {
-      setSavedEmail(email);
-    }
-  }, []);
 
   return (
     <div className="sign-in-page-container">
-      <SignIn errorMessage={errorMessage} savedEmail={savedEmail} />
+      <SignIn errorMessage={errorMessage} />
     </div>
   );
 };

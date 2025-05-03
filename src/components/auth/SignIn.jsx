@@ -13,7 +13,6 @@ import "styles/components/auth/SignIn.scss";
  *
  * props:
  * @param {string} errorMessage - 로그인 실패 시 출력할 에러 메시지
- * @param {string} savedEmail - localStorage에서 불러온 저장된 이메일 주소
  *
  * 구성 요소:
  * 1. 로고 이미지
@@ -22,12 +21,12 @@ import "styles/components/auth/SignIn.scss";
  * 4. 배경 이미지 (구름 효과)
  */
 
-const SignIn = ({ errorMessage, savedEmail }) => {
+const SignIn = ({ errorMessage }) => {
   return (
     <div className="sign-in-container">
       <img src={logoImage} className="logo" alt="logo" />
 
-      <SignInForm errorMessage={errorMessage} savedEmail={savedEmail} />
+      <SignInForm errorMessage={errorMessage} />
 
       <div className="account-nav-container">
         <Link to={SIGN_UP_URL} className="sign-up-nav-btn">

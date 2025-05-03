@@ -24,19 +24,18 @@ import "styles/components/auth/SignInForm.scss";
  * 4. 로그인 실패 시 errorMessage를 이메일/비밀번호 입력란 하단에 표시
  */
 
-const SignInForm = ({ errorMessage, savedEmail }) => {
+const SignInForm = ({ errorMessage }) => {
   const { email, setEmail, password, setPassword } = useSignInForm();
   const [emailSave, setEmailSave] = useState(false);
   const [autoSignin, setAutoSignin] = useState(false);
 
-  // 아이디 저장
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (!savedEmail) return;
-    // 저장된 정보 로딩
-    setEmail(savedEmail);
-    setEmailSave(true);
-  }, [savedEmail, setEmail]);
+    const email = localStorage.getItem("savedEmail");
+    if (email) {
+      setEmailSave(true);
+      setEmail(email);
+    }
+  }, []);
 
   // 아이디 저장 핸들러
   const emailSaveHandler = () => {
@@ -90,6 +89,7 @@ const SignInForm = ({ errorMessage, savedEmail }) => {
           <input
             type="checkbox"
             id="save-id-btn"
+            checked={emailSave}
             onClick={emailSaveHandler}
             className={`email-save-btn ${emailSave ? "active" : ""}`}
           />

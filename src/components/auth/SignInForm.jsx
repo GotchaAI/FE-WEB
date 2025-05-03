@@ -24,7 +24,8 @@ import "styles/components/auth/SignInForm.scss";
  */
 
 const SignInForm = ({ errorMessage }) => {
-  const { email, setEmail, password, setPassword } = useSignInForm();
+  const { email, setEmail, password, setPassword, validateError, validate } =
+    useSignInForm();
   const [emailSave, setEmailSave] = useState(false);
   const [autoSignin, setAutoSignin] = useState(false);
 
@@ -47,7 +48,12 @@ const SignInForm = ({ errorMessage }) => {
   };
 
   // 로그인 제출 전 로직
-  const submitHandler = () => {
+  const submitHandler = (e) => {
+    if (!validate()) {
+      e.preventDefault();
+      return;
+    }
+
     if (emailSave) {
       localStorage.setItem("savedEmail", email);
     } else {
@@ -81,6 +87,10 @@ const SignInForm = ({ errorMessage }) => {
 
       {errorMessage && (
         <span className="sign-in-error-message">{errorMessage}</span>
+      )}
+
+      {validateError && (
+        <span className="sign-in-error-message">{validateError}</span>
       )}
 
       <div className="sign-in-option-container">

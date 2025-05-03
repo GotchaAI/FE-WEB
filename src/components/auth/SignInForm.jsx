@@ -11,7 +11,6 @@ import "styles/components/auth/SignInForm.scss";
  *
  * props:
  * @param {string} errorMessage - 로그인 실패 시 출력할 에러 메시지
- * @param {string} savedEmail - localStorage에서 불러온 저장 이메일 (있을 경우 입력란에 자동 세팅)
  *
  * 내부 상태:
  * - emailSave: "아이디 저장" 버튼 상태 (선택 시 localStorage에 저장)

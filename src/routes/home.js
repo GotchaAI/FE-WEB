@@ -3,7 +3,7 @@ import HomePage from "pages/home/HomePage";
 
 const home = [
   {
-    index: "/",
+    path: "/",
 
     element: <HomeLayout />,
     loader: homeLoader,

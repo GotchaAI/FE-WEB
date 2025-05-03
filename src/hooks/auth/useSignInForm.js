@@ -1,3 +1,7 @@
+import {
+  EMAIL_VALIDATION_ERROR_MESSAGE,
+  PASSWORD_VALIDATION_ERROR_MESSAGE,
+} from "constants/errorMessage";
 import { useState } from "react";
 import { isValidEmail, isValidPassword } from "utils/validation";
 
@@ -11,12 +15,12 @@ const useSignInForm = () => {
     let newError;
 
     if (!isValidPassword(password)) {
-      newError = "비밀번호는 특수문자 포함 8자리 이상이어야 합니다.";
+      newError = PASSWORD_VALIDATION_ERROR_MESSAGE;
       valid = false;
     }
 
     if (!isValidEmail(email)) {
-      newError = "유효한 이메일 형식이 아닙니다.";
+      newError = EMAIL_VALIDATION_ERROR_MESSAGE;
       valid = false;
     }
 

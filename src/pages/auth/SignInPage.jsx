@@ -1,5 +1,5 @@
 import SignIn from "components/auth/SignIn";
-import { signInErrorMessage } from "constants/errorMessage";
+import { SIGN_IN_FAILURE_ERROR_MESSAGE } from "constants/errorMessage";
 import { ROOT_URL } from "constants/url";
 import { redirect, useActionData } from "react-router-dom";
 import { guestSignInAPI, signInAPI, tokenReissueAPI } from "services/auth/auth";
@@ -98,6 +98,6 @@ export const action = async ({ request }) => {
   } catch (e) {
     // 로그인 에러
     console.error(e);
-    return signInErrorMessage;
+    return SIGN_IN_FAILURE_ERROR_MESSAGE;
   }
 };

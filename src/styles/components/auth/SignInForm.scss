@@ -1,0 +1,114 @@
+// 로그인 폼
+.sign-in-form-container {
+  z-index: 5;
+  position: relative;
+  width: 287.58px;
+  margin-top: 20.28px;
+
+  .sign-in-form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5.09px;
+
+    input {
+      border: solid 1.8px black;
+
+      border-radius: 8px;
+      width: 100%;
+      height: 36px;
+
+      padding-left: 9.87px;
+      font-size: 12px;
+    }
+
+    input::placeholder {
+      color: rgba(153, 153, 153, 1);
+    }
+  }
+  .sign-in-error-message {
+    position: absolute;
+    margin-left: 4.98px;
+    height: 15px;
+    font-size: 12px;
+    color: #e90c0c;
+  }
+  // 아이디 저장, 자동로그인
+  .sign-in-option-container {
+    position: relative;
+    display: flex;
+
+    gap: 13.6px;
+    margin-left: 4.98px;
+    margin-top: 20.64px;
+
+    .email-save-container,
+    .auto-sign-in-container {
+      position: relative;
+      display: flex;
+      align-items: start;
+      gap: 5.35px;
+
+      .active {
+        background-color: rgba(137, 200, 129, 1);
+      }
+
+      .email-save-btn,
+      .auto-sign-in-btn {
+        -webkit-appearance: none;
+        appearance: none;
+
+        width: 16.05px;
+        height: 16.05px;
+        border-radius: 6px;
+        border: solid 1.84px rgba(153, 153, 153, 1);
+        background-color: white;
+        margin: 0;
+        cursor: pointer;
+
+        &:checked {
+          // TODO : SVG 컴포넌트화
+          background-image: url("data:image/svg+xml,%3Csvg%20width='11'%20height='9'%20viewBox='0%200%2011%209'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cpath%20d='M1.0127%201.47966C1.45301%203.41483%201.859%205.41962%202.61545%207.26533C3.4547%209.31309%205.1793%206.75967%206.01856%205.73579C7.14302%204.36395%208.94531%202.21988%209.70709%200.681641'%20stroke='black'%20stroke-width='1.3376'%20stroke-linecap='round'/%3E%3C/svg%3E");
+          border-color: black;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: 8.69px 7.36px;
+        }
+      }
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      height: 15px;
+    }
+  }
+
+  // 로그인 버튼
+  .sign-in-btn,
+  .guest-sign-in-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 288px;
+    height: 35px;
+    border-radius: 8px;
+    border: solid 1.8px black;
+
+    font-size: 14px;
+  }
+
+  .sign-in-btn {
+    margin-top: 16.95px;
+    background-color: rgba(137, 200, 129, 1);
+  }
+
+  .guest-sign-in-btn {
+    margin-top: 11px;
+    background-color: rgba(233, 255, 159, 1);
+  }
+}

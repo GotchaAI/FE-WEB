@@ -1,0 +1,68 @@
+.sign-in-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  // 하늘색 배경
+  background: linear-gradient(
+    rgba(170, 232, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 34%
+  );
+
+  // 로고
+  .logo {
+    position: relative;
+
+    width: 335px;
+    height: 94px;
+  }
+
+  // .SignInForm
+
+  // 네비게이션 바
+  .account-nav-container {
+    z-index: 2;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 430px;
+
+    margin-top: 20.04px;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    a {
+      text-decoration-line: none;
+      color: black;
+    }
+
+    .find-password-nav-btn {
+      margin-top: 12.42px;
+    }
+  }
+
+  // 구름 배경
+  .cloud-container {
+    position: absolute;
+
+    width: 100%;
+    height: 49.24%;
+    bottom: 0;
+
+    .cloud {
+      position: relative;
+
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

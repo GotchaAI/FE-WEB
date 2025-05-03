@@ -1,0 +1,1 @@
+export const REFRESH_TOKEN_EXPIRED = "JWT-401-002";

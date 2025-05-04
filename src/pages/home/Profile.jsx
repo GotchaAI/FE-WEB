@@ -19,7 +19,7 @@ const Profile = () => {
       </div>
       <div className="profile-user-info-container">
         <div className="profile-img-container">
-          <img src={userInfo.profile_img} />
+          <img src={userInfo.profile_img} alt="profile-sample" />
         </div>
         <div className="profile-detail-container">
           <div className="profile-detail">

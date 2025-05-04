@@ -10,9 +10,9 @@ import {
   SERVICE_CENTER_URL,
   SIGN_IN_URL,
 } from "constants/url";
+import Profile from "pages/home/Profile";
 import { Link, useLoaderData } from "react-router-dom";
 import "styles/components/home/HomePage.scss";
-import Profile from "./Profile";
 
 const HomePage = () => {
   const { isSignIn } = useLoaderData();

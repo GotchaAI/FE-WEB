@@ -1,0 +1,59 @@
+
+.lobby-chatting-container {
+    -ms-overflow-style: none;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  
+    .chat-window {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        margin-top: 100px;
+        height: calc(100% - 200px);
+        padding: 30px;
+        gap: 12px;
+        .chat-message {
+            flex-direction: column;
+            max-width: 80%;
+            height: auto;
+            font-size: 10px;
+            word-break: break-all;
+            &.mine {
+                align-self: flex-end;
+                .chat-bubble {
+                background-color: white;
+                border: black solid 1px;
+                padding: 8px;
+            }
+          }
+      
+            &.theirs {
+                align-self: flex-start;
+                .chat-nickname {
+                    font-size: 13px;
+                    color: black;
+                    margin-bottom: 2px;
+                }
+                .chat-bubble {
+                    background-color: #F2F3F6;
+                    border: black solid 1px;    
+                    padding: 8px;
+                }
+            }
+        }
+    }
+    .chat-input {
+        display: flex;
+        input {
+            flex: 1;
+        }
+        button {
+            margin-left: 5px;
+        }
+    }
+}

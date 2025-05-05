@@ -36,6 +36,9 @@
 			input {
 				flex: 1;
 			}
+			input:disabled {
+				background-color: #f2f3f6;
+			}
 
 			button {
 				border: 1.5px solid black;
@@ -47,6 +50,10 @@
 				padding: 0;
 				cursor: pointer;
 			}
+			button:disabled {
+				background-color: #999999;
+				color: #000000;
+			}
 
 			.check-nickname-btn {
 				background-color: #f4ec6f;
@@ -57,7 +64,7 @@
 			}
 
 			.verify-code-btn {
-				background-color: #999999;
+				background-color: #f4ec6f;
 			}
 		}
 

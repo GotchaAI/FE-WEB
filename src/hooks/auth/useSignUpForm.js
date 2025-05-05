@@ -8,64 +8,80 @@ const useSignUpForm = () => {
   const [emailCode, setEmailCode] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [validateError, setvalidateError] = useState("");
+  const [nicknameError, setNicknameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState("");
 
-  // ✅ 닉네임 입력 시 실시간 형식 검사
+  // 닉네임 입력 시 실시간 형식 검사
   const handleNicknameChange = (value) => {
     setNickname(value);
-    if (!isVaildNickname(value)) {
-      setvalidateError(NICKNAME_VAILDATION_ERROR_MESSAGE);
+    setNicknameError(value && !isVaildNickname(value) ? NICKNAME_VAILDATION_ERROR_MESSAGE : "");
+  };
+
+
+  // 비밀번호 입력 시 실시간 형식 검사
+  const handlePasswordChange = (value) => {
+    setPassword(value);
+    validatePasswordAll(value, confirmPassword);
+  };
+
+  // 비밀번호 재입력 시 실시간 형식 검사
+  const handleConfirmPasswordChange = (value) => {
+    setConfirmPassword(value);
+    validatePasswordAll(password, value);
+  };
+
+  // 공통 비밀번호 검증 함수
+  const validatePasswordAll = (pwd, confirmPwd) => {
+    if (!pwd && !confirmPwd) {
+      setPasswordError("");
+      return;
+    }
+
+    if (!isValidPassword(pwd)) {
+      setPasswordError(PASSWORD_VALIDATION_ERROR_MESSAGE);
+    } else if (confirmPwd && pwd !== confirmPwd) {
+      setPasswordError(PASSWORD_CONFIRM_ERROR_MESSAGE);
     } else {
-      setvalidateError("");
+      setPasswordError("");
     }
   };
 
-  const validate = () => {
-    let valid = true;
-    let newError;
 
-    if (!isVaildNickname(nickname)) {
-      newError = NICKNAME_VAILDATION_ERROR_MESSAGE;
-      valid = false;
+  // 이메일 입력 시 실시간 형식 검사
+  const handleEmailChange = (value) => {
+    setEmail(value);
+    if (!isValidEmail(value)) {
+      setEmailError(EMAIL_VALIDATION_ERROR_MESSAGE);
+    } else {
+      setEmailError("");
     }
+  }
 
-    if (!isValidPassword(password)) {
-      newError = PASSWORD_VALIDATION_ERROR_MESSAGE;
-      valid = false;
-    }
-    if (password !== confirmPassword) {
-      newError = PASSWORD_CONFIRM_ERROR_MESSAGE;
-      valid = false;
-    }
-
-    if (!isValidEmail(email)) {
-      newError = EMAIL_VALIDATION_ERROR_MESSAGE;
-      valid = false;
-    }
+  // 이메일 코드 입력 시 실시간 형식 검사
+  const handleEmailCodeChange = (value) => {
+    setEmailCode(value);
     if (emailCode !== "0000") {
-      newError = EMAIL_CODE_MISMATCH_ERROR_MESSAGE;
-      valid = false;
+      setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE);
+    } else {
+      setEmailError("");
     }
-
-    setvalidateError(newError);
-    return valid;
-  };
+  }
 
   return {
     nickname,
-    setNickname,
     email,
-    setEmail,
     emailCode,
-    setEmailCode,
     password,
-    setPassword,
     confirmPassword,
-    setConfirmPassword,
-    validateError,
-    setvalidateError,
-    validate,
     handleNicknameChange,
+    handlePasswordChange,
+    handleConfirmPasswordChange,
+    handleEmailChange,
+    handleEmailCodeChange,
+    nicknameError,
+    passwordError,
+    emailError,
   };
 };
 

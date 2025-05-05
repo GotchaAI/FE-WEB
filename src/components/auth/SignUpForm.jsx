@@ -17,19 +17,18 @@ import "styles/components/auth/SignUpForm.scss";
 const SignUpForm = ({ errorMessage }) => {
 	const {
 		nickname,
-		setNickname,
 		email,
-		setEmail,
 		emailCode,
-		setEmailCode,
 		password,
-		setPassword,
 		confirmPassword,
-		setConfirmPassword,
-		validateError,
-		setvalidateError,
-		validate,
 		handleNicknameChange,
+		handlePasswordChange,
+		handleConfirmPasswordChange,
+		handleEmailChange,
+		handleEmailCodeChange,
+		nicknameError,
+		passwordError,
+		emailError,
 	} = useSignUpForm();
 
 	// 로그인 제출 전 로직
@@ -58,8 +57,8 @@ const SignUpForm = ({ errorMessage }) => {
 						닉네임 중복 확인
 					</button>
 				</div>
-				{validateError && (
-					<div className="sign-up-error-message">{validateError}</div>
+				{nicknameError && (
+					<div className="sign-up-error-message">{nicknameError}</div>
 				)}
 			</div>
 
@@ -68,7 +67,7 @@ const SignUpForm = ({ errorMessage }) => {
 				<input
 					type="password"
 					value={password}
-					onChange={(e) => setPassword(e.target.value)}
+					onChange={(e) => handlePasswordChange(e.target.value)}
 					name="password"
 					placeholder="********"
 				/>
@@ -77,13 +76,13 @@ const SignUpForm = ({ errorMessage }) => {
 				<input
 					type="password"
 					value={confirmPassword}
-					onChange={(e) => setConfirmPassword(e.target.value)}
+					onChange={(e) => handleConfirmPasswordChange(e.target.value)}
 					name="confirmPassword"
 					placeholder="********"
 				/>
 
-				{validateError && (
-					<div className="sign-up-error-message">{validateError}</div>
+				{passwordError && (
+					<div className="sign-up-error-message">{passwordError}</div>
 				)}
 			</div>
 
@@ -94,7 +93,7 @@ const SignUpForm = ({ errorMessage }) => {
 						type="email"
 						placeholder="Email"
 						value={email}
-						onChange={(e) => setEmail(e.target.value)}
+						onChange={(e) => handleEmailChange(e.target.value)}
 						name="email"
 					/>
 					<button
@@ -112,7 +111,7 @@ const SignUpForm = ({ errorMessage }) => {
 						type="text"
 						placeholder="인증번호를 입력해주세요."
 						value={emailCode}
-						onChange={(e) => setEmailCode(e.target.value)}
+						onChange={(e) => handleEmailCodeChange(e.target.value)}
 						name="emailCode"
 					/>
 					<button
@@ -124,8 +123,8 @@ const SignUpForm = ({ errorMessage }) => {
 					</button>
 				</div>
 
-				{validateError && (
-					<div className="sign-up-error-message">{validateError}</div>
+				{emailError && (
+					<div className="sign-up-error-message">{emailError}</div>
 				)}
 			</div>
 

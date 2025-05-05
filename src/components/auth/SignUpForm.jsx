@@ -1,5 +1,6 @@
 import useSignUpForm from "hooks/auth/useSignUpForm";
 import { Form } from "react-router-dom";
+import { checkNicknameDuplicateAPI } from "services/user/user";
 import "styles/components/auth/SignUpForm.scss";
 
 /**
@@ -31,6 +32,15 @@ const SignUpForm = ({ errorMessage }) => {
 		emailError,
 	} = useSignUpForm();
 
+	const checkNicknameDuplicate = async () => {
+		if (!nickname) return;
+
+		try {
+			const res = await checkNicknameDuplicateAPI(nickname);
+			alert(res.message);
+		} catch (e) {}
+	};
+
 	// 로그인 제출 전 로직
 	const submitHandler = (e) => {};
 
@@ -52,7 +62,7 @@ const SignUpForm = ({ errorMessage }) => {
 					<button
 						type="button"
 						className="check-nickname-btn"
-						// onClick={checkNicknameDuplicate}
+						onClick={checkNicknameDuplicate}
 					>
 						닉네임 중복 확인
 					</button>

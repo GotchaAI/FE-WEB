@@ -10,3 +10,5 @@ export const CSRF_TOKEN_API = process.env.REACT_APP_CSRF_TOKEN_API;
 
 // 사용자 정보 조회
 export const USER_ME_API = process.env.REACT_APP_USER_ME_API;
+
+export const NICKNAME_CHECK_API = process.env.REACT_APP_NICKNAME_CHECK_API;

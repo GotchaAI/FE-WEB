@@ -92,7 +92,6 @@ export const apiInterface = async (
   useToken = true
 ) => {
   const instanceType = useToken ? tokenInstance : instance;
-
   try {
     const res = await instanceType({ method, url, data, params });
     return res.data;

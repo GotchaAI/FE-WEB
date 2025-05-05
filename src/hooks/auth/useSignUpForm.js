@@ -61,11 +61,11 @@ const useSignUpForm = () => {
   // 이메일 코드 입력 시 실시간 형식 검사
   const handleEmailCodeChange = (value) => {
     setEmailCode(value);
-    if (emailCode !== "0000") {
-      setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE);
-    } else {
-      setEmailError("");
-    }
+    // if (emailCode !== "0000") {
+    //   setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE);
+    // } else {
+    //   setEmailError("");
+    // }
   }
 
   return {
@@ -83,6 +83,7 @@ const useSignUpForm = () => {
     passwordError,
     emailError,
     setNicknameError,
+    setEmailError,
   };
 };
 

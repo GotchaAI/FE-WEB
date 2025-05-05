@@ -3,6 +3,10 @@ import {
 	NICKNAME_VAILDATION_ERROR,
 } from "constants/errorCode";
 import {
+	EMAIL_CODE_MISMATCH_ERROR_MESSAGE,
+	EMAIL_DUPLICATED_ERROR_MESSAGE,
+	EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE,
+	EMAIL_VALIDATION_ERROR_MESSAGE,
 	NICKNAME_DUPLICATED_ERROR_MESSAGE,
 	NICKNAME_VAILDATION_ERROR_MESSAGE,
 } from "constants/errorMessage";
@@ -42,6 +46,7 @@ const SignUpForm = ({ errorMessage }) => {
 		passwordError,
 		emailError,
 		setNicknameError,
+		setEmailError,
 	} = useSignUpForm();
 
 	const [isNicknameConfirmed, setIsNicknameConfirmed] = useState(false);
@@ -75,9 +80,9 @@ const SignUpForm = ({ errorMessage }) => {
 			setIsEmailCodeRequested(true);
 		} catch (e) {
 			handleApiError(e, {
-				404: () => alert("이미 가입된 이메일입니다."),
-				422: () => alert("이메일 형식이 잘못되었거나 누락되었습니다."),
-				429: () => alert("잠시 후 다시 요청해주세요. (1분 제한)"),
+				409: () => setEmailError(EMAIL_DUPLICATED_ERROR_MESSAGE),
+				422: () => setEmailError(EMAIL_VALIDATION_ERROR_MESSAGE),
+				429: () => setEmailError(EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE),
 			});
 		}
 	};
@@ -89,8 +94,8 @@ const SignUpForm = ({ errorMessage }) => {
 			setIsEmailVerified(true);
 		} catch (e) {
 			handleApiError(e, {
-				400: () => alert("인증번호가 일치하지 않습니다."),
-				422: () => alert("이메일과 인증번호는 모두 필수입니다."),
+				400: () => setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE),
+				422: () => setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE),
 			});
 		}
 	};
@@ -177,7 +182,11 @@ const SignUpForm = ({ errorMessage }) => {
 				<div className="input-with-button">
 					<input
 						type="text"
-						placeholder="인증번호를 입력해주세요."
+						placeholder={
+							!isEmailCodeRequested || isEmailVerified
+								? "인증번호"
+								: "인증번호를 입력해주세요."
+						}
 						value={emailCode}
 						onChange={(e) => handleEmailCodeChange(e.target.value)}
 						name="emailCode"

@@ -2,6 +2,7 @@ import useSignUpForm from "hooks/auth/useSignUpForm";
 import { Form } from "react-router-dom";
 import { checkNicknameDuplicateAPI } from "services/user/user";
 import "styles/components/auth/SignUpForm.scss";
+import { handleApiError } from "utils/apiError";
 
 /**
  * SignUpForm 컴포넌트
@@ -38,7 +39,12 @@ const SignUpForm = ({ errorMessage }) => {
 		try {
 			const res = await checkNicknameDuplicateAPI(nickname);
 			alert(res.message);
-		} catch (e) {}
+		} catch (e) {
+			handleApiError(e, {
+				409: () => alert("이미 사용 중인 닉네임입니다."),
+				422: () => alert("닉네임 형식이 잘못되었습니다."),
+			});
+		}
 	};
 
 	// 로그인 제출 전 로직

@@ -1,5 +1,6 @@
 import useSignUpForm from "hooks/auth/useSignUpForm";
 import { Form } from "react-router-dom";
+import { sendEmailCodeAPI, verifyEmailCodeAPI } from "services/auth/auth";
 import { checkNicknameDuplicateAPI } from "services/user/user";
 import "styles/components/auth/SignUpForm.scss";
 import { handleApiError } from "utils/apiError";
@@ -43,6 +44,31 @@ const SignUpForm = ({ errorMessage }) => {
 			handleApiError(e, {
 				409: () => alert("이미 사용 중인 닉네임입니다."),
 				422: () => alert("닉네임 형식이 잘못되었습니다."),
+			});
+		}
+	};
+
+	const requestEmailCode = async () => {
+		try {
+			const res = await sendEmailCodeAPI(email);
+			alert(res.message);
+		} catch (e) {
+			handleApiError(e, {
+				404: () => alert("이미 가입된 이메일입니다."),
+				422: () => alert("이메일 형식이 잘못되었거나 누락되었습니다."),
+				429: () => alert("잠시 후 다시 요청해주세요. (1분 제한)"),
+			});
+		}
+	};
+
+	const confirmEmailCode = async () => {
+		try {
+			const res = await verifyEmailCodeAPI(email, emailCode);
+			alert(res.message);
+		} catch (e) {
+			handleApiError(e, {
+				400: () => alert("인증번호가 일치하지 않습니다."),
+				422: () => alert("이메일과 인증번호는 모두 필수입니다."),
 			});
 		}
 	};
@@ -115,7 +141,7 @@ const SignUpForm = ({ errorMessage }) => {
 					<button
 						type="button"
 						className="request-code-btn"
-						// onClick={requestEmailCode}
+						onClick={requestEmailCode}
 					>
 						인증번호 요청
 					</button>
@@ -133,7 +159,7 @@ const SignUpForm = ({ errorMessage }) => {
 					<button
 						type="button"
 						className="verify-code-btn"
-						// onClick={confirmEmailCode}
+						onClick={confirmEmailCode}
 					>
 						인증번호 확인
 					</button>

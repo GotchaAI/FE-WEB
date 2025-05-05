@@ -1,4 +1,6 @@
 import {
+  EMAIL_SEND_API,
+  EMAIL_VERIFY_API,
   GUEST_SIGN_IN_API,
   SIGN_IN_API,
   TOKEN_REISSUE_API,
@@ -16,3 +18,11 @@ export const guestSignInAPI = async () => {
 export const tokenReissueAPI = async () => {
   return await apiInterface("post", TOKEN_REISSUE_API, {}, {}, false);
 };
+
+
+export const sendEmailCodeAPI = async (email) => {
+  return await apiInterface("post", EMAIL_SEND_API, { email: email }, {}, false);
+}
+
+export const verifyEmailCodeAPI = (email, code) =>
+  apiInterface("post", EMAIL_VERIFY_API, { email, code }, {}, false);

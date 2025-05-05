@@ -1,4 +1,4 @@
-import { useState } from "react";
+import useSignUpForm from "hooks/auth/useSignUpForm";
 import { Form } from "react-router-dom";
 import "styles/components/auth/SignUpForm.scss";
 
@@ -15,11 +15,22 @@ import "styles/components/auth/SignUpForm.scss";
  */
 
 const SignUpForm = ({ errorMessage }) => {
-	const [nickname, setNickname] = useState("");
-	const [email, setEmail] = useState("");
-	const [emailCode, setEmailCode] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
+	const {
+		nickname,
+		setNickname,
+		email,
+		setEmail,
+		emailCode,
+		setEmailCode,
+		password,
+		setPassword,
+		confirmPassword,
+		setConfirmPassword,
+		validateError,
+		setvalidateError,
+		validate,
+		handleNicknameChange,
+	} = useSignUpForm();
 
 	// 로그인 제출 전 로직
 	const submitHandler = (e) => {};
@@ -36,7 +47,7 @@ const SignUpForm = ({ errorMessage }) => {
 					<input
 						placeholder="NAME"
 						value={nickname}
-						// onChange={(e) => setNickname(e.target.value)}
+						onChange={(e) => handleNicknameChange(e.target.value)}
 						name="nickname"
 					/>
 					<button
@@ -47,6 +58,9 @@ const SignUpForm = ({ errorMessage }) => {
 						닉네임 중복 확인
 					</button>
 				</div>
+				{validateError && (
+					<div className="sign-up-error-message">{validateError}</div>
+				)}
 			</div>
 
 			<div className="form-group">
@@ -54,7 +68,7 @@ const SignUpForm = ({ errorMessage }) => {
 				<input
 					type="password"
 					value={password}
-					// onChange={(e) => setPassword(e.target.value)}
+					onChange={(e) => setPassword(e.target.value)}
 					name="password"
 					placeholder="********"
 				/>
@@ -63,10 +77,14 @@ const SignUpForm = ({ errorMessage }) => {
 				<input
 					type="password"
 					value={confirmPassword}
-					// onChange={(e) => setConfirmPassword(e.target.value)}
+					onChange={(e) => setConfirmPassword(e.target.value)}
 					name="confirmPassword"
 					placeholder="********"
 				/>
+
+				{validateError && (
+					<div className="sign-up-error-message">{validateError}</div>
+				)}
 			</div>
 
 			<div className="form-group">
@@ -76,7 +94,7 @@ const SignUpForm = ({ errorMessage }) => {
 						type="email"
 						placeholder="Email"
 						value={email}
-						// onChange={(e) => setEmail(e.target.value)}
+						onChange={(e) => setEmail(e.target.value)}
 						name="email"
 					/>
 					<button
@@ -94,7 +112,7 @@ const SignUpForm = ({ errorMessage }) => {
 						type="text"
 						placeholder="인증번호를 입력해주세요."
 						value={emailCode}
-						// onChange={(e) => setEmailCode(e.target.value)}
+						onChange={(e) => setEmailCode(e.target.value)}
 						name="emailCode"
 					/>
 					<button
@@ -105,6 +123,10 @@ const SignUpForm = ({ errorMessage }) => {
 						인증번호 확인
 					</button>
 				</div>
+
+				{validateError && (
+					<div className="sign-up-error-message">{validateError}</div>
+				)}
 			</div>
 
 			<button type="submit" className="sign-up-btn">

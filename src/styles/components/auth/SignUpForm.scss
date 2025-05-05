@@ -1,14 +1,14 @@
 // 회원가입 폼
 .sign-up-form-container {
-	display: flex;
-	flex-direction: column;
+	position: relative;
 	z-index: 5;
 	width: 288px;
-	gap: 38px;
 
 	.form-group {
 		display: flex;
 		flex-direction: column;
+		position: relative;
+		margin-bottom: 38px;
 		gap: 6px;
 
 		label {
@@ -60,6 +60,15 @@
 				background-color: #999999;
 			}
 		}
+
+		.sign-up-error-message {
+			position: absolute;
+			top: calc(100% + 3px);
+			margin-left: 8px;
+			height: 15px;
+			font-size: 12px;
+			color: #e90c0c;
+		}
 	}
 
 	.sign-up-btn {
@@ -72,13 +81,5 @@
 		font-weight: bold;
 		cursor: pointer;
 		margin-top: 8px;
-	}
-
-	.sign-up-error-message {
-		position: absolute;
-		margin-left: 4.98px;
-		height: 15px;
-		font-size: 12px;
-		color: #e90c0c;
 	}
 }

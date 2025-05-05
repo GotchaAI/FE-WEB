@@ -9,7 +9,7 @@ import SignUpForm from "./SignUpForm";
  * - 회원가입 폼(SignUpForm), 배경 이미지를 포함
  *
  * props:
- * @param {string} errorMessage - 로그인 실패 시 출력할 에러 메시지
+ * @param {string} errorMessage - 회원가입 실패 시 출력할 에러 메시지
  *
  * 구성 요소:
  * 1. <SignUpForm />: 실제 회원가입 입력 폼 (닉네임, 비밀번호, 이메일 등)

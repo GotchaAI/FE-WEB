@@ -10,3 +10,7 @@ export const isValidPassword = (password) => {
 
   return hasLetter && hasNumber && hasSpecial && isLongEnough;
 };
+
+export const isVaildNickname = (nickname) => {
+  return /^[가-힣a-zA-Z0-9]{2,6}$/.test(nickname);
+}

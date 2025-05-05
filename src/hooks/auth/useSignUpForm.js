@@ -82,6 +82,7 @@ const useSignUpForm = () => {
     nicknameError,
     passwordError,
     emailError,
+    setNicknameError,
   };
 };
 

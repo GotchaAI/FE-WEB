@@ -1,3 +1,11 @@
+import {
+	NICKNAME_DUPLICATED,
+	NICKNAME_VAILDATION_ERROR,
+} from "constants/errorCode";
+import {
+	NICKNAME_DUPLICATED_ERROR_MESSAGE,
+	NICKNAME_VAILDATION_ERROR_MESSAGE,
+} from "constants/errorMessage";
 import useSignUpForm from "hooks/auth/useSignUpForm";
 import { useState } from "react";
 import { Form } from "react-router-dom";
@@ -33,6 +41,7 @@ const SignUpForm = ({ errorMessage }) => {
 		nicknameError,
 		passwordError,
 		emailError,
+		setNicknameError,
 	} = useSignUpForm();
 
 	const [isNicknameConfirmed, setIsNicknameConfirmed] = useState(false);
@@ -48,8 +57,13 @@ const SignUpForm = ({ errorMessage }) => {
 			setIsNicknameConfirmed(true);
 		} catch (e) {
 			handleApiError(e, {
-				409: () => alert("이미 사용 중인 닉네임입니다."),
-				422: () => alert("닉네임 형식이 잘못되었습니다."),
+				409: () => setNicknameError(NICKNAME_DUPLICATED_ERROR_MESSAGE),
+				422: () => setNicknameError(NICKNAME_VAILDATION_ERROR_MESSAGE),
+				// 에러코드 추가될 시 대체
+				// NICKNAME_DUPLICATED: () =>
+				// 	setNicknameError(NICKNAME_DUPLICATED_ERROR_MESSAGE),
+				// NICKNAME_VAILDATION_ERROR: () =>
+				// 	setNicknameError(NICKNAME_VAILDATION_ERROR_MESSAGE),
 			});
 		}
 	};

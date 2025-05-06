@@ -2,7 +2,7 @@ import { EMAIL_CODE_MISMATCH_ERROR_MESSAGE, EMAIL_VALIDATION_ERROR_MESSAGE, NICK
 import { useState } from "react";
 import { isVaildNickname, isValidEmail, isValidPassword } from "utils/validation";
 
-const useSignUpForm = () => {
+const useSignUpForm = ({ setIsNicknameConfirmed }) => {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [emailCode, setEmailCode] = useState("");
@@ -15,6 +15,7 @@ const useSignUpForm = () => {
   // 닉네임 입력 시 실시간 형식 검사
   const handleNicknameChange = (value) => {
     setNickname(value);
+    setIsNicknameConfirmed(false);
     setNicknameError(value && !isVaildNickname(value) ? NICKNAME_VAILDATION_ERROR_MESSAGE : "");
   };
 

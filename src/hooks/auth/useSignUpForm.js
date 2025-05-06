@@ -2,7 +2,7 @@ import { EMAIL_CODE_MISMATCH_ERROR_MESSAGE, EMAIL_VALIDATION_ERROR_MESSAGE, NICK
 import { useState } from "react";
 import { isVaildNickname, isValidEmail, isValidPassword } from "utils/validation";
 
-const useSignUpForm = ({ setIsNicknameConfirmed }) => {
+const useSignUpForm = ({ isNicknameConfirmed, setIsNicknameConfirmed, isEmailVerified }) => {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [emailCode, setEmailCode] = useState("");
@@ -11,6 +11,8 @@ const useSignUpForm = ({ setIsNicknameConfirmed }) => {
   const [nicknameError, setNicknameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [emailError, setEmailError] = useState("");
+
+  const isValid = isNicknameConfirmed && isEmailVerified && isValidPassword(password) && password === confirmPassword;
 
   // 닉네임 입력 시 실시간 형식 검사
   const handleNicknameChange = (value) => {
@@ -36,7 +38,7 @@ const useSignUpForm = ({ setIsNicknameConfirmed }) => {
   const validatePasswordAll = (pwd, confirmPwd) => {
     if (!pwd && !confirmPwd) {
       setPasswordError("");
-      return;
+      return true;
     }
 
     if (!isValidPassword(pwd)) {
@@ -59,14 +61,9 @@ const useSignUpForm = ({ setIsNicknameConfirmed }) => {
     }
   }
 
-  // 이메일 코드 입력 시 실시간 형식 검사
+  // 이메일 코드 입력 시 입력 반영
   const handleEmailCodeChange = (value) => {
     setEmailCode(value);
-    // if (emailCode !== "0000") {
-    //   setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE);
-    // } else {
-    //   setEmailError("");
-    // }
   }
 
   return {

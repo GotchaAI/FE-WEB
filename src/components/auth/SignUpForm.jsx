@@ -34,6 +34,8 @@ import { handleApiError } from "utils/apiError";
 
 const SignUpForm = ({ errorMessage }) => {
 	const [isNicknameConfirmed, setIsNicknameConfirmed] = useState(false);
+	const [isEmailCodeRequested, setIsEmailCodeRequested] = useState(false); // 인증요청 클릭 여부
+	const [isEmailVerified, setIsEmailVerified] = useState(false); // 인증 성공 여부
 
 	const {
 		nickname,
@@ -51,10 +53,11 @@ const SignUpForm = ({ errorMessage }) => {
 		emailError,
 		setNicknameError,
 		setEmailError,
-	} = useSignUpForm({ setIsNicknameConfirmed });
-
-	const [isEmailCodeRequested, setIsEmailCodeRequested] = useState(false); // 인증요청 클릭 여부
-	const [isEmailVerified, setIsEmailVerified] = useState(false); // 인증 성공 여부
+	} = useSignUpForm({
+		isNicknameConfirmed,
+		setIsNicknameConfirmed,
+		isEmailVerified,
+	});
 
 	const checkNicknameDuplicate = async () => {
 		if (!nickname) return;
@@ -167,7 +170,7 @@ const SignUpForm = ({ errorMessage }) => {
 						value={email}
 						onChange={(e) => handleEmailChange(e.target.value)}
 						name="email"
-						disabled={isEmailVerified}
+						readOnly={isEmailVerified}
 					/>
 					<button
 						type="button"

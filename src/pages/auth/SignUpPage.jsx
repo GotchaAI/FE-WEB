@@ -79,6 +79,7 @@ export const action = async ({ request }) => {
 		passwordCheck: data.get("passwordCheck"),
 		nickname: data.get("nickname"),
 	};
+	console.log(authForm);
 
 	// 회원가입 API 요청
 	try {

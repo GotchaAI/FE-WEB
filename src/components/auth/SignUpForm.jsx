@@ -1,11 +1,14 @@
 import {
+	EMAIL_CODE_EXPIRED,
 	EMAIL_CODE_NOT_MACHTED,
 	EMAIL_TOO_MANY_REQUEST_ERROR,
 	NICKNAME_DUPLICATED,
 	NICKNAME_VALIDATION_ERROR,
 } from "constants/errorCode";
 import {
+	EMAIL_CODE_EXPIRED_ERROR_MESSAGE,
 	EMAIL_CODE_MISMATCH_ERROR_MESSAGE,
+	EMAIL_CODE_VALIDATION_ERROR,
 	EMAIL_DUPLICATED_ERROR_MESSAGE,
 	EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE,
 	EMAIL_VALIDATION_ERROR_MESSAGE,
@@ -53,6 +56,7 @@ const SignUpForm = ({ errorMessage }) => {
 		emailError,
 		setNicknameError,
 		setEmailError,
+		isValid,
 	} = useSignUpForm({
 		isNicknameConfirmed,
 		setIsNicknameConfirmed,
@@ -68,10 +72,14 @@ const SignUpForm = ({ errorMessage }) => {
 			setIsNicknameConfirmed(true);
 		} catch (e) {
 			handleApiError(e, {
-				[NICKNAME_DUPLICATED]: () =>
-					setNicknameError(NICKNAME_DUPLICATED_ERROR_MESSAGE),
-				[NICKNAME_VALIDATION_ERROR]: () =>
-					setNicknameError(NICKNAME_VAILDATION_ERROR_MESSAGE),
+				409: {
+					[NICKNAME_DUPLICATED]: () =>
+						setNicknameError(NICKNAME_DUPLICATED_ERROR_MESSAGE),
+					default: () => setNicknameError(NICKNAME_DUPLICATED_ERROR_MESSAGE),
+				},
+				422: {
+					default: () => setNicknameError(NICKNAME_VAILDATION_ERROR_MESSAGE),
+				},
 			});
 		}
 	};
@@ -83,11 +91,17 @@ const SignUpForm = ({ errorMessage }) => {
 			setIsEmailCodeRequested(true);
 		} catch (e) {
 			handleApiError(e, {
-				// 에러코드 추가안됨
-				409: () => setEmailError(EMAIL_DUPLICATED_ERROR_MESSAGE),
-				422: () => setEmailError(EMAIL_VALIDATION_ERROR_MESSAGE),
-				[EMAIL_TOO_MANY_REQUEST_ERROR]: () =>
-					setEmailError(EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE),
+				409: {
+					default: () => setEmailError(EMAIL_DUPLICATED_ERROR_MESSAGE),
+				},
+				422: {
+					default: () => setEmailError(EMAIL_VALIDATION_ERROR_MESSAGE),
+				},
+				429: {
+					[EMAIL_TOO_MANY_REQUEST_ERROR]: () =>
+						setEmailError(EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE),
+					default: () => setEmailError(EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE),
+				},
 			});
 		}
 	};
@@ -99,18 +113,26 @@ const SignUpForm = ({ errorMessage }) => {
 			setIsEmailVerified(true);
 		} catch (e) {
 			handleApiError(e, {
-				[EMAIL_CODE_NOT_MACHTED]: () =>
-					setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE),
-				// 에러코드 추가안됨
-				422: () => setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE),
+				400: {
+					[EMAIL_CODE_NOT_MACHTED]: () =>
+						setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE),
+					[EMAIL_CODE_EXPIRED]: () =>
+						setEmailError(EMAIL_CODE_EXPIRED_ERROR_MESSAGE),
+					default: () => setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE),
+				},
+				422: {
+					default: () => setEmailError(EMAIL_CODE_VALIDATION_ERROR),
+				},
 			});
 		}
 	};
 
-	// 로그인 제출 전 로직
+	// 회원가입 제출 전 로직
 	const submitHandler = (e) => {
-		// e.preventDefault();
-		// TODO: 검증로직 추가
+		if (!isValid) {
+			e.preventDefault();
+			return;
+		}
 	};
 
 	return (

@@ -12,4 +12,7 @@ export const NICKNAME_DUPLICATED_ERROR_MESSAGE = "이미 존재하는 닉네임�
 export const PASSWORD_CONFIRM_ERROR_MESSAGE =
   "비밀번호가 일치하지 않습니다!";
 export const EMAIL_CODE_MISMATCH_ERROR_MESSAGE =
-  "인증번호를 다시 확인해주세요.";
+  "인증번호가 일치하지 않습니다.";
+export const EMAIL_CODE_EXPIRED_ERROR_MESSAGE =
+  "인증번호가 만료되었습니다.";
+export const EMAIL_CODE_VALIDATION_ERROR = "인증번호를 다시 확인해주세요."

@@ -82,6 +82,7 @@ const useSignUpForm = ({ isNicknameConfirmed, setIsNicknameConfirmed, isEmailVer
     emailError,
     setNicknameError,
     setEmailError,
+    isValid,
   };
 };
 

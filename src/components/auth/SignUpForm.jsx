@@ -15,7 +15,7 @@ import {
 	NICKNAME_VAILDATION_ERROR_MESSAGE,
 } from "constants/errorMessage";
 import useSignUpForm from "hooks/auth/useSignUpForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
 import { sendEmailCodeAPI, verifyEmailCodeAPI } from "services/auth/auth";
 import { checkNicknameDuplicateAPI } from "services/user/user";
@@ -38,6 +38,7 @@ const SignUpForm = ({ errorMessage }) => {
 	const [isNicknameConfirmed, setIsNicknameConfirmed] = useState(false);
 	const [isEmailCodeRequested, setIsEmailCodeRequested] = useState(false); // 인증요청 클릭 여부
 	const [isEmailVerified, setIsEmailVerified] = useState(false); // 인증 성공 여부
+	const [remainingTime, setRemainingTime] = useState(0);
 
 	const {
 		nickname,
@@ -61,6 +62,22 @@ const SignUpForm = ({ errorMessage }) => {
 		setIsNicknameConfirmed,
 		isEmailVerified,
 	});
+
+	useEffect(() => {
+		if (remainingTime <= 0) return;
+
+		const timer = setInterval(() => {
+			setRemainingTime((prev) => prev - 1);
+		}, 1000);
+
+		return () => clearInterval(timer);
+	}, [remainingTime]);
+
+	const formatTime = (seconds) => {
+		const min = String(Math.floor(seconds / 60)).padStart(2, "0");
+		const sec = String(seconds % 60).padStart(2, "0");
+		return `${min}:${sec}`;
+	};
 
 	const checkNicknameDuplicate = async () => {
 		if (!nickname) return;
@@ -87,6 +104,7 @@ const SignUpForm = ({ errorMessage }) => {
 			const res = await sendEmailCodeAPI(email);
 			alert(res.message);
 			setIsEmailCodeRequested(true);
+			setRemainingTime(300);
 		} catch (e) {
 			handleApiError(e, {
 				409: {
@@ -244,6 +262,10 @@ const SignUpForm = ({ errorMessage }) => {
 					<div className="sign-up-success-message">
 						인증번호가 전송되었습니다.
 					</div>
+				)}
+
+				{isEmailCodeRequested && !isEmailVerified && remainingTime > 0 && (
+					<span className="code-timer">{formatTime(remainingTime)}</span>
 				)}
 			</div>
 

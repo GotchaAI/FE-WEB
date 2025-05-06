@@ -68,6 +68,14 @@
 			}
 		}
 
+		.code-timer {
+			position: absolute;
+			right: 7px;
+			top: calc(100% + 7px);
+			color: #f28110;
+			font-size: 12px;
+		}
+
 		.sign-up-error-message {
 			position: absolute;
 			top: calc(100% + 3px);

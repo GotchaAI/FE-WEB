@@ -19,7 +19,7 @@ import SignUpForm from "./SignUpForm";
 const SignUp = ({ errorMessage }) => {
 	return (
 		<div className="sign-in-container">
-			<SignUpForm />
+			<SignUpForm errorMessage={errorMessage} />
 
 			<div className="cloud-container">
 				<img className="cloud" src={cloudImage} alt="cloud background" />

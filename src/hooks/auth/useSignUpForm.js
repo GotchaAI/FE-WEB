@@ -73,7 +73,7 @@ const useSignUpForm = () => {
     email,
     emailCode,
     password,
-    confirmPassword,
+    passwordCheck: confirmPassword,
     handleNicknameChange,
     handlePasswordChange,
     handleConfirmPasswordChange,

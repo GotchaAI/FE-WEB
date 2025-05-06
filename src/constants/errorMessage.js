@@ -1,5 +1,7 @@
 export const SIGN_IN_FAILURE_ERROR_MESSAGE =
   "아이디와 비밀번호를 다시 확인해주세요.";
+export const SIGN_UP_FAILURE_ERROR_MESSAGE =
+  "필드 검증 오류입니다.";
 export const EMAIL_VALIDATION_ERROR_MESSAGE = "유효한 이메일 형식이 아닙니다.";
 export const EMAIL_DUPLICATED_ERROR_MESSAGE = "이미 가입된 이메일입니다.";
 export const EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE = "이미 메일을 요청하셨습니다.";

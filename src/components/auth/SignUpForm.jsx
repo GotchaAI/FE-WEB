@@ -1,6 +1,8 @@
 import {
+	EMAIL_CODE_NOT_MACHTED,
+	EMAIL_TOO_MANY_REQUEST_ERROR,
 	NICKNAME_DUPLICATED,
-	NICKNAME_VAILDATION_ERROR,
+	NICKNAME_VALIDATION_ERROR,
 } from "constants/errorCode";
 import {
 	EMAIL_CODE_MISMATCH_ERROR_MESSAGE,
@@ -36,7 +38,7 @@ const SignUpForm = ({ errorMessage }) => {
 		email,
 		emailCode,
 		password,
-		confirmPassword,
+		passwordCheck,
 		handleNicknameChange,
 		handlePasswordChange,
 		handleConfirmPasswordChange,
@@ -62,13 +64,10 @@ const SignUpForm = ({ errorMessage }) => {
 			setIsNicknameConfirmed(true);
 		} catch (e) {
 			handleApiError(e, {
-				409: () => setNicknameError(NICKNAME_DUPLICATED_ERROR_MESSAGE),
-				422: () => setNicknameError(NICKNAME_VAILDATION_ERROR_MESSAGE),
-				// 에러코드 추가될 시 대체
-				// NICKNAME_DUPLICATED: () =>
-				// 	setNicknameError(NICKNAME_DUPLICATED_ERROR_MESSAGE),
-				// NICKNAME_VAILDATION_ERROR: () =>
-				// 	setNicknameError(NICKNAME_VAILDATION_ERROR_MESSAGE),
+				[NICKNAME_DUPLICATED]: () =>
+					setNicknameError(NICKNAME_DUPLICATED_ERROR_MESSAGE),
+				[NICKNAME_VALIDATION_ERROR]: () =>
+					setNicknameError(NICKNAME_VAILDATION_ERROR_MESSAGE),
 			});
 		}
 	};
@@ -80,9 +79,11 @@ const SignUpForm = ({ errorMessage }) => {
 			setIsEmailCodeRequested(true);
 		} catch (e) {
 			handleApiError(e, {
+				// 에러코드 추가안됨
 				409: () => setEmailError(EMAIL_DUPLICATED_ERROR_MESSAGE),
 				422: () => setEmailError(EMAIL_VALIDATION_ERROR_MESSAGE),
-				429: () => setEmailError(EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE),
+				[EMAIL_TOO_MANY_REQUEST_ERROR]: () =>
+					setEmailError(EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE),
 			});
 		}
 	};
@@ -94,21 +95,22 @@ const SignUpForm = ({ errorMessage }) => {
 			setIsEmailVerified(true);
 		} catch (e) {
 			handleApiError(e, {
-				400: () => setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE),
+				[EMAIL_CODE_NOT_MACHTED]: () =>
+					setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE),
+				// 에러코드 추가안됨
 				422: () => setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE),
 			});
 		}
 	};
 
 	// 로그인 제출 전 로직
-	const submitHandler = (e) => {};
+	const submitHandler = (e) => {
+		// e.preventDefault();
+		// TODO: 검증로직 추가
+	};
 
 	return (
-		<Form
-			className="sign-up-form-container"
-			method="post"
-			onSubmit={submitHandler}
-		>
+		<Form className="sign-up-form-container" method="post">
 			<div className="form-group">
 				<label>닉네임</label>
 				<div className="input-with-button">
@@ -146,9 +148,9 @@ const SignUpForm = ({ errorMessage }) => {
 				<label>비밀번호 재입력</label>
 				<input
 					type="password"
-					value={confirmPassword}
+					value={passwordCheck}
 					onChange={(e) => handleConfirmPasswordChange(e.target.value)}
-					name="confirmPassword"
+					name="passwordCheck"
 					placeholder="********"
 				/>
 
@@ -207,7 +209,7 @@ const SignUpForm = ({ errorMessage }) => {
 				)}
 			</div>
 
-			<button type="submit" className="sign-up-btn">
+			<button type="submit" className="sign-up-btn" onClick={submitHandler}>
 				회원가입
 			</button>
 		</Form>

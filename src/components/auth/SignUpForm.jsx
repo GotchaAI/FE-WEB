@@ -3,7 +3,6 @@ import {
 	EMAIL_CODE_NOT_MACHTED,
 	EMAIL_TOO_MANY_REQUEST_ERROR,
 	NICKNAME_DUPLICATED,
-	NICKNAME_VALIDATION_ERROR,
 } from "constants/errorCode";
 import {
 	EMAIL_CODE_EXPIRED_ERROR_MESSAGE,
@@ -68,7 +67,6 @@ const SignUpForm = ({ errorMessage }) => {
 
 		try {
 			const res = await checkNicknameDuplicateAPI(nickname);
-			alert(res.message);
 			setIsNicknameConfirmed(true);
 		} catch (e) {
 			handleApiError(e, {
@@ -109,7 +107,6 @@ const SignUpForm = ({ errorMessage }) => {
 	const confirmEmailCode = async () => {
 		try {
 			const res = await verifyEmailCodeAPI(email, emailCode);
-			alert(res.message);
 			setIsEmailVerified(true);
 		} catch (e) {
 			handleApiError(e, {
@@ -156,6 +153,11 @@ const SignUpForm = ({ errorMessage }) => {
 				</div>
 				{nicknameError && (
 					<div className="sign-up-error-message">{nicknameError}</div>
+				)}
+				{!nicknameError && isNicknameConfirmed && (
+					<div className="sign-up-success-message">
+						사용가능한 닉네임입니다!
+					</div>
 				)}
 			</div>
 
@@ -230,6 +232,18 @@ const SignUpForm = ({ errorMessage }) => {
 
 				{emailError && (
 					<div className="sign-up-error-message">{emailError}</div>
+				)}
+
+				{!emailError && isEmailVerified && (
+					<div className="sign-up-success-message">
+						이메일이 인증되었습니다.
+					</div>
+				)}
+
+				{!emailError && isEmailCodeRequested && !isEmailVerified && (
+					<div className="sign-up-success-message">
+						인증번호가 전송되었습니다.
+					</div>
 				)}
 			</div>
 

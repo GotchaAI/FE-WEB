@@ -76,6 +76,15 @@
 			font-size: 12px;
 			color: #e90c0c;
 		}
+
+		.sign-up-success-message {
+			position: absolute;
+			top: calc(100% + 3px);
+			margin-left: 8px;
+			height: 15px;
+			font-size: 12px;
+			color: #007bff;
+		}
 	}
 
 	.sign-up-btn {

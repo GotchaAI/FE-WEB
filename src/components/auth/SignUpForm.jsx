@@ -29,17 +29,21 @@ import { handleApiError } from "utils/apiError";
  * - 회원가입 입력 폼을 구성하고 회원가입 시 필요한 사용자 입력을 처리
  * - 닉네임, 비밀번호, 이메일 입력, 인증번호 입력, 회원가입 버튼 포함
  *
- * props:
- * @param {string} errorMessage - 회원가입 실패 시 출력할 에러 메시지
- *
  * 주요 기능:
+ * - 닉네임 중복 여부 확인 및 성공 시 확인 메시지 출력
+ * - 이메일 형식 검증 및 인증번호 전송, 인증번호 입력 후 서버 확인
+ * - 인증번호 전송 시 5분 유효시간 타이머 표시
+ * - 인증 시간이 만료되면 만료 메시지 자동 출력
+ * - 각 입력 항목에 대해 유효성 검사 및 에러 메시지 출력
+ * - 입력값이 유효한 경우에만 회원가입 버튼 클릭 가능
  */
 
-const SignUpForm = ({ errorMessage }) => {
+const SignUpForm = () => {
 	const [isNicknameConfirmed, setIsNicknameConfirmed] = useState(false);
 	const [isEmailCodeRequested, setIsEmailCodeRequested] = useState(false); // 인증요청 클릭 여부
 	const [isEmailVerified, setIsEmailVerified] = useState(false); // 인증 성공 여부
 
+	// 폼 검증 및 에러핸들링 훅
 	const {
 		nickname,
 		email,
@@ -63,6 +67,7 @@ const SignUpForm = ({ errorMessage }) => {
 		isEmailVerified,
 	});
 
+	// 인증번호 타이머 훅
 	const {
 		remainingTime,
 		formattedTime,
@@ -71,6 +76,7 @@ const SignUpForm = ({ errorMessage }) => {
 		setEmailError(EMAIL_CODE_EXPIRED_ERROR_MESSAGE);
 	});
 
+	// 닉네임 중복 체크 서비스 호출 및 에러처리
 	const checkNicknameDuplicate = async () => {
 		if (!nickname) return;
 
@@ -91,11 +97,12 @@ const SignUpForm = ({ errorMessage }) => {
 		}
 	};
 
+	// 이메일 인증번호 전송 서비스 호출 및 에러처리
 	const requestEmailCode = async () => {
 		try {
 			await sendEmailCodeAPI(email);
 			setIsEmailCodeRequested(true);
-			startTimer(); // 타이머 시작
+			startTimer();
 		} catch (e) {
 			handleApiError(e, {
 				409: {
@@ -113,6 +120,7 @@ const SignUpForm = ({ errorMessage }) => {
 		}
 	};
 
+	// 인증번호 확인 서비스 호출 및 에러처리
 	const confirmEmailCode = async () => {
 		try {
 			await verifyEmailCodeAPI(email, emailCode);

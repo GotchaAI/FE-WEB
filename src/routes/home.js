@@ -1,18 +1,10 @@
-import HomeLayout, { loader as homeLoader } from "pages/home/HomeLayout";
-import HomePage from "pages/home/HomePage";
+import HomePage, { loader as homeLoader } from "pages/home/HomePage";
 
 const home = [
   {
     path: "/",
-
-    element: <HomeLayout />,
+    element: <HomePage />,
     loader: homeLoader,
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
-    ],
   },
 ];
 

@@ -14,8 +14,9 @@ import {
 	NICKNAME_DUPLICATED_ERROR_MESSAGE,
 	NICKNAME_VAILDATION_ERROR_MESSAGE,
 } from "constants/errorMessage";
+import useCodeTimer from "hooks/auth/useCodeTimer";
 import useSignUpForm from "hooks/auth/useSignUpForm";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Form } from "react-router-dom";
 import { sendEmailCodeAPI, verifyEmailCodeAPI } from "services/auth/auth";
 import { checkNicknameDuplicateAPI } from "services/user/user";
@@ -38,7 +39,6 @@ const SignUpForm = ({ errorMessage }) => {
 	const [isNicknameConfirmed, setIsNicknameConfirmed] = useState(false);
 	const [isEmailCodeRequested, setIsEmailCodeRequested] = useState(false); // 인증요청 클릭 여부
 	const [isEmailVerified, setIsEmailVerified] = useState(false); // 인증 성공 여부
-	const [remainingTime, setRemainingTime] = useState(0);
 
 	const {
 		nickname,
@@ -63,27 +63,19 @@ const SignUpForm = ({ errorMessage }) => {
 		isEmailVerified,
 	});
 
-	useEffect(() => {
-		if (remainingTime <= 0) return;
-
-		const timer = setInterval(() => {
-			setRemainingTime((prev) => prev - 1);
-		}, 1000);
-
-		return () => clearInterval(timer);
-	}, [remainingTime]);
-
-	const formatTime = (seconds) => {
-		const min = String(Math.floor(seconds / 60)).padStart(2, "0");
-		const sec = String(seconds % 60).padStart(2, "0");
-		return `${min}:${sec}`;
-	};
+	const {
+		remainingTime,
+		formattedTime,
+		start: startTimer,
+	} = useCodeTimer(300, () => {
+		setEmailError(EMAIL_CODE_EXPIRED_ERROR_MESSAGE);
+	});
 
 	const checkNicknameDuplicate = async () => {
 		if (!nickname) return;
 
 		try {
-			const res = await checkNicknameDuplicateAPI(nickname);
+			await checkNicknameDuplicateAPI(nickname);
 			setIsNicknameConfirmed(true);
 		} catch (e) {
 			handleApiError(e, {
@@ -101,10 +93,9 @@ const SignUpForm = ({ errorMessage }) => {
 
 	const requestEmailCode = async () => {
 		try {
-			const res = await sendEmailCodeAPI(email);
-			alert(res.message);
+			await sendEmailCodeAPI(email);
 			setIsEmailCodeRequested(true);
-			setRemainingTime(300);
+			startTimer(); // 타이머 시작
 		} catch (e) {
 			handleApiError(e, {
 				409: {
@@ -124,7 +115,7 @@ const SignUpForm = ({ errorMessage }) => {
 
 	const confirmEmailCode = async () => {
 		try {
-			const res = await verifyEmailCodeAPI(email, emailCode);
+			await verifyEmailCodeAPI(email, emailCode);
 			setIsEmailVerified(true);
 		} catch (e) {
 			handleApiError(e, {
@@ -265,7 +256,7 @@ const SignUpForm = ({ errorMessage }) => {
 				)}
 
 				{isEmailCodeRequested && !isEmailVerified && remainingTime > 0 && (
-					<span className="code-timer">{formatTime(remainingTime)}</span>
+					<span className="code-timer">{formattedTime}</span>
 				)}
 			</div>
 

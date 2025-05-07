@@ -2,24 +2,33 @@ import logo from "assets/commons/home-logo.png";
 import intro_msg from "assets/intro-msg.png";
 import rabbitBot from "assets/rabbit-bot.png";
 import rabbit from "assets/rabbit-hand-up.png";
-import start_btn from "assets/start-btn.png";
+import StartButton from "commons/svgs/StartButton";
 import {
   ANNOUNCE_URL,
   CHARACTER_INTRO_URL,
+  LOBBY_URL,
   RANKING_URL,
   SERVICE_CENTER_URL,
   SIGN_IN_URL,
 } from "constants/url";
 import Profile from "pages/home/Profile";
-import { Link, useLoaderData } from "react-router-dom";
-import "styles/components/home/HomePage.scss";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { tokenReissueAPI } from "services/auth/auth";
+import "styles/pages/home/HomePage.scss";
+import { getAuthToken } from "utils/token";
 
 const HomePage = () => {
   const { isSignIn } = useLoaderData();
 
+  const navigate = useNavigate();
+
+  const handleStartBtn = () => {
+    navigate(LOBBY_URL);
+  };
+
   return (
     <div className="home-page-container">
-      <header className="home-page-header-container">
+      <header className="home-page-header">
         <img src={logo} alt="logo" className="home-logo-img" />
         <nav className="home-page-nav-container">
           <Link to={ANNOUNCE_URL}>공지사항</Link>
@@ -37,43 +46,36 @@ const HomePage = () => {
       </header>
 
       <div className="background-container">
-        <img src={rabbit} alt="rabbit" className="left-background-img" />
+        <img src={rabbit} alt="공원 위 토끼" className="left-background-img" />
         <img
           src={rabbitBot}
-          alt="rabbit-bot"
+          alt="공원 위 토끼 봇"
           className="right-background-img"
         />
         <img src={intro_msg} alt="intro-msg" className="intro-msg-img" />
       </div>
 
-      <button class="start-svg-btn">
-        <svg
-          viewBox="0 0 434 97"
-          xmlns="http://www.w3.org/2000/svg"
-          role="img"
-          aria-label="게임 시작 버튼"
-        >
-          <title>START</title>
-          <desc>게임을 시작하는 버튼입니다</desc>
-          <path
-            d="M432.635 1.31396V55.2153C432.635 77.567 414.515 95.687 392.163 95.687H1.41235V1.31396H432.635Z"
-            fill="#FFC466"
-            stroke="black"
-            stroke-width="1.5"
-          />
-          <path
-            d="M432.735 51.5771V55.2148C432.735 77.5664 414.616 95.6864 392.265 95.6865H386.765V51.5771H432.735Z"
-            fill="#F28110"
-            stroke="black"
-            stroke-width="1.5"
-          />
-        </svg>
-        <span class="label">
-          <img src={start_btn} alt="start-btn" className="start-btn-img" />
-        </span>
-      </button>
+      <StartButton onClick={handleStartBtn} />
     </div>
   );
 };
 
 export default HomePage;
+
+export const loader = async () => {
+  const { accessToken, setAccessToken } = getAuthToken();
+
+  if (!accessToken) {
+    // 토큰 재발급
+    try {
+      const res = await tokenReissueAPI();
+      const newAccessToken = res.accessToken;
+      const expireTime = res.expiredAt;
+      setAccessToken(newAccessToken, expireTime);
+    } catch (e) {
+      console.error(e);
+      return { isSignIn: false };
+    }
+  }
+  return { isSignIn: true };
+};

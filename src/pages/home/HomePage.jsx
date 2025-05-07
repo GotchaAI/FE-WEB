@@ -52,7 +52,7 @@ const HomePage = () => {
           alt="공원 위 토끼 봇"
           className="right-background-img"
         />
-        <img src={intro_msg} alt="intro-msg" className="intro-msg-img" />
+        <img src={intro_msg} alt="게임 소개 글" className="intro-msg-img" />
       </div>
 
       <StartButton onClick={handleStartBtn} />

@@ -1,0 +1,27 @@
+.start-svg-btn {
+  position: absolute;
+  border: none;
+  background: none;
+
+  width: 432.82px;
+  height: 95.87px;
+
+  bottom: 4%;
+  right: 2%;
+
+  z-index: 2;
+  .svg-main-fill {
+    transition: fill 0.3s ease;
+  }
+
+  .label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    img {
+      width: 192.43px;
+      height: 41.66px;
+    }
+  }
+}

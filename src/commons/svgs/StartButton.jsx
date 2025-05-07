@@ -2,6 +2,7 @@ import start_active_btn from "assets/commons/start-active-btn.png";
 import start_btn from "assets/commons/start-btn.png";
 import start_hover_btn from "assets/commons/start-hover-btn.png";
 import { useState } from "react";
+import "styles/commons/svgs/StartButton.scss";
 
 const StartButton = ({ onClick }) => {
   const [isHover, setIsHover] = useState(false);

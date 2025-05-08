@@ -30,7 +30,6 @@ export default SignUpPage;
  *
  * - accessToken이 존재하면 → 홈(ROOT_URL)으로 리다이렉트 (회원가입 페이지 접근 불필요)
  * - accessToken이 없으면 → tokenReissueAPI()를 통해 재발급 시도
- *   - 재발급 성공 시 → 홈(ROOT_URL)으로 리다이렉트
  *   - 재발급 실패 시 → 회원가입 페이지에 그대로 머무름
  *
  * @returns redirect(ROOT_URL) | undefined (회원가입 페이지 유지)
@@ -51,8 +50,7 @@ export const loader = async () => {
 		}
 	}
 
-	// 토큰 없으면 홈페이지 이동
-	return redirect(ROOT_URL);
+	return;
 };
 
 /**

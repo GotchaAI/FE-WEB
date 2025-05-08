@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import chattingLob from "assets/chattingLob.png";
 import "styles/components/lobby/LobbyChatting.scss";
+import { type } from "@testing-library/user-event/dist/type";
 
 const LobbyChatting = () => {
   const [messages, setMessages] = useState([]);
@@ -22,12 +23,12 @@ const LobbyChatting = () => {
         "좋은 하루 되세요~",
         "테스트 메시지입니다.",
       ];
-
+      const sampleTypes = ["일반채팅", "귓속말", "귓속말", "일반채팅"];
       const sender =
         randomUsers[Math.floor(Math.random() * randomUsers.length)];
       const text = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
-
-      setMessages((prev) => [...prev, { sender, text }]);
+      const type = sampleTypes[Math.floor(Math.random() * sampleTexts.length)];
+      setMessages((prev) => [...prev, { sender, text, type }]);
     }, 5000);
 
     return () => clearInterval(interval);
@@ -35,7 +36,10 @@ const LobbyChatting = () => {
 
   const handleSendMessage = () => {
     if (input.replace(/\s/g, "") !== "") {
-      setMessages((prev) => [...prev, { sender: myNickname, text: input }]);
+      setMessages((prev) => [
+        ...prev,
+        { sender: myNickname, text: input, type: chatType },
+      ]);
       setInput("");
     }
   };
@@ -47,12 +51,6 @@ const LobbyChatting = () => {
       setInput((prev) => prev.replace(/^@\s*/, ""));
     }
   }, [chatType]);
-  const handleScroll = () => {
-    const el = chatWindowRef.current;
-    if (!el) return;
-    const threshold = 50;
-    setIsAtBottom(el.scrollHeight - el.scrollTop - el.clientHeight < threshold);
-  };
 
   useEffect(() => {
     if (isAtBottom && chatWindowRef.current) {
@@ -60,13 +58,19 @@ const LobbyChatting = () => {
     }
   }, [messages, isAtBottom]);
 
+  const handleScroll = () => {
+    const el = chatWindowRef.current;
+    if (!el) return;
+    const threshold = 50;
+    setIsAtBottom(el.scrollHeight - el.scrollTop - el.clientHeight < threshold);
+  };
+
   return (
     <div className="lobby-chatting-container">
       <img src={chattingLob} className="lobby-chatting-background" />
-
       <div className="chat-window" ref={chatWindowRef} onScroll={handleScroll}>
         <span className="chat-header">귓속말 @ 닉네임</span>
-        {messages.map((msg, index) => (
+        {messages.map((msg, index, type) => (
           <div
             key={index}
             className={`chat-message ${
@@ -76,7 +80,13 @@ const LobbyChatting = () => {
             {msg.sender !== myNickname && (
               <div className="chat-nickname">{msg.sender}</div>
             )}
-            <div className="chat-bubble">
+            <div
+              className={`chat-bubble ${
+                msg.sender === myNickname
+                  ? `mine ${msg.type === "일반채팅" ? "" : "whisper"}`
+                  : `theirs ${msg.type === "일반채팅" ? "" : "whisper"}`
+              }`}
+            >
               {msg.text.split("\n").map((line, idx) => (
                 <React.Fragment key={idx}>
                   {line}

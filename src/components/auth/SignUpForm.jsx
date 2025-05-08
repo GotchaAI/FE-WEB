@@ -16,7 +16,7 @@ import {
 } from "constants/errorMessage";
 import useCodeTimer from "hooks/auth/useCodeTimer";
 import useSignUpForm from "hooks/auth/useSignUpForm";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Form } from "react-router-dom";
 import { sendEmailCodeAPI, verifyEmailCodeAPI } from "services/auth/auth";
 import { checkNicknameDuplicateAPI } from "services/user/user";
@@ -67,14 +67,17 @@ const SignUpForm = () => {
 		isEmailVerified,
 	});
 
+	// onExpire 넘길 시 항상 같은 참조를 유지하도록
+	const handleExpire = useCallback(() => {
+		setEmailError(EMAIL_CODE_EXPIRED_ERROR_MESSAGE);
+	}, []);
+
 	// 인증번호 타이머 훅
 	const {
 		remainingTime,
 		formattedTime,
 		start: startTimer,
-	} = useCodeTimer(300, () => {
-		setEmailError(EMAIL_CODE_EXPIRED_ERROR_MESSAGE);
-	});
+	} = useCodeTimer(300, handleExpire);
 
 	// 닉네임 중복 체크 서비스 호출 및 에러처리
 	const checkNicknameDuplicate = async () => {

@@ -1,17 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
 import chattingLob from "assets/chattingLob.png";
-import "styles/components/lobby/LobbyChatting.scss"; // CSS 파일을 import합니다.
+import "styles/components/lobby/LobbyChatting.scss";
+
 const LobbyChatting = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [chatType, setChatType] = useState("전체 채팅");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(true);
   const chatWindowRef = useRef(null);
 
-  const myNickname = "me"; // 본인의 닉네임 (혹은 유저 아이디)
-  // 현재 서버에서 채팅기능이 미완이라 테스팅 코드 작성
+  const myNickname = "me";
+
   useEffect(() => {
     const interval = setInterval(() => {
-      // 랜덤 닉네임과 메시지
       const randomUsers = ["Alice", "Bob", "Charlie"];
       const sampleTexts = [
         "안녕하세요!",
@@ -25,9 +27,9 @@ const LobbyChatting = () => {
       const text = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
 
       setMessages((prev) => [...prev, { sender, text }]);
-    }, 5000); // 5초마다 메시지 추가
+    }, 5000);
 
-    return () => clearInterval(interval); // 언마운트 시 정리
+    return () => clearInterval(interval);
   }, []);
 
   const handleSendMessage = () => {
@@ -36,6 +38,7 @@ const LobbyChatting = () => {
       setInput("");
     }
   };
+
   const handleScroll = () => {
     const el = chatWindowRef.current;
     if (!el) return;
@@ -51,9 +54,10 @@ const LobbyChatting = () => {
 
   return (
     <div className="lobby-chatting-container">
-      <img src={chattingLob} className="lobby-chatting-background"></img>
+      <img src={chattingLob} className="lobby-chatting-background" />
+
       <div className="chat-window" ref={chatWindowRef} onScroll={handleScroll}>
-        <div className="chat-header">@하면 귓말임</div>
+        <span className="chat-header">귓속말 @ 닉네임</span>
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -68,6 +72,37 @@ const LobbyChatting = () => {
           </div>
         ))}
       </div>
+      <button
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        className={`chat-mode-buttons ${
+          chatType === "귓속말" ? "whisper" : ""
+        }`}
+      >
+        {chatType}
+      </button>
+
+      {isDropdownOpen && (
+        <ul className="chat-mode-menu">
+          <li
+            className={chatType === "전체 채팅" ? "chat-mode" : ""}
+            onClick={() => {
+              setChatType("전체 채팅");
+              setIsDropdownOpen(false);
+            }}
+          >
+            전체 채팅
+          </li>
+          <li
+            className={chatType === "귓속말" ? "selected" : ""}
+            onClick={() => {
+              setChatType("귓속말");
+              setIsDropdownOpen(false);
+            }}
+          >
+            귓속말
+          </li>
+        </ul>
+      )}
 
       <div className="chat-input-container">
         <input
@@ -75,18 +110,18 @@ const LobbyChatting = () => {
           className="chat-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message..."
+          placeholder="채팅을 입력해주세요"
         />
         <button className="chat-send-btn" onClick={handleSendMessage}>
           <svg
-            width="20"
-            height="22"
-            viewBox="0 0 20 22"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M18.645 9.84611L2.89497 0.857356C2.66231 0.728429 2.39597 0.673234 2.13124 0.699086C1.8665 0.724937 1.61587 0.830615 1.41255 1.00212C1.20923 1.17362 1.06281 1.40285 0.992706 1.65944C0.922598 1.91602 0.932106 2.18786 1.01997 2.43892L3.90559 11.0002L1.01341 19.5624C0.943377 19.7603 0.921845 19.9721 0.950618 20.18C0.979391 20.388 1.05763 20.586 1.17876 20.7575C1.2999 20.929 1.4604 21.0689 1.64679 21.1655C1.83319 21.2621 2.04003 21.3125 2.24997 21.3127C2.47767 21.3122 2.70141 21.2531 2.89966 21.1411L18.6412 12.1345C18.8443 12.0204 19.0134 11.8543 19.1311 11.6532C19.2487 11.4521 19.3107 11.2233 19.3107 10.9903C19.3107 10.7573 19.2487 10.5286 19.1311 10.3275C19.0134 10.1264 18.8443 9.96024 18.6412 9.84611H18.645ZM18.0872 11.1586L2.34372 20.1624C2.3104 20.181 2.27217 20.1891 2.23415 20.1854C2.19613 20.1818 2.16013 20.1666 2.13098 20.1419C2.10182 20.1172 2.08089 20.0842 2.07099 20.0474C2.0611 20.0105 2.0627 19.9714 2.07559 19.9355C2.07597 19.9324 2.07597 19.9292 2.07559 19.9261L4.90309 11.5627H10.5C10.6492 11.5627 10.7922 11.5034 10.8977 11.3979C11.0032 11.2924 11.0625 11.1494 11.0625 11.0002C11.0625 10.851 11.0032 10.7079 10.8977 10.6024C10.7922 10.4969 10.6492 10.4377 10.5 10.4377H4.90309L2.07841 2.07517C2.07893 2.07207 2.07893 2.0689 2.07841 2.06579C2.06373 2.03002 2.06128 1.9904 2.07146 1.9531C2.08163 1.9158 2.10385 1.88291 2.13466 1.85954C2.16212 1.83327 2.19746 1.81674 2.23523 1.81251C2.273 1.80827 2.31112 1.81657 2.34372 1.83611L18.0937 10.8258C18.1228 10.8418 18.1469 10.8654 18.1635 10.8942C18.18 10.923 18.1883 10.9557 18.1875 10.9889C18.1876 11.0233 18.1784 11.057 18.1607 11.0864C18.143 11.1158 18.1175 11.1398 18.0872 11.1558V11.1586Z"
+              d="M21.645 10.8461L5.89497 1.85736C5.66231 1.72843 5.39597 1.67323 5.13124 1.69909C4.8665 1.72494 4.61587 1.83061 4.41255 2.00212C4.20923 2.17362 4.06281 2.40285 3.99271 2.65944C3.9226 2.91602 3.93211 3.18786 4.01997 3.43892L6.90559 12.0002L4.01341 20.5624C3.94338 20.7603 3.92185 20.9721 3.95062 21.18C3.97939 21.388 4.05763 21.586 4.17876 21.7575C4.2999 21.929 4.4604 22.0689 4.64679 22.1655C4.83319 22.2621 5.04003 22.3125 5.24997 22.3127C5.47767 22.3122 5.70141 22.2531 5.89966 22.1411L21.6412 13.1345C21.8443 13.0204 22.0134 12.8543 22.1311 12.6532C22.2487 12.4521 22.3107 12.2233 22.3107 11.9903C22.3107 11.7573 22.2487 11.5286 22.1311 11.3275C22.0134 11.1264 21.8443 10.9602 21.6412 10.8461H21.645ZM21.0872 12.1586L5.34372 21.1624C5.3104 21.181 5.27217 21.1891 5.23415 21.1854C5.19613 21.1818 5.16013 21.1666 5.13098 21.1419C5.10182 21.1172 5.08089 21.0842 5.07099 21.0474C5.0611 21.0105 5.0627 20.9714 5.07559 20.9355C5.07597 20.9324 5.07597 20.9292 5.07559 20.9261L7.90309 12.5627H13.5C13.6492 12.5627 13.7922 12.5034 13.8977 12.3979C14.0032 12.2924 14.0625 12.1494 14.0625 12.0002C14.0625 11.851 14.0032 11.7079 13.8977 11.6024C13.7922 11.4969 13.6492 11.4377 13.5 11.4377H7.90309L5.07841 3.07517C5.07893 3.07207 5.07893 3.0689 5.07841 3.06579C5.06373 3.03002 5.06128 2.9904 5.07146 2.9531C5.08163 2.9158 5.10385 2.88291 5.13466 2.85954C5.16212 2.83327 5.19746 2.81674 5.23523 2.81251C5.273 2.80827 5.31112 2.81657 5.34372 2.83611L21.0937 11.8258C21.1228 11.8418 21.1469 11.8654 21.1635 11.8942C21.18 11.923 21.1883 11.9557 21.1875 11.9889C21.1876 12.0233 21.1784 12.057 21.1607 12.0864C21.143 12.1158 21.1175 12.1398 21.0872 12.1558V12.1586Z"
               fill="black"
             />
           </svg>
@@ -95,4 +130,5 @@ const LobbyChatting = () => {
     </div>
   );
 };
+
 export default LobbyChatting;

@@ -5,7 +5,7 @@ import "styles/components/lobby/LobbyChatting.scss";
 const LobbyChatting = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [chatType, setChatType] = useState("전체 채팅");
+  const [chatType, setChatType] = useState("일반채팅");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(true);
   const chatWindowRef = useRef(null);
@@ -38,7 +38,13 @@ const LobbyChatting = () => {
       setInput("");
     }
   };
-
+  useEffect(() => {
+    if (chatType === "귓속말" && !input.startsWith("@")) {
+      setInput((prev) => (prev.trim() ? `@ ${prev}` : "@"));
+    } else if (chatType === "일반채팅" && input.startsWith("@")) {
+      setInput((prev) => prev.replace(/^@\s*/, ""));
+    }
+  }, [chatType]);
   const handleScroll = () => {
     const el = chatWindowRef.current;
     if (!el) return;
@@ -72,41 +78,44 @@ const LobbyChatting = () => {
           </div>
         ))}
       </div>
-      <button
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-        className={`chat-mode-buttons ${
-          chatType === "귓속말" ? "whisper" : ""
-        }`}
-      >
-        {chatType}
-      </button>
+      <div className="chat-mode-dropdown">
+        <button
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className={`chat-mode-buttons ${
+            chatType === "귓속말" ? "whisper" : ""
+          }`}
+        >
+          {chatType}
+        </button>
 
-      {isDropdownOpen && (
-        <ul className="chat-mode-menu">
-          <li
-            className={chatType === "전체 채팅" ? "chat-mode" : ""}
-            onClick={() => {
-              setChatType("전체 채팅");
-              setIsDropdownOpen(false);
-            }}
-          >
-            전체 채팅
-          </li>
-          <li
-            className={chatType === "귓속말" ? "selected" : ""}
-            onClick={() => {
-              setChatType("귓속말");
-              setIsDropdownOpen(false);
-            }}
-          >
-            귓속말
-          </li>
-        </ul>
-      )}
+        {isDropdownOpen && (
+          <ul className="chat-mode-menu">
+            <li
+              className={`entire-mode ${
+                chatType === "일반채팅" ? "selected" : ""
+              }`}
+              onClick={() => {
+                setChatType("일반채팅");
+                setIsDropdownOpen(false);
+              }}
+            >
+              일반채팅
+            </li>
+            <li
+              className={`whisper ${chatType === "귓속말" ? "selected" : ""}`}
+              onClick={() => {
+                setChatType("귓속말");
+                setIsDropdownOpen(false);
+              }}
+            >
+              귓속말
+            </li>
+          </ul>
+        )}
+      </div>
 
       <div className="chat-input-container">
-        <input
-          type="text"
+        <textarea
           className="chat-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}

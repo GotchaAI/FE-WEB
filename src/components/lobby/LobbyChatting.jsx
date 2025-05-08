@@ -10,6 +10,7 @@ const LobbyChatting = () => {
   const [isAtBottom, setIsAtBottom] = useState(true);
   const chatWindowRef = useRef(null);
 
+  //채팅 테스트 부분
   const myNickname = "me";
 
   useEffect(() => {
@@ -33,11 +34,12 @@ const LobbyChatting = () => {
   }, []);
 
   const handleSendMessage = () => {
-    if (input.trim()) {
+    if (input.replace(/\s/g, "") !== "") {
       setMessages((prev) => [...prev, { sender: myNickname, text: input }]);
       setInput("");
     }
   };
+
   useEffect(() => {
     if (chatType === "귓속말" && !input.startsWith("@")) {
       setInput((prev) => (prev.trim() ? `@ ${prev}` : "@"));
@@ -74,7 +76,14 @@ const LobbyChatting = () => {
             {msg.sender !== myNickname && (
               <div className="chat-nickname">{msg.sender}</div>
             )}
-            <div className="chat-bubble">{msg.text}</div>
+            <div className="chat-bubble">
+              {msg.text.split("\n").map((line, idx) => (
+                <React.Fragment key={idx}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
+            </div>
           </div>
         ))}
       </div>
@@ -119,6 +128,16 @@ const LobbyChatting = () => {
           className="chat-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              if (e.shiftKey) {
+                return;
+              } else {
+                e.preventDefault();
+                handleSendMessage();
+              }
+            }
+          }}
           placeholder="채팅을 입력해주세요"
         />
         <button className="chat-send-btn" onClick={handleSendMessage}>

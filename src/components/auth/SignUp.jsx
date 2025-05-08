@@ -15,7 +15,7 @@ import SignUpForm from "./SignUpForm";
 
 const SignUp = () => {
 	return (
-		<div className="sign-in-container">
+		<div className="sign-up-container">
 			<SignUpForm />
 
 			<div className="cloud-container">

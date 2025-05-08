@@ -1,4 +1,5 @@
-import SignUp from "components/auth/SignUp";
+import cloudImage from "assets/cloud.png";
+import SignUpForm from "components/auth/SignUpForm";
 import { ROOT_URL } from "constants/url";
 import { redirect } from "react-router-dom";
 import { signUpAPI, tokenReissueAPI } from "services/auth/auth";
@@ -11,14 +12,22 @@ import { getAuthToken } from "utils/token";
  * - 회원가입 container를 담당하는 컴포넌트
  *
  * 주요 역할:
- * 1. 회원가입 폼 검증에 따른 에러 메시지 처리
+ * - 회원가입 폼(SignUpForm), 배경 이미지를 포함
+ *
+ * 구성 요소:
+ * 1. <SignUpForm />: 실제 회원가입 입력 폼 (닉네임, 비밀번호, 이메일 등)
+ * 2. 배경 이미지 (구름 효과)
  * 2. <SignUp /> 컴포넌트에 필요한 props 전달
  */
 
 const SignUpPage = () => {
 	return (
 		<div className="sign-up-page-container">
-			<SignUp />
+			<SignUpForm />
+
+			<div className="cloud-container">
+				<img className="cloud" src={cloudImage} alt="cloud background" />
+			</div>
 		</div>
 	);
 };

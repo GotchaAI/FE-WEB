@@ -152,7 +152,7 @@ const SignUpForm = () => {
 	return (
 		<Form className="sign-up-form-container" method="post">
 			<div className="form-group">
-				<label>닉네임</label>
+				<label htmlFor="nickname">닉네임</label>
 				<div className="input-with-button">
 					<input
 						placeholder="NAME"
@@ -179,7 +179,7 @@ const SignUpForm = () => {
 			</div>
 
 			<div className="form-group">
-				<label>비밀번호</label>
+				<label htmlFor="password">비밀번호</label>
 				<input
 					type="password"
 					value={password}
@@ -188,7 +188,7 @@ const SignUpForm = () => {
 					placeholder="********"
 				/>
 
-				<label>비밀번호 재입력</label>
+				<label htmlFor="passwordCheck">비밀번호 재입력</label>
 				<input
 					type="password"
 					value={passwordCheck}
@@ -203,7 +203,7 @@ const SignUpForm = () => {
 			</div>
 
 			<div className="form-group">
-				<label>이메일</label>
+				<label htmlFor="email">이메일</label>
 				<div className="input-with-button">
 					<input
 						type="email"
@@ -223,7 +223,7 @@ const SignUpForm = () => {
 					</button>
 				</div>
 
-				<label>이메일 인증번호</label>
+				<label htmlFor="emailCode">이메일 인증번호</label>
 				<div className="input-with-button">
 					<input
 						type="text"

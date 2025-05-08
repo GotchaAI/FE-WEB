@@ -7,12 +7,12 @@ const useSignUpForm = ({ isNicknameConfirmed, setIsNicknameConfirmed, isEmailVer
   const [email, setEmail] = useState("");
   const [emailCode, setEmailCode] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
   const [nicknameError, setNicknameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [emailError, setEmailError] = useState("");
 
-  const isValid = isNicknameConfirmed && isEmailVerified && isValidPassword(password) && password === confirmPassword;
+  const isValid = isNicknameConfirmed && isEmailVerified && isValidPassword(password) && password === passwordCheck;
 
   // 닉네임 입력 시 실시간 형식 검사
   const handleNicknameChange = (value) => {
@@ -25,12 +25,12 @@ const useSignUpForm = ({ isNicknameConfirmed, setIsNicknameConfirmed, isEmailVer
   // 비밀번호 입력 시 실시간 형식 검사
   const handlePasswordChange = (value) => {
     setPassword(value);
-    validatePasswordAll(value, confirmPassword);
+    validatePasswordAll(value, passwordCheck);
   };
 
   // 비밀번호 재입력 시 실시간 형식 검사
   const handleConfirmPasswordChange = (value) => {
-    setConfirmPassword(value);
+    setPasswordCheck(value);
     validatePasswordAll(password, value);
   };
 
@@ -71,7 +71,7 @@ const useSignUpForm = ({ isNicknameConfirmed, setIsNicknameConfirmed, isEmailVer
     email,
     emailCode,
     password,
-    passwordCheck: confirmPassword,
+    passwordCheck,
     handleNicknameChange,
     handlePasswordChange,
     handleConfirmPasswordChange,

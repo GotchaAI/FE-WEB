@@ -38,7 +38,7 @@ const useSignUpForm = ({ isNicknameConfirmed, setIsNicknameConfirmed, isEmailVer
   const validatePasswordAll = (pwd, confirmPwd) => {
     if (!pwd && !confirmPwd) {
       setPasswordError("");
-      return true;
+      return;
     }
 
     if (!isValidPassword(pwd)) {

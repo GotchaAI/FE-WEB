@@ -1,6 +1,6 @@
 import { EMAIL_VALIDATION_ERROR_MESSAGE, NICKNAME_VAILDATION_ERROR_MESSAGE, PASSWORD_CONFIRM_ERROR_MESSAGE, PASSWORD_VALIDATION_ERROR_MESSAGE } from "constants/errorMessage";
 import { useState } from "react";
-import { isVaildNickname, isValidEmail, isValidPassword } from "utils/validation";
+import { isValidNickname, isValidEmail, isValidPassword } from "utils/validation";
 
 const useSignUpForm = ({ isNicknameConfirmed, setIsNicknameConfirmed, isEmailVerified }) => {
   const [nickname, setNickname] = useState("");
@@ -18,7 +18,7 @@ const useSignUpForm = ({ isNicknameConfirmed, setIsNicknameConfirmed, isEmailVer
   const handleNicknameChange = (value) => {
     setNickname(value);
     setIsNicknameConfirmed(false);
-    setNicknameError(value && !isVaildNickname(value) ? NICKNAME_VAILDATION_ERROR_MESSAGE : "");
+    setNicknameError(value && !isValidNickname(value) ? NICKNAME_VAILDATION_ERROR_MESSAGE : "");
   };
 
 

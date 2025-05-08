@@ -12,7 +12,7 @@ const StartButton = ({ onClick }) => {
     setClicked(true);
     onClick?.(e); // 기존 클릭 핸들러 호출
   };
-  console.log(isClicked);
+
   return (
     <button
       className="start-svg-btn"

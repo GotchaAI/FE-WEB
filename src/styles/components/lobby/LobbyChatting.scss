@@ -46,8 +46,8 @@
                 align-self: flex-end;
                 .chat-bubble {
                     background-color: white;
-                    border: black solid 1px;
-                    padding: 8px;
+                    border: black solid 1px; 
+                    padding: 4px 8px 4px 8px;
                     &.whisper {
                         background-color: #F4C261;
                     }

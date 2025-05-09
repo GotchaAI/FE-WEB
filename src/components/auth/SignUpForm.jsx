@@ -130,6 +130,7 @@ const SignUpForm = () => {
 		try {
 			await verifyEmailCodeAPI(email, emailCode);
 			setIsEmailVerified(true);
+			setEmailError("");
 		} catch (e) {
 			handleApiError(e, {
 				400: {

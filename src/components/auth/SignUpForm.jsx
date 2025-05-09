@@ -153,7 +153,11 @@ const SignUpForm = () => {
 	};
 
 	return (
-		<Form className="sign-up-form-container" method="post">
+		<Form
+			className="sign-up-form-container"
+			method="post"
+			onSubmit={submitHandler}
+		>
 			<div className="form-group">
 				<label htmlFor="nickname">닉네임</label>
 				<div className="input-with-button">
@@ -271,7 +275,7 @@ const SignUpForm = () => {
 				)}
 			</div>
 
-			<button type="submit" className="sign-up-btn" onClick={submitHandler}>
+			<button type="submit" className="sign-up-btn">
 				회원가입
 			</button>
 		</Form>

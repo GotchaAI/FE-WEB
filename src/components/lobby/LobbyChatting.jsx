@@ -2,8 +2,24 @@ import React, { useState, useRef, useEffect } from "react";
 import chattingLob from "assets/chattingLob.png";
 import "styles/components/lobby/LobbyChatting.scss";
 import SendButton from "commons/svgs/SendButton";
-
-const LobbyChatting = () => {
+/**
+ * 로비 채팅 컴포넌트
+ *
+ * - 로비에서의 채팅 기능을 담당하는 UI 컴포넌트
+ * - 채팅 메시지 전송, 채팅 타입 선택(귓속말/일반채팅), 메시지 스크롤 관리 등
+ *
+ * props:
+ * @param {string} errorMessage - 채팅 실패 시 출력할 에러 메시지 -> 추후 api 구현완료 되면 추가할 예정
+ *
+ * 구성 요소:
+ * - 채팅 메시지 리스트: messages 배열을 기반으로 채팅 메시지를 렌더링
+ * - 채팅 입력창: 사용자가 메시지를 입력하고 전송할 수 있는 textarea
+ * - 채팅 타입 선택: 일반채팅/귓속말을 선택할 수 있는 드롭다운 메뉴
+ * - 스크롤 관리: 채팅 메시지가 추가될 때 자동으로 스크롤을 아래로 이동
+ * - @ 추가/제거: 귓속말일 때 @가 없으면 추가, 일반채팅으로 바꿀 때 제일 앞에 @가 있으면 제거
+ * - 채팅 테스트 코드 : 랜덤 사용자와 메시지를 생성하여 5초마다 메시지를 추가하는 테스트 코드 (추후 삭제 예정)
+ */
+const LobbyChatting = ({ errorMessage }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [chatType, setChatType] = useState("일반채팅");
@@ -13,7 +29,6 @@ const LobbyChatting = () => {
 
   //채팅 테스트 부분
   const myNickname = "me";
-
   useEffect(() => {
     const interval = setInterval(() => {
       const randomUsers = ["Alice", "Bob", "Charlie"];
@@ -33,7 +48,11 @@ const LobbyChatting = () => {
 
     return () => clearInterval(interval);
   }, []);
+  // 채팅 테스트 코드 끝
 
+  // 메시지 전송 핸들러
+  // 입력값이 공백이 아닐 때만 메시지 전송
+  // 메시지 전송 후 스크롤을 바닥으로 이동
   const handleSendMessage = () => {
     if (input.replace(/\s/g, "") !== "") {
       setMessages((prev) => [
@@ -41,9 +60,12 @@ const LobbyChatting = () => {
         { sender: myNickname, text: input, type: chatType },
       ]);
       setInput("");
+      setIsAtBottom(true);
     }
   };
 
+  // 채팅 타입 변경 시 @ 추가/제거
+  // 귓속말일 때 @가 없으면 추가, 일반채팅일 때 @가 있으면 제거
   useEffect(() => {
     if (chatType === "귓속말" && !input.startsWith("@")) {
       setInput((prev) => (prev.trim() ? `@ ${prev}` : "@"));
@@ -52,12 +74,16 @@ const LobbyChatting = () => {
     }
   }, [chatType]);
 
+  // 스크롤 관리: 메시지가 추가될 때 자동으로 스크롤을 아래로 이동
+  // 스크롤이 바닥에 있을 때만 스크롤 이동
   useEffect(() => {
     if (isAtBottom && chatWindowRef.current) {
       chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
     }
   }, [messages, isAtBottom]);
 
+  // 스크롤 이벤트 핸들러: 스크롤 위치에 따라 isAtBottom 상태 업데이트
+  // 스크롤이 바닥에 가까워지면 isAtBottom을 true로 설정
   const handleScroll = () => {
     const el = chatWindowRef.current;
     if (!el) return;
@@ -78,7 +104,7 @@ const LobbyChatting = () => {
             }`}
           >
             {msg.sender !== myNickname && (
-              <div className="chat-nickname">{msg.sender}</div>
+              <span className="chat-nickname">{msg.sender}</span>
             )}
             <div
               className={`chat-bubble ${

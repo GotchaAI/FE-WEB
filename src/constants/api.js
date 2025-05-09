@@ -6,6 +6,7 @@ export const LOCAL_SERVER_IP = process.env.REACT_APP_LOCAL_SERVER_IP;
 export const SIGN_IN_API = process.env.REACT_APP_SIGN_IN_API;
 export const SIGN_UP_API = process.env.REACT_APP_SIGN_UP_API;
 export const GUEST_SIGN_IN_API = process.env.REACT_APP_GUEST_SIGN_IN_API;
+export const GUEST_SIGN_UP_API = process.env.REACT_APP_GUEST_SIGN_UP_API
 export const TOKEN_REISSUE_API = process.env.REACT_APP_TOKEN_REISSUE_API;
 export const CSRF_TOKEN_API = process.env.REACT_APP_CSRF_TOKEN_API;
 

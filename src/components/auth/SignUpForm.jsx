@@ -172,12 +172,12 @@ const SignUpForm = () => {
 					</button>
 				</div>
 				{nicknameError && (
-					<div className="sign-up-error-message">{nicknameError}</div>
+					<span className="sign-up-error-message">{nicknameError}</span>
 				)}
 				{!nicknameError && isNicknameConfirmed && (
-					<div className="sign-up-success-message">
+					<span className="sign-up-success-message">
 						사용가능한 닉네임입니다!
-					</div>
+					</span>
 				)}
 			</div>
 
@@ -201,7 +201,7 @@ const SignUpForm = () => {
 				/>
 
 				{passwordError && (
-					<div className="sign-up-error-message">{passwordError}</div>
+					<span className="sign-up-error-message">{passwordError}</span>
 				)}
 			</div>
 
@@ -251,19 +251,19 @@ const SignUpForm = () => {
 				</div>
 
 				{emailError && (
-					<div className="sign-up-error-message">{emailError}</div>
+					<span className="sign-up-error-message">{emailError}</span>
 				)}
 
 				{!emailError && isEmailVerified && (
-					<div className="sign-up-success-message">
+					<span className="sign-up-success-message">
 						이메일이 인증되었습니다.
-					</div>
+					</span>
 				)}
 
 				{!emailError && isEmailCodeRequested && !isEmailVerified && (
-					<div className="sign-up-success-message">
+					<span className="sign-up-success-message">
 						인증번호가 전송되었습니다.
-					</div>
+					</span>
 				)}
 
 				{isEmailCodeRequested && !isEmailVerified && remainingTime > 0 && (

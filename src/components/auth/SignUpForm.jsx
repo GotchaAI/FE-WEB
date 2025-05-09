@@ -73,7 +73,7 @@ const SignUpForm = () => {
 	// onExpire 넘길 시 항상 같은 참조를 유지하도록
 	const handleExpire = useCallback(() => {
 		setEmailError(EMAIL_CODE_EXPIRED_ERROR_MESSAGE);
-	});
+	}, [setEmailError]);
 
 	// 인증번호 타이머 훅
 	const {

@@ -72,7 +72,7 @@ const LobbyChatting = ({ errorMessage }) => {
     } else if (chatType === "일반채팅" && input.startsWith("@")) {
       setInput((prev) => prev.replace(/^@\s*/, ""));
     }
-  }, [chatType]);
+  }, [chatType, input]);
 
   // 스크롤 관리: 메시지가 추가될 때 자동으로 스크롤을 아래로 이동
   // 스크롤이 바닥에 있을 때만 스크롤 이동

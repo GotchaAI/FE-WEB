@@ -81,6 +81,7 @@ const useSignUpForm = ({ isNicknameConfirmed, setIsNicknameConfirmed, isEmailVer
     passwordError,
     emailError,
     setNicknameError,
+    setPasswordError,
     setEmailError,
     isValid,
   };

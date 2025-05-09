@@ -60,6 +60,7 @@ const SignUpForm = () => {
 		passwordError,
 		emailError,
 		setNicknameError,
+		setPasswordError,
 		setEmailError,
 		isValid,
 	} = useSignUpForm({
@@ -152,6 +153,9 @@ const SignUpForm = () => {
 
 	// 회원가입 제출 전 로직
 	const submitHandler = (e) => {
+		if (nickname === "") setNicknameError("닉네임을 입력해주세요.");
+		if (password === "") setPasswordError("비밀번호를 입력해주세요.");
+		if (email === "") setEmailError("이메일을 입력해주세요.");
 		if (!isValid) {
 			e.preventDefault();
 			return;

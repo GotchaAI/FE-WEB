@@ -16,7 +16,7 @@ const useSignInForm = () => {
 
     if (!isValidPassword(password)) {
       newError = PASSWORD_VALIDATION_ERROR_MESSAGE;
-      valid = false;
+      valid = true;
     }
 
     if (!isValidEmail(email)) {

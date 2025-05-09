@@ -22,6 +22,7 @@ import { sendEmailCodeAPI, verifyEmailCodeAPI } from "services/auth/auth";
 import { checkNicknameDuplicateAPI } from "services/user/user";
 import "styles/components/auth/SignUpForm.scss";
 import { handleApiError } from "utils/apiError";
+import { isValidEmail } from "utils/validation";
 
 /**
  * SignUpForm 컴포넌트
@@ -102,6 +103,7 @@ const SignUpForm = () => {
 
 	// 이메일 인증번호 전송 서비스 호출 및 에러처리
 	const requestEmailCode = async () => {
+		if (!isValidEmail(email)) return;
 		try {
 			await sendEmailCodeAPI(email);
 			setIsEmailCodeRequested(true);

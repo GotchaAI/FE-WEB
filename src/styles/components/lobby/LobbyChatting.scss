@@ -36,6 +36,7 @@
             color: #999999;
         }
         .chat-message {
+            display: flex;
             flex-direction: column;
             max-width: 80%;
             height: auto;
@@ -58,12 +59,12 @@
                 .chat-nickname {
                     font-size: 13px;
                     color: black;
-                    margin-bottom: 2px;
+                    margin-bottom: 4px;
                 }
                 .chat-bubble {
                     background-color: #F2F3F6;
                     border: black solid 1px;    
-                    padding: 8px;
+                    padding: 4px 8px 4px 8px;
                     &.whisper {
                         background-color: #F4C261;
                     }

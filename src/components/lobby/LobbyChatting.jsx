@@ -93,10 +93,14 @@ const LobbyChatting = ({ errorMessage }) => {
 
   return (
     <div className="lobby-chatting-container">
-      <img src={chattingLob} className="lobby-chatting-background" />
+      <img
+        src={chattingLob}
+        alt="채팅방 배경"
+        className="lobby-chatting-background"
+      />
       <div className="chat-window" ref={chatWindowRef} onScroll={handleScroll}>
         <span className="chat-header">귓속말 @ 닉네임</span>
-        {messages.map((msg, index, type) => (
+        {messages.map((msg, index) => (
           <div
             key={index}
             className={`chat-message ${

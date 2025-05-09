@@ -66,6 +66,7 @@ const SignUpForm = () => {
 		isNicknameConfirmed,
 		setIsNicknameConfirmed,
 		isEmailVerified,
+		setIsEmailVerified,
 	});
 
 	// onExpire 넘길 시 항상 같은 참조를 유지하도록
@@ -106,6 +107,8 @@ const SignUpForm = () => {
 		if (!isValidEmail(email)) return;
 		try {
 			await sendEmailCodeAPI(email);
+			setIsEmailVerified(false);
+			setEmailError("");
 			setIsEmailCodeRequested(true);
 			startTimer();
 		} catch (e) {
@@ -221,7 +224,7 @@ const SignUpForm = () => {
 						value={email}
 						onChange={(e) => handleEmailChange(e.target.value)}
 						name="email"
-						readOnly={isEmailVerified}
+						readOnly={isEmailCodeRequested}
 					/>
 					<button
 						type="button"

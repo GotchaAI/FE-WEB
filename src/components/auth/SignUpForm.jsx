@@ -8,7 +8,7 @@ import { checkNicknameDuplicateAPI } from "services/user/user";
 import "styles/components/auth/SignUpForm.scss";
 import { handleApiError } from "utils/apiError";
 import { emailCodeErrorMap, emailErrorMap } from "utils/errors/authError";
-import { nicknameErrorMap, signUpErrorMap } from "utils/errors/userError";
+import { nicknameErrorMap } from "utils/errors/userError";
 import { isValidEmail } from "utils/validation";
 
 /**

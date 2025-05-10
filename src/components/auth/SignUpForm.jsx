@@ -1,19 +1,4 @@
-import {
-	EMAIL_CODE_EXPIRED,
-	EMAIL_CODE_NOT_MACHTED,
-	EMAIL_TOO_MANY_REQUEST_ERROR,
-	NICKNAME_DUPLICATED,
-} from "constants/errorCode";
-import {
-	EMAIL_CODE_EXPIRED_ERROR_MESSAGE,
-	EMAIL_CODE_MISMATCH_ERROR_MESSAGE,
-	EMAIL_CODE_VALIDATION_ERROR,
-	EMAIL_DUPLICATED_ERROR_MESSAGE,
-	EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE,
-	EMAIL_VALIDATION_ERROR_MESSAGE,
-	NICKNAME_DUPLICATED_ERROR_MESSAGE,
-	NICKNAME_VAILDATION_ERROR_MESSAGE,
-} from "constants/errorMessage";
+import { EMAIL_CODE_EXPIRED_ERROR_MESSAGE } from "constants/errorMessage";
 import useCodeTimer from "hooks/auth/useCodeTimer";
 import useSignUpForm from "hooks/auth/useSignUpForm";
 import { useCallback, useState } from "react";
@@ -22,6 +7,8 @@ import { sendEmailCodeAPI, verifyEmailCodeAPI } from "services/auth/auth";
 import { checkNicknameDuplicateAPI } from "services/user/user";
 import "styles/components/auth/SignUpForm.scss";
 import { handleApiError } from "utils/apiError";
+import { emailCodeErrorMap, emailErrorMap } from "utils/errors/authError";
+import { nicknameErrorMap, signUpErrorMap } from "utils/errors/userError";
 import { isValidEmail } from "utils/validation";
 
 /**
@@ -90,16 +77,8 @@ const SignUpForm = () => {
 			await checkNicknameDuplicateAPI(nickname);
 			setIsNicknameConfirmed(true);
 		} catch (e) {
-			handleApiError(e, {
-				409: {
-					[NICKNAME_DUPLICATED]: () =>
-						setNicknameError(NICKNAME_DUPLICATED_ERROR_MESSAGE),
-					default: () => setNicknameError(NICKNAME_DUPLICATED_ERROR_MESSAGE),
-				},
-				422: {
-					default: () => setNicknameError(NICKNAME_VAILDATION_ERROR_MESSAGE),
-				},
-			});
+			const message = handleApiError(e, nicknameErrorMap);
+			setNicknameError(message);
 		}
 	};
 
@@ -113,19 +92,8 @@ const SignUpForm = () => {
 			setIsEmailCodeRequested(true);
 			startTimer();
 		} catch (e) {
-			handleApiError(e, {
-				409: {
-					default: () => setEmailError(EMAIL_DUPLICATED_ERROR_MESSAGE),
-				},
-				422: {
-					default: () => setEmailError(EMAIL_VALIDATION_ERROR_MESSAGE),
-				},
-				429: {
-					[EMAIL_TOO_MANY_REQUEST_ERROR]: () =>
-						setEmailError(EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE),
-					default: () => setEmailError(EMAIL_TOO_MANY_REQUEST_ERROR_MESSAGE),
-				},
-			});
+			const message = handleApiError(e, emailErrorMap);
+			setEmailError(message);
 		}
 	};
 
@@ -136,18 +104,8 @@ const SignUpForm = () => {
 			setIsEmailVerified(true);
 			setEmailError("");
 		} catch (e) {
-			handleApiError(e, {
-				400: {
-					[EMAIL_CODE_NOT_MACHTED]: () =>
-						setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE),
-					[EMAIL_CODE_EXPIRED]: () =>
-						setEmailError(EMAIL_CODE_EXPIRED_ERROR_MESSAGE),
-					default: () => setEmailError(EMAIL_CODE_MISMATCH_ERROR_MESSAGE),
-				},
-				422: {
-					default: () => setEmailError(EMAIL_CODE_VALIDATION_ERROR),
-				},
-			});
+			const message = handleApiError(e, emailCodeErrorMap);
+			setEmailError(message);
 		}
 	};
 

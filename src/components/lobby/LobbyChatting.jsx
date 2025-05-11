@@ -104,6 +104,17 @@ const LobbyChatting = ({ errorMessage }) => {
     setIsAtBottom(el.scrollHeight - el.scrollTop - el.clientHeight < threshold);
   }, 100);
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      if (e.shiftKey) {
+        return;
+      } else {
+        e.preventDefault();
+        handleSendMessage();
+      }
+    }
+  };
+
   return (
     <div className="lobby-chatting-container">
       <img
@@ -160,16 +171,7 @@ const LobbyChatting = ({ errorMessage }) => {
           className="chat-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              if (e.shiftKey) {
-                return;
-              } else {
-                e.preventDefault();
-                handleSendMessage();
-              }
-            }
-          }}
+          onKeyDown={(e) => handleKeyDown(e)}
           placeholder="채팅을 입력해주세요"
         />
         <button className="chat-send-btn" onClick={handleSendMessage}>

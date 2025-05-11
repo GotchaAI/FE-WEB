@@ -130,9 +130,7 @@ const LobbyChatting = ({ errorMessage }) => {
       <div className="chat-mode-dropdown">
         <button
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className={`chat-mode-buttons ${
-            chatType === "귓속말" ? "whisper" : ""
-          }`}
+          className={`chat-mode-btns ${chatType === "귓속말" ? "whisper" : ""}`}
         >
           {chatType}
         </button>

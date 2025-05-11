@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import chattingLob from "assets/chattingLob.png";
 import "styles/components/lobby/LobbyChatting.scss";
 import SendButton from "commons/svgs/SendButton";
+import { isBlank } from "utils/validation";
 /**
  * 로비 채팅 컴포넌트
  *
@@ -62,7 +63,7 @@ const LobbyChatting = ({ errorMessage }) => {
   // 입력값이 공백이 아닐 때만 메시지 전송
   // 메시지 전송 후 스크롤을 바닥으로 이동
   const handleSendMessage = () => {
-    if (input.replace(/\s/g, "") !== "") {
+    if (isBlank(input)) {
       setMessages((prev) => [
         ...prev,
         { id: generateId(), sender: myNickname, text: input, type: chatType },

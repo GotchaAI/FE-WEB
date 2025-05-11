@@ -10,3 +10,7 @@ export const isValidPassword = (password) => {
 
   return hasLetter && hasNumber && hasSpecial && isLongEnough;
 };
+
+export const isBlank = (value) => {
+  return value.trim() === "";
+};

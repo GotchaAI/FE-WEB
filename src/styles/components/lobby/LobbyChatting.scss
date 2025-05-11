@@ -100,6 +100,7 @@
             position: absolute;
             background-color: white;
             border: 1px solid black;
+            bottom: 100%;
             list-style: none;
             z-index: 10;
             width: 100%;
@@ -113,7 +114,7 @@
                 justify-self: center;
                 flex-direction: column;
                 border: 1px solid black;
-                font-size: 12px;
+                font-size: 11px;
                 cursor: pointer;
                 width: 100%;
                 white-space: nowrap;

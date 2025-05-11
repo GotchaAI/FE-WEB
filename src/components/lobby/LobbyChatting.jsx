@@ -139,26 +139,20 @@ const LobbyChatting = ({ errorMessage }) => {
 
         {isDropdownOpen && (
           <ul className="chat-mode-menu">
-            <li
-              className={`entire-mode ${
-                chatType === "일반채팅" ? "selected" : ""
-              }`}
-              onClick={() => {
-                setChatType("일반채팅");
-                setIsDropdownOpen(false);
-              }}
-            >
-              일반채팅
-            </li>
-            <li
-              className={`whisper ${chatType === "귓속말" ? "selected" : ""}`}
-              onClick={() => {
-                setChatType("귓속말");
-                setIsDropdownOpen(false);
-              }}
-            >
-              귓속말
-            </li>
+            {["일반채팅", "귓속말"]
+              .filter((mode) => mode !== chatType)
+              .map((mode) => (
+                <li
+                  key={mode}
+                  className={mode === "귓속말" ? "whisper" : "entire-mode"}
+                  onClick={() => {
+                    setChatType(mode);
+                    setIsDropdownOpen(false);
+                  }}
+                >
+                  {mode}
+                </li>
+              ))}
           </ul>
         )}
       </div>

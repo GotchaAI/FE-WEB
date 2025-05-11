@@ -4,6 +4,7 @@ import "styles/components/lobby/LobbyChatting.scss";
 import SendButton from "commons/svgs/SendButton";
 import { isBlank } from "utils/validation";
 import throttle from "lodash.throttle";
+import ChatMessage from "./ChatMessage";
 /**
  * 로비 채팅 컴포넌트
  *
@@ -71,6 +72,7 @@ const LobbyChatting = ({ errorMessage }) => {
       ]);
       setInput("");
       setIsAtBottom(true);
+      setChatType("일반채팅");
     }
   };
 
@@ -121,20 +123,7 @@ const LobbyChatting = ({ errorMessage }) => {
             {msg.sender !== myNickname && (
               <span className="chat-nickname">{msg.sender}</span>
             )}
-            <li
-              className={`chat-bubble ${
-                msg.sender === myNickname
-                  ? `mine ${msg.type === "일반채팅" ? "" : "whisper"}`
-                  : `theirs ${msg.type === "일반채팅" ? "" : "whisper"}`
-              }`}
-            >
-              {msg.text.split("\n").map((line, idx) => (
-                <React.Fragment key={idx}>
-                  {line}
-                  <br />
-                </React.Fragment>
-              ))}
-            </li>
+            <ChatMessage msg={msg} myNickname={myNickname} />
           </ul>
         ))}
       </div>

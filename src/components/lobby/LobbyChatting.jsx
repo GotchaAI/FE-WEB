@@ -109,7 +109,7 @@ const LobbyChatting = ({ errorMessage }) => {
       <div className="chat-window" ref={chatWindowRef} onScroll={handleScroll}>
         <span className="chat-header">귓속말 @ 닉네임</span>
         {messages.map((msg) => (
-          <div
+          <ul
             key={msg.id}
             className={`chat-message ${
               msg.sender === myNickname ? "mine" : "theirs"
@@ -118,7 +118,7 @@ const LobbyChatting = ({ errorMessage }) => {
             {msg.sender !== myNickname && (
               <span className="chat-nickname">{msg.sender}</span>
             )}
-            <div
+            <li
               className={`chat-bubble ${
                 msg.sender === myNickname
                   ? `mine ${msg.type === "일반채팅" ? "" : "whisper"}`
@@ -131,8 +131,8 @@ const LobbyChatting = ({ errorMessage }) => {
                   <br />
                 </React.Fragment>
               ))}
-            </div>
-          </div>
+            </li>
+          </ul>
         ))}
       </div>
       <div className="chat-mode-dropdown">

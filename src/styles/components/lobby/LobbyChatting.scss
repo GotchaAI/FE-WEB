@@ -41,11 +41,13 @@
             max-width: 80%;
             height: auto;
             font-size: 10px;
-            word-break: break-all;
+            line-height: normal;
             margin: 0;
             padding: 0;
             border: none;
             list-style: none;
+            white-space: pre-wrap;
+            word-break: break-word;
             &.mine {
                 align-self: flex-end;
                 .chat-bubble {

@@ -18,16 +18,7 @@ const ChatMessage = ({ msg, myNickname }) => {
   const role = msg.sender === myNickname ? "mine" : "theirs";
   const mode = msg.type === "일반채팅" ? "" : "whisper";
 
-  return (
-    <li className={`chat-bubble ${role} ${mode}`}>
-      {msg.text.split("\n").map((line, idx) => (
-        <React.Fragment key={idx}>
-          {line}
-          <br />
-        </React.Fragment>
-      ))}
-    </li>
-  );
+  return <li className={`chat-bubble ${role} ${mode}`}>{msg.text}</li>;
 };
 
 export default ChatMessage;

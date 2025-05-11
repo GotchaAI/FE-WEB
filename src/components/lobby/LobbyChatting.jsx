@@ -27,6 +27,11 @@ const LobbyChatting = ({ errorMessage }) => {
   const [isAtBottom, setIsAtBottom] = useState(true);
   const chatWindowRef = useRef(null);
 
+  // 채팅 메시지의 고유 ID 생성 함수
+  // 메시지 전송 시 고유 ID를 생성하여 메시지에 추가
+  const generateId = () =>
+    Date.now() + "_" + Math.floor(Math.random() * 100000);
+
   //채팅 테스트 부분
   const myNickname = "me";
   useEffect(() => {
@@ -43,7 +48,10 @@ const LobbyChatting = ({ errorMessage }) => {
         randomUsers[Math.floor(Math.random() * randomUsers.length)];
       const text = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
       const type = sampleTypes[Math.floor(Math.random() * sampleTexts.length)];
-      setMessages((prev) => [...prev, { sender, text, type }]);
+      setMessages((prev) => [
+        ...prev,
+        { id: generateId(), sender, text, type },
+      ]);
     }, 5000);
 
     return () => clearInterval(interval);
@@ -57,7 +65,7 @@ const LobbyChatting = ({ errorMessage }) => {
     if (input.replace(/\s/g, "") !== "") {
       setMessages((prev) => [
         ...prev,
-        { sender: myNickname, text: input, type: chatType },
+        { id: generateId(), sender: myNickname, text: input, type: chatType },
       ]);
       setInput("");
       setIsAtBottom(true);
@@ -100,9 +108,9 @@ const LobbyChatting = ({ errorMessage }) => {
       />
       <div className="chat-window" ref={chatWindowRef} onScroll={handleScroll}>
         <span className="chat-header">귓속말 @ 닉네임</span>
-        {messages.map((msg, index) => (
+        {messages.map((msg) => (
           <div
-            key={index}
+            key={msg.id}
             className={`chat-message ${
               msg.sender === myNickname ? "mine" : "theirs"
             }`}

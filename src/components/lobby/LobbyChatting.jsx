@@ -3,6 +3,7 @@ import chattingLob from "assets/chattingLob.png";
 import "styles/components/lobby/LobbyChatting.scss";
 import SendButton from "commons/svgs/SendButton";
 import { isBlank } from "utils/validation";
+import throttle from "lodash.throttle";
 /**
  * 로비 채팅 컴포넌트
  *
@@ -63,7 +64,7 @@ const LobbyChatting = ({ errorMessage }) => {
   // 입력값이 공백이 아닐 때만 메시지 전송
   // 메시지 전송 후 스크롤을 바닥으로 이동
   const handleSendMessage = () => {
-    if (isBlank(input)) {
+    if (!isBlank(input)) {
       setMessages((prev) => [
         ...prev,
         { id: generateId(), sender: myNickname, text: input, type: chatType },
@@ -93,12 +94,13 @@ const LobbyChatting = ({ errorMessage }) => {
 
   // 스크롤 이벤트 핸들러: 스크롤 위치에 따라 isAtBottom 상태 업데이트
   // 스크롤이 바닥에 가까워지면 isAtBottom을 true로 설정
-  const handleScroll = () => {
+
+  const handleScroll = throttle(() => {
     const el = chatWindowRef.current;
     if (!el) return;
     const threshold = 50;
     setIsAtBottom(el.scrollHeight - el.scrollTop - el.clientHeight < threshold);
-  };
+  }, 100);
 
   return (
     <div className="lobby-chatting-container">

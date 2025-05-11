@@ -1,5 +1,7 @@
 import Lobby from "components/lobby/Lobby";
 import { ROOT_URL } from "constants/url";
+import useGameSocket from "hooks/useGameSocket";
+import { redirect } from "react-router-dom";
 import { tokenReissueAPI } from "services/auth/auth";
 import "styles/pages/lobby/LobbyPage.scss";
 import { getAuthToken } from "utils/token";

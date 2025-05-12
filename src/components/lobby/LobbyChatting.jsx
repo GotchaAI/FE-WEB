@@ -5,6 +5,7 @@ import SendButton from "commons/svgs/SendButton";
 import { isBlank } from "utils/validation";
 import throttle from "lodash.throttle";
 import ChatMessage from "./ChatMessage";
+import ChatWindow from "./ChatWindow";
 /**
  * 로비 채팅 컴포넌트
  *
@@ -122,22 +123,12 @@ const LobbyChatting = ({ errorMessage }) => {
         alt="채팅방 배경"
         className="lobby-chatting-background"
       />
-      <div className="chat-window" ref={chatWindowRef} onScroll={handleScroll}>
-        <span className="chat-header">귓속말 @ 닉네임</span>
-        {messages.map((msg) => (
-          <ul
-            key={msg.id}
-            className={`chat-message ${
-              msg.sender === myNickname ? "mine" : "theirs"
-            }`}
-          >
-            {msg.sender !== myNickname && (
-              <span className="chat-nickname">{msg.sender}</span>
-            )}
-            <ChatMessage msg={msg} myNickname={myNickname} />
-          </ul>
-        ))}
-      </div>
+      <ChatWindow
+        messages={messages}
+        myNickname={myNickname}
+        chatWindowRef={chatWindowRef}
+        handleScroll={handleScroll}
+      />
       <div className="chat-mode-dropdown">
         <button
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}

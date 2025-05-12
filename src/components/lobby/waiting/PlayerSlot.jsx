@@ -16,32 +16,36 @@ const PlayerSlot = ({ index, player }) => {
 							{player.isLeader ? (
 								<img src={roomKingIcon} alt="방장" className="leader-icon" />
 							) : (
-								<div className="default-icon" />
+								<div className="default-icon">{index + 1}</div>
 							)}
 						</div>
 						<div className="nickname">{player.nickname}</div>
 					</div>
 
 					<div className="slot-body">
-						{player.status && (
-							<img
-								src={
-									player.isLeader
-										? roomKingRabbit
-										: player.ready
-										? readyRabbit
-										: preparingRabbit
-								}
-								width="135"
-								height="70"
-								alt="상태 말풍선"
-							/>
-						)}
+						<img
+							src={
+								player.isLeader
+									? roomKingRabbit
+									: player.ready
+									? readyRabbit
+									: preparingRabbit
+							}
+							width="135"
+							height="70"
+							alt="상태 말풍선"
+						/>
 					</div>
 				</>
 			) : (
 				// 플레이어가 들어오지 못하는 슬롯
-				<div className="slot-number empty">{index + 1}</div>
+				<div className="slot-number empty">
+					<div className="slot-header">
+						<div className="icon-wrapper">
+							<div className="blocked-icon">{index + 1}</div>
+						</div>
+					</div>
+				</div>
 			)}
 		</div>
 	);

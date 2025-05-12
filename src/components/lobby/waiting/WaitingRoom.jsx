@@ -1,7 +1,6 @@
 import "styles/components/lobby/waiting/WaitingRoom.scss";
 import PlayerSlot from "./PlayerSlot"; // ✅ 추가
 import CheckBox from "commons/svgs/CheckBox";
-import StartButton from "commons/svgs/StartButton";
 import GameStartButton from "commons/svgs/GameStartButton";
 
 const WaitingRoom = () => {

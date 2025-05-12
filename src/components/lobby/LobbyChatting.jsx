@@ -29,6 +29,8 @@ const LobbyChatting = ({ errorMessage }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(true);
   const chatWindowRef = useRef(null);
+  const [sendTimestamps, setSendTimestamps] = useState([]);
+  const [isRateLimited, setIsRateLimited] = useState(false);
 
   // 채팅 메시지의 고유 ID 생성 함수
   // 메시지 전송 시 고유 ID를 생성하여 메시지에 추가
@@ -68,6 +70,17 @@ const LobbyChatting = ({ errorMessage }) => {
   // 메시지 전송 시 고유 ID를 생성하여 메시지에 추가
 
   const handleSendMessage = () => {
+    const now = Date.now();
+
+    // 최근 10초 내 메시지 필터링
+    const recent = sendTimestamps.filter((t) => now - t < 10000);
+
+    if (recent.length >= 5) {
+      setIsRateLimited(true);
+      setTimeout(() => setIsRateLimited(false), 10000);
+      return;
+    }
+
     if (
       !isBlank(input) ||
       (chatType === "귓속말" &&
@@ -78,6 +91,7 @@ const LobbyChatting = ({ errorMessage }) => {
         ...prev,
         { id: generateId(), sender: myNickname, text: input, type: chatType },
       ]);
+      setSendTimestamps([...recent, now]); // 업데이트
       setInput("");
       setIsAtBottom(true);
       setChatType("일반채팅");
@@ -157,6 +171,7 @@ const LobbyChatting = ({ errorMessage }) => {
         myNickname={myNickname}
         chatWindowRef={chatWindowRef}
         handleScroll={handleScroll}
+        isRateLimited={isRateLimited}
       />
       <div className="chat-mode-dropdown">
         <button
@@ -190,7 +205,11 @@ const LobbyChatting = ({ errorMessage }) => {
         <textarea
           className="chat-input"
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length <= 100) {
+              setInput(e.target.value);
+            }
+          }}
           onKeyDown={(e) => handleKeyDown(e)}
           placeholder="채팅을 입력해주세요.(100자 이내)"
         />

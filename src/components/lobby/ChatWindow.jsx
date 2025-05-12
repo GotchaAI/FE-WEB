@@ -19,8 +19,15 @@
  */
 import React from "react";
 import ChatMessage from "./ChatMessage";
+import "styles/components/lobby/ChatWindow.scss";
 
-const ChatWindow = ({ messages, myNickname, chatWindowRef, handleScroll }) => {
+const ChatWindow = ({
+  messages,
+  myNickname,
+  chatWindowRef,
+  handleScroll,
+  isRateLimited,
+}) => {
   return (
     <div className="chat-window" ref={chatWindowRef} onScroll={handleScroll}>
       <span className="chat-header">귓속말 @ 닉네임</span>
@@ -37,6 +44,12 @@ const ChatWindow = ({ messages, myNickname, chatWindowRef, handleScroll }) => {
           <ChatMessage msg={msg} myNickname={myNickname} />
         </ul>
       ))}
+      {isRateLimited && (
+        <p className="chat-warning">
+          짧은 시간에 많은 채팅을 보내서 <br />
+          5초간 채팅이 제한됩니다.
+        </p>
+      )}
     </div>
   );
 };

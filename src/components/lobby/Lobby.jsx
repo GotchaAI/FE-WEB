@@ -10,7 +10,7 @@ import { useState } from "react";
 import "styles/components/lobby/Lobby.scss";
 
 const Lobby = () => {
-  const [navType, setNavType] = useState("type-a");
+  const [tabType, setTabType] = useState("type-a");
 
   return (
     <div className="lobby-container">
@@ -27,16 +27,16 @@ const Lobby = () => {
         <Friend />
         <div className="main-content-container">
           <img src={springImg} alt="스프링" />
-          <div className="main-content-nav-container">
+          <div className="main-content-tabs-container">
             <button
-              className={`a-btn ${navType === "type-a" ? "active" : ""}`}
-              onClick={() => setNavType("type-a")}
+              className={`a-btn ${tabType === "type-a" ? "active" : ""}`}
+              onClick={() => setTabType("type-a")}
             >
               A
             </button>
             <button
-              className={`b-btn ${navType === "type-b" ? "active" : ""}`}
-              onClick={() => setNavType("type-b")}
+              className={`b-btn ${tabType === "type-b" ? "active" : ""}`}
+              onClick={() => setTabType("type-b")}
             >
               B
             </button>

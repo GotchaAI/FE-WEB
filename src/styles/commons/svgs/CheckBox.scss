@@ -1,0 +1,41 @@
+.custom-checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 3.69px;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .custom-checkbox {
+    width: 13px;
+    height: 13px;
+    border-radius: 4px;
+    border: 1.05px solid #999;
+    background-color: white;
+    position: relative;
+
+    .check-icon {
+      display: none;
+      position: absolute;
+      top: 2px;
+      left: 1px;
+      width: 9px;
+      height: 8px;
+      pointer-events: none;
+    }
+  }
+
+  input[type="checkbox"]:checked+.custom-checkbox {
+    border-color: #000;
+
+    .check-icon {
+      display: block;
+    }
+  }
+
+  .checkbox-label {
+    font-size: 12px;
+  }
+}

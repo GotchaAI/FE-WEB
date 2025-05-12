@@ -1,5 +1,4 @@
 import roomKingIcon from "assets/components/lobby/room-king-icon.png";
-import blockedSlot from "assets/components/lobby/player-slot-blocked.png";
 import roomKingRabbit from "assets/components/lobby/room-king-rabbit.png";
 import preparingRabbit from "assets/components/lobby/room-preparing-rabbit.png";
 import readyRabbit from "assets/components/lobby/room-ready-rabbit.png";

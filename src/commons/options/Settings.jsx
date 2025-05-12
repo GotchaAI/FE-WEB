@@ -1,8 +1,8 @@
-import "styles/commons/options/Settings.scss";
+import "styles/commons/options/OptionBtn.scss";
 
 const Settings = () => {
   return (
-    <div className="settings-container">
+    <button className="option-btn">
       <svg
         width="28"
         height="28"
@@ -15,7 +15,7 @@ const Settings = () => {
           fill="black"
         />
       </svg>
-    </div>
+    </button>
   );
 };
 

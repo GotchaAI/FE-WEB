@@ -1,8 +1,8 @@
-import "styles/commons/options/Sound.scss";
+import "styles/commons/options/OptionBtn.scss";
 
 const Sound = () => {
   return (
-    <div className="sound-container">
+    <button className="option-btn">
       <svg
         width="28"
         height="28"
@@ -15,7 +15,7 @@ const Sound = () => {
           fill="black"
         />
       </svg>
-    </div>
+    </button>
   );
 };
 

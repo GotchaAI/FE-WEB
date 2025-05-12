@@ -1,8 +1,8 @@
-import "styles/commons/options/Mypage.scss";
+import "styles/commons/options/OptionBtn.scss";
 
 const Mypage = () => {
   return (
-    <div className="mypage-container">
+    <button className="option-btn">
       <svg
         width="28"
         height="28"
@@ -15,7 +15,7 @@ const Mypage = () => {
           fill="black"
         />
       </svg>
-    </div>
+    </button>
   );
 };
 

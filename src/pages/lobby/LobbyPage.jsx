@@ -1,20 +1,21 @@
 import springImg from "assets/commons/spring.png";
 import LobbyHeader from "components/lobby/LobbyHeader";
 import Friend from "components/lobby/friend/Friend";
-import WaitingRoom from "components/lobby/waiting/WaitingRoom";
-import { ROOT_URL } from "constants/url";
-import { useState } from "react";
-import { redirect } from "react-router-dom";
+import { GAME1_ROBBY_URL, GAME2_ROBBY_URL, ROOT_URL } from "constants/url";
+import useGameSocket from "hooks/useGameSocket";
+import { Link, Outlet, redirect, useLocation } from "react-router-dom";
 import { tokenReissueAPI } from "services/auth/auth";
 import "styles/pages/lobby/LobbyPage.scss";
 import { getAuthToken } from "utils/token";
 
 const LobbyPage = () => {
   // 소켓 연결 테스트(지워도 됨!)
-  // const nickName = "jiwon";
-  // const roomId = "1234";
-  //useGameSocket({ nickName, roomId });
-  const [tabType, setTabType] = useState("type-a");
+  const nickName = "jiwon";
+  const roomId = "1234";
+  useGameSocket({ nickName, roomId });
+  const location = useLocation();
+
+  const navType = location.pathname.endsWith("/game2") ? "game2" : "game1";
 
   return (
     <div className="lobby-page-container">
@@ -23,23 +24,23 @@ const LobbyPage = () => {
         <Friend />
         <div className="main-content-container">
           <img src={springImg} alt="스프링" />
-          <div className="main-content-tabs-container">
-            <button
-              className={`a-btn ${tabType === "type-a" ? "active" : ""}`}
-              onClick={() => setTabType("type-a")}
+          <div className="main-content-nav-container">
+            <Link
+              to={GAME1_ROBBY_URL}
+              className={`a-btn ${navType === "game1" ? "active" : ""}`}
             >
               A
-            </button>
-            <button
-              className={`b-btn ${tabType === "type-b" ? "active" : ""}`}
-              onClick={() => setTabType("type-b")}
+            </Link>
+            <Link
+              to={GAME2_ROBBY_URL}
+              className={`b-btn ${navType === "game2" ? "active" : ""}`}
             >
               B
-            </button>
+            </Link>
           </div>
           <div className="main-content-layout">
             {/* 상태나 라우팅에 따라 WaitingRoom or Mypage로 */}
-            <WaitingRoom />
+            <Outlet />
           </div>
         </div>
 

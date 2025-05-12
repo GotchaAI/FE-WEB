@@ -1,4 +1,3 @@
-import CheckBox from "commons/svgs/CheckBox";
 import WaitingRoom from "components/lobby/waiting/WaitingRoom";
 import useGameSocket from "hooks/useGameSocket";
 

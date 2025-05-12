@@ -4,7 +4,6 @@ import "styles/components/lobby/LobbyChatting.scss";
 import SendButton from "commons/svgs/SendButton";
 import { isBlank } from "utils/validation";
 import throttle from "lodash.throttle";
-import ChatMessage from "./ChatMessage";
 import ChatWindow from "./ChatWindow";
 /**
  * 로비 채팅 컴포넌트
@@ -65,8 +64,16 @@ const LobbyChatting = ({ errorMessage }) => {
   // 메시지 전송 핸들러
   // 입력값이 공백이 아닐 때만 메시지 전송
   // 메시지 전송 후 스크롤을 바닥으로 이동
+  // 채팅 타입을 일반채팅으로 초기화
+  // 메시지 전송 시 고유 ID를 생성하여 메시지에 추가
+
   const handleSendMessage = () => {
-    if (!isBlank(input)) {
+    if (
+      !isBlank(input) ||
+      (chatType === "귓속말" &&
+        input.startsWith("@") &&
+        input.trim().length > 1)
+    ) {
       setMessages((prev) => [
         ...prev,
         { id: generateId(), sender: myNickname, text: input, type: chatType },
@@ -80,12 +87,34 @@ const LobbyChatting = ({ errorMessage }) => {
   // 채팅 타입 변경 시 @ 추가/제거
   // 귓속말일 때 @가 없으면 추가, 일반채팅일 때 @가 있으면 제거
   useEffect(() => {
-    if (chatType === "귓속말" && !input.startsWith("@")) {
-      setInput((prev) => (prev.trim() ? `@ ${prev}` : "@"));
-    } else if (chatType === "일반채팅" && input.startsWith("@")) {
-      setInput((prev) => prev.replace(/^@\s*/, ""));
-    }
-  }, [chatType, input]);
+    setInput((prevInput) => {
+      if (chatType === "귓속말" && !prevInput.startsWith("@")) {
+        return prevInput.trim() ? `@ ${prevInput}` : "@";
+      } else if (chatType === "일반채팅" && prevInput.startsWith("@")) {
+        return prevInput.replace(/^@\s*/, "");
+      }
+      return prevInput;
+    });
+  }, [chatType]);
+
+  // @닉네임 입력시 자동 모드 변환
+  // @로 시작하고 닉네임 + 공백이 있는 경우 -> 귓속말 모드로 전환
+  // @로 시작하지 않으면 일반채팅 모드로 전환
+  useEffect(() => {
+    const trimmedInput = input.trimStart();
+
+    const hasWhisperPattern = /^@\S+\s/.test(trimmedInput);
+    const hasAtSymbol = trimmedInput.startsWith("@");
+
+    setChatType((prevType) => {
+      if (hasWhisperPattern && prevType !== "귓속말") {
+        return "귓속말";
+      } else if (!hasAtSymbol && prevType !== "일반채팅") {
+        return "일반채팅";
+      }
+      return prevType; // 상태 변경 불필요
+    });
+  }, [input]);
 
   // 스크롤 관리: 메시지가 추가될 때 자동으로 스크롤을 아래로 이동
   // 스크롤이 바닥에 있을 때만 스크롤 이동
@@ -163,7 +192,7 @@ const LobbyChatting = ({ errorMessage }) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => handleKeyDown(e)}
-          placeholder="채팅을 입력해주세요"
+          placeholder="채팅을 입력해주세요.(100자 이내)"
         />
         <button className="chat-send-btn" onClick={handleSendMessage}>
           <SendButton />

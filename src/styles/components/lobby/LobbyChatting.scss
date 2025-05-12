@@ -115,13 +115,8 @@
             border: none;  
             resize: none;        
             overflow: auto;               
-            font-size: 13px;
-        
-            ::placeholder {
-                font-size: 10px;
-                color: #999999;
-                line-height: 1.2;
-            }
+            font-size: 12px;
+            
         }
         
         .chat-send-btn {

@@ -20,45 +20,27 @@
 
 
   .settings-start {
+    display: flex;
     width: 544px;
     height: 100%;
+    margin-top: 24px;
+    gap: 114.67px;
 
     .difficulty-selector {
-      width: 79.33px;
-      height: 59px;
-      display: flex;
-      flex-direction: column;
+      width: 79.33;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 8px;
 
       .label {
+        color: #89c881;
         font-size: 12px;
-        font-weight: 500;
-        color: #7cc280;
-        margin-bottom: 6px;
       }
 
-      .options {
+      .checkbox-options {
         display: flex;
         flex-direction: column;
-      }
-
-      .option {
-        display: flex;
-        align-items: center;
-        font-size: 12px;
-        color: #000;
-
-        input[type="radio"] {
-          display: none;
-        }
-
-        .custom-check {
-          width: 20px;
-          height: 20px;
-          border: 2px solid #888;
-          border-radius: 5px;
-          margin-right: 8px;
-          position: relative;
-        }
+        gap: 4px;
       }
     }
 

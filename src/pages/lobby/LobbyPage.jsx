@@ -1,4 +1,5 @@
 import CheckBox from "commons/svgs/CheckBox";
+import WaitingRoom from "components/lobby/waiting/WaitingRoom";
 import useGameSocket from "hooks/useGameSocket";
 
 const LobbyPage = () => {
@@ -10,7 +11,7 @@ const LobbyPage = () => {
 
 	return (
 		<div className="robby-page-container">
-			<CheckBox label="고수" />
+			<WaitingRoom />
 		</div>
 	);
 };

@@ -1,5 +1,8 @@
 import "styles/components/lobby/waiting/WaitingRoom.scss";
 import PlayerSlot from "./PlayerSlot"; // ✅ 추가
+import CheckBox from "commons/svgs/CheckBox";
+import StartButton from "commons/svgs/StartButton";
+import GameStartButton from "commons/svgs/GameStartButton";
 
 const WaitingRoom = () => {
 	const players = [
@@ -30,26 +33,16 @@ const WaitingRoom = () => {
 				<div className="difficulty-selector">
 					<span className="label">로봇 성능</span>
 
-					<div className="options">
-						<label className="option">
-							<input type="radio" name="difficulty" defaultChecked />
-							{/* <span className="custom-check"></span> */}
-							초보
-						</label>
-
-						<label className="option">
-							<input type="radio" name="difficulty" />
-							<span className="custom-check"></span>
-							고수
-						</label>
-						<label className="option">
-							<input type="radio" name="difficulty" />
-							<span className="custom-check"></span>신
-						</label>
+					<div className="checkbox-options">
+						<CheckBox label="초보" defaultChecked />
+						<CheckBox label="고수" />
+						<CheckBox label="신" />
 					</div>
 				</div>
 
-				<button className="start-button">START</button>
+				<div start-btn-wrapper>
+					<GameStartButton />
+				</div>
 			</div>
 		</div>
 	);

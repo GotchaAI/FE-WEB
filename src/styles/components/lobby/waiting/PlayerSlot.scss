@@ -49,6 +49,7 @@
   }
 
   &.empty {
+    background-color: white;
     background-image: url("~assets/components/lobby/player-slot-blocked.png");
     background-size: cover;
 

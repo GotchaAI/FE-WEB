@@ -40,7 +40,7 @@
       height: 376px;
     }
 
-    .main-content-tabs-container {
+    .main-content-nav-container {
       position: absolute;
 
       display: flex;
@@ -54,7 +54,7 @@
 
       gap: 9px;
 
-      button {
+      a {
         position: relative;
         border: none;
         width: 118px;
@@ -69,6 +69,11 @@
         background-color: #f2f3f6;
 
         padding: 10px;
+
+        text-decoration: none;
+        color: black;
+        display: flex;
+        justify-content: center;
 
         &.active {
           background-color: white;

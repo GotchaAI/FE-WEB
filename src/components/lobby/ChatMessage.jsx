@@ -1,4 +1,5 @@
 import React from "react";
+import "styles/components/lobby/ChatMessage.scss";
 /**
  * 로비 채팅 메시지 컴포넌트
  *

@@ -14,42 +14,42 @@ import SockJS from 'sockjs-client';
 const SOCKET_BASE_URL = process.env.REACT_APP_SOCKET_BASE_URL;
 
 const useGameSocket = ({ nickName, roomId }) => {
-	const stompClientRef = useRef(null);
+  const stompClientRef = useRef(null);
 
-	useEffect(() => {
-		const client = new Client({
-			webSocketFactory: () => new SockJS(`${SOCKET_BASE_URL}${process.env.REACT_APP_WS_ENDPOINT}`),
-			reconnectDelay: 5000,
-			debug: (str) => console.log('STOMP 핸드쉐이킹', str),
-		});
+  useEffect(() => {
+    const client = new Client({
+      webSocketFactory: () => new SockJS(`${SOCKET_BASE_URL}${process.env.REACT_APP_WS_ENDPOINT}`),
+      reconnectDelay: 5000,
+      debug: (str) => console.log('STOMP 핸드쉐이킹', str),
+    });
 
-		client.onConnect = () => {
-			console.log('Connected!');
+    client.onConnect = () => {
+      console.log('Connected!');
 
-			// 초기 연결 알림 전송
-			client.publish({
-				destination: '/pub/connect',
-				body: JSON.stringify({ nickName: nickName }),
-			});
+      // 초기 연결 알림 전송
+      client.publish({
+        destination: '/pub/connect',
+        body: JSON.stringify({ nickName: nickName }),
+      });
 
-		}
+    }
 
-		// stomp 에러 디버깅
-		client.onStompError = (frame) => {
-			console.log('STOMP 오류', frame);
-		}
+    // stomp 에러 디버깅
+    client.onStompError = (frame) => {
+      console.log('STOMP 오류', frame);
+    }
 
-		// 웹소켓 연결
-		client.activate();
-		stompClientRef.current = client;
+    // 웹소켓 연결
+    client.activate();
+    stompClientRef.current = client;
 
-		return () => {
-			// 웹소켓 해제
-			client.deactivate();
-		}
-	}, [nickName, roomId]);
+    return () => {
+      // 웹소켓 해제
+      client.deactivate();
+    }
+  }, [nickName, roomId]);
 
-	return {};
+  return {};
 };
 
 export default useGameSocket;

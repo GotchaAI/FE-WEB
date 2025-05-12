@@ -14,3 +14,7 @@ export const isValidPassword = (password) => {
 export const isBlank = (value) => {
   return value.trim() === "";
 };
+
+export const isValidNickname = (nickname) => {
+  return /^[가-힣a-zA-Z0-9]{2,6}$/.test(nickname);
+}

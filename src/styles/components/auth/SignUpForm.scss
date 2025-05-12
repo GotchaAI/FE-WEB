@@ -1,0 +1,109 @@
+// 회원가입 폼
+.sign-up-form-container {
+	position: relative;
+	z-index: 5;
+	width: 288px;
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		margin-bottom: 38px;
+		gap: 6px;
+
+		label {
+			font-size: 12px;
+			font-weight: 500;
+			margin-left: 8px;
+		}
+
+		input {
+			border: solid 0.9px black;
+			border-radius: 8px;
+			height: 36px;
+			padding-left: 9.87px;
+			font-size: 12px;
+		}
+
+		input::placeholder {
+			color: rgba(153, 153, 153, 1);
+		}
+
+		.input-with-button {
+			display: flex;
+			gap: 11px;
+
+			input {
+				flex: 1;
+			}
+			input:disabled {
+				background-color: #f2f3f6;
+			}
+
+			button {
+				border: 1.5px solid black;
+				border-radius: 10px;
+				width: 108px;
+				height: 36px;
+				font-size: 14px;
+				font-weight: 500;
+				padding: 0;
+				cursor: pointer;
+			}
+			button:disabled {
+				background-color: #999999;
+				color: #000000;
+			}
+
+			.check-nickname-btn {
+				background-color: #f4ec6f;
+			}
+
+			.request-code-btn {
+				background-color: #89c881;
+			}
+
+			.verify-code-btn {
+				background-color: #f4ec6f;
+			}
+		}
+
+		.code-timer {
+			position: absolute;
+			right: 7px;
+			top: calc(100% + 7px);
+			color: #f28110;
+			font-size: 12px;
+		}
+
+		.sign-up-error-message {
+			position: absolute;
+			top: calc(100% + 3px);
+			margin-left: 8px;
+			height: 15px;
+			font-size: 12px;
+			color: #e90c0c;
+		}
+
+		.sign-up-success-message {
+			position: absolute;
+			top: calc(100% + 3px);
+			margin-left: 8px;
+			height: 15px;
+			font-size: 12px;
+			color: #007bff;
+		}
+	}
+
+	.sign-up-btn {
+		width: 288px;
+		height: 35px;
+		background-color: #d3f16f;
+		border: solid 0.9px black;
+		border-radius: 8px;
+		font-size: 14px;
+		font-weight: bold;
+		cursor: pointer;
+		margin-top: 8px;
+	}
+}

@@ -2,7 +2,10 @@ import SignInPage, {
   action as signInAction,
   loader as signInLoader,
 } from "pages/auth/SignInPage";
-import SignUpPage from "pages/auth/SignUpPage";
+import SignUpPage, {
+  action as signUpAction,
+  loader as signUpLoader,
+} from "pages/auth/SignUpPage";
 
 const auth = [
   {
@@ -14,6 +17,8 @@ const auth = [
   {
     path: "signup",
     element: <SignUpPage />,
+    loader: signUpLoader,
+    action: signUpAction,
   },
 ];
 

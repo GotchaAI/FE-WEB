@@ -82,9 +82,14 @@
       width: 60px;
       border: none;
 
-      padding-left: 7.5px;
+      padding-left: 5.5px;
+      margin-left: 2px;
 
       font-size: 12px;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     svg {
@@ -101,5 +106,19 @@
 
     width: 121px;
     height: 264px;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 110px;
+      height: 0.6px;
+      background-color: black;
+      z-index: 1;
+    }
+
+    &::after {
+      bottom: 0;
+    }
   }
 }

@@ -1,0 +1,66 @@
+// src/styles/components/lobby/waiting/WaitingRoom.scss
+
+.waiting-room-container {
+  display: flex;
+  flex-direction: column;
+  width: 599px;
+  height: 408px;
+  padding-left: 35px;
+  padding-top: 17px;
+
+  .room-info-header {
+    font-size: 12px;
+  }
+
+  .player-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 136px);
+    margin-top: 12px;
+  }
+
+
+  .settings-start {
+    width: 544px;
+    height: 100%;
+
+    .difficulty-selector {
+      width: 79.33px;
+      height: 59px;
+      display: flex;
+      flex-direction: column;
+
+      .label {
+        font-size: 12px;
+        font-weight: 500;
+        color: #7cc280;
+        margin-bottom: 6px;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .option {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        color: #000;
+
+        input[type="radio"] {
+          display: none;
+        }
+
+        .custom-check {
+          width: 20px;
+          height: 20px;
+          border: 2px solid #888;
+          border-radius: 5px;
+          margin-right: 8px;
+          position: relative;
+        }
+      }
+    }
+
+  }
+}

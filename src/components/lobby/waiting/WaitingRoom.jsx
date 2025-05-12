@@ -3,6 +3,7 @@ import "styles/components/lobby/waiting/WaitingRoom.scss";
 import PlayerSlot from "./PlayerSlot";
 import CheckBox from "commons/svgs/CheckBox";
 import GameStartButton from "commons/svgs/GameStartButton";
+import GameReadyButton from "commons/svgs/GameReadyButton";
 
 const WaitingRoom = () => {
 	const players = [
@@ -54,6 +55,7 @@ const WaitingRoom = () => {
 
 				<div className="start-btn-wrapper">
 					<GameStartButton />
+					{/* <GameReadyButton /> */}
 				</div>
 			</div>
 		</div>

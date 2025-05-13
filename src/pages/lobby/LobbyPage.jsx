@@ -1,4 +1,5 @@
 import springImg from "assets/commons/spring.png";
+import LobbyChatting from "components/lobby/LobbyChatting";
 import LobbyHeader from "components/lobby/LobbyHeader";
 import Friend from "components/lobby/friend/Friend";
 import { GAME1_ROBBY_URL, GAME2_ROBBY_URL, ROOT_URL } from "constants/url";
@@ -44,7 +45,9 @@ const LobbyPage = () => {
           </div>
         </div>
 
-        <LobbyChatting errorMessage={errorMessage} />
+        <div className="lobby-chat-container">
+          <LobbyChatting />
+        </div>
       </div>
     </div>
   );

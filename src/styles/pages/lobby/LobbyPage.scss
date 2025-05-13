@@ -101,4 +101,10 @@
       border: 1px solid black;
     }
   }
+  .lobby-chat-container {
+    //제일 오른쪽 끝에 붙이기
+    position: absolute;
+    right: 9px;
+    bottom: 17px;
+  }
 }

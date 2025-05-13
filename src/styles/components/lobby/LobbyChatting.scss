@@ -1,0 +1,119 @@
+
+.lobby-chatting-container {
+    -ms-overflow-style: none;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    z-index: 0;
+    width: 200px;
+    height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    .lobby-chatting-background{ 
+        position: absolute;    
+        top: 0; bottom: 0; left: 0; right: 0;
+        width: 200px;
+        height: 460px;
+        z-index: -1;
+        border-radius: 13px;
+    }
+    
+    .chat-mode-dropdown {
+        position: absolute;
+        bottom: 58px;
+        left: 7px;
+        width: 57px;
+        height: 17px;
+        font-size: 12px;
+        .chat-mode-btns {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+            border: 1px solid black;
+            background-color: #f2f3f6;
+            cursor: pointer;
+      
+            &.whisper {
+                background-color: #f4c261;
+            }
+        }
+      
+        .chat-mode-menu {
+            position: absolute;
+            background-color: white;
+            border: 1px solid black;
+            bottom: 100%;
+            list-style: none;
+            z-index: 10;
+            width: 100%;
+            height: 17px;
+            margin: 0;
+            padding: 0;
+            border: none;
+            li {
+                display: flex;
+                align-items: center;
+                justify-self: center;
+                flex-direction: column;
+                border: 1px solid black;
+                font-size: 11px;
+                cursor: pointer;
+                width: 100%;
+                white-space: nowrap;
+                background-color: white;
+                gap: 0px;
+                &:hover {
+                    background-color: #eee;
+                }
+                &.selected {
+                    font-weight: bold;
+                }
+      
+                &.whisper {
+                  background-color: #f4c261;
+                }
+                &:not(:first-child) {
+                    border-top: none;
+                }
+            }
+        }
+    }  
+    .chat-input-container {
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: center;
+        z-index: 1;
+        border: 1px solid black;  
+        margin: 0px 7px 13px 7px;
+                  
+        .chat-input {
+            height: 44px;
+            width: 140px;
+            border: none;  
+            resize: none;        
+            overflow: auto;               
+            font-size: 12px;
+        }
+        
+        .chat-send-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 44px;
+            width: 44px;
+            border: none;
+            background-color: #F4EC6F ;
+        }
+        .chat-input:focus,
+        .chat-send-btn:focus {
+            outline: none;
+            box-shadow: none;
+        }
+    }
+}

@@ -8,7 +8,7 @@ const CheckBox = ({ label, defaultChecked = false, onChange }) => {
 				defaultChecked={defaultChecked}
 				onChange={(e) => onChange?.(e.target.checked)}
 			/>
-			<span className="custom-checkbox">
+			<div className="custom-checkbox">
 				<svg
 					className="check-icon"
 					width="9"
@@ -24,7 +24,7 @@ const CheckBox = ({ label, defaultChecked = false, onChange }) => {
 						strokeLinecap="round"
 					/>
 				</svg>
-			</span>
+			</div>
 			<span className="checkbox-label">{label}</span>
 		</label>
 	);

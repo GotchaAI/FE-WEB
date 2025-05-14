@@ -30,7 +30,7 @@ const PlayerSlot = ({ index, player }) => {
 								<div className="default-icon">{index + 1}</div>
 							)}
 						</div>
-						<div className="nickname">{player.nickname}</div>
+						<span className="nickname">{player.nickname}</span>
 					</div>
 
 					<div className="slot-body">

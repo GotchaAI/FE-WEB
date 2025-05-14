@@ -22,7 +22,11 @@ const WaitingRoom = () => {
 
 			<div className="player-grid">
 				{Array.from({ length: 8 }, (_, i) => (
-					<PlayerSlot key={i} index={i} player={players[i]} />
+					<PlayerSlot
+						key={players[i]?.nickname ?? `empty-${i}`}
+						index={i}
+						player={players[i]}
+					/>
 				))}
 			</div>
 

@@ -20,8 +20,8 @@ const CheckBox = ({ label, defaultChecked = false, onChange }) => {
 					<path
 						d="M1.16064 1.49485C1.50744 3.01898 1.82719 4.59794 2.42296 6.05161C3.08395 7.66441 4.44224 5.65335 5.10323 4.84695C5.98885 3.7665 7.40833 2.07784 8.00829 0.866333"
 						stroke="black"
-						stroke-width="1.05348"
-						stroke-linecap="round"
+						strokeWidth="1.05348"
+						strokeLinecap="round"
 					/>
 				</svg>
 			</span>

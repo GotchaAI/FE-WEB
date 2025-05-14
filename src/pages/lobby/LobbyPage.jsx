@@ -24,7 +24,7 @@ const LobbyPage = () => {
 			<div className="body-container">
 				<Friend />
 				<div className="main-content-container">
-					<img src={springImg} alt="스프링" />
+					<img src={springImg} alt="스프링" className="main-content-img" />
 					<div className="main-content-nav-container">
 						<Link
 							to={GAME1_ROBBY_URL}

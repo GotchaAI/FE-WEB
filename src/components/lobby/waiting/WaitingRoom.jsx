@@ -34,19 +34,19 @@ const WaitingRoom = () => {
 						<CheckBox
 							key={"초보" + selectedDifficulty}
 							label="초보"
-							defaultChecked={selectedDifficulty === "초보"}
+							checked={selectedDifficulty === "초보"}
 							onChange={() => setSelectedDifficulty("초보")}
 						/>
 						<CheckBox
 							key={"고수" + selectedDifficulty}
 							label="고수"
-							defaultChecked={selectedDifficulty === "고수"}
+							checked={selectedDifficulty === "고수"}
 							onChange={() => setSelectedDifficulty("고수")}
 						/>
 						<CheckBox
 							key={"신" + selectedDifficulty}
 							label="신"
-							defaultChecked={selectedDifficulty === "신"}
+							checked={selectedDifficulty === "신"}
 							onChange={() => setSelectedDifficulty("신")}
 						/>
 					</div>

@@ -1,11 +1,11 @@
 import "styles/commons/svgs/CheckBox.scss";
 
-const CheckBox = ({ label, defaultChecked = false, onChange }) => {
+const CheckBox = ({ label, checked = false, onChange }) => {
 	return (
 		<label className="custom-checkbox-wrapper">
 			<input
 				type="checkbox"
-				defaultChecked={defaultChecked}
+				defaultChecked={checked}
 				onChange={(e) => onChange?.(e.target.checked)}
 			/>
 			<div className="custom-checkbox">

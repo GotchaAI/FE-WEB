@@ -16,9 +16,9 @@ const WaitingRoom = () => {
 
 	return (
 		<div className="waiting-room-container">
-			<header className="room-info-header">
+			<h2 className="room-info-header">
 				#9804 &nbsp; 성인만/19/여기보통 뭐적지? /19시출
-			</header>
+			</h2>
 
 			<div className="player-grid">
 				{Array.from({ length: 8 }, (_, i) => (
@@ -36,19 +36,16 @@ const WaitingRoom = () => {
 
 					<div className="checkbox-options">
 						<CheckBox
-							key={"초보" + selectedDifficulty}
 							label="초보"
 							checked={selectedDifficulty === "초보"}
 							onChange={() => setSelectedDifficulty("초보")}
 						/>
 						<CheckBox
-							key={"고수" + selectedDifficulty}
 							label="고수"
 							checked={selectedDifficulty === "고수"}
 							onChange={() => setSelectedDifficulty("고수")}
 						/>
 						<CheckBox
-							key={"신" + selectedDifficulty}
 							label="신"
 							checked={selectedDifficulty === "신"}
 							onChange={() => setSelectedDifficulty("신")}

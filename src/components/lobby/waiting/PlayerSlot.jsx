@@ -6,6 +6,18 @@ import readyRabbit from "assets/components/lobby/room-ready-rabbit.png";
 import "styles/components/lobby/waiting/PlayerSlot.scss";
 
 const PlayerSlot = ({ index, player }) => {
+	const rabbitImage = player?.isLeader
+		? roomKingRabbit
+		: player?.ready
+		? readyRabbit
+		: preparingRabbit;
+
+	const altText = player?.isLeader
+		? "방장 말풍선"
+		: player?.ready
+		? "준비 완료 말풍선"
+		: "준비 중 말풍선";
+
 	return (
 		<div className={`player-slot ${!player ? "empty" : ""}`}>
 			{player ? (
@@ -22,18 +34,7 @@ const PlayerSlot = ({ index, player }) => {
 					</div>
 
 					<div className="slot-body">
-						<img
-							src={
-								player.isLeader
-									? roomKingRabbit
-									: player.ready
-									? readyRabbit
-									: preparingRabbit
-							}
-							width="135"
-							height="70"
-							alt="상태 말풍선"
-						/>
+						<img src={rabbitImage} width="135" height="70" alt={altText} />
 					</div>
 				</>
 			) : (

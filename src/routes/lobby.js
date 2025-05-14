@@ -1,15 +1,24 @@
-import LobbyLayout, { loader as lobbyLoader } from "pages/lobby/LobbyLayout";
-import LobbyPage from "pages/lobby/LobbyPage";
+import Game1LobbyPage from "pages/game/Game1LobbyPage";
+import Game2LobbyPage from "pages/game/Game2LobbyPage";
+import LobbyPage, { loader as lobbyLoader } from "pages/lobby/LobbyPage";
 
 const lobby = [
   {
     path: "lobby",
-    element: <LobbyLayout />,
+    element: <LobbyPage />,
+    loader: lobbyLoader,
     children: [
       {
         index: true,
-        element: <LobbyPage />,
-        loader: lobbyLoader,
+        element: <Game1LobbyPage />,
+      },
+      {
+        path: "game1",
+        element: <Game1LobbyPage />,
+      },
+      {
+        path: "game2",
+        element: <Game2LobbyPage />,
       },
     ],
   },

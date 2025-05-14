@@ -10,3 +10,6 @@ export const ANNOUNCE_URL = "/announce";
 export const RANKING_URL = "/ranking";
 export const CHARACTER_INTRO_URL = "/character-intro";
 export const SERVICE_CENTER_URL = "/service-center";
+
+export const GAME1_ROBBY_URL = "game1";
+export const GAME2_ROBBY_URL = "game2";

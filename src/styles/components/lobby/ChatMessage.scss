@@ -1,0 +1,42 @@
+.chat-message {
+            display: flex;
+            flex-direction: column;
+            max-width: 80%;
+            height: auto;
+            font-size: 10px;
+            line-height: normal;
+            margin: 0;
+            padding: 0;
+            border: none;
+            list-style: none;
+            white-space: pre-wrap;
+            word-break: break-word;
+            &.mine {
+                align-self: flex-end;
+                .chat-bubble {
+                    background-color: white;
+                    border: black solid 1px; 
+                    padding: 4px 8px 4px 8px;
+                    &.whisper {
+                        background-color: #F4C261;
+                    }
+                }
+            }
+      
+            &.theirs {
+                align-self: flex-start;
+                .chat-nickname {
+                    font-size: 13px;
+                    color: black;
+                    margin-bottom: 4px;
+                }
+                .chat-bubble {
+                    background-color: #F2F3F6;
+                    border: black solid 1px;    
+                    padding: 4px 8px 4px 8px;
+                    &.whisper {
+                        background-color: #F4C261;
+                    }
+                }
+            }
+        }

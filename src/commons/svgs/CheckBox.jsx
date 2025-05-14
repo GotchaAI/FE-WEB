@@ -5,7 +5,7 @@ const CheckBox = ({ label, checked = false, onChange }) => {
 		<label className="custom-checkbox-wrapper">
 			<input
 				type="checkbox"
-				defaultChecked={checked}
+				checked={checked}
 				onChange={(e) => onChange?.(e.target.checked)}
 			/>
 			<div className="custom-checkbox">

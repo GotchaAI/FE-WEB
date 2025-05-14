@@ -4,9 +4,16 @@
   align-items: center;
   cursor: pointer;
   gap: 3.69px;
+  position: relative;
 
   input[type="checkbox"] {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    width: 13px;
+    height: 13px;
+    margin: 0;
+    z-index: 2;
+    cursor: pointer;
   }
 
   .custom-checkbox {
@@ -16,6 +23,7 @@
     border: 1.05px solid #999;
     background-color: white;
     position: relative;
+    z-index: 1;
 
     .check-icon {
       display: none;
@@ -38,5 +46,10 @@
 
   .checkbox-label {
     font-size: 12px;
+  }
+
+  input[type="checkbox"]:focus+.custom-checkbox {
+    outline: 2px solid black;
+    outline-offset: 2px;
   }
 }

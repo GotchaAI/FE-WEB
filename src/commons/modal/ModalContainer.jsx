@@ -11,6 +11,7 @@ import AlertModal from "./AlertModal";
 import CodeInputModal from "./CodeInputModal";
 import RoomEnterModal from "./RoomEnterModal";
 import ReportModal from "./ReportModal";
+import ConfirmModal2 from "./ConfirmModal2";
 
 const ModalContainer = () => {
 	const { type, props, onConfirm, onCancel, closeModal } = useModalStore();
@@ -22,6 +23,20 @@ const ModalContainer = () => {
 			case "confirm":
 				return (
 					<ConfirmModal
+						{...props}
+						onConfirm={() => {
+							onConfirm?.();
+							closeModal();
+						}}
+						onCancel={() => {
+							onCancel?.();
+							closeModal();
+						}}
+					/>
+				);
+			case "confirm2":
+				return (
+					<ConfirmModal2
 						{...props}
 						onConfirm={() => {
 							onConfirm?.();

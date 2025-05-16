@@ -1,9 +1,3 @@
-// import ReportModal from "./modals/ReportModal";
-// import AlertModal from "./modals/AlertModal";
-// import ConfirmModal from "./modals/ConfirmModal";
-// import RoomCodeModal from "./modals/RoomCodeModal";
-// import RoomEnterModal from "./modals/RoomEnterModal";
-
 import { useModalStore } from "store/modal";
 import ConfirmModal from "./ConfirmModal";
 import "styles/commons/modal/ModalContainer.scss";
@@ -12,6 +6,7 @@ import CodeInputModal from "./CodeInputModal";
 import RoomEnterModal from "./RoomEnterModal";
 import ReportModal from "./ReportModal";
 import ConfirmModal2 from "./ConfirmModal2";
+import HomeModal from "./HomeModal";
 
 const ModalContainer = () => {
 	const { type, props, onConfirm, onCancel, closeModal } = useModalStore();
@@ -82,7 +77,10 @@ const ModalContainer = () => {
 							onConfirm?.(password);
 							closeModal();
 						}}
-						onClose={closeModal}
+						onClose={() => {
+							onCancel?.();
+							closeModal();
+						}}
 					/>
 				);
 
@@ -94,7 +92,24 @@ const ModalContainer = () => {
 							onConfirm?.(reason);
 							closeModal();
 						}}
-						onClose={closeModal}
+						onClose={() => {
+							onCancel?.();
+							closeModal();
+						}}
+					/>
+				);
+			case "home":
+				return (
+					<HomeModal
+						{...props}
+						onConfirm={() => {
+							onConfirm?.();
+							closeModal();
+						}}
+						onClose={() => {
+							onCancel?.();
+							closeModal();
+						}}
 					/>
 				);
 
@@ -104,7 +119,10 @@ const ModalContainer = () => {
 		}
 	};
 
-	return <div className="modal-backdrop">{renderModal()}</div>;
+	const backdropClassName =
+		type === "home" ? "modal-backdrop-home" : "modal-backdrop-game";
+
+	return <div className={backdropClassName}>{renderModal()}</div>;
 };
 
 export default ModalContainer;

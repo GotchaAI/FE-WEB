@@ -7,6 +7,7 @@
 import { useModalStore } from "store/modal";
 import ConfirmModal from "./ConfirmModal";
 import "styles/commons/modal/ModalContainer.scss";
+import AlertModal from "./AlertModal";
 
 const ModalContainer = () => {
 	const { type, props, onConfirm, onCancel, closeModal } = useModalStore();
@@ -24,6 +25,16 @@ const ModalContainer = () => {
 							closeModal();
 						}}
 						onCancel={() => {
+							onCancel?.();
+							closeModal();
+						}}
+					/>
+				);
+			case "alert":
+				return (
+					<AlertModal
+						{...props}
+						onClose={() => {
 							onCancel?.();
 							closeModal();
 						}}

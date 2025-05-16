@@ -1,0 +1,26 @@
+.alert-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFC466;
+  border: 1px solid #000;
+  border-radius: 12px;
+  width: 410px;
+  height: 94px;
+  justify-content: center;
+  text-align: center;
+
+  .message {
+    font-size: 24px;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 13.7px;
+    right: 14.67px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}

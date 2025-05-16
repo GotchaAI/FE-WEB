@@ -1,0 +1,51 @@
+.code-input-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFC466;
+  border: 1px solid #000;
+  border-radius: 12px;
+  width: 410px;
+  height: 218px;
+  justify-content: center;
+  text-align: center;
+
+  .close {
+    position: absolute;
+    top: 13.7px;
+    right: 14.67px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .code-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 20px;
+
+    input.code-box {
+      width: 66px;
+      height: 66px;
+      font-size: 28px;
+      text-align: center;
+      border: 1px solid #000;
+      border-radius: 12px;
+      outline: none;
+      background-color: #fff;
+    }
+  }
+
+  .confirm-btn {
+    background: none;
+    border: none;
+    font-size: 13px;
+  }
+}

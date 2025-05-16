@@ -7,7 +7,6 @@ export const useModalStore = create((set) => ({
   onCancel: null,        // 취소 콜백
 
   openModal: (type, props = {}, onConfirm, onCancel) => {
-    console.log('[Modal] openModal called:', type, props);
     set({ type, props, onConfirm, onCancel })
   },
 

@@ -8,6 +8,7 @@ import { useModalStore } from "store/modal";
 import ConfirmModal from "./ConfirmModal";
 import "styles/commons/modal/ModalContainer.scss";
 import AlertModal from "./AlertModal";
+import CodeInputModal from "./CodeInputModal";
 
 const ModalContainer = () => {
 	const { type, props, onConfirm, onCancel, closeModal } = useModalStore();
@@ -40,6 +41,22 @@ const ModalContainer = () => {
 						}}
 					/>
 				);
+
+			case "codeInput":
+				return (
+					<CodeInputModal
+						{...props}
+						onConfirm={(code) => {
+							onConfirm?.(code);
+							closeModal();
+						}}
+						onClose={() => {
+							onCancel?.();
+							closeModal();
+						}}
+					/>
+				);
+
 			// 다른 모달도 여기서 분기
 			default:
 				return null;

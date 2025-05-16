@@ -10,7 +10,6 @@ export const useModalStore = create((set) => ({
     set({ type, props, onConfirm, onCancel })
   },
 
-
   closeModal: () =>
     set({ type: null, props: {}, onConfirm: null, onCancel: null }),
 }));

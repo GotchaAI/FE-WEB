@@ -9,6 +9,7 @@ import ConfirmModal from "./ConfirmModal";
 import "styles/commons/modal/ModalContainer.scss";
 import AlertModal from "./AlertModal";
 import CodeInputModal from "./CodeInputModal";
+import RoomEnterModal from "./RoomEnterModal";
 
 const ModalContainer = () => {
 	const { type, props, onConfirm, onCancel, closeModal } = useModalStore();
@@ -54,6 +55,18 @@ const ModalContainer = () => {
 							onCancel?.();
 							closeModal();
 						}}
+					/>
+				);
+
+			case "roomEnter":
+				return (
+					<RoomEnterModal
+						{...props}
+						onConfirm={(password) => {
+							onConfirm?.(password);
+							closeModal();
+						}}
+						onClose={closeModal}
 					/>
 				);
 

@@ -1,0 +1,67 @@
+.player-slot {
+  width: 136px;
+  height: 120px;
+  background-color: #fffef5;
+
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+
+  .slot-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-left: 10px;
+    padding-bottom: 14px;
+
+    .icon-wrapper {
+      width: 24px;
+      height: 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .leader-icon {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .default-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: #89C881;
+        border-radius: 50%;
+        color: white;
+        font-size: 20px;
+      }
+    }
+
+    .nickname {
+      padding-left: 12px;
+      font-size: 16px;
+    }
+  }
+
+  &.empty {
+    background-color: white;
+    background-image: url("~assets/components/lobby/player-slot-blocked.png");
+    background-size: cover;
+
+    .blocked-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background-color: #F3F2F6;
+      border-radius: 50%;
+      color: white;
+      font-size: 20px;
+    }
+  }
+}

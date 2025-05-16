@@ -18,13 +18,13 @@ import { getAuthToken } from "utils/token";
  */
 
 const SignInPage = () => {
-  const errorMessage = useActionData();
+	const errorMessage = useActionData();
 
-  return (
-    <div className="sign-in-page-container">
-      <SignIn errorMessage={errorMessage} />
-    </div>
-  );
+	return (
+		<div className="sign-in-page-container">
+			<SignIn errorMessage={errorMessage} />
+		</div>
+	);
 };
 
 export default SignInPage;
@@ -40,23 +40,23 @@ export default SignInPage;
  * @returns redirect(ROOT_URL) | undefined (로그인 페이지 유지)
  */
 export const loader = async () => {
-  const { accessToken, setAccessToken } = getAuthToken();
+	const { accessToken, setAccessToken } = getAuthToken();
 
-  if (!accessToken) {
-    // 토큰 재발급
-    try {
-      const res = await tokenReissueAPI();
-      const newAccessToken = res.accessToken;
-      const expireTime = res.expiredAt;
-      setAccessToken(newAccessToken, expireTime);
-    } catch (e) {
-      // 토큰 없으면 페이지 유지
-      return;
-    }
-  }
+	if (!accessToken) {
+		// 토큰 재발급
+		try {
+			const res = await tokenReissueAPI();
+			const newAccessToken = res.accessToken;
+			const expireTime = res.expiredAt;
+			setAccessToken(newAccessToken, expireTime);
+		} catch (e) {
+			// 토큰 없으면 페이지 유지
+			return;
+		}
+	}
 
-  // 토큰 없으면 홈페이지 이동
-  return redirect(ROOT_URL);
+	// 토큰 없으면 홈페이지 이동
+	return redirect(ROOT_URL);
 };
 
 /**
@@ -70,34 +70,34 @@ export const loader = async () => {
  * @returns redirect(ROOT_URL) | errorMessage - 리디렉트 응답 또는 에러 메시지
  */
 export const action = async ({ request }) => {
-  const data = await request.formData();
+	const data = await request.formData();
 
-  // 로그인 폼
-  const authForm = {
-    email: data.get("email"),
-    password: data.get("password"),
-    autoSignIn: data.get("autoSignin"),
-  };
+	// 로그인 폼
+	const authForm = {
+		email: data.get("email"),
+		password: data.get("password"),
+		autoSignIn: data.get("autoSignin"),
+	};
 
-  // 로그인 타입(user/guest)
-  const requestType = data.get("sign-in-type");
+	// 로그인 타입(user/guest)
+	const requestType = data.get("sign-in-type");
 
-  // 로그인 API 요청
-  try {
-    const res = await (requestType === "user"
-      ? signInAPI(authForm)
-      : guestSignInAPI());
+	// 로그인 API 요청
+	try {
+		const res = await (requestType === "user"
+			? signInAPI(authForm)
+			: guestSignInAPI());
 
-    const { setAccessToken } = getAuthToken();
-    const accessToken = res.accessToken;
-    const expireTime = res.expiredAt;
+		const { setAccessToken } = getAuthToken();
+		const accessToken = res.accessToken;
+		const expireTime = res.expiredAt;
 
-    // 토큰 저장
-    setAccessToken(accessToken, expireTime);
-    return redirect(ROOT_URL);
-  } catch (e) {
-    // 로그인 에러
-    console.error(e);
-    return SIGN_IN_FAILURE_ERROR_MESSAGE;
-  }
+		// 토큰 저장
+		setAccessToken(accessToken, expireTime);
+		return redirect(ROOT_URL);
+	} catch (e) {
+		// 로그인 에러
+		console.error(e);
+		return SIGN_IN_FAILURE_ERROR_MESSAGE;
+	}
 };

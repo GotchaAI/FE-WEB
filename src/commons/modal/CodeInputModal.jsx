@@ -48,7 +48,6 @@ const CodeInputModal = ({ title, onConfirm, onClose }) => {
             onChange={(e) => handleChange(e.target.value, idx)}
             onKeyDown={(e) => handleKeyDown(e, idx)}
             maxLength={1}
-            inputMode="numeric"
             type="text"
           />
         ))}

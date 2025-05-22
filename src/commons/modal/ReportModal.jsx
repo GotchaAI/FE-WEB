@@ -1,9 +1,12 @@
 import CloseIcon from "commons/svgs/XIcon";
 import { REPORT_REASONS } from "constants/reportReasons";
 import { useState } from "react";
+import { useModalStore } from "store/modal";
 import "styles/commons/modal/ReportModal.scss";
 
-const ReportModal = ({ reportedUser, onConfirm, onClose }) => {
+const ReportModal = ({ reportedUser, onConfirm }) => {
+  const closeModal = useModalStore((state) => state.closeModal);
+
   const [selected, setSelected] = useState("");
   const [etcReason, setEtcReason] = useState("");
 
@@ -21,7 +24,7 @@ const ReportModal = ({ reportedUser, onConfirm, onClose }) => {
 
   return (
     <div className="report-modal">
-      <div className="close-btn" onClick={onClose}>
+      <div className="close-btn" onClick={closeModal}>
         <CloseIcon />
       </div>
       <div className="title">채팅 신고</div>

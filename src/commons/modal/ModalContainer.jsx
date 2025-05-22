@@ -8,7 +8,7 @@ import ConfirmModal2 from "commons/modal/ConfirmModal2";
 import HomeModal from "commons/modal/HomeModal";
 
 const ModalContainer = () => {
-  const { type, props, onConfirm, onCancel, closeModal } = useModalStore();
+  const { type, props, onConfirm, closeModal } = useModalStore();
 
   if (!type) return null;
 
@@ -22,10 +22,6 @@ const ModalContainer = () => {
               onConfirm?.();
               closeModal();
             }}
-            onCancel={() => {
-              onCancel?.();
-              closeModal();
-            }}
           />
         );
       case "confirm2":
@@ -34,10 +30,6 @@ const ModalContainer = () => {
             {...props}
             onConfirm={() => {
               onConfirm?.();
-              closeModal();
-            }}
-            onCancel={() => {
-              onCancel?.();
               closeModal();
             }}
           />
@@ -51,10 +43,6 @@ const ModalContainer = () => {
               onConfirm?.(code);
               closeModal();
             }}
-            onClose={() => {
-              onCancel?.();
-              closeModal();
-            }}
           />
         );
 
@@ -64,10 +52,6 @@ const ModalContainer = () => {
             {...props}
             onConfirm={(password) => {
               onConfirm?.(password);
-              closeModal();
-            }}
-            onClose={() => {
-              onCancel?.();
               closeModal();
             }}
           />
@@ -81,10 +65,6 @@ const ModalContainer = () => {
               onConfirm?.(reason);
               closeModal();
             }}
-            onClose={() => {
-              onCancel?.();
-              closeModal();
-            }}
           />
         );
       case "home":
@@ -93,10 +73,6 @@ const ModalContainer = () => {
             {...props}
             onConfirm={() => {
               onConfirm?.();
-              closeModal();
-            }}
-            onClose={() => {
-              onCancel?.();
               closeModal();
             }}
           />

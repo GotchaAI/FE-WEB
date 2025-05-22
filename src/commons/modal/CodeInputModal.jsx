@@ -1,9 +1,11 @@
 import CloseIcon from "commons/svgs/XIcon";
 import { useEffect, useRef, useState } from "react";
+import { useModalStore } from "store/modal";
 import "styles/commons/modal/CodeInputModal.scss";
 import { isOneDigitNumber } from "utils/validation";
 
-const CodeInputModal = ({ title, onConfirm, onClose }) => {
+const CodeInputModal = ({ title, onConfirm }) => {
+  const closeModal = useModalStore((state) => state.closeModal);
   const [code, setCode] = useState(["", "", "", ""]);
   const inputRefs = useRef([]);
 
@@ -38,7 +40,7 @@ const CodeInputModal = ({ title, onConfirm, onClose }) => {
 
   return (
     <div className="code-input-modal">
-      <button className="close" onClick={onClose}>
+      <button className="close" onClick={closeModal}>
         <CloseIcon />
       </button>
       <div className="title">{title}</div>

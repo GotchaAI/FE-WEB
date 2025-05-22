@@ -1,11 +1,11 @@
 import { useModalStore } from "store/modal";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "commons/modal/ConfirmModal";
 import "styles/commons/modal/ModalContainer.scss";
-import CodeInputModal from "./CodeInputModal";
-import RoomEnterModal from "./RoomEnterModal";
-import ReportModal from "./ReportModal";
-import ConfirmModal2 from "./ConfirmModal2";
-import HomeModal from "./HomeModal";
+import CodeInputModal from "commons/modal/CodeInputModal";
+import RoomEnterModal from "commons/modal/RoomEnterModal";
+import ReportModal from "commons/modal/ReportModal";
+import ConfirmModal2 from "commons/modal/ConfirmModal2";
+import HomeModal from "commons/modal/HomeModal";
 
 const ModalContainer = () => {
   const { type, props, onConfirm, onCancel, closeModal } = useModalStore();

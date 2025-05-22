@@ -45,7 +45,11 @@ const ReportModal = ({ reportedUser, onConfirm, onClose }) => {
 
       <textarea
         className="etc-input"
-        placeholder="추가로 입력하고싶은 사항을 작성해주세요."
+        placeholder={
+          selected === "기타"
+            ? "기타 항목 선택 시 사유 입력이 필요합니다."
+            : "추가로 입력하고 싶은 사항을 작성해주세요."
+        }
         value={etcReason}
         onChange={(e) => setEtcReason(e.target.value)}
       />

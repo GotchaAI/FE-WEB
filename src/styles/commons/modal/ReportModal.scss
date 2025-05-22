@@ -66,6 +66,10 @@
     font-size: 12px;
     margin-bottom: 20px;
     resize: none;
+
+    &::placeholder {
+      font-size: 12px;
+    }
   }
 
   .submit-btn {

@@ -1,0 +1,51 @@
+.waiting-room-container {
+  display: flex;
+  flex-direction: column;
+  width: 599px;
+  height: 408px;
+  padding-left: 35px;
+  padding-top: 17px;
+
+  .room-info-header {
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0;
+  }
+
+  .player-grid {
+    width: 549px;
+    display: grid;
+    grid-template-columns: repeat(4, 136px);
+    gap: 1px;
+    background-color: #000;
+    margin-top: 12px;
+    border: 1px solid black;
+  }
+
+  .settings-start {
+    display: flex;
+    width: 544px;
+    height: 100%;
+    margin-top: 24px;
+    gap: 114.67px;
+
+    .difficulty-selector {
+      width: 79.33;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 8px;
+
+      .label {
+        color: #89c881;
+        font-size: 12px;
+      }
+
+      .checkbox-options {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+
+  }
+}

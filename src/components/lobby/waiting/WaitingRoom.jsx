@@ -1,11 +1,64 @@
+import { useState } from "react";
 import "styles/components/lobby/waiting/WaitingRoom.scss";
+import PlayerSlot from "./PlayerSlot";
+import CheckBox from "commons/svgs/CheckBox";
+import GameStartButton from "commons/svgs/GameStartButton";
 
 const WaitingRoom = () => {
-  return (
-    <div className="waiting-room-container">
-      <div className="waiting-room-layout"></div>
-    </div>
-  );
+	const players = [
+		{ nickname: "빙구", isLeader: true, ready: false },
+		{ nickname: "엉덩이", isLeader: false, ready: false },
+		{ nickname: "공동이탐정", isLeader: false, ready: true },
+		{ nickname: "...", isLeader: false, ready: false },
+	];
+
+	const [selectedDifficulty, setSelectedDifficulty] = useState("초보");
+
+	return (
+		<div className="waiting-room-container">
+			<h2 className="room-info-header">
+				#9804 &nbsp; 성인만/19/여기보통 뭐적지? /19시출
+			</h2>
+
+			<div className="player-grid">
+				{Array.from({ length: 8 }, (_, i) => (
+					<PlayerSlot
+						key={players[i]?.nickname ?? `empty-${i}`}
+						index={i}
+						player={players[i]}
+					/>
+				))}
+			</div>
+
+			<div className="settings-start">
+				<div className="difficulty-selector">
+					<span className="label">로봇 성능</span>
+
+					<div className="checkbox-options">
+						<CheckBox
+							label="초보"
+							checked={selectedDifficulty === "초보"}
+							onChange={() => setSelectedDifficulty("초보")}
+						/>
+						<CheckBox
+							label="고수"
+							checked={selectedDifficulty === "고수"}
+							onChange={() => setSelectedDifficulty("고수")}
+						/>
+						<CheckBox
+							label="신"
+							checked={selectedDifficulty === "신"}
+							onChange={() => setSelectedDifficulty("신")}
+						/>
+					</div>
+				</div>
+
+				<div className="start-btn-wrapper">
+					<GameStartButton />
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default WaitingRoom;

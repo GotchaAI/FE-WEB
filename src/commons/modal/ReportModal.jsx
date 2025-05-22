@@ -26,7 +26,7 @@ const ReportModal = ({ reportedUser, onConfirm, onClose }) => {
       </div>
       <div className="title">채팅 신고</div>
 
-      <button className="reported-user">{reportedUser}</button>
+      <div className="reported-user">{reportedUser}</div>
 
       <div className="reason-box">
         {REPORT_REASONS.map((reason) => (

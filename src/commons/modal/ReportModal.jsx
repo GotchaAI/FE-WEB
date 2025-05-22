@@ -1,14 +1,7 @@
 import CloseIcon from "commons/svgs/XIcon";
+import { REPORT_REASONS } from "constants/reportReasons";
 import { useState } from "react";
 import "styles/commons/modal/ReportModal.scss";
-
-const reportReasons = [
-  "욕설",
-  "혐오 발언",
-  "불쾌감을 주거나 부적절한 이름",
-  "도배",
-  "기타",
-];
 
 const ReportModal = ({ reportedUser, onConfirm, onClose }) => {
   const [selected, setSelected] = useState("");
@@ -36,7 +29,7 @@ const ReportModal = ({ reportedUser, onConfirm, onClose }) => {
       <button className="reported-user">{reportedUser}</button>
 
       <div className="reason-box">
-        {reportReasons.map((reason) => (
+        {REPORT_REASONS.map((reason) => (
           <label key={reason} className="reason-option">
             <input
               type="radio"

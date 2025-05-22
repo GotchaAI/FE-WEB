@@ -5,10 +5,22 @@ import CodeInputModal from "commons/modal/CodeInputModal";
 import RoomEnterModal from "commons/modal/RoomEnterModal";
 import ReportModal from "commons/modal/ReportModal";
 import ConfirmModal2 from "commons/modal/ConfirmModal2";
-import HomeModal from "commons/modal/HomeModal";
+import HomeModal from "commons/modal/home/HomeModal";
+import { useEffect } from "react";
 
 const ModalContainer = () => {
   const { type, props, onConfirm, closeModal } = useModalStore();
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [closeModal]);
 
   if (!type) return null;
 
@@ -87,7 +99,11 @@ const ModalContainer = () => {
   const backdropClassName =
     type === "home" ? "modal-backdrop-home" : "modal-backdrop-game";
 
-  return <div className={backdropClassName}>{renderModal()}</div>;
+  return (
+    <div className={backdropClassName} onClick={closeModal}>
+      <div onClick={(e) => e.stopPropagation()}>{renderModal()}</div>
+    </div>
+  );
 };
 
 export default ModalContainer;

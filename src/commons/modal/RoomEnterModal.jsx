@@ -1,6 +1,7 @@
 import CloseIcon from "commons/svgs/XIcon";
 import { useState } from "react";
 import "styles/commons/modal/RoomEnterModal.scss";
+import { isNumeric } from "utils/validation";
 
 const RoomEnterModal = ({
   roomType,
@@ -10,6 +11,13 @@ const RoomEnterModal = ({
   onClose,
 }) => {
   const [password, setPassword] = useState("");
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    if (isNumeric(value)) {
+      setPassword(value);
+    }
+  };
 
   const handleEnter = () => {
     if (password.length > 0) {
@@ -38,7 +46,7 @@ const RoomEnterModal = ({
         type="password"
         placeholder="Password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={handlePasswordChange}
         className="password-input"
       />
 

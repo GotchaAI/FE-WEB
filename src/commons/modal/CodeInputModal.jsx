@@ -1,5 +1,5 @@
 import CloseIcon from "commons/svgs/XIcon";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "styles/commons/modal/CodeInputModal.scss";
 import { isOneDigitNumber } from "utils/validation";
 
@@ -7,8 +7,12 @@ const CodeInputModal = ({ title, onConfirm, onClose }) => {
   const [code, setCode] = useState(["", "", "", ""]);
   const inputRefs = useRef([]);
 
+  useEffect(() => {
+    inputRefs.current[0]?.focus();
+  }, []);
+
   const handleChange = (value, index) => {
-    if (!isOneDigitNumber) return; // 숫자 1자리만 허용
+    if (!isOneDigitNumber(value)) return; // 숫자 1자리만 허용
 
     const newCode = [...code];
     newCode[index] = value;

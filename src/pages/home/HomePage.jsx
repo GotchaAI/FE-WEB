@@ -38,10 +38,22 @@ const HomePage = () => {
   useEffect(() => {
     if (navType === "notice") {
       // 공지사항 더미 데이터
-      setData(["공지 1", "공지 2", "공지 3"]);
+      setData([
+        { title: "상대방에게 욕설, 비난이 담긴 채팅 신고", date: "2025.06.21" },
+        { title: "2025. 07. 21 업데이트 안내", date: "2025.06.21" },
+        { title: "AI 업그레이드 안내", date: "2025.06.21" },
+        { title: "2026. 08. 21 점검 안내", date: "2025.06.21" },
+        { title: "상대방에게 욕설, 비난이 담긴 채팅 신고", date: "2025.06.21" },
+      ]);
     } else if (navType === "help") {
       // 고객센터 더미 데이터
-      setData(["문의 1", "문의 2", "문의 3"]);
+      setData([
+        { title: "게임이 실행되지 않아요0", date: "2025.06.21" },
+        { title: "게임이 실행되지 않아요1", date: "2025.06.21" },
+        { title: "게임이 실행되지 않아요2", date: "2025.06.21" },
+        { title: "게임이 실행되지 않아요3", date: "2025.06.21" },
+        { title: "게임이 실행되지 않아요4", date: "2025.06.21" },
+      ]);
     }
   }, [navType]);
 
@@ -87,22 +99,29 @@ const HomePage = () => {
           <div className="information-type-container">
             <Link
               to="?type=notice"
-              className={`a-btn ${navType === "notice" ? "active" : ""}`}
+              className={`information-type-button ${
+                navType === "notice" ? "active" : ""
+              }`}
             >
               공지사항
             </Link>
             <Link
               to="?type=help"
-              className={`b-btn ${navType === "help" ? "active" : ""}`}
+              className={`information-type-button ${
+                navType === "help" ? "active" : ""
+              }`}
             >
               고객센터
             </Link>
           </div>
-          <div className="information-content-layout">
+          <ul className="information-content-layout">
             {data.map((item, idx) => (
-              <p key={idx}>{item}</p>
+              <li key={`${item.title}-${idx}`} className="info-item">
+                <span className="title">{item.title}</span>
+                <span className="date">{item.date}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import intro_msg from "assets/intro-msg.png";
 import rabbitBot from "assets/rabbit-bot.png";
 import rabbit from "assets/rabbit-hand-up.png";
 import StartButton from "commons/svgs/StartButton";
+import { InformationContainer } from "components/home/InformationContainer";
 import {
   ANNOUNCE_URL,
   CHARACTER_INTRO_URL,
@@ -114,14 +115,7 @@ const HomePage = () => {
               고객센터
             </Link>
           </div>
-          <ul className="information-content-layout">
-            {data.map((item, idx) => (
-              <li key={`${item.title}-${idx}`} className="info-item">
-                <span className="title">{item.title}</span>
-                <span className="date">{item.date}</span>
-              </li>
-            ))}
-          </ul>
+          <InformationContainer data={data} />
         </div>
       </div>
     </div>

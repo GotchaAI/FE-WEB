@@ -4,6 +4,7 @@ import rabbitBot from "assets/rabbit-bot.png";
 import rabbit from "assets/rabbit-hand-up.png";
 import StartButton from "commons/svgs/StartButton";
 import { InformationContainer } from "components/home/InformationContainer";
+import { RankingPreview } from "components/home/RankingPreview";
 import {
   ANNOUNCE_URL,
   CHARACTER_INTRO_URL,
@@ -23,6 +24,19 @@ import {
 import { tokenReissueAPI } from "services/auth/auth";
 import "styles/pages/home/HomePage.scss";
 import { getAuthToken } from "utils/token";
+
+const rankingData = [
+  { username: "Player1", score: 1000 },
+  { username: "Player2", score: 900 },
+  { username: "Player3", score: 800 },
+  { username: "Player4", score: 700 },
+  { username: "Player5", score: 600 },
+  { username: "Player6", score: 500 },
+  { username: "Player7", score: 400 },
+  { username: "Player8", score: 300 },
+  { username: "Player9", score: 200 },
+  { username: "Player10", score: 100 },
+];
 
 const HomePage = () => {
   const { isSignIn } = useLoaderData();
@@ -115,7 +129,10 @@ const HomePage = () => {
           </Link>
         </div>
         <InformationContainer data={data} />
-        <div className="bottom-container"></div>
+        <div className="bottom-container">
+          <RankingPreview rankingData={rankingData} />
+          <RankingPreview rankingData={rankingData} />
+        </div>
       </div>
     </div>
   );

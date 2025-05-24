@@ -96,27 +96,26 @@ const HomePage = () => {
       </div>
 
       <div className="home-scroll-section">
-        <div className="content-wrapper">
-          <div className="information-type-container">
-            <Link
-              to="?type=notice"
-              className={`information-type-button ${
-                navType === "notice" ? "active" : ""
-              }`}
-            >
-              공지사항
-            </Link>
-            <Link
-              to="?type=help"
-              className={`information-type-button ${
-                navType === "help" ? "active" : ""
-              }`}
-            >
-              고객센터
-            </Link>
-          </div>
-          <InformationContainer data={data} />
+        <div className="information-type-container">
+          <Link
+            to="?type=notice"
+            className={`information-type-button ${
+              navType === "notice" ? "active" : ""
+            }`}
+          >
+            공지사항
+          </Link>
+          <Link
+            to="?type=help"
+            className={`information-type-button ${
+              navType === "help" ? "active" : ""
+            }`}
+          >
+            고객센터
+          </Link>
         </div>
+        <InformationContainer data={data} />
+        <div className="bottom-container"></div>
       </div>
     </div>
   );

@@ -16,13 +16,13 @@ export const character_info = [
     svg: <Ruru />,
   },
   {
-    characterName: "왁왁왁",
+    characterName: "왁왁",
     description: "악어족의 귀요미왁. 악어족의 마지막 생존자다.",
     svg: <Wagwak />,
   },
   {
     characterName: "봉봉",
-    description: "꽥꽥? 꽥꽥",
+    description: "꽥꽥? 꽥꽥... 꽥꽥꽥꽥!!!!!",
     svg: <Bongvong />,
   },
   {

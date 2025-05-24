@@ -1,0 +1,76 @@
+.character-introduce-preview-container {
+  display: flex;
+  flex-direction: column;
+  width: 630px;
+  height: 559px;
+  border-radius: 12px;
+  border: 2px solid black;
+  background-color: #F4EC6F;
+  padding: 45px 73px 0 73px;
+
+  .character-introduce-header{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    h2 {
+        font-size: 36px;
+        font-family: 'YoonChild';
+    }
+  }
+  .character-introduce-main-header{
+    display: flex;
+    align-items: center;
+    justify-self: center;
+  }
+  .character-introduce-main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity 0.5s ease;
+    opacity: 1;
+
+    &.fade-out {
+      opacity: 0;
+    }
+
+    &.fade-in {
+      opacity: 1;
+    }
+
+    .character-svg {
+      max-width: 270px;
+      height: auto;
+      margin-bottom: 20px;
+        svg {
+          width: 100%;
+        height: 100%;
+      }
+    }
+
+    .character-info {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      bottom: 100px;
+      width: 500px;
+      height: 64px;
+      padding: 17px 34px 17px 34px;
+      gap:34px;
+      font-family: 'SUIT-Regular';
+
+      h2 {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      h3 {
+        font-size: 24px;
+      }
+    }
+  } 
+}

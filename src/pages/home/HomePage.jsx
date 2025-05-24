@@ -4,6 +4,7 @@ import rabbitBot from "assets/rabbit-bot.png";
 import rabbit from "assets/rabbit-hand-up.png";
 import StartButton from "commons/svgs/StartButton";
 import { InformationContainer } from "components/home/InformationContainer";
+import IntroduceCharacterPreview from "components/home/IntroduceCharacterPreview";
 import { RankingPreview } from "components/home/RankingPreview";
 import {
   ANNOUNCE_URL,
@@ -131,7 +132,7 @@ const HomePage = () => {
         <InformationContainer data={data} />
         <div className="bottom-container">
           <RankingPreview rankingData={rankingData} />
-          <RankingPreview rankingData={rankingData} />
+          <IntroduceCharacterPreview />
         </div>
       </div>
     </div>

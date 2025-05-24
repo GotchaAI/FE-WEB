@@ -1,0 +1,91 @@
+.ranking-preview-conatiner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 630px;
+  height: 559px;
+  border-radius: 12px;
+  border: 2px solid black;
+  background-color: #FBFFEC;
+  padding: 64px 73px 64px 73px;
+
+  h2 {
+    font-size: 36px;
+    font-family: 'YoonChild';
+  }
+
+  .ranking-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: 'SUIT-regular';
+    font-size: 32px;
+
+    .ranking-item {
+      display: flex;
+      padding-left: 15px;
+      margin-bottom: 27px;
+
+      .dots {
+        flex: 1;
+        height: 1px;
+        border-bottom: 6px dashed #999;
+        margin: 0 8px;
+        transform: translateY(20px); // 점선 살짝 위로
+      }
+
+      .score {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .my-score-container {
+    display: flex;
+    padding-left: 15px;
+    margin-bottom: 27px;
+    font-size: 32px;
+
+    .my-score-header {
+      font-weight: bold;
+    }
+
+    .my-score-dots {
+      flex: 1;
+      height: 1px;
+      border-bottom: 6px dashed #F6AA30;
+      margin: 0 8px;
+      transform: translateY(22px);
+    }
+
+    .my-score-box {
+      display: flex;
+    }
+
+    .my-score-background {
+      display: inline-flex;
+      align-items: center;
+      background-color: #F6D74E;
+      margin: 0px;
+      top: 11px;
+      position: relative;
+      height: 28px;
+      padding-right: 27px;
+    }
+
+    .my-score-edge {
+      width: 9px;
+      height: 100%;
+      background-color: #EABC44;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    .my-score {
+      font-weight: bold;
+      font-size: 27px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+  }
+}

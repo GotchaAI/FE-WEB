@@ -20,7 +20,7 @@ const CountdownToast = () => {
   }, [frame]);
 
   return (
-    <div className="countdown-toast-wrapper">
+    <div className="countdown-toast-container">
       <img
         src={frames[frame]}
         alt={`countdown-${3 - frame}`}

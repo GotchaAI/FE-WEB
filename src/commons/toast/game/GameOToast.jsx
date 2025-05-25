@@ -3,8 +3,8 @@ import "styles/commons/toast/game/GameOXToast.scss";
 
 const GameOToast = () => {
   return (
-    <div className="ox-toast-wrapper">
-      <img src={gameO} alt="O" className="ox-image" />
+    <div className="ox-toast-container">
+      <img src={gameO} alt="정답" className="ox-image" />
     </div>
   );
 };

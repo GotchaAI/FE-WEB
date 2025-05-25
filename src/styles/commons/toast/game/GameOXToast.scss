@@ -1,7 +1,8 @@
-.ox-toast-wrapper {
+.ox-toast-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 .ox-image {
@@ -9,5 +10,4 @@
   max-width: 210.93px;
   height: auto;
   margin-top: 110px;
-  user-select: none;
 }

@@ -1,12 +1,12 @@
-.timeover-toast-wrapper {
+.timeover-toast-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 .timeover-image {
   width: 100%;
   max-width: 702px;
   height: auto;
-  user-select: none;
 }

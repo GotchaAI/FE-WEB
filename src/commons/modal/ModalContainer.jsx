@@ -1,10 +1,10 @@
 import { useModalStore } from "store/modal";
-import ConfirmModal from "commons/modal/ConfirmModal";
+import ConfirmModal from "commons/modal/lobby/ConfirmModal";
 import "styles/commons/modal/ModalContainer.scss";
-import CodeInputModal from "commons/modal/CodeInputModal";
-import RoomEnterModal from "commons/modal/RoomEnterModal";
-import ReportModal from "commons/modal/ReportModal";
-import ConfirmModal2 from "commons/modal/ConfirmModal2";
+import CodeInputModal from "commons/modal/lobby/CodeInputModal";
+import RoomEnterModal from "commons/modal/lobby/RoomEnterModal";
+import ReportModal from "commons/modal/lobby/ReportModal";
+import ConfirmModal2 from "commons/modal/lobby/ConfirmModal2";
 import HomeModal from "commons/modal/home/HomeModal";
 import { useEffect } from "react";
 

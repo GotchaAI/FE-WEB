@@ -2,6 +2,7 @@ import { useToastStore } from "store/toast";
 import AlertToast from "./AlertToast";
 import "styles/commons/toast/ToastContainer.scss";
 import GameAlertToast from "./game/GameAlertToast";
+import TimeOverToast from "./game/TimeOverToast";
 
 const ToastContainer = () => {
   const toasts = useToastStore((state) => state.toasts);
@@ -14,8 +15,8 @@ const ToastContainer = () => {
         return <AlertToast key={index} message={message} />;
       case "gamealert":
         return <GameAlertToast key={index} message={message} />;
-      case "info":
-      // return <ToastInfo key={index} message={message} />;
+      case "timeover":
+        return <TimeOverToast key={index} />;
       default:
         return null;
     }

@@ -1,0 +1,13 @@
+.timeover-toast-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.timeover-image {
+  width: 100%;
+  max-width: 600px; // 💡 원하는 크기 조절
+  height: auto;
+  user-select: none;
+}

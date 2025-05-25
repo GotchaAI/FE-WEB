@@ -12,20 +12,20 @@ const ToastContainer = () => {
 
   if (!toasts || toasts.length === 0) return null;
 
-  const renderToast = (type, message, index) => {
+  const renderToast = (type, message, id) => {
     switch (type) {
       case "alert":
-        return <AlertToast key={index} message={message} />;
+        return <AlertToast key={id} message={message} />;
       case "gamealert":
-        return <GameAlertToast key={index} message={message} />;
+        return <GameAlertToast key={id} message={message} />;
       case "timeover":
-        return <TimeOverToast key={index} />;
+        return <TimeOverToast key={id} />;
       case "gameX":
-        return <GameXToast key={index} />;
+        return <GameXToast key={id} />;
       case "gameO":
-        return <GameOToast key={index} />;
+        return <GameOToast key={id} />;
       case "countdown":
-        return <CountdownToast key={index} />;
+        return <CountdownToast key={id} />;
       default:
         return null;
     }
@@ -39,8 +39,8 @@ const ToastContainer = () => {
 
   return (
     <div className={backdropClassName}>
-      {(toasts || []).map((toast, index) =>
-        renderToast(toast.type, toast.message, index)
+      {(toasts || []).map((toast) =>
+        renderToast(toast.type, toast.message, toast.id)
       )}
     </div>
   );

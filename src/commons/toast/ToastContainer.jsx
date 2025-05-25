@@ -1,5 +1,5 @@
 import { useToastStore } from "store/toast";
-import DefaultToast from "./DefaultToast";
+import AlertToast from "./AlertToast";
 import "styles/commons/toast/ToastContainer.scss";
 
 const ToastContainer = () => {
@@ -9,8 +9,8 @@ const ToastContainer = () => {
 
   const renderToast = (type, message, index) => {
     switch (type) {
-      case "default":
-        return <DefaultToast key={index} message={message} />;
+      case "alert":
+        return <AlertToast key={index} message={message} />;
       case "error":
       // return <ToastError key={index} message={message} />;
       case "info":

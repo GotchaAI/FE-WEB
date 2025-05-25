@@ -8,6 +8,8 @@ import {
 import { Link, useLoaderData } from "react-router-dom";
 import logo from "assets/commons/home-logo.png";
 import Profile from "pages/home/Profile";
+import "styles/components/home/HomeHeader.scss";
+
 export const HomeHeader = () => {
   const { isSignIn } = useLoaderData();
   return (

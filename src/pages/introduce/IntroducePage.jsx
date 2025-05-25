@@ -4,45 +4,34 @@ import { getAuthToken } from "utils/token";
 import "styles/pages/introduce/IntroducePage.scss";
 import intro_logo from "assets/components/introduce/character-intro.png";
 import { character_info } from "constants/characterIntroduce";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 const IntroducePage = () => {
-  const [chooseCharacter, setChooseCharacter] = useState("");
+  const [chooseCharacter, setChooseCharacter] = useState("루루");
   const characterRefs = useRef({});
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const centerY = window.innerHeight / 2;
+  const handleOnclick = (characterName) => {
+    const target = characterRefs.current[characterName];
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
 
-      let closest = {
-        characterName: "",
-        distance: Infinity,
-      };
+      setTimeout(() => {
+        setChooseCharacter("루루");
+      }, 500);
+    }
+  };
+  const getCharacterBoxClassName = (character, chooseCharacter) => {
+    const isActive = chooseCharacter === character.characterName;
+    const isEven = character.index % 2 === 0;
 
-      character_info.forEach((character) => {
-        const ref = characterRefs.current[character.characterName];
-        if (ref) {
-          const rect = ref.getBoundingClientRect();
-          const boxCenterY = rect.top + rect.height / 2;
-          const distance = Math.abs(centerY - boxCenterY);
-
-          if (distance < closest.distance) {
-            closest = {
-              characterName: character.characterName,
-              distance,
-            };
-          }
-        }
-      });
-
-      if (closest.characterName && closest.characterName !== chooseCharacter) {
-        setChooseCharacter(closest.characterName);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [chooseCharacter]);
+    return [
+      "introduce-character-box",
+      isActive && "active",
+      isEven ? "left" : "right",
+    ]
+      .filter(Boolean)
+      .join(" ");
+  };
 
   return (
     <div className="introduce-page-container">
@@ -60,16 +49,7 @@ const IntroducePage = () => {
               className={`introduce-choose-button ${
                 chooseCharacter === character.characterName ? "active" : ""
               }`}
-              onClick={() => {
-                setChooseCharacter(character.characterName);
-                const target = characterRefs.current[character.characterName];
-                if (target) {
-                  target.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center",
-                  });
-                }
-              }}
+              onClick={() => handleOnclick(character.characterName)}
             >
               {character.characterName}
             </button>
@@ -82,9 +62,7 @@ const IntroducePage = () => {
           <div
             key={character.index}
             ref={(el) => (characterRefs.current[character.characterName] = el)}
-            className={`introduce-character-box ${
-              chooseCharacter === character.characterName ? "active" : ""
-            } ${character.index % 2 === 0 ? "left" : "right"}`}
+            className={getCharacterBoxClassName(character, chooseCharacter)}
           >
             {character.svg}
             <img

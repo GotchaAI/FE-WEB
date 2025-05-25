@@ -16,12 +16,7 @@ import {
 } from "constants/url";
 import Profile from "pages/home/Profile";
 import { useEffect, useState } from "react";
-import {
-  Link,
-  useLoaderData,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { tokenReissueAPI } from "services/auth/auth";
 import "styles/pages/home/HomePage.scss";
 import { getAuthToken } from "utils/token";
@@ -43,8 +38,7 @@ const HomePage = () => {
   const { isSignIn } = useLoaderData();
   const navigate = useNavigate();
 
-  const [searchParams] = useSearchParams();
-  const navType = searchParams.get("type") || "notice";
+  const [navType, setNavType] = useState("notice"); // 상태로 관리
 
   const handleStartBtn = () => {
     navigate(LOBBY_URL);
@@ -64,11 +58,31 @@ const HomePage = () => {
     } else if (navType === "help") {
       // 고객센터 더미 데이터
       setData([
-        { title: "게임이 실행되지 않아요0", date: "2025.06.21" },
-        { title: "게임이 실행되지 않아요1", date: "2025.06.21" },
-        { title: "게임이 실행되지 않아요2", date: "2025.06.21" },
-        { title: "게임이 실행되지 않아요3", date: "2025.06.21" },
-        { title: "게임이 실행되지 않아요4", date: "2025.06.21" },
+        {
+          title: "게임이 실행되지 않아요0",
+          date: "2025.06.21",
+          answered: true,
+        },
+        {
+          title: "게임이 실행되지 않아요1",
+          date: "2025.06.21",
+          answered: false,
+        },
+        {
+          title: "게임이 실행되지 않아요2",
+          date: "2025.06.21",
+          answered: true,
+        },
+        {
+          title: "게임이 실행되지 않아요3",
+          date: "2025.06.21",
+          answered: false,
+        },
+        {
+          title: "게임이 실행되지 않아요4",
+          date: "2025.06.21",
+          answered: true,
+        },
       ]);
     }
   }, [navType]);
@@ -112,24 +126,24 @@ const HomePage = () => {
 
       <div className="home-scroll-section">
         <div className="information-type-container">
-          <Link
-            to="?type=notice"
+          <button
             className={`information-type-button ${
               navType === "notice" ? "active" : ""
             }`}
+            onClick={() => setNavType("notice")}
           >
             공지사항
-          </Link>
-          <Link
-            to="?type=help"
+          </button>
+          <button
             className={`information-type-button ${
               navType === "help" ? "active" : ""
             }`}
+            onClick={() => setNavType("help")}
           >
             고객센터
-          </Link>
+          </button>
         </div>
-        <InformationContainer data={data} />
+        <InformationContainer data={data} navType={navType} />
         <div className="bottom-container">
           <RankingPreview rankingData={rankingData} />
           <IntroduceCharacterPreview />

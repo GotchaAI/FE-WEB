@@ -1,0 +1,29 @@
+.confirm-modal {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFC466;
+  border: 1px solid #000;
+  border-radius: 12px;
+  width: 410px;
+  height: 124px;
+  justify-content: center;
+  text-align: center;
+
+  .message {
+    font-size: 24px;
+    margin-bottom: 18px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 27px;
+    font-size: 13px;
+
+    button {
+      background: none;
+      border: none;
+      font-size: 13px;
+    }
+  }
+}

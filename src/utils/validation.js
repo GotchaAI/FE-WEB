@@ -18,3 +18,7 @@ export const isBlank = (value) => {
 export const isValidNickname = (nickname) => {
   return /^[가-힣a-zA-Z0-9]{2,6}$/.test(nickname);
 }
+
+export const isOneDigitNumber = (value) => /^\d?$/.test(value);
+
+export const isNumeric = (value) => /^\d*$/.test(value);

@@ -28,10 +28,11 @@ const ToastContainer = () => {
     }
   };
 
-  const backdropClassName =
-    toasts[0]?.type === "alert"
-      ? "toast-backdrop-default"
-      : "toast-backdrop-game";
+  const darkTypes = ["gamealert", "timeover", "gameX", "gameO"];
+
+  const backdropClassName = darkTypes.includes(toasts[0]?.type)
+    ? "toast-backdrop-dark"
+    : "toast-backdrop-none";
 
   return (
     <div className={backdropClassName}>

@@ -11,7 +11,7 @@ export const character_info = [
     detail:
       "어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고",
     svg: <Myoumoy />,
-    background: "assets/components/home/introduce/MyoumyoBackground.png",
+    background: "assets/components/introduce/MyoumyoBackground.png",
   },
   {
     characterName: "루루",
@@ -19,7 +19,7 @@ export const character_info = [
     detail:
       "어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고",
     svg: <Ruru />,
-    background: "assets/components/home/introduce/RuruBackground.png",
+    background: "assets/components/introduce/RuruBackground.png",
   },
   {
     characterName: "왁왁",
@@ -27,7 +27,7 @@ export const character_info = [
     detail:
       "어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고",
     svg: <Wagwak />,
-    background: "assets/components/home/introduce/WagwakBackground.png",
+    background: "assets/components/introduce/WagwakBackground.png",
   },
   {
     characterName: "봉봉",
@@ -35,7 +35,7 @@ export const character_info = [
     detail:
       "어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고",
     svg: <Bongvong />,
-    background: "assets/components/home/introduce/BongvongBackground.png",
+    background: "assets/components/introduce/BongvongBackground.png",
   },
   {
     characterName: "북북",
@@ -43,6 +43,6 @@ export const character_info = [
     detail:
       "어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고",
     svg: <Bukbook />,
-    background: "assets/components/home/introduce/BukbookBackground.png",
+    background: "assets/components/introduce/BukbookBackground.png",
   },
 ];

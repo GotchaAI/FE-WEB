@@ -46,8 +46,15 @@
     margin-bottom: 10px;
 
     .host-line {
+      display: flex;
+      justify-content: center;
       margin-top: 16px;
       font-size: 16px;
+
+      .leader-icon {
+        width: 24px;
+        height: 24px;
+      }
     }
 
     .room-name {

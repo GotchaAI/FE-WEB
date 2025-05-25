@@ -1,4 +1,5 @@
 import CloseIcon from "commons/svgs/XIcon";
+import roomKingIcon from "assets/components/lobby/room-king-icon.png";
 import { useState } from "react";
 import { useModalStore } from "store/modal";
 import "styles/commons/modal/RoomEnterModal.scss";
@@ -33,7 +34,8 @@ const RoomEnterModal = ({ roomType, hostName, roomName, onConfirm }) => {
 
       <div className="room-info-box">
         <div className="host-line">
-          {/* 왕관이미지 추가 예정 */}
+          <img src={roomKingIcon} alt="방장" className="leader-icon" />
+          &ensp;
           <span className="host-name">{hostName}</span>
         </div>
         <div className="room-name">{roomName}</div>

@@ -5,6 +5,7 @@ import GameAlertToast from "./game/GameAlertToast";
 import TimeOverToast from "./game/TimeOverToast";
 import GameXToast from "./game/GameXToast";
 import GameOToast from "./game/GameOToast";
+import CountdownToast from "./game/CountdownToast";
 
 const ToastContainer = () => {
   const toasts = useToastStore((state) => state.toasts);
@@ -23,12 +24,14 @@ const ToastContainer = () => {
         return <GameXToast key={index} />;
       case "gameO":
         return <GameOToast key={index} />;
+      case "countdown":
+        return <CountdownToast key={index} />;
       default:
         return null;
     }
   };
 
-  const darkTypes = ["gamealert", "timeover", "gameX", "gameO"];
+  const darkTypes = ["gamealert", "timeover", "countdown"];
 
   const backdropClassName = darkTypes.includes(toasts[0]?.type)
     ? "toast-backdrop-dark"

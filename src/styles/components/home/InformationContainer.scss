@@ -37,14 +37,15 @@
       font-size: 20px;
       width: 120px;
     }
-    .answer-wait{
+    .answer-wait, .answer-done{
       font-size: 16px;
       margin-right: 16px;
+      font-weight: regular;
+    }
+    .answer-wait{
       color: #F28110;
     }
     .answer-done{
-      font-size: 16px;
-      margin-right: 16px;
       color: #2286FF;
     }
   }

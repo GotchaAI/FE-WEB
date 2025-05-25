@@ -37,25 +37,39 @@
     color: white;
   }
 
-  // 스타일 변화 필요
   .reason-box {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: 257px;
     height: 185px;
     background-color: #fff;
     border: 1px solid #000;
     border-radius: 8px;
+    overflow: hidden;
     margin-bottom: 10px;
     padding: 16px;
-    text-align: left;
+  }
 
-    .reason-option {
-      display: block;
-      font-size: 12px;
+  .reason-item {
+    display: flex;
+    align-items: center;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    border-bottom: 1px solid #F2F3F6;
+
+    &.first {
+      padding-top: 0;
+    }
+
+    &.last {
+      border-bottom: none;
+    }
+
+    .checkbox-label {
+      width: 190px;
     }
   }
+
 
   .etc-input {
     width: 257px;

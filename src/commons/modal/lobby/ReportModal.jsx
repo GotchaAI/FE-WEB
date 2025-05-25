@@ -1,3 +1,4 @@
+import CheckBox from "commons/svgs/CheckBox";
 import CloseIcon from "commons/svgs/XIcon";
 import { REPORT_REASONS } from "constants/reportReasons";
 import { useState } from "react";
@@ -32,17 +33,19 @@ const ReportModal = ({ reportedUser, onConfirm }) => {
       <div className="reported-user">{reportedUser}</div>
 
       <div className="reason-box">
-        {REPORT_REASONS.map((reason) => (
-          <label key={reason} className="reason-option">
-            <input
-              type="radio"
-              name="reportReason"
-              value={reason}
+        {REPORT_REASONS.map((reason, index) => (
+          <div
+            key={reason}
+            className={`reason-item ${index === 0 ? "first" : ""} ${
+              index === REPORT_REASONS.length - 1 ? "last" : ""
+            }`}
+          >
+            <CheckBox
+              label={reason}
               checked={selected === reason}
               onChange={() => setSelected(reason)}
             />
-            {reason}
-          </label>
+          </div>
         ))}
       </div>
 

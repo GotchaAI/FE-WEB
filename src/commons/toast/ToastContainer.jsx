@@ -1,11 +1,11 @@
 import { useToastStore } from "store/toast";
-import AlertToast from "./AlertToast";
+import AlertToast from "commons/toast/AlertToast";
 import "styles/commons/toast/ToastContainer.scss";
-import GameAlertToast from "./game/GameAlertToast";
-import TimeOverToast from "./game/TimeOverToast";
-import GameXToast from "./game/GameXToast";
-import GameOToast from "./game/GameOToast";
-import CountdownToast from "./game/CountdownToast";
+import GameAlertToast from "commons/toast/game/GameAlertToast";
+import TimeOverToast from "commons/toast/game/TimeOverToast";
+import GameXToast from "commons/toast/game/GameXToast";
+import GameOToast from "commons/toast/game/GameOToast";
+import CountdownToast from "commons/toast/game/CountdownToast";
 
 const ToastContainer = () => {
   const toasts = useToastStore((state) => state.toasts);

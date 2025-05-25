@@ -1,22 +1,14 @@
-import logo from "assets/commons/home-logo.png";
 import intro_msg from "assets/intro-msg.png";
 import rabbitBot from "assets/rabbit-bot.png";
 import rabbit from "assets/rabbit-hand-up.png";
 import StartButton from "commons/svgs/StartButton";
+import { HomeHeader } from "components/home/HomeHeader";
 import { InformationContainer } from "components/home/InformationContainer";
 import IntroduceCharacterPreview from "components/home/IntroduceCharacterPreview";
 import { RankingPreview } from "components/home/RankingPreview";
-import {
-  ANNOUNCE_URL,
-  CHARACTER_INTRO_URL,
-  LOBBY_URL,
-  RANKING_URL,
-  SERVICE_CENTER_URL,
-  SIGN_IN_URL,
-} from "constants/url";
-import Profile from "pages/home/Profile";
+import { LOBBY_URL } from "constants/url";
 import { useEffect, useState } from "react";
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { tokenReissueAPI } from "services/auth/auth";
 import "styles/pages/home/HomePage.scss";
 import { getAuthToken } from "utils/token";
@@ -35,7 +27,6 @@ const rankingData = [
 ];
 
 const HomePage = () => {
-  const { isSignIn } = useLoaderData();
   const navigate = useNavigate();
 
   const [navType, setNavType] = useState("notice"); // 상태로 관리
@@ -90,22 +81,7 @@ const HomePage = () => {
   return (
     <div className="home-page-container">
       <div className="home-fixed-section">
-        <header className="home-page-header">
-          <img src={logo} alt="logo" className="home-logo-img" />
-          <nav className="home-page-nav-container">
-            <Link to={ANNOUNCE_URL}>공지사항</Link>
-            <Link to={RANKING_URL}>랭킹</Link>
-            <Link to={CHARACTER_INTRO_URL}>캐릭터 소개</Link>
-            <Link to={SERVICE_CENTER_URL}>고객센터</Link>
-          </nav>
-          {isSignIn ? (
-            <Profile />
-          ) : (
-            <Link to={SIGN_IN_URL} className="sign-in-btn">
-              로그인
-            </Link>
-          )}
-        </header>
+        <HomeHeader></HomeHeader>
 
         <div className="background-container">
           <img

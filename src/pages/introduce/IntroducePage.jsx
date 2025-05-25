@@ -1,12 +1,35 @@
 import { HomeHeader } from "components/home/HomeHeader";
 import { tokenReissueAPI } from "services/auth/auth";
 import { getAuthToken } from "utils/token";
-
+import "styles/pages/introduce/IntroducePage.scss";
+import intro_logo from "assets/components/introduce/character-intro.png";
+import { character_info } from "constants/characterIntroduce";
+import { useState } from "react";
 const IntroducePage = () => {
+  const [chooseCharacter, setChooseCharacter] = useState("");
+
   return (
     <div className="introduce-page-container">
-      <div className="home-fixed-section">
-        <HomeHeader></HomeHeader>
+      <div className="home-top-section">
+        <HomeHeader />
+        <img
+          src={intro_logo}
+          className="intro-logo"
+          alt="캐릭터 소개 로고"
+        ></img>
+        <ul className="intro-choose-bar">
+          {character_info.map((character) => (
+            <button
+              key={character.index}
+              className={`intro-choose-button ${
+                chooseCharacter === character.characterName ? "active" : ""
+              }`}
+              onClick={() => setChooseCharacter(character.characterName)}
+            >
+              {character.characterName}
+            </button>
+          ))}
+        </ul>
       </div>
     </div>
   );

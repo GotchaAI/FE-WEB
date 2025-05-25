@@ -1,0 +1,10 @@
+.toast-backdrop-default {
+  position: fixed;
+  top: 270px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}

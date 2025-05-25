@@ -1,10 +1,23 @@
 .toast-backdrop-default {
-  position: fixed;
-  top: 270px;
+  position: absolute;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
+  width: 1010px;
+  height: 600px;
+
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
   z-index: 100;
+
+  pointer-events: none;
+}
+
+.toast-backdrop-default>* {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

@@ -10,18 +10,18 @@ const IntroducePage = () => {
 
   return (
     <div className="introduce-page-container">
-      <div className="home-top-section">
+      <div className="introduce-top-section">
         <HomeHeader />
         <img
           src={intro_logo}
-          className="intro-logo"
+          className="introduce-logo"
           alt="캐릭터 소개 로고"
         ></img>
-        <ul className="intro-choose-bar">
+        <ul className="introduce-choose-bar">
           {character_info.map((character) => (
             <button
               key={character.index}
-              className={`intro-choose-button ${
+              className={`introduce-choose-button ${
                 chooseCharacter === character.characterName ? "active" : ""
               }`}
               onClick={() => setChooseCharacter(character.characterName)}
@@ -31,6 +31,31 @@ const IntroducePage = () => {
           ))}
         </ul>
       </div>
+      <div className="introduce-main-section">
+        {character_info.map((character) => (
+          <div
+            key={character.index}
+            className={`introduce-character-box ${
+              chooseCharacter === character.characterName ? "active" : ""
+            }  ${character.index % 2 === 0 ? "left" : "right"}`}
+          >
+            {character.svg}
+            <img
+              src={character.background}
+              alt={`${character.characterName} 배경 사진`}
+            ></img>
+            <div className="introduce-character-info">
+              <h2 className="introduce-character-name">
+                {character.characterEngName}
+              </h2>
+              <p className="introduce-character-description">
+                {character.detail}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <span className="coming-soon">새로운 동물친구들이 오고 있어요!</span>
     </div>
   );
 };

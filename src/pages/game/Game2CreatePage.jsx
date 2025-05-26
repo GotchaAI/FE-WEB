@@ -3,6 +3,8 @@ import CheckBox from "commons/svgs/CheckBox";
 import "styles/pages/game/Game2CreatePage.scss";
 import CloseIcon from "commons/svgs/XIcon";
 import OkayButton from "commons/svgs/OkayButton";
+import { isNumeric } from "utils/validation";
+import { useNavigate } from "react-router-dom";
 
 const roundOptions = ["1round", "2round", "3round", "4round", "5round"];
 const playerOptions = ["2명", "4명", "6명", "8명"];
@@ -10,29 +12,31 @@ const levelOptions = ["초보", "고수", "신"];
 
 const Game2CreatePage = () => {
   const [title, setTitle] = useState("");
-  const [rounds, setRounds] = useState([]);
-  const [players, setPlayers] = useState([]);
-  const [levels, setLevels] = useState([]);
+  const [round, setRound] = useState(roundOptions[0]);
+  const [player, setPlayer] = useState(playerOptions[0]);
+  const [level, setLevel] = useState(levelOptions[0]);
   const [password, setPassword] = useState("");
-  const [isPrivate, setIsPrivate] = useState(true);
+  const [isPrivate, setIsPrivate] = useState(false);
 
-  const toggleOption = (value, setFunc, current) => {
-    if (current.includes(value)) {
-      setFunc(current.filter((v) => v !== value));
-    } else {
-      setFunc([...current, value]);
+  const navigate = useNavigate();
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    if (isNumeric(value)) {
+      setPassword(value);
     }
   };
 
-  const handleSubmit = () => {
+  const handleCreateRoom = () => {
     const payload = {
       title,
-      rounds,
-      players,
-      levels,
+      round,
+      player,
+      level,
       password: isPrivate ? password : null,
       isPrivate,
     };
+    console.log(payload);
     // TODO: 실제 API 요청 또는 상태 저장
   };
 
@@ -40,7 +44,7 @@ const Game2CreatePage = () => {
     <div className="game2-create-container">
       <div className="game2-create-header">
         <span>방 만들기</span>
-        <button>
+        <button onClick={() => navigate("/lobby/game2")}>
           <CloseIcon />
         </button>
       </div>
@@ -63,10 +67,11 @@ const Game2CreatePage = () => {
           <div className="checkbox-group">
             {roundOptions.map((r) => (
               <CheckBox
-                key={r}
                 label={r}
-                checked={rounds.includes(r)}
-                onChange={() => toggleOption(r, setRounds, rounds)}
+                checked={round === r}
+                onChange={() => {
+                  if (round !== r) setRound(r);
+                }}
               />
             ))}
           </div>
@@ -78,10 +83,11 @@ const Game2CreatePage = () => {
           <div className="checkbox-group">
             {playerOptions.map((p) => (
               <CheckBox
-                key={p}
                 label={p}
-                checked={players.includes(p)}
-                onChange={() => toggleOption(p, setPlayers, players)}
+                checked={player === p}
+                onChange={() => {
+                  if (player !== p) setPlayer(p);
+                }}
               />
             ))}
           </div>
@@ -93,10 +99,11 @@ const Game2CreatePage = () => {
           <div className="checkbox-group">
             {levelOptions.map((l) => (
               <CheckBox
-                key={l}
                 label={l}
-                checked={levels.includes(l)}
-                onChange={() => toggleOption(l, setLevels, levels)}
+                checked={level === l}
+                onChange={() => {
+                  if (level !== l) setLevel(l);
+                }}
               />
             ))}
           </div>
@@ -112,13 +119,19 @@ const Game2CreatePage = () => {
             maxLength={4}
             value={password}
             disabled={!isPrivate}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
           />
           <div className="open-status">
             <CheckBox
               label="비공개"
               checked={isPrivate}
-              onChange={() => setIsPrivate(!isPrivate)}
+              onChange={() => {
+                const next = !isPrivate;
+                setIsPrivate(next);
+                if (!next) {
+                  setPassword("");
+                }
+              }}
             />
           </div>
         </div>
@@ -126,7 +139,7 @@ const Game2CreatePage = () => {
 
       {/* 확인 버튼 */}
       <div className="okay-btn-wrapper">
-        <OkayButton />
+        <OkayButton onClick={handleCreateRoom} />
       </div>
     </div>
   );

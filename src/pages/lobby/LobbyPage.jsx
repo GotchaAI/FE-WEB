@@ -30,13 +30,13 @@ const LobbyPage = () => {
               to={GAME1_ROBBY_URL}
               className={`a-btn ${navType === "game1" ? "active" : ""}`}
             >
-              A
+              루루의 미대입시
             </Link>
             <Link
               to={GAME2_ROBBY_URL}
               className={`b-btn ${navType === "game2" ? "active" : ""}`}
             >
-              B
+              묘묘를 속여라!
             </Link>
           </div>
           <div className="main-content-layout">

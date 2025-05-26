@@ -20,20 +20,34 @@ const ROOMS_PER_PAGE = 6;
 
 const Game2LobbyPage = () => {
   const [page, setPage] = useState(1);
+  const [selectedLevel, setSelectedLevel] = useState(null);
+
   const totalPages = Math.ceil(dummyRooms.length / ROOMS_PER_PAGE);
   const currentRooms = dummyRooms.slice(
     (page - 1) * ROOMS_PER_PAGE,
     page * ROOMS_PER_PAGE
   );
 
+  const handleSelectLevel = (level) => {
+    if (selectedLevel === level) {
+      setSelectedLevel(null); // 다시 클릭하면 해제
+    } else {
+      setSelectedLevel(level);
+    }
+  };
+
   return (
     <div className="game2-lobby-container">
-      {/* 필터 영역 */}
       <div className="game2-filter-header">
         <span className="filter-title">로봇 성능</span>
-        <CheckBox label="초보" checked={true} />
-        <CheckBox label="고수" checked={true} />
-        <CheckBox label="신" checked={true} />
+        {["초보", "고수", "신"].map((level) => (
+          <CheckBox
+            key={level}
+            label={level}
+            checked={selectedLevel === level}
+            onChange={() => handleSelectLevel(level)}
+          />
+        ))}
       </div>
 
       <table className="room-table">

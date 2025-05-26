@@ -16,7 +16,7 @@ const LobbyPage = () => {
   useGameSocket({ nickName, roomId });
   const location = useLocation();
 
-  const navType = location.pathname.endsWith("/game2") ? "game2" : "game1";
+  const navType = location.pathname.includes("/game2") ? "game2" : "game1";
 
   return (
     <div className="lobby-page-container">

@@ -2,6 +2,7 @@ import CheckBox from "commons/svgs/CheckBox";
 import PageArrowButton from "commons/svgs/PageArrowButton";
 import RoomTable from "components/game/Game2RoomTable";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useModalStore } from "store/modal";
 import "styles/pages/game/Game2LobbyPage.scss";
 
@@ -22,6 +23,7 @@ const ROOMS_PER_PAGE = 6;
 const Game2LobbyPage = () => {
   const [page, setPage] = useState(1);
   const [selectedLevel, setSelectedLevel] = useState(null);
+  const navigate = useNavigate();
 
   const totalPages = Math.ceil(dummyRooms.length / ROOMS_PER_PAGE);
   const currentRooms = dummyRooms.slice(
@@ -42,7 +44,7 @@ const Game2LobbyPage = () => {
   };
 
   const handleCreateRoom = () => {
-    // TODO: 방 생성 모달 열기 또는 생성 페이지로 이동
+    navigate("/lobby/game2/create");
   };
 
   const handleEnterCode = () => {

@@ -1,0 +1,14 @@
+.arrow-button {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  svg {
+    display: block;
+  }
+}

@@ -1,0 +1,90 @@
+.game2-lobby-container {
+  display: flex;
+  flex-direction: column;
+  width: 540px;
+  height: 361px;
+  margin-left: 35px;
+  margin-top: 17px;
+
+  .game2-filter-header {
+    display: flex;
+    justify-content: end;
+    gap: 25.28px;
+    margin-bottom: 11px;
+
+    .filter-title {
+      font-size: 12px;
+    }
+  }
+
+  .room-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+
+    th,
+    td {
+      height: 39px;
+      border-bottom: 1px solid black;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    td:first-child {
+      padding-left: 12px;
+    }
+
+    td:last-child {
+      padding-right: 12px;
+    }
+
+    thead {
+      background-color: #F2F3F6;
+
+      th {
+        height: 21px;
+        border-top: 1px solid black;
+
+        font-size: 12px;
+        color: #999999;
+        font-weight: normal;
+      }
+    }
+
+    tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+  }
+
+  .page-and-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 31.68px;
+
+    .pagination {
+      display: flex;
+      font-size: 16px;
+      margin-left: 23px;
+      align-items: center;
+      gap: 6.32px;
+    }
+
+    .room-actions {
+      display: flex;
+      gap: 8px;
+
+      .action-btn {
+        width: 100px;
+        height: 40px;
+        font-size: 16px;
+        background-color: white;
+        border: 1px solid black;
+
+        &:hover {
+          background-color: #e4e4e4;
+        }
+      }
+    }
+  }
+}

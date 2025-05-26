@@ -2,6 +2,7 @@ import CheckBox from "commons/svgs/CheckBox";
 import PageArrowButton from "commons/svgs/PageArrowButton";
 import RoomTable from "components/game/Game2RoomTable";
 import { useState } from "react";
+import { useModalStore } from "store/modal";
 import "styles/pages/game/Game2LobbyPage.scss";
 
 // 임시 방목록 데이터
@@ -36,6 +37,40 @@ const Game2LobbyPage = () => {
     }
   };
 
+  const handleQuickJoin = () => {
+    // TODO: 자동 입장 로직
+  };
+
+  const handleCreateRoom = () => {
+    // TODO: 방 생성 모달 열기 또는 생성 페이지로 이동
+  };
+
+  const handleEnterCode = () => {
+    useModalStore.getState().openModal(
+      "codeInput",
+      {
+        title: "코드 입력",
+      },
+      (code) => {
+        console.log("입력된 코드:", code);
+      }
+    );
+  };
+
+  const handleRoomClick = (room) => {
+    useModalStore.getState().openModal(
+      "roomEnter",
+      {
+        roomType: room.mode,
+        hostName: room.host,
+        roomName: room.intro,
+      },
+      (password) => {
+        console.log("입력한 비밀번호:", password);
+      }
+    );
+  };
+
   return (
     <div className="game2-lobby-container">
       <div className="game2-filter-header">
@@ -50,7 +85,7 @@ const Game2LobbyPage = () => {
         ))}
       </div>
 
-      <RoomTable rooms={currentRooms} />
+      <RoomTable rooms={currentRooms} onClickRow={handleRoomClick} />
 
       {/* 페이지 & 버튼 */}
       <div className="page-and-btn">
@@ -70,9 +105,15 @@ const Game2LobbyPage = () => {
           />
         </div>
         <div className="room-actions">
-          <button className="action-btn">빠른 입장</button>
-          <button className="action-btn">방 만들기</button>
-          <button className="action-btn">코드입력</button>
+          <button className="action-btn" onClick={handleQuickJoin}>
+            빠른 입장
+          </button>
+          <button className="action-btn" onClick={handleCreateRoom}>
+            방 만들기
+          </button>
+          <button className="action-btn" onClick={handleEnterCode}>
+            코드입력
+          </button>
         </div>
       </div>
     </div>

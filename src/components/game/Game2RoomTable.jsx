@@ -1,6 +1,5 @@
 import LockedIcon from "commons/svgs/LockedIcon";
-
-const RoomTable = ({ rooms }) => {
+const RoomTable = ({ rooms, onClickRow }) => {
   return (
     <table className="room-table">
       <thead>
@@ -15,7 +14,11 @@ const RoomTable = ({ rooms }) => {
       </thead>
       <tbody>
         {rooms.map((room, index) => (
-          <tr key={index}>
+          <tr
+            key={index}
+            onClick={() => onClickRow?.(room)}
+            style={{ cursor: "pointer" }}
+          >
             <td>{room.isLocked && <LockedIcon />}</td>
             <td>{room.mode}</td>
             <td>{room.host}</td>

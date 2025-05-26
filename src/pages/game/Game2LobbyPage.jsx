@@ -1,19 +1,30 @@
 import CheckBox from "commons/svgs/CheckBox";
+import LockedIcon from "commons/svgs/LockedIcon";
 import PageArrowButton from "commons/svgs/PageArrowButton";
 import { useState } from "react";
 import "styles/pages/game/Game2LobbyPage.scss";
 
-const dummyRooms = Array(6).fill({
-  isLocked: true,
-  mode: "AI를 속여라!",
-  host: "엉덩이가좋아",
-  intro: "성인만/19/여기보통 뭐적지?/19시출",
-  code: "#9840",
-  players: "1/2",
-});
+// 임시 방목록 데이터
+const dummyRooms = Array(24)
+  .fill(null)
+  .map((_, i) => ({
+    isLocked: i % 2 === 0,
+    mode: "AI를 속여라!",
+    host: `호스트${i + 1}`,
+    intro: "성인만/19/여기보통 뭐적지?/19시출",
+    code: `#98${40 + i}`,
+    players: `${1 + (i % 2)}/${2 + (i % 3)}`,
+  }));
+
+const ROOMS_PER_PAGE = 6;
 
 const Game2LobbyPage = () => {
   const [page, setPage] = useState(1);
+  const totalPages = Math.ceil(dummyRooms.length / ROOMS_PER_PAGE);
+  const currentRooms = dummyRooms.slice(
+    (page - 1) * ROOMS_PER_PAGE,
+    page * ROOMS_PER_PAGE
+  );
 
   return (
     <div className="game2-lobby-container">
@@ -37,22 +48,12 @@ const Game2LobbyPage = () => {
           </tr>
         </thead>
         <tbody>
-          {dummyRooms.map((room, index) => (
+          {currentRooms.map((room, index) => (
             <tr key={index}>
-              <td>
-                {room.isLocked && (
-                  <span role="img" aria-label="lock">
-                    🔒
-                  </span>
-                )}{" "}
-              </td>
+              <td>{room.isLocked && <LockedIcon />}</td>
               <td>{room.mode}</td>
               <td>{room.host}</td>
-              <td
-                dangerouslySetInnerHTML={{
-                  __html: room.intro.replace(/\/19/g, "<b>/19</b>"),
-                }}
-              />
+              <td>{room.intro}</td>
               <td>{room.code}</td>
               <td>{room.players}</td>
             </tr>
@@ -73,8 +74,8 @@ const Game2LobbyPage = () => {
 
           <PageArrowButton
             direction="right"
-            disabled={page === 3}
-            onClick={() => setPage((prev) => Math.min(prev + 1, 3))}
+            disabled={page === totalPages}
+            onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
           />
         </div>
         <div className="room-actions">

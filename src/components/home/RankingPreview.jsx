@@ -1,7 +1,7 @@
 import "styles/components/home/RankingPreview.scss";
 export const RankingPreview = ({ rankingData }) => {
   return (
-    <div className="ranking-preview-conatiner">
+    <div className="ranking-preview-container">
       <h2>랭킹 </h2>
       <ul className="ranking-list">
         {rankingData && rankingData.length > 0 ? (

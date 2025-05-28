@@ -3,11 +3,11 @@ import MyoumyoBackground from "assets/components/introduce/MyoumyoBackground.png
 import WagwakBackground from "assets/components/introduce/WagwakBackground.png";
 import BongvongBackground from "assets/components/introduce/BongvongBackground.png";
 import BukbookBackground from "assets/components/introduce/BukbookBackground.png";
-const { Bongvong } = require("commons/svgs/characters/Bongvong");
-const { Bukbook } = require("commons/svgs/characters/Bukbook");
-const { Myoumoy } = require("commons/svgs/characters/Myoumoy");
-const { Ruru } = require("commons/svgs/characters/Ruru");
-const { Wagwak } = require("commons/svgs/characters/Wagwak");
+import { Bongvong } from "commons/svgs/characters/Bongvong";
+import { Bukbook } from "commons/svgs/characters/Bukbook";
+import { Myoumoy } from "commons/svgs/characters/Myoumoy";
+import { Ruru } from "commons/svgs/characters/Ruru";
+import { Wagwak } from "commons/svgs/characters/Wagwak";
 
 export const character_info = [
   {

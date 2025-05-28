@@ -80,7 +80,7 @@ const HomePage = () => {
 
   return (
     <div className="home-page-container">
-      <div className="home-fixed-section">
+      <div className="home-top-section">
         <HomeHeader />
 
         <div className="background-container">

@@ -14,7 +14,7 @@ const IntroducePage = () => {
     const target = characterRefs.current[characterName];
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "center" });
-
+      setChooseCharacter(characterName);
       setTimeout(() => {
         setChooseCharacter("루루");
       }, 500);
@@ -44,15 +44,17 @@ const IntroducePage = () => {
         />
         <ul className="introduce-choose-bar">
           {character_info.map((character) => (
-            <button
-              key={character.index}
-              className={`introduce-choose-button ${
-                chooseCharacter === character.characterName ? "active" : ""
-              }`}
-              onClick={() => handleOnclick(character.characterName)}
-            >
-              {character.characterName}
-            </button>
+            <li>
+              <button
+                key={character.index}
+                className={`introduce-choose-button ${
+                  chooseCharacter === character.characterName ? "active" : ""
+                }`}
+                onClick={() => handleOnclick(character.characterName)}
+              >
+                {character.characterName}
+              </button>
+            </li>
           ))}
         </ul>
       </div>

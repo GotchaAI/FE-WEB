@@ -2,6 +2,7 @@ import {
   ANNOUNCE_URL,
   CHARACTER_INTRO_URL,
   RANKING_URL,
+  ROOT_URL,
   SERVICE_CENTER_URL,
   SIGN_IN_URL,
 } from "constants/url";
@@ -14,7 +15,9 @@ export const HomeHeader = () => {
   const { isSignIn } = useLoaderData();
   return (
     <header className="home-page-header">
-      <img src={logo} alt="logo" className="home-logo-img" />
+      <Link to={ROOT_URL}>
+        <img src={logo} alt="logo" className="home-logo-img" />
+      </Link>
       <nav className="home-page-nav-container">
         <Link to={ANNOUNCE_URL}>공지사항</Link>
         <Link to={RANKING_URL}>랭킹</Link>

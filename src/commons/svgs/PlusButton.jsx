@@ -1,4 +1,4 @@
-export const PlusButton = ({ onClick }) => {
+export const PlusButton = () => {
   return (
     <svg
       width="32"

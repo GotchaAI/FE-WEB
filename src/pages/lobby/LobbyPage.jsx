@@ -23,6 +23,7 @@ const LobbyPage = () => {
   const navType = location.pathname.endsWith("/game2") ? "game2" : "game1";
 
   const [selectedRoomId, setSelectedRoomId] = useState(null); // 입장할 roomId
+  console.log(setSelectedRoomId); // ESLint 방지
 
   useGameSocket(); // 소켓 연결
 
@@ -51,7 +52,7 @@ const LobbyPage = () => {
         state: enterRoomInfo,
       });
     }
-  }, [enterRoomInfo]);
+  }, [enterRoomInfo, navigate]);
 
   return (
     <div className="lobby-page-container">

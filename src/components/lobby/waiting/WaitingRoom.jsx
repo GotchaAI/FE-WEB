@@ -66,7 +66,7 @@ const WaitingRoom = () => {
     // TODO: 방 세부 정보 API 구축 후 연동
     // 테스트용
     setRoomInfo(dummyData);
-  }, []);
+  }, [location.search, location.state]);
 
   // 방정보 갱신 시 데이터 분배
   useEffect(() => {

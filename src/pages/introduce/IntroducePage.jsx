@@ -1,6 +1,4 @@
 import { HomeHeader } from "components/home/HomeHeader";
-import { tokenReissueAPI } from "services/auth/auth";
-import { getAuthToken } from "utils/token";
 import "styles/pages/introduce/IntroducePage.scss";
 import intro_logo from "assets/components/introduce/character-intro.png";
 import { character_info } from "constants/characterIntroduce";
@@ -89,21 +87,3 @@ const IntroducePage = () => {
 };
 
 export default IntroducePage;
-
-export const loader = async () => {
-  const { accessToken, setAccessToken } = getAuthToken();
-
-  if (!accessToken) {
-    try {
-      const res = await tokenReissueAPI();
-      const newAccessToken = res.accessToken;
-      const newExpireTime = res.expiredAt;
-      setAccessToken(newAccessToken, newExpireTime);
-    } catch (e) {
-      console.error(e);
-      return { isSignIn: false };
-    }
-  }
-
-  return;
-};

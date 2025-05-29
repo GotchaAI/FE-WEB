@@ -1,17 +1,22 @@
 import HomePage, { loader as homeLoader } from "pages/home/HomePage";
-import IntroducePage, {
-  loader as introduceLoader,
-} from "pages/introduce/IntroducePage";
+import IntroducePage from "pages/introduce/IntroducePage";
+import Home from "components/home/Home";
 const home = [
   {
     path: "/",
     element: <HomePage />,
     loader: homeLoader,
-  },
-  {
-    path: "/character-intro",
-    element: <IntroducePage />,
-    loader: introduceLoader,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+
+      {
+        path: "character-intro",
+        element: <IntroducePage />,
+      },
+    ],
   },
 ];
 

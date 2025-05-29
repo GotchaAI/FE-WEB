@@ -6,13 +6,12 @@ import {
   SERVICE_CENTER_URL,
   SIGN_IN_URL,
 } from "constants/url";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "assets/commons/home-logo.png";
 import Profile from "pages/home/Profile";
 import "styles/components/home/HomeHeader.scss";
 
-export const HomeHeader = () => {
-  const { isSignIn } = useLoaderData();
+export const HomeHeader = ({ isSignIn }) => {
   return (
     <header className="home-page-header">
       <Link to={ROOT_URL}>

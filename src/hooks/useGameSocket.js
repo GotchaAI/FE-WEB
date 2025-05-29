@@ -62,7 +62,7 @@ const useGameSocket = () => {
       client.deactivate();
       clearStompClient();
     };
-  }, []);
+  }, [accessToken, clearStompClient, setStompClient]);
 
   return {};
 };

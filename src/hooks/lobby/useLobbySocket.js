@@ -33,8 +33,6 @@ const useLobbySocket = () => {
   const { stompClient } = useGameSocketStore();
   const [enterRoomInfo, setEnterRoomInfo] = useState(null);
 
-  const isConnected = () => stompClient && stompClient.connected;
-
   // 🔕 공통 구독 해제 로직
   const unsubscribePrev = () => {
     if (roomEventSubRef.current) {
@@ -45,7 +43,7 @@ const useLobbySocket = () => {
   };
 
   useEffect(() => {
-    if (!isConnected()) return;
+    if (!stompClient || !stompClient.connected) return;
 
     // 🔔 로비 에러 구독
     const subscription = stompClient.subscribe(
@@ -61,11 +59,11 @@ const useLobbySocket = () => {
       subscription.unsubscribe();
       unsubscribePrev();
     };
-  }, []);
+  }, [stompClient]);
 
   // 방 생성
   const createRoom = () => {
-    if (!isConnected()) return;
+    if (!stompClient || !stompClient.connected) return;
 
     unsubscribePrev();
 

@@ -68,7 +68,7 @@ const useWaitingRoomSocket = ({ roomId, setRoomInfo }) => {
     return () => {
       subscription.unsubscribe();
     };
-  }, [stompClient, roomId]);
+  }, [stompClient, roomId, setRoomInfo]);
 
   // 게임 시작
   const startGame = (roomId) => {

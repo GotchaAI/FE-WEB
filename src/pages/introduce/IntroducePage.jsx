@@ -35,7 +35,7 @@ const IntroducePage = () => {
 
   return (
     <div className="introduce-page-container">
-      <div className="introduce-top-section">
+      <div className="introduce-top-container">
         <HomeHeader />
         <img
           src={intro_logo}
@@ -59,7 +59,7 @@ const IntroducePage = () => {
         </ul>
       </div>
 
-      <div className="introduce-main-section">
+      <div className="introduce-main-container">
         {character_info.map((character) => (
           <div
             key={character.index}

@@ -6,10 +6,26 @@
   padding-left: 35px;
   padding-top: 17px;
 
-  .room-info-header {
-    font-size: 12px;
-    font-weight: normal;
-    margin: 0;
+  .room-info-header-container {
+    display: flex;
+    justify-content: space-between;
+
+    width: 544px;
+
+    span {
+      font-size: 12px;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    button {
+      right: 1px;
+      color: #7e5615;
+      background: none;
+      border: none;
+      font-family: "SUIT-Regular";
+      font-weight: 700;
+    }
   }
 
   .player-grid {
@@ -18,7 +34,7 @@
     grid-template-columns: repeat(4, 136px);
     gap: 1px;
     background-color: #000;
-    margin-top: 12px;
+    margin-top: 11px;
     border: 1px solid black;
   }
 
@@ -36,6 +52,7 @@
       column-gap: 8px;
 
       .label {
+        font-family: "YoonChild";
         color: #89c881;
         font-size: 12px;
       }
@@ -46,6 +63,5 @@
         gap: 4px;
       }
     }
-
   }
 }

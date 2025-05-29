@@ -1,8 +1,8 @@
-import { NICKNAME_CHECK_API } from "constants/api";
+import { NICKNAME_CHECK_API, USER_ME_API } from "constants/api";
 import { apiInterface } from "services/axiosForm";
 
 export const getUserInfoAPI = async () => {
-  return await apiInterface("get", "/api/v1/users/me/main-info", {}, {}, true);
+  return await apiInterface("get", USER_ME_API, {}, {}, true);
 };
 
 export const checkNicknameDuplicateAPI = async (nickname) => {

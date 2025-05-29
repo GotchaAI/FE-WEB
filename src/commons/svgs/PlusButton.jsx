@@ -7,8 +7,8 @@ export const PlusButton = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M16 0V32" stroke="black" stroke-width="3" />
-      <path d="M0 16L32 16" stroke="black" stroke-width="3" />
+      <path d="M16 0V32" stroke="black" strokeWidth="3" />
+      <path d="M0 16L32 16" stroke="black" strokeWidth="3" />
     </svg>
   );
 };

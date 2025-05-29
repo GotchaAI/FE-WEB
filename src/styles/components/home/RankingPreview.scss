@@ -20,6 +20,11 @@
     list-style: none;
     font-family: 'SUIT-regular';
     font-size: 32px;
+    p{
+      display: flex;
+      align-items: center;
+      justify-self: center;
+    }
 
     .ranking-item {
       display: flex;

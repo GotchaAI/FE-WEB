@@ -3,14 +3,13 @@ import { createBrowserRouter } from "react-router-dom";
 import auth from "routes/auth";
 import home from "routes/home";
 import lobby from "routes/lobby";
-import introduce from "routes/introduce";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     loader: rootLoader,
-    children: [...auth, ...home, ...lobby, ...introduce],
+    children: [...auth, ...home, ...lobby],
   },
 ]);
 

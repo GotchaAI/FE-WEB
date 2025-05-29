@@ -7,7 +7,6 @@ import { InformationContainer } from "components/home/InformationContainer";
 import IntroduceCharacterPreview from "components/home/IntroduceCharacterPreview";
 import { RankingPreview } from "components/home/RankingPreview";
 import { LOBBY_URL } from "constants/url";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { tokenReissueAPI } from "services/auth/auth";
 import "styles/pages/home/HomePage.scss";

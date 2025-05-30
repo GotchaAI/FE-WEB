@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useGameSocketStore } from "store/socket";
+import { getUserUuid } from "utils/user";
 
 /**
  * useGameSocket 커스텀 훅
@@ -26,12 +27,13 @@ const roomEnterEX = {
   content: "1234",
 };
 
-const userUuid = 5; // TODO: uuid 저장 기능 추가 후 적용
+// TODO: uuid 저장 기능 추가 후 적용
 
 const useLobbySocket = () => {
   const roomEventSubRef = useRef(null);
   const { stompClient } = useGameSocketStore();
   const [enterRoomInfo, setEnterRoomInfo] = useState(null);
+  const userUuid = useRef(null);
 
   // 🔕 공통 구독 해제 로직
   const unsubscribePrev = () => {
@@ -42,6 +44,12 @@ const useLobbySocket = () => {
     }
   };
 
+  // uuid 초기화
+  useEffect(() => {
+    userUuid.current = getUserUuid();
+  }, []);
+
+  // 초기 세팅
   useEffect(() => {
     if (!stompClient || !stompClient.connected) return;
 
@@ -69,7 +77,7 @@ const useLobbySocket = () => {
 
     // 🔔 방 이벤트 구독
     const subscription = stompClient.subscribe(
-      `/sub/room/create/${userUuid}`,
+      `/sub/room/create/${userUuid.current}`,
       (message) => {
         // 생성 가능 여부 반환
         const roomInfo = JSON.parse(message.body);

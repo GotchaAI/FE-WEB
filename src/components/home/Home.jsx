@@ -27,7 +27,7 @@ const Home = () => {
     navigate(LOBBY_URL);
   };
   return (
-    <div>
+    <div className="home-container">
       <div className="home-top-container">
         <div className="background-container">
           <img

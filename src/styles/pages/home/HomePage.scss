@@ -5,3 +5,13 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.home-page-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(rgba(170, 232, 255, 1) 0%, rgba(255, 255, 255, 1) 8%);
+  min-height: 100vh;
+}

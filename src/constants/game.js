@@ -1,0 +1,1 @@
+export const GAME2_ROOMS_PER_PAGE = 6;

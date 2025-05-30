@@ -4,6 +4,7 @@ import RoomTable from "components/game/Game2RoomTable";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useModalStore } from "store/modal";
+import { GAME2_ROOMS_PER_PAGE } from "constants/game";
 import "styles/pages/game/Game2LobbyPage.scss";
 
 // 임시 방목록 데이터
@@ -18,17 +19,15 @@ const dummyRooms = Array(24)
     players: `${1 + (i % 2)}/${2 + (i % 3)}`,
   }));
 
-const ROOMS_PER_PAGE = 6;
-
 const Game2LobbyPage = () => {
   const [page, setPage] = useState(1);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const navigate = useNavigate();
 
-  const totalPages = Math.ceil(dummyRooms.length / ROOMS_PER_PAGE);
+  const totalPages = Math.ceil(dummyRooms.length / GAME2_ROOMS_PER_PAGE);
   const currentRooms = dummyRooms.slice(
-    (page - 1) * ROOMS_PER_PAGE,
-    page * ROOMS_PER_PAGE
+    (page - 1) * GAME2_ROOMS_PER_PAGE,
+    page * GAME2_ROOMS_PER_PAGE
   );
 
   const handleSelectLevel = (level) => {

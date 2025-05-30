@@ -17,4 +17,15 @@ const getUserInfo = () => {
   };
 };
 
-export { getUserInfo };
+/**
+ * 유저 uuid 반환
+ * @returns {String} 유저 uuid
+ */
+const getUserUuid = () => {
+  const { profile } = getUserInfo();
+  const uuid = profile.uuid;
+
+  return uuid;
+};
+
+export { getUserInfo, getUserUuid };

@@ -112,7 +112,6 @@ const useLobbySocket = () => {
         setEnterRoomInfo(roomInfo); // 상태 업데이트
 
         // 🔕 구독 해제
-        subscription.unsubscribe();
         unsubscribePrev();
       }
     );

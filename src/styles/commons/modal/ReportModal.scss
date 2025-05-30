@@ -1,0 +1,94 @@
+.report-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFC466;
+  border: 1px solid #000;
+  border-radius: 12px;
+  width: 410px;
+  height: 467px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .close-btn {
+    position: absolute;
+    top: 13.7px;
+    right: 14.67px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .reported-user {
+    width: 257px;
+    height: 30px;
+    background-color: #89C881;
+    border-radius: 8px;
+    border: 1px solid black;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: white;
+  }
+
+  .reason-box {
+    display: flex;
+    flex-direction: column;
+    width: 257px;
+    height: 185px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    padding: 16px;
+  }
+
+  .reason-item {
+    display: flex;
+    align-items: center;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    border-bottom: 1px solid #F2F3F6;
+
+    &.first {
+      padding-top: 0;
+    }
+
+    &.last {
+      border-bottom: none;
+    }
+
+    .checkbox-label {
+      width: 190px;
+    }
+  }
+
+
+  .etc-input {
+    width: 257px;
+    height: 80px;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    margin-bottom: 20px;
+    resize: none;
+
+    &::placeholder {
+      font-size: 12px;
+    }
+  }
+
+  .submit-btn {
+    background: none;
+    border: none;
+    font-size: 13px;
+  }
+}

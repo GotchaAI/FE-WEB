@@ -1,0 +1,36 @@
+.home-modal {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  width: 383px;
+  height: 209px;
+  position: relative;
+  text-align: center;
+
+  .close-btn {
+    position: absolute;
+    top: 18.25px;
+    right: 23px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .content {
+    font-size: 16px;
+    padding-top: 77px;
+  }
+
+  .confirm-btn {
+    background-color: #89C881;
+    border: none;
+    width: 238px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+    margin-top: 26px;
+  }
+}

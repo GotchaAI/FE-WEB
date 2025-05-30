@@ -1,0 +1,22 @@
+.arrow-button {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  svg {
+    display: block;
+  }
+
+  &.right svg {
+    transform: scaleX(-1);
+  }
+
+  &.left svg {
+    transform: scaleX(1);
+  }
+}

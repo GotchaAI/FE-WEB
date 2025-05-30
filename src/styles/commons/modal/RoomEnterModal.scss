@@ -1,0 +1,81 @@
+.room-enter-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFC466;
+  border: 1px solid #000;
+  border-radius: 12px;
+  width: 410px;
+  height: 325px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .close-btn {
+    position: absolute;
+    top: 13.7px;
+    right: 14.67px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .room-type {
+    width: 257px;
+    height: 30px;
+    background-color: #89C881;
+    border-radius: 8px;
+    border: 1px solid black;
+    color: white;
+    font-size: 16px;
+    margin-bottom: 18px;
+  }
+
+  .room-info-box {
+    width: 257px;
+    height: 82px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    margin-bottom: 10px;
+
+    .host-line {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+      font-size: 16px;
+
+      .leader-icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .room-name {
+      margin-top: 8px;
+      font-size: 13px;
+    }
+  }
+
+  .password-input {
+    width: 257px;
+    height: 41px;
+    border: 1px solid black;
+    border-radius: 8px;
+    font-size: 12px;
+    margin-bottom: 20px;
+    padding-left: 12px;
+  }
+
+  .enter-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+  }
+}

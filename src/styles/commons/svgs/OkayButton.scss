@@ -1,0 +1,25 @@
+.okay-svg-btn {
+  position: absolute;
+  border: none;
+  background: none;
+  padding: 0;
+
+  width: 345px;
+  height: 64px;
+
+  .svg-main-fill {
+    transition: fill 0.3s ease;
+  }
+
+  .label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    img {
+      width: 129px;
+      height: 28px;
+    }
+  }
+}

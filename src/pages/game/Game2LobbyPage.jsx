@@ -8,7 +8,7 @@ import { GAME2_ROOMS_PER_PAGE } from "constants/game";
 import "styles/pages/game/Game2LobbyPage.scss";
 
 // 임시 방목록 데이터
-const dummyRooms = Array(24)
+const dummyRooms = Array(21)
   .fill(null)
   .map((_, i) => ({
     isLocked: i % 2 === 0,
@@ -86,7 +86,9 @@ const Game2LobbyPage = () => {
         ))}
       </div>
 
-      <RoomTable rooms={currentRooms} onClickRow={handleRoomClick} />
+      <div className="room-table-container">
+        <RoomTable rooms={currentRooms} onClickRow={handleRoomClick} />
+      </div>
 
       {/* 페이지 & 버튼 */}
       <div className="page-and-btn">

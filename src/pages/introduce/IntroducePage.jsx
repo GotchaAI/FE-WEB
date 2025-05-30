@@ -40,9 +40,8 @@ const IntroducePage = () => {
         />
         <ul className="introduce-choose-bar">
           {character_info.map((character) => (
-            <li>
+            <li key={character.index}>
               <button
-                key={character.index}
                 className={`introduce-choose-button ${
                   chooseCharacter === character.characterName ? "active" : ""
                 }`}

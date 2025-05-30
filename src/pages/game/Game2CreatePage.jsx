@@ -72,6 +72,7 @@ const Game2CreatePage = () => {
           <div className="checkbox-group">
             {roundOptions.map((r) => (
               <CheckBox
+                key={r}
                 label={r}
                 checked={round === r}
                 onChange={() => {
@@ -88,6 +89,7 @@ const Game2CreatePage = () => {
           <div className="checkbox-group">
             {playerOptions.map((p) => (
               <CheckBox
+                key={p}
                 label={p}
                 checked={player === p}
                 onChange={() => {
@@ -104,6 +106,7 @@ const Game2CreatePage = () => {
           <div className="checkbox-group">
             {levelOptions.map((l) => (
               <CheckBox
+                key={l}
                 label={l}
                 checked={level === l}
                 onChange={() => {

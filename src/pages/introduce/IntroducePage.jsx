@@ -34,7 +34,6 @@ const IntroducePage = () => {
   return (
     <div className="introduce-page-container">
       <div className="introduce-top-container">
-        <HomeHeader />
         <img
           src={intro_logo}
           className="introduce-logo"

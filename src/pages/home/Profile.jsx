@@ -5,7 +5,6 @@ import "styles/components/home/Profile.scss";
 const Profile = () => {
   const profile = useUserInformationStore((state) => state.profile);
   const experience = useUserInformationStore((state) => state.experience);
-  console.log(experience);
   return (
     <div className="profile-container">
       <div className="exp-container">

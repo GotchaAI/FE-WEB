@@ -82,7 +82,9 @@ const useLobbySocket = () => {
 
         // 입장 가능
         setEnterRoomInfo(roomInfo);
-        subscription.unsubscribe();
+
+        // 🔕 구독 해제
+        unsubscribePrev();
       }
     );
 

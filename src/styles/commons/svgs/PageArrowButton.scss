@@ -11,4 +11,12 @@
   svg {
     display: block;
   }
+
+  &.right svg {
+    transform: scaleX(-1);
+  }
+
+  &.left svg {
+    transform: scaleX(1);
+  }
 }

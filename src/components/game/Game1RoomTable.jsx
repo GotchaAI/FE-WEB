@@ -14,11 +14,7 @@ const RoomTable = ({ rooms, onClickRow }) => {
       </thead>
       <tbody>
         {rooms.map((room, index) => (
-          <tr
-            key={index}
-            onClick={() => onClickRow?.(room)}
-            style={{ cursor: "pointer" }}
-          >
+          <tr key={index} onClick={() => onClickRow?.(room)}>
             <td>{room.isLocked && <LockedIcon />}</td>
             <td>{room.mode}</td>
             <td>{room.host}</td>

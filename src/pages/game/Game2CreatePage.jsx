@@ -65,7 +65,7 @@ const Game2CreatePage = () => {
         />
       </div>
 
-      <div className="middle-section">
+      <div className="middle-container">
         {/* 라운드 선택 */}
         <div className="form-group">
           <label className="form-label">라운드</label>

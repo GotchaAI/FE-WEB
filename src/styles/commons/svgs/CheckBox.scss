@@ -52,7 +52,6 @@
   }
 
   input[type="checkbox"]:focus+.custom-checkbox {
-    outline: 2px solid black;
-    outline-offset: 2px;
+    border: 2px solid black;
   }
 }

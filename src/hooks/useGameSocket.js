@@ -1,4 +1,5 @@
 import { Client } from "@stomp/stompjs";
+import { CONNECT_API, SOCKET_IP } from "constants/api";
 import { useEffect, useRef } from "react";
 import SockJS from "sockjs-client";
 import { useGameSocketStore } from "store/socket";
@@ -12,8 +13,6 @@ import { getAuthToken } from "utils/token";
  * 연결 실패 시 5000ms 간격으로 재연결 시도
  */
 
-const SOCKET_BASE_URL = process.env.REACT_APP_SOCKET_BASE_URL;
-
 const useGameSocket = () => {
   const { setStompClient, clearStompClient } = useGameSocketStore();
   const { accessToken } = getAuthToken();
@@ -22,8 +21,7 @@ const useGameSocket = () => {
 
   useEffect(() => {
     const client = new Client({
-      webSocketFactory: () =>
-        new SockJS(`${SOCKET_BASE_URL}${process.env.REACT_APP_WS_ENDPOINT}`),
+      webSocketFactory: () => new SockJS(`${SOCKET_IP}${CONNECT_API}`),
       connectHeaders: {
         Authorization: accessToken,
       },

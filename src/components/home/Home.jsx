@@ -7,6 +7,7 @@ import IntroduceCharacterPreview from "components/home/IntroduceCharacterPreview
 import { LOBBY_URL } from "constants/url";
 import { useNavigate } from "react-router-dom";
 import { RankingPreview } from "./RankingPreview";
+import "styles/components/home/Home.scss";
 const rankingData = [
   { username: "Player1", score: 1000 },
   { username: "Player2", score: 900 },

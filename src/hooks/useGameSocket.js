@@ -1,5 +1,5 @@
 import { Client } from "@stomp/stompjs";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import SockJS from "sockjs-client";
 import { useGameSocketStore } from "store/socket";
 import { getAuthToken } from "utils/token";
@@ -18,7 +18,7 @@ const useGameSocket = () => {
   const { setStompClient, clearStompClient } = useGameSocketStore();
   const { accessToken } = getAuthToken();
   const userUuid = 5; // TODO : uuid 저장 로직 추가 시 적용
-  let subscription;
+  const eventSubRef = useRef(null);
 
   useEffect(() => {
     const client = new Client({
@@ -36,7 +36,7 @@ const useGameSocket = () => {
       setStompClient(client);
 
       // 주요 에러 핸들러
-      subscription = client.subscribe(
+      const subscription = client.subscribe(
         `/user/${userUuid}/queue/errors`,
         (message) => {
           console.log(
@@ -44,6 +44,8 @@ const useGameSocket = () => {
           );
         }
       );
+
+      eventSubRef.current = subscription;
     };
 
     // stomp 에러 디버깅
@@ -56,7 +58,9 @@ const useGameSocket = () => {
 
     return () => {
       // 웹소켓 해제
-      if (subscription) subscription.unsubscribe();
+      if (eventSubRef.current) {
+        eventSubRef.current.unsubscribe();
+      }
       client.deactivate();
       clearStompClient();
     };

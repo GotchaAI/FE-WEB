@@ -1,0 +1,96 @@
+.game1-create-container {
+  display: flex;
+  flex-direction: column;
+  width: 528px;
+  height: 361px;
+  margin-left: 35px;
+  margin-top: 17px;
+
+  .game1-create-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    font-family: YoonChild-ManSeh;
+    font-size: 24px;
+
+    button {
+      background: none;
+      border: none;
+    }
+  }
+
+  .middle-container {
+    margin-top: 17px;
+
+    .form-group {
+      margin-top: 7px;
+    }
+  }
+
+  .form-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+
+    .form-label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 70px;
+      height: 26px;
+      margin-left: 10px;
+      background-color: #FBFFEC;
+      border-radius: 8px;
+      border: 1px solid black;
+      font-family: SUIT-Regular;
+      font-size: 13px;
+    }
+
+    input[type="text"] {
+      background-color: #F2F3F6;
+      width: 411px;
+      height: 26px;
+      padding-left: 16px;
+      border: 1px solid black;
+      border-radius: 8px;
+      font-family: SUIT-Regular;
+    }
+
+    .checkbox-group {
+      padding-left: 9px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .password-section {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      input {
+        width: 95px;
+        padding-left: 0;
+        text-align: center;
+      }
+
+      .open-status {
+        display: flex;
+        justify-content: center;
+        width: 70px;
+        height: 26px;
+        border: 1px solid black;
+        border-radius: 8px;
+        background-color: #89C881;
+        font-family: SUIT-Regular;
+      }
+    }
+  }
+
+  .okay-btn-wrapper {
+    margin-top: 29px;
+    margin-left: 183px;
+  }
+}

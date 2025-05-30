@@ -16,7 +16,7 @@ const LobbyPage = () => {
   useGameSocket({ nickName, roomId });
   const location = useLocation();
 
-  const navType = location.pathname.endsWith("/game2") ? "game2" : "game1";
+  const navType = location.pathname.includes("/game2") ? "game2" : "game1";
 
   return (
     <div className="lobby-page-container">
@@ -27,16 +27,16 @@ const LobbyPage = () => {
           <img src={springImg} alt="스프링" className="main-content-img" />
           <div className="main-content-nav-container">
             <Link
-              to={GAME1_ROBBY_URL}
-              className={`a-btn ${navType === "game1" ? "active" : ""}`}
+              to={GAME2_ROBBY_URL}
+              className={`a-btn ${navType === "game2" ? "active" : ""}`}
             >
-              A
+              루루의 미대입시
             </Link>
             <Link
-              to={GAME2_ROBBY_URL}
-              className={`b-btn ${navType === "game2" ? "active" : ""}`}
+              to={GAME1_ROBBY_URL}
+              className={`b-btn ${navType === "game1" ? "active" : ""}`}
             >
-              B
+              묘묘를 속여라!
             </Link>
           </div>
           <div className="main-content-layout">

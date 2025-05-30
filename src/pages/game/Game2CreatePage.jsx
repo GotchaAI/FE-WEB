@@ -5,10 +5,15 @@ import CloseIcon from "commons/svgs/XIcon";
 import OkayButton from "commons/svgs/OkayButton";
 import { isNumeric } from "utils/validation";
 import { useNavigate } from "react-router-dom";
+import {
+  GAME2_LEVEL_OPTIONS,
+  GAME2_PLAYER_OPTIONS,
+  GAME2_ROUND_OPTIONS,
+} from "constants/game";
 
-const roundOptions = ["1round", "2round", "3round", "4round", "5round"];
-const playerOptions = ["2명", "4명", "6명", "8명"];
-const levelOptions = ["초보", "고수", "신"];
+const roundOptions = GAME2_ROUND_OPTIONS;
+const playerOptions = GAME2_PLAYER_OPTIONS;
+const levelOptions = GAME2_LEVEL_OPTIONS;
 
 const Game2CreatePage = () => {
   const [title, setTitle] = useState("");

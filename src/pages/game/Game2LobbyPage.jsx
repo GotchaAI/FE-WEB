@@ -4,7 +4,7 @@ import RoomTable from "components/game/Game2RoomTable";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useModalStore } from "store/modal";
-import { GAME2_ROOMS_PER_PAGE } from "constants/game";
+import { GAME2_LEVEL_OPTIONS, GAME2_ROOMS_PER_PAGE } from "constants/game";
 import "styles/pages/game/Game2LobbyPage.scss";
 
 // 임시 방목록 데이터
@@ -76,7 +76,7 @@ const Game2LobbyPage = () => {
     <div className="game2-lobby-container">
       <div className="game2-filter-header">
         <span className="filter-title">로봇 성능</span>
-        {["초보", "고수", "신"].map((level) => (
+        {GAME2_LEVEL_OPTIONS.map((level) => (
           <CheckBox
             key={level}
             label={level}

@@ -1,4 +1,3 @@
-import { HomeHeader } from "components/home/HomeHeader";
 import "styles/pages/introduce/IntroducePage.scss";
 import intro_logo from "assets/components/introduce/character-intro.png";
 import { character_info } from "constants/characterIntroduce";

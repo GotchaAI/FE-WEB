@@ -31,11 +31,7 @@ const Game1LobbyPage = () => {
   );
 
   const handleSelectLevel = (level) => {
-    if (selectedLevel === level) {
-      setSelectedLevel(null); // 다시 클릭하면 해제
-    } else {
-      setSelectedLevel(level);
-    }
+    setSelectedLevel(selectedLevel === level ? null : level);
   };
 
   const handleQuickJoin = () => {

@@ -1,21 +1,21 @@
 import { useState } from "react";
 import CheckBox from "commons/svgs/CheckBox";
-import "styles/pages/game/Game2CreatePage.scss";
+import "styles/pages/game/Game1CreatePage.scss";
 import CloseIcon from "commons/svgs/XIcon";
 import OkayButton from "commons/svgs/OkayButton";
 import { isNumeric } from "utils/validation";
 import { useNavigate } from "react-router-dom";
 import {
-  GAME2_LEVEL_OPTIONS,
-  GAME2_PLAYER_OPTIONS,
-  GAME2_ROUND_OPTIONS,
+  GAME1_LEVEL_OPTIONS,
+  GAME1_PLAYER_OPTIONS,
+  GAME1_ROUND_OPTIONS,
 } from "constants/game";
 
-const roundOptions = GAME2_ROUND_OPTIONS;
-const playerOptions = GAME2_PLAYER_OPTIONS;
-const levelOptions = GAME2_LEVEL_OPTIONS;
+const roundOptions = GAME1_ROUND_OPTIONS;
+const playerOptions = GAME1_PLAYER_OPTIONS;
+const levelOptions = GAME1_LEVEL_OPTIONS;
 
-const Game2CreatePage = () => {
+const Game1CreatePage = () => {
   const [title, setTitle] = useState("");
   const [round, setRound] = useState(roundOptions[0]);
   const [player, setPlayer] = useState(playerOptions[0]);
@@ -46,10 +46,10 @@ const Game2CreatePage = () => {
   };
 
   return (
-    <div className="game2-create-container">
-      <div className="game2-create-header">
+    <div className="game1-create-container">
+      <div className="game1-create-header">
         <span>방 만들기</span>
-        <button onClick={() => navigate("/lobby/game2")}>
+        <button onClick={() => navigate("/lobby/game1")}>
           <CloseIcon />
         </button>
       </div>
@@ -153,4 +153,4 @@ const Game2CreatePage = () => {
   );
 };
 
-export default Game2CreatePage;
+export default Game1CreatePage;

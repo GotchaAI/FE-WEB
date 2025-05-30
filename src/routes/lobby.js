@@ -1,7 +1,7 @@
 import WaitingRoom from "components/lobby/waiting/WaitingRoom";
-import Game1LobbyPage from "pages/game/Game1LobbyPage";
-import Game2CreatePage from "pages/game/Game2CreatePage";
 import Game2LobbyPage from "pages/game/Game2LobbyPage";
+import Game1CreatePage from "pages/game/Gam1CreatePage";
+import Game1LobbyPage from "pages/game/Game1LobbyPage";
 import LobbyPage, { loader as lobbyLoader } from "pages/lobby/LobbyPage";
 
 const lobby = [
@@ -16,7 +16,16 @@ const lobby = [
       },
       {
         path: "game1",
-        element: <Game1LobbyPage />,
+        children: [
+          {
+            index: true,
+            element: <Game1LobbyPage />,
+          },
+          {
+            path: "create",
+            element: <Game1CreatePage />,
+          },
+        ],
       },
       {
         path: "game2",
@@ -25,10 +34,10 @@ const lobby = [
             index: true,
             element: <Game2LobbyPage />,
           },
-          {
-            path: "create",
-            element: <Game2CreatePage />,
-          },
+          // {
+          //   path: "create",
+          //   element: <Game1CreatePage />,
+          // },
         ],
       },
       {

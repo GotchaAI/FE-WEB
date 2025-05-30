@@ -13,6 +13,7 @@
     margin-bottom: 11px;
 
     .filter-title {
+      font-family: YoonChild;
       font-size: 12px;
     }
   }
@@ -23,6 +24,7 @@
     .room-table {
       width: 100%;
       border-collapse: collapse;
+      font-family: SUIT-Regular;
       font-size: 12px;
 
       th,
@@ -73,6 +75,7 @@
       margin-left: 23px;
       align-items: center;
       gap: 6.32px;
+      font-family: YoonChild;
     }
 
     .room-actions {
@@ -85,6 +88,7 @@
         font-size: 16px;
         background-color: white;
         border: 1px solid black;
+        font-family: YoonChild;
 
         &:hover {
           background-color: #e4e4e4;

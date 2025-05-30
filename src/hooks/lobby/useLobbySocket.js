@@ -3,12 +3,9 @@ import { useGameSocketStore } from "store/socket";
 import { getUserUuid } from "utils/user";
 
 /**
- * useGameSocket 커스텀 훅
+ * useLobbySocket 커스텀 훅
  *
- * 게임 웹소켓 서버에 연결
- * nickName과 roomId를 기반으로 초기 연결을 수행
- * 서버에 접속 정보를 publish
- * 연결 실패 시 5000ms 간격으로 재연결 시도
+ * 로비에 필요한 pub 함수 및 구독 기능 제공
  */
 
 // TODO: 로비 세부 로직 추가 예정
@@ -26,8 +23,6 @@ const roomEnterEX = {
   eventType: "JOIN",
   content: "1234",
 };
-
-// TODO: uuid 저장 기능 추가 후 적용
 
 const useLobbySocket = () => {
   const roomEventSubRef = useRef(null);

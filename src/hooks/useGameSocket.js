@@ -18,6 +18,7 @@ const useGameSocket = () => {
   const { setStompClient, clearStompClient } = useGameSocketStore();
   const { accessToken } = getAuthToken();
   const userUuid = 5; // TODO : uuid 저장 로직 추가 시 적용
+  let subscription;
 
   useEffect(() => {
     const client = new Client({
@@ -32,20 +33,17 @@ const useGameSocket = () => {
 
     client.onConnect = () => {
       console.log("Connected!");
-
-      // TODO: 백엔드 테스트 후 제거 예정
-      client.subscribe("/user/queue/errors", (message) => {
-        console.log(
-          "사용자별 에러 로그 :" + message + "상세 내용" + message.body
-        );
-      });
+      setStompClient(client);
 
       // 주요 에러 핸들러
-      client.subscribe(`/user/${userUuid}/queue/errors`, (message) => {
-        console.log(
-          "사용자별 에러 로그 :" + message + "상세 내용" + message.body
-        );
-      });
+      subscription = client.subscribe(
+        `/user/${userUuid}/queue/errors`,
+        (message) => {
+          console.log(
+            "사용자별 에러 로그 :" + message + "상세 내용" + message.body
+          );
+        }
+      );
     };
 
     // stomp 에러 디버깅
@@ -55,10 +53,10 @@ const useGameSocket = () => {
 
     // 웹소켓 연결
     client.activate();
-    setStompClient(client);
 
     return () => {
       // 웹소켓 해제
+      if (subscription) subscription.unsubscribe();
       client.deactivate();
       clearStompClient();
     };

@@ -7,6 +7,10 @@
   width: 345px;
   height: 64px;
 
+  .svg-main-fill {
+    transition: fill 0.3s ease;
+  }
+
   .label {
     position: absolute;
     top: 50%;

@@ -1,0 +1,28 @@
+.wing {
+  width: 106px;
+  height: 108px;
+  user-select: none;
+  pointer-events: none;
+  transform: translateY(-27px) translateX(26.5px);
+
+  &.right {
+    transform: scaleX(-1) translateY(-27px) translateX(26.5px);
+  }
+}
+
+.game-alert-toast {
+  background-color: #E9FF9F;
+  font-size: 30px;
+  font-family: 'UhBeeSe_hyun', sans-serif;
+
+  padding: 40.66px 53px;
+  border-radius: 10.83px;
+  border: solid 1px black;
+
+  display: inline-block;
+  text-align: center;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  white-space: nowrap;
+}

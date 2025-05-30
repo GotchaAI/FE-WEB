@@ -12,7 +12,7 @@ const RoomEnterModal = ({ roomType, hostName, roomName, onConfirm }) => {
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
-    if (isNumeric(value)) {
+    if (isNumeric(value) && value.length <= 4) {
       setPassword(value);
     }
   };

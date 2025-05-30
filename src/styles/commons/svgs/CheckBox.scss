@@ -7,6 +7,9 @@
   position: relative;
 
   input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     position: absolute;
     opacity: 0;
     width: 13px;
@@ -49,7 +52,6 @@
   }
 
   input[type="checkbox"]:focus+.custom-checkbox {
-    outline: 2px solid black;
-    outline-offset: 2px;
+    border: 2px solid black;
   }
 }

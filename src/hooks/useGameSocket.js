@@ -13,13 +13,14 @@ import { getAuthToken } from "utils/token";
  * 연결 실패 시 5000ms 간격으로 재연결 시도
  */
 
-const useGameSocket = () => {
+const useGameSocket = ({ userUuid }) => {
   const { setStompClient, clearStompClient } = useGameSocketStore();
   const { accessToken } = getAuthToken();
-  const userUuid = 5; // TODO : uuid 저장 로직 추가 시 적용
   const eventSubRef = useRef(null);
 
   useEffect(() => {
+    if (!userUuid) return;
+
     const client = new Client({
       webSocketFactory: () => new SockJS(`${SOCKET_IP}${CONNECT_API}`),
       connectHeaders: {

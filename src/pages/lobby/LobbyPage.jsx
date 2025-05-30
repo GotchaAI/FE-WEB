@@ -16,6 +16,7 @@ import {
 import { tokenReissueAPI } from "services/auth/auth";
 import "styles/pages/lobby/LobbyPage.scss";
 import { getAuthToken } from "utils/token";
+import { getUserUuid } from "utils/user";
 
 const LobbyPage = () => {
   const navigate = useNavigate();
@@ -26,7 +27,8 @@ const LobbyPage = () => {
   const [selectedRoomId, setSelectedRoomId] = useState(null); // 입장할 roomId
   console.log(setSelectedRoomId); // ESLint 방지
 
-  useGameSocket(); // 소켓 연결
+  const userUuid = getUserUuid();
+  useGameSocket({ userUuid }); // 소켓 연결
 
   const { createRoom, enterRoom, enterRoomInfo } = useLobbySocket();
 

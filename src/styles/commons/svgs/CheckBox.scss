@@ -7,6 +7,9 @@
   position: relative;
 
   input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     position: absolute;
     opacity: 0;
     width: 13px;

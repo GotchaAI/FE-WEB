@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useGameSocketStore } from "store/socket";
-import { getUserUuid } from "utils/user";
 
 /**
  * useLobbySocket 커스텀 훅
@@ -24,11 +23,10 @@ const roomEnterEX = {
   content: "1234",
 };
 
-const useLobbySocket = () => {
+const useLobbySocket = ({ userUuid }) => {
   const roomEventSubRef = useRef(null);
   const { stompClient } = useGameSocketStore();
   const [enterRoomInfo, setEnterRoomInfo] = useState(null);
-  const userUuid = useRef(null);
 
   // 🔕 공통 구독 해제 로직
   const unsubscribePrev = () => {
@@ -39,11 +37,6 @@ const useLobbySocket = () => {
     }
   };
 
-  // uuid 초기화
-  useEffect(() => {
-    userUuid.current = getUserUuid();
-  }, []);
-
   // 초기 세팅
   useEffect(() => {
     if (!stompClient || !stompClient.connected) return;
@@ -53,7 +46,7 @@ const useLobbySocket = () => {
       `/sub/room/list/event`,
       (message) => {
         const payload = JSON.parse(message.body);
-        console.log(JSON.parse(payload));
+        console.log(payload);
       }
     );
 
@@ -71,8 +64,9 @@ const useLobbySocket = () => {
     unsubscribePrev();
 
     // 🔔 방 이벤트 구독
+    // TODO: 방 구독 로직 변경 예정 -> OK:roodID 반환 FAIL:??
     const subscription = stompClient.subscribe(
-      `/sub/room/create/${userUuid.current}`,
+      `/sub/room/create/${userUuid}`,
       (message) => {
         // 생성 가능 여부 반환
         const roomInfo = JSON.parse(message.body);
@@ -104,6 +98,7 @@ const useLobbySocket = () => {
     unsubscribePrev();
 
     // 🔔 방 입장 가능 여부 구독
+    // TODO: 방 입장 구독 로직 변경 예정 -> OK:roodID 반환 FAIL:??
     const subscription = stompClient.subscribe(
       `/sub/room/event/${selectedRoomId}`,
       (message) => {
@@ -114,7 +109,7 @@ const useLobbySocket = () => {
         // TODO: 불가능 로직(에러) 처리
 
         // 입장 가능
-        setEnterRoomInfo(roomInfo); // 상태 업데이트
+        setEnterRoomInfo(selectedRoomId); // 상태 업데이트
 
         // 🔕 구독 해제
         unsubscribePrev();

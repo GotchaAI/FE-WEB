@@ -6,6 +6,7 @@ import useWaitingRoomSocket from "hooks/waiting-room/useWaitingRoomSocket";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "styles/components/lobby/waiting/WaitingRoom.scss";
+import { getUserUuid } from "utils/user";
 
 const dummyData = {
   roomMetadata: {
@@ -41,6 +42,7 @@ const WaitingRoom = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const nickname = "관리자"; // TODO: 닉네임 저장 기능 추가 후 적용
+  const userUuid = getUserUuid();
 
   const [roomId, setRoomId] = useState(null); // 방번호
   const [roomInfo, setRoomInfo] = useState(null); // 방 전체 정보
@@ -76,7 +78,6 @@ const WaitingRoom = () => {
     const myState = roomInfo.userInfos.find(
       (user) => user.nickname === nickname
     );
-
     // 레디 여부 적용
     setIsReady(myState?.ready);
 
@@ -161,7 +162,7 @@ const WaitingRoom = () => {
               </div>
             </div>
 
-            {nickname === roomInfo.roomMetadata.owner ? (
+            {userUuid === roomInfo.roomMetadata.ownerUuid ? (
               <label className="start-btn-wrapper">
                 <GameStartButton onClick={gameStartHandler} />
               </label>

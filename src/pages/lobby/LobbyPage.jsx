@@ -30,7 +30,7 @@ const LobbyPage = () => {
   const userUuid = getUserUuid();
   useGameSocket({ userUuid }); // 소켓 연결
 
-  const { createRoom, enterRoom, enterRoomInfo } = useLobbySocket();
+  const { createRoom, enterRoom, enterRoomInfo } = useLobbySocket({ userUuid });
 
   // 임시 : 방 생성 함수
   const makeRoomHandler = () => {

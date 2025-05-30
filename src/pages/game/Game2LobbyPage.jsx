@@ -59,17 +59,24 @@ const Game2LobbyPage = () => {
   };
 
   const handleRoomClick = (room) => {
-    useModalStore.getState().openModal(
-      "roomEnter",
-      {
-        roomType: room.mode,
-        hostName: room.host,
-        roomName: room.intro,
-      },
-      (password) => {
-        console.log("입력한 비밀번호:", password);
-      }
-    );
+    if (room.isLocked) {
+      // 비밀방일 경우 비밀번호 입력
+      useModalStore.getState().openModal(
+        "roomEnter",
+        {
+          roomType: room.mode,
+          hostName: room.host,
+          roomName: room.intro,
+        },
+        (password) => {
+          console.log("입력한 비밀번호:", password);
+        }
+      );
+    } else {
+      // 공개방일 경우 바로 입장
+      // 방이 가득 찼다면 토스트 메시지
+      console.log(`[${room.intro}] 에 입장~`);
+    }
   };
 
   return (

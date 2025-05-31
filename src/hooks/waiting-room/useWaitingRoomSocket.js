@@ -1,4 +1,4 @@
-import { SOCKET_ROOM_API } from "constants/api";
+import { SOCKET_ROOM_API, SOCKET_ROOM_ERROR_API } from "constants/api";
 import { useEffect } from "react";
 import { useGameSocketStore } from "store/socket";
 
@@ -27,13 +27,21 @@ const gameUnreadyEX = {
   eventType: "UNREADY",
 };
 
-const useWaitingRoomSocket = ({ roomId, setRoomInfo }) => {
+const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
   const { stompClient, isConnected } = useGameSocketStore();
 
   useEffect(() => {
     if (roomId === null) return;
     if (!isConnected) return;
-    console.log("방입장 : " + roomId);
+    console.log("방 입장 : " + roomId);
+
+    const roomErrorSub = stompClient.subscribe(
+      `${SOCKET_ROOM_ERROR_API}/${userUuid}`,
+      (message) => {
+        const payload = JSON.parse(message.body);
+        console.log("방 에러:", payload);
+      }
+    );
 
     // 🔔 방 이벤트 여부 구독
     const subscription = stompClient.subscribe(
@@ -66,6 +74,7 @@ const useWaitingRoomSocket = ({ roomId, setRoomInfo }) => {
 
     // 🔕 대기방 이벤트 구독 해제
     return () => {
+      roomErrorSub.unsubscribe();
       subscription.unsubscribe();
     };
   }, [stompClient, roomId, setRoomInfo, isConnected]);

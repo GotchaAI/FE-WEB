@@ -27,7 +27,9 @@ const useContextMenu = () => {
 
   const openMenu = (x, y, newMenus) => {
     setPosition({ x, y });
-    setMenus(newMenus);
+    if (menus !== newMenus) {
+      setMenus(newMenus);
+    }
     setIsOpen(true);
   };
 

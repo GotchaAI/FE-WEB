@@ -19,7 +19,6 @@ const ContextMenu = ({ menus, position, onClose }) => {
       <div
         className="context-menu-container"
         style={{ top: position.y, left: position.x }}
-        onClick={onClose}
       >
         <ul className="context-menu-list">
           {menus.map((menu, idx) => (

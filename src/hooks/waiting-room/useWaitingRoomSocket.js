@@ -1,3 +1,4 @@
+import { SOCKET_ROOM_API } from "constants/api";
 import { useEffect } from "react";
 import { useGameSocketStore } from "store/socket";
 
@@ -27,17 +28,16 @@ const gameUnreadyEX = {
 };
 
 const useWaitingRoomSocket = ({ roomId, setRoomInfo }) => {
-  const { stompClient } = useGameSocketStore();
+  const { stompClient, isConnected } = useGameSocketStore();
 
   useEffect(() => {
     if (roomId === null) return;
-    if (!stompClient || !stompClient.connected) return;
-
+    if (!isConnected) return;
     console.log("방입장 : " + roomId);
 
     // 🔔 방 이벤트 여부 구독
     const subscription = stompClient.subscribe(
-      `/sub/room/event/${roomId}`,
+      `/sub${SOCKET_ROOM_API}/${roomId}`,
       (message) => {
         const payload = JSON.parse(message.body);
         console.log("방 이벤트:", payload);
@@ -68,7 +68,7 @@ const useWaitingRoomSocket = ({ roomId, setRoomInfo }) => {
     return () => {
       subscription.unsubscribe();
     };
-  }, [stompClient, roomId, setRoomInfo]);
+  }, [stompClient, roomId, setRoomInfo, isConnected]);
 
   // 게임 시작
   const startGame = (roomId) => {
@@ -76,7 +76,7 @@ const useWaitingRoomSocket = ({ roomId, setRoomInfo }) => {
 
     // 🚀 게임 시작 publish
     stompClient.publish({
-      destination: `/pub/room/${roomId}`,
+      destination: `/pub${SOCKET_ROOM_API}/${roomId}`,
       body: JSON.stringify(gameStartEX),
     });
   };
@@ -87,7 +87,7 @@ const useWaitingRoomSocket = ({ roomId, setRoomInfo }) => {
 
     // 🚀 게임 준비 publish
     stompClient.publish({
-      destination: `/pub/room/${roomId}`,
+      destination: `/pub${SOCKET_ROOM_API}/${roomId}`,
       body: JSON.stringify(gameReadyEX),
     });
   };
@@ -98,7 +98,7 @@ const useWaitingRoomSocket = ({ roomId, setRoomInfo }) => {
 
     // 🚀 게임 준비 취소 publish
     stompClient.publish({
-      destination: `/pub/room/${roomId}`,
+      destination: `/pub${SOCKET_ROOM_API}/${roomId}`,
       body: JSON.stringify(gameUnreadyEX),
     });
   };
@@ -115,7 +115,7 @@ const useWaitingRoomSocket = ({ roomId, setRoomInfo }) => {
 
     // 🚀 게임 준비 취소 publish
     stompClient.publish({
-      destination: `/pub/room/${roomId}`,
+      destination: `/pub${SOCKET_ROOM_API}/${roomId}`,
       body: JSON.stringify(roomUpdateEX),
     });
   };
@@ -126,7 +126,7 @@ const useWaitingRoomSocket = ({ roomId, setRoomInfo }) => {
 
     // 🚀 방 퇴장 publish
     stompClient.publish({
-      destination: `/pub/room/${roomId}`,
+      destination: `/pub${SOCKET_ROOM_API}/${roomId}`,
       body: JSON.stringify(roomExitEX),
     });
   };

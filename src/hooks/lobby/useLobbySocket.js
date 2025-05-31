@@ -1,3 +1,8 @@
+import {
+  SOCKET_LOBBY_CREATE_API,
+  SOCKET_LOBBY_JOIN_API,
+  SOCKET_ROOM_LIST_EVENT,
+} from "constants/api";
 import { useEffect, useRef, useState } from "react";
 import { useGameSocketStore } from "store/socket";
 
@@ -25,7 +30,7 @@ const roomEnterEX = {
 
 const useLobbySocket = ({ userUuid }) => {
   const roomEventSubRef = useRef(null);
-  const { stompClient } = useGameSocketStore();
+  const { stompClient, isConnected } = useGameSocketStore();
   const [enterRoomInfo, setEnterRoomInfo] = useState(null);
 
   // 🔕 공통 구독 해제 로직
@@ -39,11 +44,11 @@ const useLobbySocket = ({ userUuid }) => {
 
   // 초기 세팅
   useEffect(() => {
-    if (!stompClient || !stompClient.connected) return;
+    if (!isConnected) return;
 
     // 🔔 로비 에러 구독
     const subscription = stompClient.subscribe(
-      `/sub/room/list/event`,
+      `/sub${SOCKET_ROOM_LIST_EVENT}`,
       (message) => {
         const payload = JSON.parse(message.body);
         console.log(payload);
@@ -55,7 +60,7 @@ const useLobbySocket = ({ userUuid }) => {
       subscription.unsubscribe();
       unsubscribePrev();
     };
-  }, [stompClient]);
+  }, [isConnected, stompClient]);
 
   // 방 생성
   const createRoom = () => {
@@ -66,7 +71,7 @@ const useLobbySocket = ({ userUuid }) => {
     // 🔔 방 이벤트 구독
     // TODO: 방 구독 로직 변경 예정 -> OK:roodID 반환 FAIL:??
     const subscription = stompClient.subscribe(
-      `/sub/room/create/${userUuid}`,
+      `/sub${SOCKET_LOBBY_CREATE_API}/${userUuid}`,
       (message) => {
         // 생성 가능 여부 반환
         const roomInfo = JSON.parse(message.body);
@@ -86,7 +91,7 @@ const useLobbySocket = ({ userUuid }) => {
 
     // 🚀 방 생성 요청
     stompClient.publish({
-      destination: "/pub/room/create",
+      destination: `/pub${SOCKET_LOBBY_CREATE_API}`,
       body: JSON.stringify(roomCreateEX),
     });
   };
@@ -100,7 +105,7 @@ const useLobbySocket = ({ userUuid }) => {
     // 🔔 방 입장 가능 여부 구독
     // TODO: 방 입장 구독 로직 변경 예정 -> OK:roodID 반환 FAIL:??
     const subscription = stompClient.subscribe(
-      `/sub/room/event/${selectedRoomId}`,
+      `/sub${SOCKET_LOBBY_JOIN_API}/${selectedRoomId}`,
       (message) => {
         // 입장 가능 여부 반환
         const roomInfo = JSON.parse(message.body);
@@ -120,7 +125,7 @@ const useLobbySocket = ({ userUuid }) => {
 
     // 🚀 방 입장 publish
     stompClient.publish({
-      destination: `/pub/room/${selectedRoomId}`,
+      destination: `/pub${SOCKET_LOBBY_JOIN_API}/${selectedRoomId}`,
       body: JSON.stringify(roomEnterEX),
     });
   };

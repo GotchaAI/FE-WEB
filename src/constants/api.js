@@ -23,4 +23,20 @@ export const SOCKET_IP = process.env.REACT_APP_SOCKET_BASE_URL;
 export const LOCAL_SOCKET_IP = process.env.REACT_APP_SOCKET_BASE_URL;
 
 // 소켓 연결 API
-export const CONNECT_API = process.env.REACT_APP_WS_ENDPOINT;
+export const SOCKET_CONNECT_API = process.env.REACT_APP_WS_ENDPOINT;
+
+// 소켓 글로벌 에러 API
+export const SOCKET_GLOBAL_ERROR_API =
+  process.env.REACT_APP_WS_GLOBAL_ERROR_API;
+
+// 소켓 로비 API
+export const SOCKET_ROOM_LIST_EVENT =
+  process.env.REACT_APP_WS_ROOM_LIST_EVENT_API; // 로비 목록 변경 API
+
+export const SOCKET_LOBBY_CREATE_API =
+  process.env.REACT_APP_WS_LOBBY_CREATE_API; // 로비 대기방 생성 API
+
+export const SOCKET_LOBBY_JOIN_API = process.env.REACT_APP_WS_LOBBY_JOIN_API; // 로비 대기방 입장 API
+
+// 대기방 API
+export const SOCKET_ROOM_API = process.env.REACT_APP_WS_ROOM_API; // 대기방 API

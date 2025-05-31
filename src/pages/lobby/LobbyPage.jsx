@@ -24,13 +24,15 @@ const LobbyPage = () => {
 
   const navType = location.pathname.includes("/game2") ? "game2" : "game1";
 
-  const [selectedRoomId, setSelectedRoomId] = useState(null); // 입장할 roomId
+  const [selectedRoomId, setSelectedRoomId] = useState("7126"); // 입장할 roomId
   console.log(setSelectedRoomId); // ESLint 방지
 
   const userUuid = getUserUuid();
   useGameSocket({ userUuid }); // 소켓 연결
 
-  const { createRoom, enterRoom, enterRoomInfo } = useLobbySocket({ userUuid });
+  const { createRoom, enterRoom, enterRoomId } = useLobbySocket({
+    userUuid,
+  });
 
   // 임시 : 방 생성 함수
   const makeRoomHandler = () => {
@@ -46,16 +48,12 @@ const LobbyPage = () => {
 
   // 생성 및 입장 시 발동
   useEffect(() => {
-    if (enterRoomInfo) {
-      console.log("🎉 입장 성공!", enterRoomInfo);
+    if (enterRoomId) {
+      console.log("🎉 입장 성공!", enterRoomId);
 
-      // 쿼리 스트링으로 roomId 제공
-      // TODO : state 제거하고 대기방 세부 정보 로드 api로 대체예정
-      navigate(`./test?roomId=${enterRoomInfo.data.id}`, {
-        state: enterRoomInfo,
-      });
+      navigate(`./test?roomId=${enterRoomId}`);
     }
-  }, [enterRoomInfo, navigate]);
+  }, [enterRoomId, navigate]);
 
   return (
     <div className="lobby-page-container">

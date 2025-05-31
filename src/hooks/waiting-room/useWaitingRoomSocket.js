@@ -41,7 +41,7 @@ const useWaitingRoomSocket = ({ roomId, setRoomInfo }) => {
       (message) => {
         const payload = JSON.parse(message.body);
         console.log("방 이벤트:", payload);
-        const eventType = payload.eventType;
+        const eventType = payload.type;
         const data = payload.data;
 
         switch (eventType) {

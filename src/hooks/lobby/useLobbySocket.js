@@ -71,7 +71,7 @@ const useLobbySocket = ({ userUuid }) => {
       roomListUpdateSub.unsubscribe();
       unsubscribePrev();
     };
-  }, [isConnected, stompClient]);
+  }, [isConnected, stompClient, userUuid]);
 
   // 방 생성
   const createRoom = () => {

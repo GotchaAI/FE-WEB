@@ -30,6 +30,8 @@ export const SOCKET_GLOBAL_ERROR_API =
   process.env.REACT_APP_WS_GLOBAL_ERROR_API;
 
 // 소켓 로비 API
+export const SOCKET_LOBBY_ERROR_API = process.env.REACT_APP_WS_LOBBY_ERROR_API; // 로비 에러 API
+
 export const SOCKET_ROOM_LIST_EVENT =
   process.env.REACT_APP_WS_ROOM_LIST_EVENT_API; // 로비 목록 변경 API
 
@@ -39,4 +41,6 @@ export const SOCKET_LOBBY_CREATE_API =
 export const SOCKET_LOBBY_JOIN_API = process.env.REACT_APP_WS_LOBBY_JOIN_API; // 로비 대기방 입장 API
 
 // 대기방 API
+export const SOCKET_ROOM_ERROR_API = process.env.REACT_APP_WS_ROOM_ERROR_API; // 대기방 에러 API
+
 export const SOCKET_ROOM_API = process.env.REACT_APP_WS_ROOM_API; // 대기방 API

@@ -1,5 +1,6 @@
 import {
   SOCKET_LOBBY_CREATE_API,
+  SOCKET_LOBBY_ERROR_API,
   SOCKET_LOBBY_JOIN_API,
   SOCKET_ROOM_LIST_EVENT,
 } from "constants/api";
@@ -47,7 +48,16 @@ const useLobbySocket = ({ userUuid }) => {
     if (!isConnected) return;
 
     // 🔔 로비 에러 구독
-    const subscription = stompClient.subscribe(
+    const lobbyErrorSub = stompClient.subscribe(
+      `${SOCKET_LOBBY_ERROR_API}/${userUuid}`,
+      (message) => {
+        const payload = JSON.parse(message.body);
+        console.log(payload);
+      }
+    );
+
+    // 🔔 방 목록 업데이트 구독
+    const roomListUpdateSub = stompClient.subscribe(
       `/sub${SOCKET_ROOM_LIST_EVENT}`,
       (message) => {
         const payload = JSON.parse(message.body);
@@ -57,10 +67,11 @@ const useLobbySocket = ({ userUuid }) => {
 
     // 🔕 로비 이벤트 구독 해제
     return () => {
-      subscription.unsubscribe();
+      lobbyErrorSub.unsubscribe();
+      roomListUpdateSub.unsubscribe();
       unsubscribePrev();
     };
-  }, [isConnected, stompClient]);
+  }, [isConnected, stompClient, userUuid]);
 
   // 방 생성
   const createRoom = () => {
@@ -105,7 +116,7 @@ const useLobbySocket = ({ userUuid }) => {
     // 🔔 방 입장 가능 여부 구독
     // TODO: 방 입장 구독 로직 변경 예정 -> OK:roodID 반환 FAIL:??
     const subscription = stompClient.subscribe(
-      `/sub${SOCKET_LOBBY_JOIN_API}/${selectedRoomId}`,
+      `/sub${SOCKET_LOBBY_JOIN_API}/${userUuid}`,
       (message) => {
         // 입장 가능 여부 반환
         const roomInfo = JSON.parse(message.body);

@@ -50,7 +50,7 @@ const WaitingRoom = () => {
   const [isReady, setIsReady] = useState(false); // 준비 여부
 
   const { startGame, readyGame, unreadyGame, updateRoomInfo, quitRoom } =
-    useWaitingRoomSocket({ roomId, setRoomInfo });
+    useWaitingRoomSocket({ roomId, userUuid, setRoomInfo });
 
   // 최초 방정보 갱신
   // TODO: roomId로 방 세부 정보 받아오는 api 필요

@@ -14,6 +14,13 @@ const ContextMenu = ({ menus, position, onClose }) => {
   const layoutHandler = () => {
     onClose && onClose();
   };
+
+  const menuClickHandler = (e, menu) => {
+    e.stopPropagation();
+    menu.action();
+    onClose && onClose();
+  };
+
   return (
     <div className="context-menu-layout" onClick={layoutHandler}>
       <div
@@ -25,11 +32,7 @@ const ContextMenu = ({ menus, position, onClose }) => {
             <li
               key={`contextmenu-${idx}`}
               className="context-menu-item"
-              onClick={(e) => {
-                e.stopPropagation();
-                menu.action();
-                onClose && onClose();
-              }}
+              onClick={(e) => menuClickHandler(e, menu)}
             >
               {menu.label}
             </li>

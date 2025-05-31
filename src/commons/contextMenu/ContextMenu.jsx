@@ -6,7 +6,7 @@ import "styles/commons/contextmenu/ContextMenu.scss";
  *
  * props:
  * - menus: [{ label: string, action: Function }] 형태의 메뉴 항목 배열
- * - position: { x: number, y: number } 형태의 화면 좌표 (메뉴를 띄울 위치)
+ * - position: { x: number, y: number } 형태의 화면 좌표 (e.clientX, e.clientY를 반환하면 됨)
  * - onClose: 메뉴 닫기 콜백 함수
  */
 

@@ -24,7 +24,7 @@ const ContextMenu = ({ menus, position, onClose }) => {
         <ul className="context-menu-list">
           {menus.map((menu, idx) => (
             <li
-              key={idx}
+              key={`contextmenu-${idx}`}
               className="context-menu-item"
               onClick={(e) => {
                 e.stopPropagation();

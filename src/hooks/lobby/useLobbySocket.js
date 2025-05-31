@@ -31,7 +31,7 @@ const roomEnterEX = {
 const useLobbySocket = ({ userUuid }) => {
   const roomEventSubRef = useRef(null);
   const { stompClient, isConnected } = useGameSocketStore();
-  const [enterRoomInfo, setEnterRoomInfo] = useState(null);
+  const [enterRoomId, setEnterRoomId] = useState(null);
 
   // 🔕 공통 구독 해제 로직
   const unsubscribePrev = () => {
@@ -75,12 +75,12 @@ const useLobbySocket = ({ userUuid }) => {
       (message) => {
         // 생성 가능 여부 반환
         const roomInfo = JSON.parse(message.body);
-        console.log("방 번호:", roomInfo);
+        const roomId = JSON.parse(roomInfo.payload);
 
         // TODO: 불가능(에러) 로직
 
         // 입장 가능
-        setEnterRoomInfo(roomInfo);
+        setEnterRoomId(roomId.roomId);
 
         // 🔕 구독 해제
         unsubscribePrev();
@@ -114,7 +114,7 @@ const useLobbySocket = ({ userUuid }) => {
         // TODO: 불가능 로직(에러) 처리
 
         // 입장 가능
-        setEnterRoomInfo(selectedRoomId); // 상태 업데이트
+        setEnterRoomId(selectedRoomId); // 상태 업데이트
 
         // 🔕 구독 해제
         unsubscribePrev();
@@ -130,7 +130,7 @@ const useLobbySocket = ({ userUuid }) => {
     });
   };
 
-  return { createRoom, enterRoom, enterRoomInfo };
+  return { createRoom, enterRoom, enterRoomId };
 };
 
 export default useLobbySocket;

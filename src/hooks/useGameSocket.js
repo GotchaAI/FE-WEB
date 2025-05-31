@@ -74,6 +74,7 @@ const useGameSocket = ({ userUuid }) => {
       }
       client.deactivate();
       clearStompClient();
+      setIsConnected(false);
     };
   }, [accessToken, clearStompClient, setStompClient, setIsConnected, userUuid]);
 

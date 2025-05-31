@@ -64,7 +64,7 @@ const useLobbySocket = ({ userUuid }) => {
 
   // 방 생성
   const createRoom = () => {
-    if (!stompClient || !stompClient.connected) return;
+    if (!isConnected) return;
 
     unsubscribePrev();
 
@@ -98,7 +98,7 @@ const useLobbySocket = ({ userUuid }) => {
 
   // 방 입장
   const enterRoom = (selectedRoomId) => {
-    if (!stompClient?.connected) return;
+    if (!isConnected) return;
 
     unsubscribePrev();
 

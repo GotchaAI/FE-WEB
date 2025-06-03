@@ -164,21 +164,21 @@ const useLobbySocket = ({ userUuid, onLobbyError }) => {
           try {
             innerPayload = JSON.parse(responsePayload.payload);
           } catch (error) {
-            console.error("🚫 payload 파싱 실패!", error);
+            console.error("payload 파싱 실패!", error);
             resolve({ success: false });
             unsubscribePrev();
             return;
           }
 
           if (innerPayload.roomId) {
-            console.log("✅ 방 입장 성공 → roomId:", innerPayload.roomId);
+            console.log("방 입장 성공 → roomId:", innerPayload.roomId);
             setEnterRoomId(innerPayload.roomId);
             resolve({ success: true, roomId: innerPayload.roomId });
             unsubscribePrev();
             return;
           }
 
-          console.error("🚫 방 입장 실패!");
+          console.error("방 입장 실패!");
           resolve({ success: false });
           unsubscribePrev();
         }
@@ -186,7 +186,7 @@ const useLobbySocket = ({ userUuid, onLobbyError }) => {
 
       roomEventSubRef.current = subscription;
 
-      // 🚀 방 입장 요청 (password 만 전송)
+      // 방 입장 요청 (password 만 전송)
       stompClient.publish({
         destination: `/pub${SOCKET_LOBBY_JOIN_API}/${roomId}`,
         body: JSON.stringify({ password }),

@@ -31,7 +31,7 @@ const Game1CreatePage = () => {
   const navigate = useNavigate();
 
   const userUuid = getUserUuid();
-  const { createRoom, enterRoom, enterRoomId } = useLobbySocket({ userUuid });
+  const { createRoom } = useLobbySocket({ userUuid });
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;

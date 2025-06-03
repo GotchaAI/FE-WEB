@@ -29,7 +29,7 @@ const roomEnterEX = {
   content: "1234",
 };
 
-const useLobbySocket = ({ userUuid }) => {
+const useLobbySocket = ({ userUuid, onLobbyError }) => {
   const roomEventSubRef = useRef(null);
   const { stompClient, isConnected } = useGameSocketStore();
   const [enterRoomId, setEnterRoomId] = useState(null);
@@ -53,6 +53,10 @@ const useLobbySocket = ({ userUuid }) => {
       (message) => {
         const payload = JSON.parse(message.body);
         console.log("로비에러: ", payload);
+
+        if (onLobbyError) {
+          onLobbyError(payload);
+        }
       }
     );
 
@@ -71,7 +75,7 @@ const useLobbySocket = ({ userUuid }) => {
       roomListUpdateSub.unsubscribe();
       unsubscribePrev();
     };
-  }, [isConnected, stompClient, userUuid]);
+  }, [isConnected, stompClient, userUuid, onLobbyError]);
 
   // 방 생성
   const createRoom = (roomPayload) => {
@@ -141,38 +145,56 @@ const useLobbySocket = ({ userUuid }) => {
   };
 
   // 방 입장
-  const enterRoom = (selectedRoomId) => {
-    if (!isConnected) return;
-
-    unsubscribePrev();
-
-    // 🔔 방 입장 가능 여부 구독
-    // TODO: 방 입장 구독 로직 변경 예정 -> OK:roodID 반환 FAIL:??
-    const subscription = stompClient.subscribe(
-      `/sub${SOCKET_LOBBY_JOIN_API}/${userUuid}`,
-      (message) => {
-        // 입장 가능 여부 반환
-        const roomInfo = JSON.parse(message.body);
-        console.log("입장 가능? :", roomInfo);
-
-        // TODO: 불가능 로직(에러) 처리
-
-        // 입장 가능
-        setEnterRoomId(selectedRoomId); // 상태 업데이트
-
-        // 🔕 구독 해제
-        unsubscribePrev();
+  const enterRoom = (roomId, password) => {
+    return new Promise((resolve) => {
+      if (!isConnected) {
+        resolve({ success: false });
+        return;
       }
-    );
 
-    roomEventSubRef.current = subscription;
+      unsubscribePrev();
 
-    // 🚀 방 입장 publish
-    stompClient.publish({
-      destination: `/pub${SOCKET_LOBBY_JOIN_API}/${selectedRoomId}`,
-      body: JSON.stringify(roomEnterEX),
+      const subscription = stompClient.subscribe(
+        `/sub${SOCKET_LOBBY_JOIN_API}/${userUuid}`,
+        (message) => {
+          const responsePayload = JSON.parse(message.body);
+          console.log("방 입장 응답:", responsePayload);
+
+          let innerPayload = {};
+          try {
+            innerPayload = JSON.parse(responsePayload.payload);
+          } catch (error) {
+            console.error("🚫 payload 파싱 실패!", error);
+            resolve({ success: false });
+            unsubscribePrev();
+            return;
+          }
+
+          if (innerPayload.roomId) {
+            console.log("✅ 방 입장 성공 → roomId:", innerPayload.roomId);
+            setEnterRoomId(innerPayload.roomId);
+            resolve({ success: true, roomId: innerPayload.roomId });
+            unsubscribePrev();
+            return;
+          }
+
+          console.error("🚫 방 입장 실패!");
+          resolve({ success: false });
+          unsubscribePrev();
+        }
+      );
+
+      roomEventSubRef.current = subscription;
+
+      // 🚀 방 입장 요청 (password 만 전송)
+      stompClient.publish({
+        destination: `/pub${SOCKET_LOBBY_JOIN_API}/${roomId}`,
+        body: JSON.stringify({ password }),
+      });
     });
   };
+
+
 
   return { createRoom, enterRoom, enterRoomId };
 };

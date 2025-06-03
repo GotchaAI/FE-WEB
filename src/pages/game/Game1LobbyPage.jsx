@@ -6,6 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { useModalStore } from "store/modal";
 import { GAME1_LEVEL_OPTIONS, GAME1_ROOMS_PER_PAGE } from "constants/game";
 import "styles/pages/game/Game1LobbyPage.scss";
+import useLobbySocket from "hooks/lobby/useLobbySocket";
+import { getUserUuid } from "utils/user";
+import { useToastStore } from "store/toast";
 
 // 임시 방목록 데이터
 const dummyRooms = Array(0)
@@ -24,6 +27,24 @@ const Game1LobbyPage = () => {
   const [selectedLevel, setSelectedLevel] = useState(null);
   const navigate = useNavigate();
 
+  const userUuid = getUserUuid();
+  const { createRoom, enterRoom } = useLobbySocket({
+    userUuid,
+    onLobbyError: (errorPayload) => {
+      console.log("🔥 Game1LobbyPage에서 받은 로비에러:", errorPayload);
+      // 해당 방이 없을 때, 토스트 띄움
+      if (errorPayload.code === "ROOM_400_004") {
+        useToastStore
+          .getState()
+          .showToast("alert", "방이 존재하지 않아요!", 3000);
+      } else if (errorPayload.code === "ROOM_400_007") {
+        alert("비밀번호 틀림");
+      } else {
+        console.log("무슨 에러게~");
+      }
+    },
+  });
+
   const totalPages = Math.ceil(dummyRooms.length / GAME1_ROOMS_PER_PAGE);
   const currentRooms = dummyRooms.slice(
     (page - 1) * GAME1_ROOMS_PER_PAGE,
@@ -32,6 +53,43 @@ const Game1LobbyPage = () => {
 
   const handleSelectLevel = (level) => {
     setSelectedLevel(selectedLevel === level ? null : level);
+  };
+
+  const handleEnterRoom = async (code) => {
+    // 방이 존재하고, 공개방일 시 입장 시도
+    const result = await enterRoom(code, "");
+    console.log(result);
+
+    if (result.success && result.roomId) {
+      console.log("방 존재함");
+      navigate(`/lobby/waiting?roomId=${result.roomId}`);
+    } else {
+      // 방이 가득 찼거나 없어졌을 때
+      console.log("방입장 실패");
+    }
+  };
+
+  const handleEnterSecretRoom = async (code) => {
+    useModalStore.getState().openModal(
+      "roomEnter",
+      {
+        roomType: "묘묘를 속여라!",
+        hostName: "엉덩이탐정",
+        roomName: "성인만/19/여기 보통 뭐적지?/19시출",
+      },
+      async (password) => {
+        console.log("입력한 비밀번호:", password);
+        const result = await enterRoom(code, password);
+
+        if (result.success && result.roomId) {
+          console.log("방존재함");
+          navigate(`/lobby/waiting?roomId=${result.roomId}`);
+        } else {
+          // 방이 가득 찼거나 없어졌을 때
+          console.log("방입장 실패");
+        }
+      }
+    );
   };
 
   const handleQuickJoin = () => {
@@ -48,8 +106,14 @@ const Game1LobbyPage = () => {
       {
         title: "코드 입력",
       },
-      (code) => {
-        console.log("입력된 코드:", code);
+      async (code) => {
+        // 현재 존재하는 방리스트와 비교하여 방정보 얻고, 비밀방인지 확인
+
+        // 공개방이면 바로 입장
+        handleEnterRoom(code);
+
+        // 비공방이면 모달 호출 후 입장
+        // handleEnterSecretRoom(code);
       }
     );
   };

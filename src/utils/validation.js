@@ -22,3 +22,5 @@ export const isValidNickname = (nickname) => {
 export const isOneDigitNumber = (value) => /^\d?$/.test(value);
 
 export const isNumeric = (value) => /^\d*$/.test(value);
+
+export const isFourDigitNumber = (value) => /^\d{4}$/.test(value);

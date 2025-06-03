@@ -3,7 +3,7 @@ import CheckBox from "commons/svgs/CheckBox";
 import "styles/pages/game/Game1CreatePage.scss";
 import CloseIcon from "commons/svgs/XIcon";
 import OkayButton from "commons/svgs/OkayButton";
-import { isNumeric } from "utils/validation";
+import { isFourDigitNumber, isNumeric } from "utils/validation";
 import { useNavigate } from "react-router-dom";
 import {
   GAME1_LEVEL_OPTIONS,
@@ -25,6 +25,9 @@ const Game1CreatePage = () => {
   const [password, setPassword] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
 
+  const [titleError, setTitleError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   const navigate = useNavigate();
 
   const userUuid = getUserUuid();
@@ -38,6 +41,32 @@ const Game1CreatePage = () => {
   };
 
   const handleCreateRoom = async () => {
+    setTitleError("");
+    setPasswordError("");
+
+    // 에러 여부 flag
+    let hasError = false;
+
+    // 방 제목 검사
+    if (!title.trim()) {
+      setTitleError("방 제목을 입력하세요.");
+      hasError = true;
+    }
+
+    // 비밀번호 검사 (비공개 시)
+    if (isPrivate) {
+      if (!password) {
+        setPasswordError("비밀번호를 입력하세요.");
+        hasError = true;
+      } else if (!isFourDigitNumber(password)) {
+        setPasswordError("비밀번호는 4자리 숫자로 입력하세요.");
+        hasError = true;
+      }
+    }
+
+    // 에러가 있으면 → 방 생성 시도 안 함
+    if (hasError) return;
+
     const payload = {
       title,
       maxUser: Number(player), // API 요구: Integer
@@ -76,6 +105,7 @@ const Game1CreatePage = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+        {titleError && <span className="error-text">{titleError}</span>}
       </div>
 
       <div className="middle-container">
@@ -156,6 +186,7 @@ const Game1CreatePage = () => {
             />
           </div>
         </div>
+        {passwordError && <span className="error-text">{passwordError}</span>}
       </div>
 
       {/* 확인 버튼 */}

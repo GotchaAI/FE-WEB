@@ -82,7 +82,7 @@ const Game1LobbyPage = () => {
         {GAME1_LEVEL_OPTIONS.map((level) => (
           <CheckBox
             key={level}
-            label={level}
+            label={level === "BASIC" ? "초보" : "고수"}
             checked={selectedLevel === level}
             onChange={() => handleSelectLevel(level)}
           />

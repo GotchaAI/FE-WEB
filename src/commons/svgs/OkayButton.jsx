@@ -12,6 +12,7 @@ const OkayButton = ({ onClick }) => {
 
   return (
     <button
+      type="button"
       className="okay-svg-btn"
       onClick={handleClick}
       onMouseEnter={() => setIsHover(true)}

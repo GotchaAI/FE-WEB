@@ -8,7 +8,7 @@ import { GAME1_LEVEL_OPTIONS, GAME1_ROOMS_PER_PAGE } from "constants/game";
 import "styles/pages/game/Game1LobbyPage.scss";
 
 // 임시 방목록 데이터
-const dummyRooms = Array(21)
+const dummyRooms = Array(0)
   .fill(null)
   .map((_, i) => ({
     isLocked: i % 2 === 0,

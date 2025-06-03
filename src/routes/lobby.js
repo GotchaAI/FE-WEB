@@ -41,7 +41,7 @@ const lobby = [
         ],
       },
       {
-        path: "test",
+        path: "waiting",
         element: <WaitingRoom />,
       }
     ],

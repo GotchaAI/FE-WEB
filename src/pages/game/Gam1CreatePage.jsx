@@ -10,6 +10,8 @@ import {
   GAME1_PLAYER_OPTIONS,
   GAME1_ROUND_OPTIONS,
 } from "constants/game";
+import { getUserUuid } from "utils/user";
+import useLobbySocket from "hooks/lobby/useLobbySocket";
 
 const roundOptions = GAME1_ROUND_OPTIONS;
 const playerOptions = GAME1_PLAYER_OPTIONS;
@@ -25,6 +27,9 @@ const Game1CreatePage = () => {
 
   const navigate = useNavigate();
 
+  const userUuid = getUserUuid();
+  const { createRoom, enterRoom, enterRoomId } = useLobbySocket({ userUuid });
+
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     if (isNumeric(value)) {
@@ -32,17 +37,25 @@ const Game1CreatePage = () => {
     }
   };
 
-  const handleCreateRoom = () => {
+  const handleCreateRoom = async () => {
     const payload = {
       title,
-      round,
-      player,
-      level,
-      password: isPrivate ? password : null,
-      isPrivate,
+      maxUser: Number(player), // API 요구: Integer
+      hasPassword: isPrivate,
+      password: isPrivate ? password : "", // required field
+      difficulty: "BASIC", // "BASIC" or "ADVANCED"
+      gameType: "TRICK_MYOMYO", // 고정
+      roundCount: Number(round), // API 요구: Integer
     };
-    console.log(payload);
-    // TODO: 실제 API 요청 또는 상태 저장
+
+    const result = await createRoom(payload);
+
+    if (result.success && result.roomId) {
+      console.log("방 생성 성공 → 이동!", result.roomId);
+      navigate(`/lobby/waiting?roomId=${result.roomId}`);
+    } else {
+      console.error("방 생성 실패 → 이동 안함");
+    }
   };
 
   return (
@@ -73,7 +86,7 @@ const Game1CreatePage = () => {
             {roundOptions.map((r) => (
               <CheckBox
                 key={r}
-                label={r}
+                label={r + "round"}
                 checked={round === r}
                 onChange={() => {
                   if (round !== r) setRound(r);
@@ -90,7 +103,7 @@ const Game1CreatePage = () => {
             {playerOptions.map((p) => (
               <CheckBox
                 key={p}
-                label={p}
+                label={p + "명"}
                 checked={player === p}
                 onChange={() => {
                   if (player !== p) setPlayer(p);
@@ -107,7 +120,7 @@ const Game1CreatePage = () => {
             {levelOptions.map((l) => (
               <CheckBox
                 key={l}
-                label={l}
+                label={l === "BASIC" ? "초보" : "고수"}
                 checked={level === l}
                 onChange={() => {
                   if (level !== l) setLevel(l);

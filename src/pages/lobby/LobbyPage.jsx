@@ -59,7 +59,7 @@ const LobbyPage = () => {
     <div className="lobby-page-container">
       <LobbyHeader />
       <div className="body-container">
-        <Friend />
+        <Friend myUuid={userUuid} />
         <div className="main-content-container">
           <img src={springImg} alt="스프링" className="main-content-img" />
           <div className="main-content-nav-container">

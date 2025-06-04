@@ -5,6 +5,7 @@
   list-style: none;
   overflow: auto;
   overflow-x: hidden;
+  z-index: 2;
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -18,7 +19,6 @@
 
   .friend-item {
     position: relative;
-
     display: flex;
 
     width: 110px;
@@ -28,13 +28,14 @@
     background-color: white;
 
     border: 1px solid;
-    border-bottom: none;
+    margin-bottom: -1px; // 중복 테두리 제거를 위한 처리
 
     font-size: 12px;
     line-height: 22px;
 
     .friend-status {
       width: 17px;
+
       .status {
         position: relative;
         left: 4.5px;
@@ -42,15 +43,16 @@
 
         width: 8px;
         height: 8px;
-
         border-radius: 4px;
 
         &.online {
           background-color: #89c881;
         }
+
         &.offline {
           background-color: #f2f3f6;
         }
+
         &.away {
           background-color: #f28110;
         }

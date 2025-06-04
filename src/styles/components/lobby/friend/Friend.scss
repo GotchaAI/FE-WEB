@@ -107,15 +107,6 @@
     width: 121px;
     height: 264px;
 
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      width: 110px;
-      height: 0.6px;
-      background-color: black;
-      z-index: 1;
-    }
 
     &::after {
       bottom: 0;

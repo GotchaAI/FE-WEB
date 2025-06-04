@@ -1,8 +1,7 @@
 import useFriendSocket from "hooks/lobby/useFriendSocket";
 import "styles/components/lobby/friend/FriendList.scss";
-
-const FriendList = ({ myUuid }) => {
-  const { friendList } = useFriendSocket({ myUuid });
+const FriendList = ({ userUuid }) => {
+  const { friendList } = useFriendSocket({ userUuid });
   return (
     <ul className="friend-list">
       {friendList.map((item) => (

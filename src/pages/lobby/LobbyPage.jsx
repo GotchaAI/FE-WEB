@@ -2,20 +2,11 @@ import springImg from "assets/commons/spring.png";
 import LobbyChatting from "components/lobby/LobbyChatting";
 import LobbyHeader from "components/lobby/LobbyHeader";
 import Friend from "components/lobby/friend/Friend";
-import { GAME1_ROBBY_URL, GAME2_ROBBY_URL, ROOT_URL } from "constants/url";
+import { GAME1_ROBBY_URL, GAME2_ROBBY_URL } from "constants/url";
 import useLobbySocket from "hooks/lobby/useLobbySocket";
-import useGameSocket from "hooks/useGameSocket";
 import { useEffect, useState } from "react";
-import {
-  Link,
-  Outlet,
-  redirect,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { tokenReissueAPI } from "services/auth/auth";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "styles/pages/lobby/LobbyPage.scss";
-import { getAuthToken } from "utils/token";
 import { getUserUuid } from "utils/user";
 
 const LobbyPage = () => {
@@ -24,11 +15,10 @@ const LobbyPage = () => {
 
   const navType = location.pathname.includes("/game2") ? "game2" : "game1";
 
-  const [selectedRoomId, setSelectedRoomId] = useState("7126"); // 입장할 roomId
+  const [selectedRoomId, setSelectedRoomId] = useState("5590"); // 입장할 roomId
   console.log(setSelectedRoomId); // ESLint 방지
 
   const userUuid = getUserUuid();
-  useGameSocket({ userUuid }); // 소켓 연결
 
   const { createRoom, enterRoom, enterRoomId } = useLobbySocket({
     userUuid,
@@ -93,22 +83,3 @@ const LobbyPage = () => {
 };
 
 export default LobbyPage;
-
-export const loader = async () => {
-  const { accessToken, setAccessToken } = getAuthToken();
-
-  if (!accessToken) {
-    // 토큰 재발급
-    try {
-      const res = await tokenReissueAPI();
-      const newAccessToken = res.accessToken;
-      const newExpireTime = res.expiredAt;
-
-      setAccessToken(newAccessToken, newExpireTime);
-    } catch (e) {
-      return redirect(ROOT_URL);
-    }
-  }
-
-  return;
-};

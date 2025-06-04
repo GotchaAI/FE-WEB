@@ -1,11 +1,12 @@
 import SearchIcon from "commons/svgs/SearchIcon";
 import FriendList from "components/lobby/friend/FriendList";
+import useFriendSocket from "hooks/lobby/useFriendSocket";
 import { useState } from "react";
 import "styles/components/lobby/friend/Friend.scss";
 
-const Friend = () => {
+const Friend = ({ userUuid }) => {
   const [friendActionType, setFriendActionType] = useState("list");
-
+  const { friendList } = useFriendSocket({ userUuid });
   return (
     <div className="friend-container">
       <h1>friend</h1>
@@ -31,7 +32,7 @@ const Friend = () => {
       </div>
       {friendActionType === "list" ? (
         <div className="friend-list-container">
-          <FriendList />
+          <FriendList friendList={friendList} />
         </div>
       ) : (
         <div className="friend-list-container">ㅎㅇ</div>

@@ -1,5 +1,5 @@
 import { SOCKET_ROOM_API, SOCKET_ROOM_ERROR_API } from "constants/api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGameSocketStore } from "store/socket";
 
 /**
@@ -29,6 +29,8 @@ const gameUnreadyEX = {
 
 const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
   const { stompClient, isConnected } = useGameSocketStore();
+  const [isGameStart, setIsGameStart] = useState(false);
+  const [initGameInfo, setInitGameInfo] = useState(null);
 
   useEffect(() => {
     if (roomId === null) return;
@@ -61,6 +63,8 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
             break;
           case "START":
             console.log("START");
+            setIsGameStart(true);
+            setInitGameInfo(data.gameData);
             break;
           case "UPDATE":
             console.log("UPDATE");
@@ -140,7 +144,15 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
     });
   };
 
-  return { startGame, readyGame, unreadyGame, updateRoomInfo, quitRoom };
+  return {
+    startGame,
+    readyGame,
+    unreadyGame,
+    updateRoomInfo,
+    quitRoom,
+    isGameStart,
+    initGameInfo,
+  };
 };
 
 export default useWaitingRoomSocket;

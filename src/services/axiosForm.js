@@ -14,75 +14,92 @@ const baseConfig = {
   withCredentials: true,
 };
 
+const multipartConfig = {
+  baseURL: LOCAL_SERVER_IP,
+  timeout: 3000,
+  headers: {
+    // "Content-Type": "multipart/form-data",  // 브라우저가 자동으로 붙여줌
+  },
+  withCredentials: true,
+};
+
 const tokenInstance = axios.create(baseConfig); // 토큰 인터셉터 적용
 const instance = axios.create(baseConfig); // 인터셉터 미적용
+const multipartInstance = axios.create(multipartConfig);
+function attachTokenInterceptors(instance) {
+  // --- Request 인터셉터: Access Token이 만료되었으면 재발급 ---
+  instance.interceptors.request.use(
+    async (config) => {
+      const { accessToken, setAccessToken } = getAuthToken();
+      const isExpired = isTokenExpired();
 
-tokenInstance.interceptors.request.use(
-  async (config) => {
-    // JWT_AT : 임시 토큰 발급
-    const { accessToken, setAccessToken } = getAuthToken();
-    const isExpired = isTokenExpired();
-    if (isExpired || !accessToken) {
-      try {
-        const res = await tokenReissueAPI();
+      if (isExpired || !accessToken) {
+        try {
+          // 토큰 재발급 호출
+          const res = await tokenReissueAPI();
+          const newToken = res.accessToken;
+          const newExpireTime = res.expiredAt;
+          setAccessToken(newToken, newExpireTime);
 
-        const newToken = res.accessToken;
-        const newExpireTime = res.expiredAt;
-        setAccessToken(newToken, newExpireTime);
-
-        config.headers["Authorization"] = `${newToken}`;
-      } catch (error) {
-        // 리프레시 토큰 만료, 오류
-        console.error("토큰 재발급 실패", error);
-        window.location.href = SIGN_IN_URL;
-        return Promise.reject(error);
+          config.headers["Authorization"] = `${newToken}`;
+        } catch (error) {
+          console.error("토큰 재발급 실패", error);
+          window.location.href = SIGN_IN_URL;
+          return Promise.reject(error);
+        }
+      } else {
+        config.headers["Authorization"] = `${accessToken}`;
       }
-    } else {
-      config.headers["Authorization"] = `${accessToken}`;
+
+      return config;
+    },
+    (error) => {
+      console.error("Request 인터셉터 에러:", error);
+      return Promise.reject(error);
     }
+  );
 
-    return config;
-  },
-  async (error) => {
-    console.log(error);
-    return Promise.reject(error);
-  }
-);
+  // --- Response 인터셉터: Access Token 만료(401) 시 재시도 ---
+  instance.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      const originalRequest = error.config;
 
-tokenInstance.interceptors.response.use(
-  (res) => res,
-  async (error) => {
-    // AT 만료
-    const originalRequest = error.config;
-    // TODO : 에러 코드 정해질 시 if문 내용 변경
-    if (
-      error.response?.status === 401 &&
-      error.response?.data.code !== REFRESH_TOKEN_EXPIRED
-    ) {
-      const { setAccessToken } = getAuthToken();
-      try {
-        const res = await tokenReissueAPI();
+      // AT가 만료됐고, REFRESH_TOKEN_EXPIRED 에러가 아닌 경우
+      if (
+        error.response?.status === 401 &&
+        error.response?.data.code !== REFRESH_TOKEN_EXPIRED
+      ) {
+        const { setAccessToken } = getAuthToken();
+        try {
+          // 토큰 재발급 재시도
+          const res = await tokenReissueAPI();
+          const newAccessToken = res.accessToken;
+          setAccessToken(newAccessToken, res.expiredAt);
 
-        const newAccessToken = res.accessToken;
-        setAccessToken(newAccessToken, res.expiredAt);
+          // 원래 요청 헤더에 새 토큰 세팅 후 재요청
+          originalRequest.headers = {
+            ...originalRequest.headers,
+            Authorization: `${newAccessToken}`,
+          };
 
-        // 👉 새 토큰으로 헤더 설정 후 재요청
-        originalRequest.headers = {
-          ...originalRequest.headers,
-          Authorization: `${newAccessToken}`,
-        };
-
-        return axios.request(originalRequest);
-      } catch (error) {
-        window.location.href = SIGN_IN_URL;
-        return Promise.reject(error);
+          return axios.request(originalRequest);
+        } catch (err) {
+          window.location.href = SIGN_IN_URL;
+          return Promise.reject(err);
+        }
       }
+
+      return Promise.reject(error);
     }
+  );
+}
 
-    return Promise.reject(error);
-  }
-);
-
+//
+// 4) tokenInstance와 multipartInstance에 동일한 인터셉터 등록
+//
+attachTokenInterceptors(tokenInstance);
+attachTokenInterceptors(multipartInstance);
 // API 요청 함수 (옵션으로 인터셉터 선택)
 export const apiInterface = async (
   method,
@@ -94,6 +111,22 @@ export const apiInterface = async (
   const instanceType = useToken ? tokenInstance : instance;
   try {
     const res = await instanceType({ method, url, data, params });
+    return res.data;
+  } catch (e) {
+    console.error("API 요청 중 오류:", e);
+    throw e;
+  }
+};
+
+// API 요청 함수 (multipart 전용)
+export const multipartApiInterface = async (
+  method,
+  url,
+  data = {},
+  params = {}
+) => {
+  try {
+    const res = await multipartInstance({ method, url, data, params });
     return res.data;
   } catch (e) {
     console.error("API 요청 중 오류:", e);

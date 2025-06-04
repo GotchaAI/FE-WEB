@@ -1,0 +1,78 @@
+.draw-option-container {
+  .draw-tool {
+    position: absolute;
+    cursor: pointer;
+
+    span {
+      position: absolute;
+      top: -10px;
+    }
+  }
+
+  .pencil {
+    width: 61.21px;
+    height: 83.81px;
+    left: 67px;
+    top: 120px;
+
+    .carrot-img {
+      width: 61px;
+      height: 74px;
+    }
+  }
+
+  .eraser {
+    width: 48px;
+    height: 81.41px;
+
+    left: 67px;
+    top: 213px;
+
+    .eraser-img {
+      position: absolute;
+      bottom: 1px;
+      width: 48px;
+      height: 49.41px;
+    }
+  }
+
+  .trashcan {
+    width: 76px;
+    height: 108px;
+
+    left: 55px;
+    bottom: 71px;
+
+    .trashcan-img {
+      width: 76px;
+      height: 108px;
+    }
+  }
+
+  .submit {
+    width: 54.09px;
+    right: 73.91px;
+    bottom: 60.86px;
+    span {
+      position: absolute;
+
+      top: -30px;
+      font-weight: 400;
+      font-size: 16px;
+      font-family: "YoonChild";
+    }
+
+    .bell-img {
+      width: 54.09px;
+      height: 61.14px;
+    }
+  }
+
+  .submitted-img {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    right: 72px;
+    bottom: 61px;
+  }
+}

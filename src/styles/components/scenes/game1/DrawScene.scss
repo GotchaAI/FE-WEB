@@ -1,0 +1,62 @@
+@import "styles/fonts.scss";
+
+.draw-scene-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .drawing-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    left: 159px;
+    right: 160px;
+    top: 114px;
+    bottom: 52px;
+
+    width: 691px;
+    height: 434px;
+
+    background-color: #e9ff9f;
+
+    border: 1px solid black;
+    border-radius: 10px;
+
+    .game-header {
+      position: relative;
+      width: 100%;
+      height: 39px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      padding-top: 10.84px;
+      .word-container {
+        position: absolute;
+        left: 17px;
+        top: -44px;
+        width: 118px;
+        height: 44px;
+
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        border: 1px solid;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: white;
+      }
+    }
+
+    .drawing-zone {
+      box-sizing: border-box;
+      border: solid 1px black;
+      width: 200px;
+      height: 200px;
+    }
+  }
+}

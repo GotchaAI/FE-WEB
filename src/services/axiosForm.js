@@ -95,9 +95,6 @@ function attachTokenInterceptors(instance) {
   );
 }
 
-//
-// 4) tokenInstance와 multipartInstance에 동일한 인터셉터 등록
-//
 attachTokenInterceptors(tokenInstance);
 attachTokenInterceptors(multipartInstance);
 // API 요청 함수 (옵션으로 인터셉터 선택)

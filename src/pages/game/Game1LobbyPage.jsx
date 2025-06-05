@@ -1,7 +1,7 @@
 import CheckBox from "commons/svgs/CheckBox";
 import PageArrowButton from "commons/svgs/PageArrowButton";
 import RoomTable from "components/game/Game1RoomTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useModalStore } from "store/modal";
 import { GAME1_LEVEL_OPTIONS, GAME1_ROOMS_PER_PAGE } from "constants/game";
@@ -9,22 +9,25 @@ import "styles/pages/game/Game1LobbyPage.scss";
 import useLobbySocket from "hooks/lobby/useLobbySocket";
 import { getUserUuid } from "utils/user";
 import { useToastStore } from "store/toast";
+import { getRoomListAPI } from "services/lobby/lobby";
 
-// 임시 방목록 데이터
-const dummyRooms = Array(0)
-  .fill(null)
-  .map((_, i) => ({
-    isLocked: i % 2 === 0,
-    mode: "AI를 속여라!",
-    host: `호스트${i + 1}`,
-    intro: "성인만/19/여기보통 뭐적지?/19시출",
-    code: `#98${40 + i}`,
-    players: `${1 + (i % 2)}/${2 + (i % 3)}`,
-  }));
+// const dummyRooms = Array(5)
+//   .fill(null)
+//   .map((_, i) => ({
+//     roomId: `${7000 + i}`,
+//     title: `성인만/19/여기보통 뭐적지?/19시출`,
+//     owner: `호스트${i + 1}`,
+//     gameType: "TRICK_MYOMYO",
+//     difficulty: i % 2 === 0 ? "BASIC" : "ADVANCED",
+//     hasPassword: i % 3 === 0,
+//     maxUser: 2 + (i % 2),
+//     currentUser: 1 + (i % (2 + (i % 2))),
+//   }));
 
 const Game1LobbyPage = () => {
   const [page, setPage] = useState(1);
   const [selectedLevel, setSelectedLevel] = useState(null);
+  const [roomList, setRoomList] = useState([]);
   const navigate = useNavigate();
 
   const userUuid = getUserUuid();
@@ -45,8 +48,29 @@ const Game1LobbyPage = () => {
     },
   });
 
-  const totalPages = Math.ceil(dummyRooms.length / GAME1_ROOMS_PER_PAGE);
-  const currentRooms = dummyRooms.slice(
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const response = await getRoomListAPI(
+          "TRICK_MYOMYO",
+          // selectedLevel || "BASIC"
+          "BASIC"
+        );
+        setRoomList(response);
+        // setRoomList(dummyRooms);
+        console.log(response);
+        // console.log(selectedLevel);
+      } catch (error) {
+        console.error("방 목록 조회 실패", error);
+        setRoomList([]); // fallback
+      }
+    };
+
+    fetchRooms();
+  }, [selectedLevel]);
+
+  const totalPages = Math.ceil(roomList.length / GAME1_ROOMS_PER_PAGE);
+  const currentRooms = roomList.slice(
     (page - 1) * GAME1_ROOMS_PER_PAGE,
     page * GAME1_ROOMS_PER_PAGE
   );

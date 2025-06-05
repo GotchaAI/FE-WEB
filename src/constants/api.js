@@ -44,3 +44,5 @@ export const SOCKET_LOBBY_JOIN_API = process.env.REACT_APP_WS_LOBBY_JOIN_API; //
 export const SOCKET_ROOM_ERROR_API = process.env.REACT_APP_WS_ROOM_ERROR_API; // 대기방 에러 API
 
 export const SOCKET_ROOM_API = process.env.REACT_APP_WS_ROOM_API; // 대기방 API
+
+export const ROOM_LIST_API = process.env.REACT_APP_ROOM_LIST_API; // 방목록 API

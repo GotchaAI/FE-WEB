@@ -1,5 +1,13 @@
 import LockedIcon from "commons/svgs/LockedIcon";
+
 const RoomTable = ({ rooms, onClickRow }) => {
+  // 게임타입 → 한글 변환용
+  const getModeName = (gameType) => {
+    if (gameType === "TRICK_MYOMYO") return "AI를 속여라!";
+    if (gameType === "LULU_ART_EXAM") return "루루의 미대입시";
+    return gameType;
+  };
+
   return (
     <table className="room-table">
       <thead>
@@ -15,12 +23,14 @@ const RoomTable = ({ rooms, onClickRow }) => {
       <tbody>
         {rooms.map((room, index) => (
           <tr key={index} onClick={() => onClickRow?.(room)}>
-            <td>{room.isLocked && <LockedIcon />}</td>
-            <td>{room.mode}</td>
-            <td>{room.host}</td>
-            <td>{room.intro}</td>
-            <td>{room.code}</td>
-            <td>{room.players}</td>
+            <td>{room.hasPassword && <LockedIcon />}</td>
+            <td>{getModeName(room.gameType)}</td>
+            <td>{room.owner}</td>
+            <td>{room.title}</td>
+            <td>#{room.roomId}</td>
+            <td>
+              {room.currentUser}/{room.maxUser}
+            </td>
           </tr>
         ))}
       </tbody>

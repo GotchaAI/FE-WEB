@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 
-import Game1Opening from "components/scenes/game1/Game1Opening";
 import useGame1Socket from "hooks/game/game1/useGame1Socket";
 import Game1Header from "pages/game/game1/Game1Header";
 import { useLocation } from "react-router-dom";
@@ -13,14 +12,8 @@ import "styles/pages/game/game1/Game1Page.scss";
 
 const Game1Page = () => {
   // 🪝게임 소켓 연동
-  const {
-    sceneIdx,
-    isGameStart,
-    gameInfo,
-    answerResults,
-    setGameInfo,
-    renderScenes,
-  } = useGame1Socket();
+  const { sceneIdx, gameInfo, answerResults, setGameInfo, renderScenes } =
+    useGame1Socket();
 
   // ✨ 게임정보 초기화
   const location = useLocation(); // 게임 정보 받아오기 (location.state)
@@ -32,12 +25,6 @@ const Game1Page = () => {
 
   const scenes = renderScenes();
   const currentScene = scenes[sceneIdx] || null;
-
-  // 오프닝 출력
-  // TODO: 좀 덜 짜치게 변경
-  if (!isGameStart) {
-    return <Game1Opening />;
-  }
 
   // 게임 컴포넌트
   return (

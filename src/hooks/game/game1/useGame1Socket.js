@@ -1,5 +1,6 @@
 import BattleScene from "components/scenes/game1/BattleScene";
 import DrawScene from "components/scenes/game1/DrawScene";
+import Game1Opening from "components/scenes/game1/Game1Opening";
 import ResultScene from "components/scenes/game1/ResultScene";
 import { SOCKET_GAME_API, SOCKET_GAME_ERROR_API } from "constants/api";
 import { useCallback, useEffect, useState } from "react";
@@ -17,7 +18,6 @@ const useGame1Socket = () => {
   const [gameInfo, setGameInfo] = useState(null); // 게임 정보(START 정보)
   const [sceneIdx, setSceneIdx] = useState(0); // 씬 idx
 
-  const [isGameStart, setIsGameStart] = useState(false); // ROUND_START 시 true
   const [endTime, setEndTime] = useState(null); // 타이머 종료 시간
   const [drawings, setDrawings] = useState([]); // 그림 이미지
   const [answerResults, setAnswerResults] = useState(
@@ -30,6 +30,7 @@ const useGame1Socket = () => {
     if (!gameInfo) return [];
 
     const scenes = [];
+    scenes.push(<Game1Opening key="game1-opening" />);
 
     for (let round = 0; round < gameInfo.totalRounds; round++) {
       const roundData = gameInfo.rounds[round];
@@ -63,7 +64,7 @@ const useGame1Socket = () => {
         <BattleScene
           key={`battle2-${round}`}
           roomId={gameInfo.roomId}
-          drawings={drawings[1]}
+          drawings={drawings}
           isMyBattleTurn={gameInfo.gamePlayers[0].playerUuid === userUuid}
         />
       );
@@ -98,7 +99,7 @@ const useGame1Socket = () => {
 
         switch (type) {
           case "ROUND_START":
-            setIsGameStart(true);
+            setSceneIdx((prev) => prev + 1);
             setEndTime(data.drawingEndTime);
             break;
           case "GUESS_START":
@@ -108,16 +109,16 @@ const useGame1Socket = () => {
           case "BATTLE_END":
             // TODO: API 변경되면 확인
             // 문자열 "null" → 실제 null로 바꿔줌
-            const parsedData = data.map((v) => (v === "null" ? null : v));
-            // 2개씩 묶어서 배열로 변환
-            const grouped = Array.from(
-              { length: parsedData.length / 2 },
-              (_, i) => {
-                return [parsedData[i * 2], parsedData[i * 2 + 1]];
-              }
-            );
-            setAnswerResults(grouped);
-            setSceneIdx((prev) => prev + 1);
+            const answerResults = [];
+            for (let i = 0; i < data.length; i += 2) {
+              const pair = [
+                data[i] === "null" ? null : data[i],
+                data[i + 1] === "null" ? null : data[i + 1],
+              ];
+              answerResults.push(pair);
+            }
+            setAnswerResults(answerResults);
+
             break;
           case "GAME_END":
             setGameResultInfo(data);
@@ -136,7 +137,6 @@ const useGame1Socket = () => {
 
   return {
     sceneIdx,
-    isGameStart,
     gameInfo,
     answerResults,
     setGameInfo,

@@ -9,7 +9,7 @@ import "styles/pages/game/game1/Game1Header.scss";
  */
 
 const Game1Header = ({ totalRounds, currentSceneIdx, answerResults }) => {
-  const currentRound = Math.floor(currentSceneIdx / 3);
+  const currentRound = Math.floor((currentSceneIdx - 1) / 3);
   // TODO : answerResults가 아직 없음
 
   return (
@@ -25,18 +25,18 @@ const Game1Header = ({ totalRounds, currentSceneIdx, answerResults }) => {
           <div className="round-result-container">
             <div
               className={`round-a ${
-                answerResults[idx]?.[0] === "PLAYER"
+                answerResults[idx]?.[0] === true
                   ? "win"
-                  : answerResults[idx]?.[0] === "AI"
+                  : !answerResults[idx]?.[0] === false
                   ? "lose"
                   : ""
               }`}
             />
             <div
               className={`round-b ${
-                answerResults[idx]?.[1] === "PLAYER"
+                answerResults[idx]?.[1] === true
                   ? "win"
-                  : answerResults[idx]?.[1] === "AI"
+                  : answerResults[idx]?.[1] === false
                   ? "lose"
                   : ""
               }`}

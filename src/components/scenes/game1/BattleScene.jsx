@@ -10,7 +10,7 @@ import "styles/components/scenes/game1/BattleScene.scss";
 import { isPressEnterKey } from "utils/keyDown";
 import { isBlank } from "utils/validation";
 
-const BattleScene = ({ roomId, drawings, isMyBattleTurn, goToNextScene }) => {
+const BattleScene = ({ roomId, drawings, isMyBattleTurn }) => {
   // 배틀 씬 guess 상태 관리 훅 호출
   const {
     endTime,
@@ -20,7 +20,7 @@ const BattleScene = ({ roomId, drawings, isMyBattleTurn, goToNextScene }) => {
     isAiguessTurn,
     aiSays,
     sendGuess,
-  } = useBattle({ roomId, goToNextScene });
+  } = useBattle({ roomId });
 
   const [inputValue, setInputValue] = useState("");
 

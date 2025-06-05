@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useGameSocketStore } from "store/socket";
 import { getUserUuid } from "utils/user";
 
-const useBattle = ({ roomId, goToNextScene }) => {
+const useBattle = ({ roomId }) => {
   const userUuid = getUserUuid();
   const { stompClient, isConnected } = useGameSocketStore();
 
@@ -40,7 +40,6 @@ const useBattle = ({ roomId, goToNextScene }) => {
             setGuessResult(data.correct);
             setAiSays(payload.aiSays);
             setGuessWord(null);
-            if (data.correct) goToNextScene();
             break;
           default:
             break;
@@ -49,7 +48,7 @@ const useBattle = ({ roomId, goToNextScene }) => {
     );
 
     return () => sub.unsubscribe();
-  }, [isConnected, stompClient, userUuid, roomId, goToNextScene]);
+  }, [isConnected, stompClient, userUuid, roomId]);
 
   const sendGuess = useCallback(
     (guess) => {

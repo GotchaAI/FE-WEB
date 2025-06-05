@@ -55,7 +55,6 @@ const useGame1Socket = () => {
           roomId={gameInfo.roomId}
           drawings={drawings}
           isMyBattleTurn={gameInfo.gamePlayers[1].playerUuid === userUuid}
-          goToNextScene={() => setSceneIdx((prev) => prev + 1)} // TODO: BATTLE_END 추가 시 삭제
         />
       );
 
@@ -66,7 +65,6 @@ const useGame1Socket = () => {
           roomId={gameInfo.roomId}
           drawings={drawings[1]}
           isMyBattleTurn={gameInfo.gamePlayers[0].playerUuid === userUuid}
-          goToNextScene={() => setSceneIdx((prev) => prev + 1)}
         />
       );
     }

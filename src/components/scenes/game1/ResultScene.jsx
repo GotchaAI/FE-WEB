@@ -29,8 +29,8 @@ const ResultScene = ({ gameResultInfo }) => {
       nickname: word.drawerUuid,
       imageURL: word.imageURL,
       aiPredictions: word.aiPredictions,
-      score: "60", // TODO: API 없음
-      isWin: true, // TODO: API 없음
+      score: word.score, // TODO: API 없음
+      isWin: word.playerWon, // TODO: API 없음
     })),
   }));
 

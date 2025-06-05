@@ -22,8 +22,7 @@ const useBattle = ({ roomId }) => {
       (message) => {
         const payload = JSON.parse(message.body);
         const { eventType: type, data } = payload;
-        console.log(data);
-        console.log(type);
+
         switch (type) {
           case "GUESS_REQUEST":
             setEndTime(data.guessEndTime);

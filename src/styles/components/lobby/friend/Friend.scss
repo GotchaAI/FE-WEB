@@ -111,5 +111,27 @@
     &::after {
       bottom: 0;
     }
+    .empty-friend{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+
+      margin-top: 45px;
+
+      width: 100%;
+      height: 100%;
+
+      gap:11.35px;
+      svg{
+        transform: scaleX(-1);
+        width: 57.83px;
+        height: 55.65px;
+      }
+      span{
+        font-family: "YoonChild";
+        font-weight: 16px;
+        font-weight: regular;
+      }
+    }
   }
 }

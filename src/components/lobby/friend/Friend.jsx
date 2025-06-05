@@ -1,3 +1,4 @@
+import { Bongvong } from "commons/svgs/characters/Bongvong";
 import SearchIcon from "commons/svgs/SearchIcon";
 import FriendList from "components/lobby/friend/FriendList";
 import useFriendSocket from "hooks/lobby/useFriendSocket";
@@ -6,7 +7,8 @@ import "styles/components/lobby/friend/Friend.scss";
 
 const Friend = ({ userUuid }) => {
   const [friendActionType, setFriendActionType] = useState("list");
-  const { friendList } = useFriendSocket({ userUuid });
+  //const { friendList } = useFriendSocket({ userUuid });
+  const friendList = [];
   return (
     <div className="friend-container">
       <h1>friend</h1>
@@ -32,7 +34,14 @@ const Friend = ({ userUuid }) => {
       </div>
       {friendActionType === "list" ? (
         <div className="friend-list-container">
-          <FriendList friendList={friendList} />
+          {friendList && friendList.length == 0 ? (
+            <div className="empty-friend">
+              <Bongvong />
+              <span>텅 비었어요!</span>
+            </div>
+          ) : (
+            <FriendList friendList={friendList} />
+          )}
         </div>
       ) : (
         <div className="friend-list-container">ㅎㅇ</div>

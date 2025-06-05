@@ -1,28 +1,28 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { SOCKET_IP, SOCKET_CONNECT_API } from "constants/api";
 import { getAuthToken } from "utils/token";
-import { getFreindsListAPI } from "services/friend/friend";
+import { getFriendsListAPI } from "services/friend/friend";
 
-const useFriendSocket = (userUuid) => {
+const useFriendSocket = ({ userUuid }) => {
   const clientRef = useRef(null);
   const subRef = useRef(null);
   const [friendList, setFriendList] = useState([]);
+
+  const fetchFriendList = useCallback(async () => {
+    try {
+      const list = await getFriendsListAPI();
+      setFriendList(list);
+    } catch (error) {
+      console.error("친구 목록 불러오기 실패:", error);
+    }
+  }, []);
+
   useEffect(() => {
-    const fetchFriendList = async () => {
-      try {
-        const list = await getFreindsListAPI();
-        setFriendList(list);
-
-        console.log(friendList);
-      } catch (error) {
-        console.error("친구 목록 불러오기 실패:", error);
-      }
-    };
-
     fetchFriendList();
-  }, [friendList]);
+  }, [fetchFriendList]);
+
   useEffect(() => {
     if (!userUuid) return;
 
@@ -52,11 +52,11 @@ const useFriendSocket = (userUuid) => {
                   f.uuid === data ? { ...f, online: true } : f
                 );
               case "DELETE":
-                return prev.filter((f) => f.uuid !== data);
+              case "ACCEPT":
+                fetchFriendList();
+                break;
               case "REQUEST":
               case "REJECT":
-              case "ACCEPT":
-                return [...prev.filter((f) => f.uuid !== data.uuid), data];
               default:
                 return prev;
             }
@@ -82,7 +82,7 @@ const useFriendSocket = (userUuid) => {
       if (subRef.current) subRef.current.unsubscribe();
       if (clientRef.current) clientRef.current.deactivate();
     };
-  }, [userUuid]);
+  }, [userUuid, fetchFriendList]);
 
   return { friendList };
 };

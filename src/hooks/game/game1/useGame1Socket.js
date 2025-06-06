@@ -122,6 +122,7 @@ const useGame1Socket = () => {
             break;
           case "GAME_END":
             setGameResultInfo(data);
+            setSceneIdx((prev) => prev + 1);
             break;
           default:
             break;

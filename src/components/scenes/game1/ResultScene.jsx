@@ -10,7 +10,7 @@ const ResultScene = ({ gameResultInfo }) => {
   const navigate = useNavigate();
   const [selectedRound, setSelectedRound] = useState(0);
 
-  const gameWinner = gameResultInfo.winner; // 우승자 : "PLAYER", "DRAW", "AI"
+  const gameWinner = gameResultInfo.playerWon; // 우승자 : true: 플레이어 승, false: AI 승
   const totalRounds = gameResultInfo.totalRounds;
 
   const round = Array.from({ length: totalRounds }, (_, idx) => (
@@ -26,11 +26,11 @@ const ResultScene = ({ gameResultInfo }) => {
   const roundResultInfo = gameResultInfo.rounds.map((round) => ({
     words: round.words.map((word) => ({
       word: word.word,
-      nickname: word.drawerUuid,
+      nickname: word.drawerName,
       imageURL: word.imageURL,
       aiPredictions: word.aiPredictions,
-      score: word.score, // TODO: API 없음
-      isWin: word.playerWon, // TODO: API 없음
+      score: word.score,
+      isWin: word.playerWon,
     })),
   }));
 
@@ -47,12 +47,12 @@ const ResultScene = ({ gameResultInfo }) => {
       <div className="user-container">
         <div className="user">
           <img
-            className={`${gameWinner === "PLAYER" ? "win" : "lose"}`}
+            className={`${gameWinner ? "win" : "lose"}`}
             src={userImg}
             alt="플레이어"
           />
         </div>
-        {gameWinner === "PLAYER" ? (
+        {gameWinner ? (
           <div className="player-result-chat">
             <img src={playerChatImg} alt="플레이어 말풍선" />
             <span className="player-chat">우리가 이겼어!!</span>
@@ -117,12 +117,12 @@ const ResultScene = ({ gameResultInfo }) => {
       {/* AI 아바타 */}
       <div className="ai-container">
         <img
-          className={`${gameWinner === "AI" ? "win" : "lose"}`}
+          className={`${!gameWinner ? "win" : "lose"}`}
           src={aiImg}
           alt="인공지능"
         />
       </div>
-      {gameWinner === "AI" ? (
+      {!gameWinner ? (
         <div className="ai-result-chat">
           <img className="ai-chat" src={aiChatImg} alt="ai 말풍선" />
         </div>

@@ -33,12 +33,15 @@ const Game1LobbyPage = () => {
           .getState()
           .showToast("alert", "방이 존재하지 않아요!", 3000);
       } else if (errorPayload.code === "ROOM_400_007") {
-        alert("비밀번호 틀림");
+        useToastStore
+          .getState()
+          .showToast("alert", "비밀번호가 올바르지 않아요!", 3000);
       } else {
+        // todo 방이 가득 찼을 때의 에러처리
         console.log("무슨 에러게~");
       }
     },
-    // ⭐ 방목록 실시간 반영
+    // 방목록 실시간 반영
     onLobbyRoomEvent: handleRoomEvent,
   });
 
@@ -75,16 +78,21 @@ const Game1LobbyPage = () => {
     setSelectedLevel(selectedLevel === level ? null : level);
   };
 
-  const handleEnterRoom = async (code) => {
+  const isRoomFull = (room) => room.currentUser >= room.maxUser;
+
+  const handleEnterRoom = async (room) => {
     // 방이 존재하고, 공개방일 시 입장 시도
-    const result = await enterRoom(code, "");
+    const result = await enterRoom(room.roomId, "");
     console.log(result);
 
+    console.log(room);
     if (result.success && result.roomId) {
       console.log("방 존재함");
       navigate(`/lobby/waiting?roomId=${result.roomId}`);
     } else {
       // 방이 가득 찼거나 없어졌을 때
+      console.log(room);
+      if (isRoomFull(room)) console.log("방가득참");
       console.log("방입장 실패");
     }
   };
@@ -148,7 +156,7 @@ const Game1LobbyPage = () => {
       if (targetRoom.hasPassword) {
         handleEnterSecretRoom(targetRoom);
       } else {
-        handleEnterRoom(code);
+        handleEnterRoom(targetRoom);
       }
     });
   };
@@ -173,7 +181,7 @@ const Game1LobbyPage = () => {
       handleEnterSecretRoom(room);
     } else {
       // 공개방일 경우 바로 입장
-      handleEnterRoom(room.roomId);
+      handleEnterRoom(room);
       console.log(`[${room.title}] 에 입장~`);
     }
   };

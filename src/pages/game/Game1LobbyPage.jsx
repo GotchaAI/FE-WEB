@@ -89,17 +89,21 @@ const Game1LobbyPage = () => {
     }
   };
 
-  const handleEnterSecretRoom = async (code) => {
+  const handleEnterSecretRoom = async (room) => {
     useModalStore.getState().openModal(
       "roomEnter",
       {
-        roomType: "묘묘를 속여라!",
-        hostName: "엉덩이탐정",
-        roomName: "성인만/19/여기 보통 뭐적지?/19시출",
+        roomType:
+          room.gameType === "TRICK_MYOMYO"
+            ? "묘묘를 속여라!"
+            : "루루의 미대입시",
+        hostName: room.owner,
+        roomName: room.title,
       },
       async (password) => {
         console.log("입력한 비밀번호:", password);
-        const result = await enterRoom(code, password);
+        const result = await enterRoom(room.roomId, password);
+        console.log(result);
 
         if (result.success && result.roomId) {
           console.log("방존재함");
@@ -139,23 +143,27 @@ const Game1LobbyPage = () => {
   };
 
   const handleRoomClick = (room) => {
-    if (room.isLocked) {
+    if (room.hasPassword) {
       // 비밀방일 경우 비밀번호 입력
-      useModalStore.getState().openModal(
-        "roomEnter",
-        {
-          roomType: room.mode,
-          hostName: room.host,
-          roomName: room.intro,
-        },
-        (password) => {
-          console.log("입력한 비밀번호:", password);
-        }
-      );
+      // useModalStore.getState().openModal(
+      //   "roomEnter",
+      //   {
+      //     roomType:
+      //       room.gameType === "TRICK_MYOMYO"
+      //         ? "묘묘를 속여라!"
+      //         : "루루의 미대입시",
+      //     hostName: room.owner,
+      //     roomName: room.title,
+      //   },
+      //   (password) => {
+      //     console.log("입력한 비밀번호:", password);
+      //   }
+      // );
+      handleEnterSecretRoom(room);
     } else {
       // 공개방일 경우 바로 입장
-      // 방이 가득 찼다면 토스트 메시지
-      console.log(`[${room.intro}] 에 입장~`);
+      handleEnterRoom(room.roomId);
+      console.log(`[${room.title}] 에 입장~`);
     }
   };
 

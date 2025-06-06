@@ -15,7 +15,6 @@ import { useRoomList } from "hooks/lobby/useRoomList";
 const Game1LobbyPage = () => {
   const [page, setPage] = useState(1);
   const [selectedLevel, setSelectedLevel] = useState(null);
-  // const [roomList, setRoomList] = useState([]);
   const navigate = useNavigate();
 
   const userUuid = getUserUuid();
@@ -37,7 +36,7 @@ const Game1LobbyPage = () => {
           .getState()
           .showToast("alert", "비밀번호가 올바르지 않아요!", 3000);
       } else {
-        // todo 방이 가득 찼을 때의 에러처리
+        // todo 방이 가득 찼을 때의 에러처리!!!!!!!!!!!!!!!!!!!
         console.log("무슨 에러게~");
       }
     },
@@ -56,9 +55,7 @@ const Game1LobbyPage = () => {
         setRoomList(
           response.map((room) => ({ ...room, gameType: "TRICK_MYOMYO" }))
         );
-        // setRoomList(dummyRooms);
         console.log(response);
-        // console.log(selectedLevel);
       } catch (error) {
         console.error("방 목록 조회 실패", error);
         setRoomList([]); // fallback
@@ -80,6 +77,7 @@ const Game1LobbyPage = () => {
 
   const isRoomFull = (room) => room.currentUser >= room.maxUser;
 
+  // 공개방 입장
   const handleEnterRoom = async (room) => {
     // 방이 존재하고, 공개방일 시 입장 시도
     const result = await enterRoom(room.roomId, "");
@@ -97,6 +95,7 @@ const Game1LobbyPage = () => {
     }
   };
 
+  // 비밀방 입장
   const handleEnterSecretRoom = async (room) => {
     useModalStore.getState().openModal(
       "roomEnter",
@@ -124,16 +123,34 @@ const Game1LobbyPage = () => {
     );
   };
 
+  // 빠른 입장으로 입장
   const handleQuickJoin = () => {
-    // TODO: 자동 입장 로직
+    // 공개방만 필터링
+    const publicRooms = roomList.filter((room) => !room.hasPassword);
+
+    if (publicRooms.length === 0) {
+      useToastStore
+        .getState()
+        .showToast("alert", "방이 존재하지 않아요!", 3000);
+      return;
+    }
+
+    // 랜덤으로 1개 선택
+    const randomIndex = Math.floor(Math.random() * publicRooms.length);
+    const selectedRoom = publicRooms[randomIndex];
+
+    // 바로 입장 시도
+    handleEnterRoom(selectedRoom);
   };
 
+  // 방생성 페이지로 이동
   const handleCreateRoom = () => {
     navigate("/lobby/game1/create");
   };
 
+  // 코드 입력으로 방 입장
   const handleEnterCode = () => {
-    // ⭐ 코드 입력 모달 → Promise 로 받아오기
+    // 코드 입력 모달 → Promise 로 받아오기
     new Promise((resolve) => {
       useModalStore
         .getState()
@@ -141,18 +158,18 @@ const Game1LobbyPage = () => {
     }).then((code) => {
       console.log("입력된 코드:", code);
 
-      // ⭐ roomList 에서 해당 방 찾기
+      // roomList 에서 해당 방 찾기
       const targetRoom = roomList.find((room) => room.roomId === code);
       console.log(targetRoom);
 
       if (!targetRoom) {
         useToastStore
           .getState()
-          .showToast("alert", "해당 방이 존재하지 않아요!", 3000);
+          .showToast("alert", "방이 존재하지 않아요!", 3000);
         return;
       }
 
-      // ⭐ 분기는 그대로 유지!
+      // 비번방인지 공개방인지
       if (targetRoom.hasPassword) {
         handleEnterSecretRoom(targetRoom);
       } else {
@@ -161,23 +178,10 @@ const Game1LobbyPage = () => {
     });
   };
 
+  // 방목록 클릭으로 입장
   const handleRoomClick = (room) => {
     if (room.hasPassword) {
       // 비밀방일 경우 비밀번호 입력
-      // useModalStore.getState().openModal(
-      //   "roomEnter",
-      //   {
-      //     roomType:
-      //       room.gameType === "TRICK_MYOMYO"
-      //         ? "묘묘를 속여라!"
-      //         : "루루의 미대입시",
-      //     hostName: room.owner,
-      //     roomName: room.title,
-      //   },
-      //   (password) => {
-      //     console.log("입력한 비밀번호:", password);
-      //   }
-      // );
       handleEnterSecretRoom(room);
     } else {
       // 공개방일 경우 바로 입장

@@ -29,7 +29,7 @@ const roomEnterEX = {
   content: "1234",
 };
 
-const useLobbySocket = ({ userUuid, onLobbyError }) => {
+const useLobbySocket = ({ userUuid, onLobbyError, onLobbyRoomEvent }) => {
   const roomEventSubRef = useRef(null);
   const { stompClient, isConnected } = useGameSocketStore();
   const [enterRoomId, setEnterRoomId] = useState(null);
@@ -66,6 +66,11 @@ const useLobbySocket = ({ userUuid, onLobbyError }) => {
       (message) => {
         const payload = JSON.parse(message.body);
         console.log("방목록: ", payload);
+
+        // ⭐ onLobbyRoomEvent 콜백 호출 (Game1LobbyPage에서 처리)
+        if (onLobbyRoomEvent) {
+          onLobbyRoomEvent(payload);
+        }
       }
     );
 
@@ -75,7 +80,7 @@ const useLobbySocket = ({ userUuid, onLobbyError }) => {
       roomListUpdateSub.unsubscribe();
       unsubscribePrev();
     };
-  }, [isConnected, stompClient, userUuid, onLobbyError]);
+  }, [isConnected, stompClient, userUuid, onLobbyError, onLobbyRoomEvent]);
 
   // 방 생성
   const createRoom = (roomPayload) => {

@@ -46,6 +46,35 @@ const Game1LobbyPage = () => {
         console.log("무슨 에러게~");
       }
     },
+    // ⭐ 방목록 실시간 반영
+    onLobbyRoomEvent: (payload) => {
+      const { type, data } = payload;
+      console.log(data);
+
+      const mapRoomData = (data) => ({
+        gameType: "TRICK_MYOMYO",
+        roomId: data.roomId,
+        title: data.title,
+        owner: data.owner,
+        hasPassword: data.hasPassword,
+        maxUser: data.maxUser,
+        currentUser: data.currentUser,
+      });
+
+      if (type === "CREATE") {
+        setRoomList((prev) => [...prev, mapRoomData(data)]);
+      } else if (type === "UPDATE") {
+        setRoomList((prev) =>
+          prev.map((room) =>
+            room.roomId === data.roomId ? mapRoomData(data) : room
+          )
+        );
+      } else if (type === "DELETE") {
+        setRoomList((prev) =>
+          prev.filter((room) => room.roomId !== data.roomId)
+        );
+      }
+    },
   });
 
   useEffect(() => {
@@ -56,7 +85,9 @@ const Game1LobbyPage = () => {
           // selectedLevel || "BASIC"
           "BASIC"
         );
-        setRoomList(response);
+        setRoomList(
+          response.map((room) => ({ ...room, gameType: "TRICK_MYOMYO" }))
+        );
         // setRoomList(dummyRooms);
         console.log(response);
         // console.log(selectedLevel);

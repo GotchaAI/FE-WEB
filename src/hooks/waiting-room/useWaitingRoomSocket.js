@@ -3,12 +3,8 @@ import { useEffect, useState } from "react";
 import { useGameSocketStore } from "store/socket";
 
 /**
- * useGameSocket 커스텀 훅
+ * useWaitingRoom 커스텀 훅
  *
- * 게임 웹소켓 서버에 연결
- * nickName과 roomId를 기반으로 초기 연결을 수행
- * 서버에 접속 정보를 publish
- * 연결 실패 시 5000ms 간격으로 재연결 시도
  */
 
 const roomExitEX = {

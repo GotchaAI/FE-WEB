@@ -23,7 +23,7 @@ const Game1LobbyPage = () => {
   const { roomList, setRoomList, handleRoomEvent } =
     useRoomList("TRICK_MYOMYO");
 
-  const { createRoom, enterRoom } = useLobbySocket({
+  const { enterRoom } = useLobbySocket({
     userUuid,
     onLobbyError: (errorPayload) => {
       console.log("🔥 Game1LobbyPage에서 받은 로비에러:", errorPayload);
@@ -125,21 +125,32 @@ const Game1LobbyPage = () => {
   };
 
   const handleEnterCode = () => {
-    useModalStore.getState().openModal(
-      "codeInput",
-      {
-        title: "코드 입력",
-      },
-      async (code) => {
-        // 현재 존재하는 방리스트와 비교하여 방정보 얻고, 비밀방인지 확인
+    // ⭐ 코드 입력 모달 → Promise 로 받아오기
+    new Promise((resolve) => {
+      useModalStore
+        .getState()
+        .openModal("codeInput", { title: "코드 입력" }, resolve);
+    }).then((code) => {
+      console.log("입력된 코드:", code);
 
-        // 공개방이면 바로 입장
-        handleEnterRoom(code);
+      // ⭐ roomList 에서 해당 방 찾기
+      const targetRoom = roomList.find((room) => room.roomId === code);
+      console.log(targetRoom);
 
-        // 비공방이면 모달 호출 후 입장
-        // handleEnterSecretRoom(code);
+      if (!targetRoom) {
+        useToastStore
+          .getState()
+          .showToast("alert", "해당 방이 존재하지 않아요!", 3000);
+        return;
       }
-    );
+
+      // ⭐ 분기는 그대로 유지!
+      if (targetRoom.hasPassword) {
+        handleEnterSecretRoom(targetRoom);
+      } else {
+        handleEnterRoom(code);
+      }
+    });
   };
 
   const handleRoomClick = (room) => {

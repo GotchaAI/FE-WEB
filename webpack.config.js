@@ -33,6 +33,19 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(mp3|wav|ogg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[hash].[ext]",
+              outputPath: "assets/audio",
+              esModule: false,
+            },
+          },
+        ],
+      },
+      {
         test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot)$/i,
         type: "asset/resource",
       },

@@ -25,6 +25,11 @@ const BattleScene = ({ roomId, drawings, isMyBattleTurn }) => {
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
+    console.log("first");
+    useToastStore.getState().showToast("gamealert", "AI가 맞출 차례입니다!");
+  }, []);
+
+  useEffect(() => {
     if (isAiguessTurn) setInputValue("");
   }, [isAiguessTurn]);
 

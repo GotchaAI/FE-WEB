@@ -10,27 +10,19 @@ import useLobbySocket from "hooks/lobby/useLobbySocket";
 import { getUserUuid } from "utils/user";
 import { useToastStore } from "store/toast";
 import { getRoomListAPI } from "services/lobby/lobby";
-
-// const dummyRooms = Array(5)
-//   .fill(null)
-//   .map((_, i) => ({
-//     roomId: `${7000 + i}`,
-//     title: `성인만/19/여기보통 뭐적지?/19시출`,
-//     owner: `호스트${i + 1}`,
-//     gameType: "TRICK_MYOMYO",
-//     difficulty: i % 2 === 0 ? "BASIC" : "ADVANCED",
-//     hasPassword: i % 3 === 0,
-//     maxUser: 2 + (i % 2),
-//     currentUser: 1 + (i % (2 + (i % 2))),
-//   }));
+import { useRoomList } from "hooks/lobby/useRoomList";
 
 const Game1LobbyPage = () => {
   const [page, setPage] = useState(1);
   const [selectedLevel, setSelectedLevel] = useState(null);
-  const [roomList, setRoomList] = useState([]);
+  // const [roomList, setRoomList] = useState([]);
   const navigate = useNavigate();
 
   const userUuid = getUserUuid();
+
+  const { roomList, setRoomList, handleRoomEvent } =
+    useRoomList("TRICK_MYOMYO");
+
   const { createRoom, enterRoom } = useLobbySocket({
     userUuid,
     onLobbyError: (errorPayload) => {
@@ -47,34 +39,7 @@ const Game1LobbyPage = () => {
       }
     },
     // ⭐ 방목록 실시간 반영
-    onLobbyRoomEvent: (payload) => {
-      const { type, data } = payload;
-      console.log(data);
-
-      const mapRoomData = (data) => ({
-        gameType: "TRICK_MYOMYO",
-        roomId: data.roomId,
-        title: data.title,
-        owner: data.owner,
-        hasPassword: data.hasPassword,
-        maxUser: data.maxUser,
-        currentUser: data.currentUser,
-      });
-
-      if (type === "CREATE") {
-        setRoomList((prev) => [...prev, mapRoomData(data)]);
-      } else if (type === "UPDATE") {
-        setRoomList((prev) =>
-          prev.map((room) =>
-            room.roomId === data.roomId ? mapRoomData(data) : room
-          )
-        );
-      } else if (type === "DELETE") {
-        setRoomList((prev) =>
-          prev.filter((room) => room.roomId !== data.roomId)
-        );
-      }
-    },
+    onLobbyRoomEvent: handleRoomEvent,
   });
 
   useEffect(() => {

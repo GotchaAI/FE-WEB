@@ -26,10 +26,10 @@
 
   .right-cloud-img {
     position: absolute;
-    top: 145px;
-    right: 58.08px;
-    width: 186.92px;
-    height: 146.12px;
+    top: 135px;
+    right: 54.08px;
+    width: 246.92px;
+    height: 178.12px;
     z-index: 1;
   }
 
@@ -120,10 +120,11 @@
   .ai-input {
     position: absolute;
     z-index: 10;
-    width: 150px;
-    height: 32px;
-
-    top: 190px;
+    width: 170px;
+    height: 80px;
+    font-size: 13px;
+    font-family: "SUIT-Regular";
+    top: 177px;
     right: 80px;
 
     resize: none;

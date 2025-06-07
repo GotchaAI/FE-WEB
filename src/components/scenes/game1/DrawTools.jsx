@@ -3,9 +3,10 @@ import carrotImg from "assets/components/scenes/commons/carrot.png";
 import eraserImg from "assets/components/scenes/commons/eraser.png";
 import submittedImg from "assets/components/scenes/commons/submitted.png";
 import trashcanImg from "assets/components/scenes/commons/trashcan.png";
+import carrotCurosr from "assets/cursor/carrot.png";
+import eraserCurosr from "assets/cursor/eraser.png";
+import { useEffect, useState } from "react";
 import { useToastStore } from "store/toast";
-
-import { useState } from "react";
 import "styles/components/scenes/game1/DrawTools.scss";
 const DrawTools = ({
   onTogglePen,
@@ -30,19 +31,25 @@ const DrawTools = ({
     onSubmit();
   };
 
-  // TODO: 오류 수정중
   // cursor 스타일 결정
-  const cursorStyle = {
-    cursor:
-      activeTool === "pen"
-        ? `url(${carrotImg}) 4 28, auto` // 4 28은 커서 핫스팟 위치 (적절히 조정)
-        : activeTool === "eraser"
-        ? `url(${eraserImg}) 4 28, auto`
-        : "auto",
-  };
+  useEffect(() => {
+    const body = document.body;
+    if (activeTool === "pen") {
+      body.style.cursor = `url(${carrotCurosr}) 4 28, auto`;
+    } else if (activeTool === "eraser") {
+      body.style.cursor = `url(${eraserCurosr}) 4 28, auto`;
+    } else {
+      body.style.cursor = "auto";
+    }
+
+    // 컴포넌트 언마운트 시 커서 원복
+    return () => {
+      body.style.cursor = "auto";
+    };
+  }, [activeTool]);
 
   return (
-    <div className="draw-option-container" style={cursorStyle}>
+    <div className="draw-option-container">
       <label
         className={`draw-tool pencil ${activeTool === "pen" ? "active" : ""}`}
         onClick={handlePenClick}

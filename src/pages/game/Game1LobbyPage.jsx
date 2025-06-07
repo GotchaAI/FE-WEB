@@ -35,6 +35,8 @@ const Game1LobbyPage = () => {
         useToastStore
           .getState()
           .showToast("alert", "비밀번호가 올바르지 않아요!", 3000);
+      } else if (errorPayload.code === "ROOM_400_011") {
+        useToastStore.getState().showToast("alert", "방이 가득 찼어요!", 3000);
       } else {
         // todo 방이 가득 찼을 때의 에러처리!!!!!!!!!!!!!!!!!!!
         console.log("무슨 에러게~");
@@ -89,8 +91,8 @@ const Game1LobbyPage = () => {
       navigate(`/lobby/waiting?roomId=${result.roomId}`);
     } else {
       // 방이 가득 찼거나 없어졌을 때
-      console.log(room);
-      if (isRoomFull(room)) console.log("방가득참");
+      // console.log(room);
+      // if (isRoomFull(room)) console.log("방가득참");
       console.log("방입장 실패");
     }
   };
@@ -131,7 +133,7 @@ const Game1LobbyPage = () => {
     if (publicRooms.length === 0) {
       useToastStore
         .getState()
-        .showToast("alert", "방이 존재하지 않아요!", 3000);
+        .showToast("alert", "입장 가능한 방이 존재하지 않아요!", 3000);
       return;
     }
 

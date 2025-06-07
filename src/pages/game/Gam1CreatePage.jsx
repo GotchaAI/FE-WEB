@@ -12,6 +12,11 @@ import {
 } from "constants/game";
 import { getUserUuid } from "utils/user";
 import useLobbySocket from "hooks/lobby/useLobbySocket";
+import {
+  PASSWORD_EMTPY_ERROR_MESSAGE,
+  PASSWORD_FOUR_DIGIT_ERROR_MESSAGE,
+  ROOM_TITLE_INPUT_ERROR_MESSAGE,
+} from "constants/errorMessage";
 
 const roundOptions = GAME1_ROUND_OPTIONS;
 const playerOptions = GAME1_PLAYER_OPTIONS;
@@ -49,17 +54,17 @@ const Game1CreatePage = () => {
 
     // 방 제목 검사
     if (!title.trim()) {
-      setTitleError("방 제목을 입력하세요.");
+      setTitleError(ROOM_TITLE_INPUT_ERROR_MESSAGE);
       hasError = true;
     }
 
     // 비밀번호 검사 (비공개 시)
     if (isPrivate) {
       if (!password) {
-        setPasswordError("비밀번호를 입력하세요.");
+        setPasswordError(PASSWORD_EMTPY_ERROR_MESSAGE);
         hasError = true;
       } else if (!isFourDigitNumber(password)) {
-        setPasswordError("비밀번호는 4자리 숫자로 입력하세요.");
+        setPasswordError(PASSWORD_FOUR_DIGIT_ERROR_MESSAGE);
         hasError = true;
       }
     }
@@ -101,7 +106,7 @@ const Game1CreatePage = () => {
         <label className="form-label">방 제목</label>
         <input
           type="text"
-          placeholder="방 제목을 입력하세요."
+          placeholder="방 제목을 입력해주세요."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />

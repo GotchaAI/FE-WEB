@@ -16,3 +16,6 @@ export const EMAIL_CODE_MISMATCH_ERROR_MESSAGE =
 export const EMAIL_CODE_EXPIRED_ERROR_MESSAGE =
   "인증번호가 만료되었습니다.";
 export const EMAIL_CODE_VALIDATION_ERROR = "인증번호를 다시 확인해주세요."
+export const ROOM_TITLE_INPUT_ERROR_MESSAGE = "방 제목을 입력하세요."
+export const PASSWORD_EMTPY_ERROR_MESSAGE = "비밀번호를 입력하세요."
+export const PASSWORD_FOUR_DIGIT_ERROR_MESSAGE = "비밀번호는 4자리 숫자로 입력하세요."

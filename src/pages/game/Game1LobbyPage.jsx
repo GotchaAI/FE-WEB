@@ -11,6 +11,11 @@ import { getUserUuid } from "utils/user";
 import { useToastStore } from "store/toast";
 import { getRoomListAPI } from "services/lobby/lobby";
 import { useRoomList } from "hooks/lobby/useRoomList";
+import {
+  ROOM_IS_FULL,
+  ROOM_NOT_EXIST,
+  ROOM_PASSWORD_NOT_MATCHED,
+} from "constants/errorCode";
 
 const Game1LobbyPage = () => {
   const [page, setPage] = useState(1);
@@ -27,15 +32,15 @@ const Game1LobbyPage = () => {
     onLobbyError: (errorPayload) => {
       console.log("🔥 Game1LobbyPage에서 받은 로비에러:", errorPayload);
       // 해당 방이 없을 때, 토스트 띄움
-      if (errorPayload.code === "ROOM_400_004") {
+      if (errorPayload.code === ROOM_NOT_EXIST) {
         useToastStore
           .getState()
           .showToast("alert", "방이 존재하지 않아요!", 3000);
-      } else if (errorPayload.code === "ROOM_400_007") {
+      } else if (errorPayload.code === ROOM_PASSWORD_NOT_MATCHED) {
         useToastStore
           .getState()
           .showToast("alert", "비밀번호가 올바르지 않아요!", 3000);
-      } else if (errorPayload.code === "ROOM_400_011") {
+      } else if (errorPayload.code === ROOM_IS_FULL) {
         useToastStore.getState().showToast("alert", "방이 가득 찼어요!", 3000);
       } else {
         // todo 방이 가득 찼을 때의 에러처리!!!!!!!!!!!!!!!!!!!
@@ -67,6 +72,7 @@ const Game1LobbyPage = () => {
     fetchRooms();
   }, [selectedLevel]);
 
+  // 페이지 관련 함수
   const totalPages = Math.ceil(roomList.length / GAME1_ROOMS_PER_PAGE);
   const currentRooms = roomList.slice(
     (page - 1) * GAME1_ROOMS_PER_PAGE,
@@ -76,8 +82,6 @@ const Game1LobbyPage = () => {
   const handleSelectLevel = (level) => {
     setSelectedLevel(selectedLevel === level ? null : level);
   };
-
-  const isRoomFull = (room) => room.currentUser >= room.maxUser;
 
   // 공개방 입장
   const handleEnterRoom = async (room) => {
@@ -90,9 +94,6 @@ const Game1LobbyPage = () => {
       console.log("방 존재함");
       navigate(`/lobby/waiting?roomId=${result.roomId}`);
     } else {
-      // 방이 가득 찼거나 없어졌을 때
-      // console.log(room);
-      // if (isRoomFull(room)) console.log("방가득참");
       console.log("방입장 실패");
     }
   };

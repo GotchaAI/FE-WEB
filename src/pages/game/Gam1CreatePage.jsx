@@ -38,6 +38,7 @@ const Game1CreatePage = () => {
   const userUuid = getUserUuid();
   const { createRoom } = useLobbySocket({ userUuid });
 
+  // 비밀번호 입력 감시 및 처리
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     if (isNumeric(value)) {
@@ -45,6 +46,7 @@ const Game1CreatePage = () => {
     }
   };
 
+  // 폼검증 후 방생성
   const handleCreateRoom = async () => {
     setTitleError("");
     setPasswordError("");
@@ -69,22 +71,24 @@ const Game1CreatePage = () => {
       }
     }
 
-    // 에러가 있으면 → 방 생성 시도 안 함
+    // 에러가 있으면 방 생성 시도 안 함
     if (hasError) return;
 
     const payload = {
       title,
-      maxUser: Number(player), // API 요구: Integer
+      maxUser: Number(player),
       hasPassword: isPrivate,
-      password: isPrivate ? password : "", // required field
-      difficulty: "BASIC", // "BASIC" or "ADVANCED"
+      password: isPrivate ? password : "",
+      difficulty: "BASIC", // todo 바꿔야함
       gameType: "TRICK_MYOMYO", // 고정
-      roundCount: Number(round), // API 요구: Integer
+      roundCount: Number(round),
     };
 
+    // 방생성 시도
     const result = await createRoom(payload);
 
     if (result.success && result.roomId) {
+      // 정상적으로 성공됐다면 대기방으로!
       console.log("방 생성 성공 → 이동!", result.roomId);
       navigate(`/lobby/waiting?roomId=${result.roomId}`);
     } else {

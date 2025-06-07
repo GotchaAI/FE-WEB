@@ -43,7 +43,6 @@ const Game1LobbyPage = () => {
       } else if (errorPayload.code === ROOM_IS_FULL) {
         useToastStore.getState().showToast("alert", "방이 가득 찼어요!", 3000);
       } else {
-        // todo 방이 가득 찼을 때의 에러처리!!!!!!!!!!!!!!!!!!!
         console.log("무슨 에러게~");
       }
     },
@@ -51,6 +50,8 @@ const Game1LobbyPage = () => {
     onLobbyRoomEvent: handleRoomEvent,
   });
 
+  // 방목록 조회 및 필터링
+  // todo: 필터링 구현하기
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -79,6 +80,8 @@ const Game1LobbyPage = () => {
     page * GAME1_ROOMS_PER_PAGE
   );
 
+  // 난이도 선택
+  // todo: 필터링 구현하기
   const handleSelectLevel = (level) => {
     setSelectedLevel(selectedLevel === level ? null : level);
   };
@@ -131,6 +134,7 @@ const Game1LobbyPage = () => {
     // 공개방만 필터링
     const publicRooms = roomList.filter((room) => !room.hasPassword);
 
+    // 공개방이 없을 때
     if (publicRooms.length === 0) {
       useToastStore
         .getState()
@@ -165,6 +169,7 @@ const Game1LobbyPage = () => {
       const targetRoom = roomList.find((room) => room.roomId === code);
       console.log(targetRoom);
 
+      // 방이 없을 때
       if (!targetRoom) {
         useToastStore
           .getState()

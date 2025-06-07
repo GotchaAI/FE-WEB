@@ -32,9 +32,9 @@ const useDrawSocket = ({
 
   // 제출 핸들러
   const submitHandler = useCallback(async () => {
+    setIsDrawingDisabled(true);
     const imageUrl = await getImageUrl();
     sendDrawing(imageUrl);
-    setIsDrawingDisabled(true);
   }, [getImageUrl, setIsDrawingDisabled, sendDrawing]);
 
   // ⏹️ 게임 종료

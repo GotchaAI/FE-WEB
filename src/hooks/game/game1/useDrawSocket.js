@@ -1,7 +1,6 @@
 import { SOCKET_GAME_API } from "constants/api";
 import { useCallback, useEffect, useState } from "react";
 import { useGameSocketStore } from "store/socket";
-import { useToastStore } from "store/toast";
 
 const useDrawSocket = ({
   roomId,
@@ -33,7 +32,6 @@ const useDrawSocket = ({
 
   // 제출 핸들러
   const submitHandler = useCallback(async () => {
-    useToastStore.getState().showToast("alert", "제출 완료!!!");
     const imageUrl = await getImageUrl();
     sendDrawing(imageUrl);
     setIsDrawingDisabled(true);

@@ -3,6 +3,8 @@ import carrotImg from "assets/components/scenes/commons/carrot.png";
 import eraserImg from "assets/components/scenes/commons/eraser.png";
 import submittedImg from "assets/components/scenes/commons/submitted.png";
 import trashcanImg from "assets/components/scenes/commons/trashcan.png";
+import { useToastStore } from "store/toast";
+
 import { useState } from "react";
 import "styles/components/scenes/game1/DrawTools.scss";
 const DrawTools = ({
@@ -21,6 +23,11 @@ const DrawTools = ({
   const handleEraserClick = () => {
     setActiveTool("eraser");
     onToggleEraser();
+  };
+
+  const submitHandler = () => {
+    useToastStore.getState().showToast("alert", "제출 완료!!!");
+    onSubmit();
   };
 
   // TODO: 오류 수정중
@@ -67,7 +74,7 @@ const DrawTools = ({
       {!disabled ? (
         <label
           className="draw-tool submit"
-          onClick={onSubmit}
+          onClick={submitHandler}
           aria-disabled={disabled}
         >
           <span>제출하기</span>

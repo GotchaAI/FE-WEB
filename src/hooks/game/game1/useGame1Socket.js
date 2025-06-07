@@ -20,10 +20,14 @@ const useGame1Socket = () => {
 
   const [endTime, setEndTime] = useState(null); // 타이머 종료 시간
   const [drawings, setDrawings] = useState([]); // 그림 이미지
-  const [answerResults, setAnswerResults] = useState(
-    Array(gameInfo?.totalRounds).fill([null, null])
-  ); // 라운드 별 결과
+  const [answerResults, setAnswerResults] = useState([[null, null]]); // 라운드 별 결과
   const [gameResultInfo, setGameResultInfo] = useState({}); // 게임 결과(ROUND_END 결과)
+
+  useEffect(() => {
+    if (gameInfo?.totalRounds) {
+      setAnswerResults(Array(gameInfo.totalRounds).fill([null, null]));
+    }
+  }, [gameInfo?.totalRounds]);
 
   // gameInfo로 할당받은 정보를 토대로 게임 씬을 생성한다
   const renderScenes = useCallback(() => {

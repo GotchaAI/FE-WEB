@@ -138,6 +138,7 @@ const Game1CreatePage = () => {
                 onChange={() => {
                   if (player !== p) setPlayer(p);
                 }}
+                disabled={p !== 2}
               />
             ))}
           </div>

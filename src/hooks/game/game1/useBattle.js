@@ -12,6 +12,7 @@ const useBattle = ({ roomId }) => {
   const [guessResult, setGuessResult] = useState(null);
   const [isMyguessTurn, setIsMyguessTurn] = useState(false);
   const [isAiguessTurn, setIsAiguessTurn] = useState(true);
+  const [isSubmit, setIsSubmit] = useState(false);
   const [aiSays, setAiSays] = useState(null);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ const useBattle = ({ roomId }) => {
             setGuessResult(null);
             setIsMyguessTurn(data.guesserUuid === userUuid);
             setIsAiguessTurn(data.guesserUuid === "AI");
+            setIsSubmit(false);
             break;
           case "GUESS_SUBMIT":
             setGuessWord(data.guessWord);
@@ -51,7 +53,7 @@ const useBattle = ({ roomId }) => {
   const sendGuess = useCallback(
     (guess) => {
       if (!isConnected) return;
-
+      setIsSubmit(true);
       stompClient.publish({
         destination: `/pub${SOCKET_GAME_API}/${roomId}`,
         body: JSON.stringify({
@@ -70,6 +72,7 @@ const useBattle = ({ roomId }) => {
     isMyguessTurn,
     isAiguessTurn,
     aiSays,
+    isSubmit,
     sendGuess,
   };
 };

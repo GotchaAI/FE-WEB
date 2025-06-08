@@ -52,6 +52,7 @@ const BattleScene = ({ roomId, drawings }) => {
   }, [guessResult]);
 
   const handleKeyDown = (e) => {
+    if (isSubmit) return;
     if (isPressEnterKey(e)) {
       e.preventDefault();
       if (!isBlank(inputValue)) {
@@ -76,8 +77,8 @@ const BattleScene = ({ roomId, drawings }) => {
 
       {/* 말풍선 이미지 (왼쪽: 플레이어) */}
 
-      {!isAiguessTurn ? (
-        isMyguessTurn ? (
+      {!isAiguessTurn &&
+        (isMyguessTurn ? (
           <>
             <img
               src={leftCloudImg}
@@ -101,13 +102,12 @@ const BattleScene = ({ roomId, drawings }) => {
             />
             <textarea className="player-input" value={guessWord} readOnly />
           </>
-        )
-      ) : null}
+        ))}
 
       {/* 말풍선 이미지 (오른쪽: AI) */}
 
       {/** ai가 틀렸을 때 대사 표시  */}
-      {aiSaying && aiSays ? (
+      {aiSaying && aiSays && (
         <>
           <img
             src={rightCloudImg}
@@ -116,7 +116,7 @@ const BattleScene = ({ roomId, drawings }) => {
           />
           <textarea className="ai-input" value={aiSays} readOnly />
         </>
-      ) : null}
+      )}
 
       {/* 그림 영역 */}
       <div className="drawing-container">

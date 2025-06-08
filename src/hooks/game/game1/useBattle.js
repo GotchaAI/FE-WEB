@@ -29,7 +29,6 @@ const useBattle = ({ roomId }) => {
             setGuessResult(null);
             setIsMyguessTurn(data.guesserUuid === userUuid);
             setIsAiguessTurn(data.guesserUuid === "AI");
-            setAiSays(payload.aiSays);
             break;
           case "GUESS_SUBMIT":
             setGuessWord(data.guessWord);

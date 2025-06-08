@@ -23,14 +23,24 @@ const BattleScene = ({ roomId, drawings, isMyBattleTurn }) => {
   } = useBattle({ roomId });
 
   const [inputValue, setInputValue] = useState("");
-
+  const [aiSaying, setAiSaying] = useState(true);
   useEffect(() => {
-    console.log("first");
     useToastStore.getState().showToast("gamealert", "AI가 맞출 차례입니다!");
   }, []);
 
   useEffect(() => {
-    if (isAiguessTurn) setInputValue("");
+    if (!isAiguessTurn) {
+      // player 턴으로 이동
+      const timer = setTimeout(() => {
+        setAiSaying(false); // 3초 후 ai 말풍선 삭제
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    } else {
+      // ai 턴으로 이동
+      setInputValue("");
+      setAiSaying(true);
+    }
   }, [isAiguessTurn]);
 
   useEffect(() => {
@@ -49,6 +59,10 @@ const BattleScene = ({ roomId, drawings, isMyBattleTurn }) => {
     }
   };
 
+  const autoSendHandler = () => {
+    sendGuess(inputValue);
+  };
+
   return (
     <div className="battle-scene-container">
       {/* 플레이어 아바타 */}
@@ -59,45 +73,54 @@ const BattleScene = ({ roomId, drawings, isMyBattleTurn }) => {
       </div>
 
       {/* 말풍선 이미지 (왼쪽: 플레이어) */}
-      <img
-        src={leftCloudImg}
-        className="left-cloud-img"
-        alt="플레이어 말풍선"
-      />
 
-      {isMyBattleTurn && isMyguessTurn ? (
-        <textarea
-          className="player-input"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="정답을 입력해주세요"
-        />
-      ) : (
-        !isAiguessTurn && (
-          <textarea
-            className="player-input"
-            defaultValue={guessWord}
-            readOnly
-          />
+      {!isAiguessTurn ? (
+        isMyguessTurn ? (
+          <>
+            <img
+              src={leftCloudImg}
+              className="left-cloud-img"
+              alt="플레이어 말풍선"
+            />
+            <textarea
+              className="player-input"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="정답을 입력해주세요"
+            />
+          </>
+        ) : (
+          <>
+            <img
+              src={leftCloudImg}
+              className="left-cloud-img"
+              alt="플레이어 말풍선"
+            />
+            <textarea className="player-input" value={guessWord} readOnly />
+          </>
         )
-      )}
+      ) : null}
 
       {/* 말풍선 이미지 (오른쪽: AI) */}
-      <img
-        src={rightCloudImg}
-        className="right-cloud-img"
-        alt="인공지능 말풍선"
-      />
-      {isAiguessTurn ? (
-        <textarea className="ai-input" defaultValue={aiSays} readOnly />
+
+      {/** ai가 틀렸을 때 대사 표시  */}
+      {aiSaying && aiSays ? (
+        <>
+          <img
+            src={rightCloudImg}
+            className="right-cloud-img"
+            alt="인공지능 말풍선"
+          />
+          <textarea className="ai-input" value={aiSays} readOnly />
+        </>
       ) : null}
 
       {/* 그림 영역 */}
       <div className="drawing-container">
         <div className="game-header">
           {/* 타이머 ⏰ */}
-          <Timer endTime={endTime} />
+          <Timer endTime={endTime} goToNextFlow={autoSendHandler} />
         </div>
         {drawings && <img src={drawings} className="drawing" alt="그림" />}
       </div>

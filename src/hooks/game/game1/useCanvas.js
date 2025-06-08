@@ -6,7 +6,7 @@ const useCanvas = () => {
   const contextRef = useRef(null);
 
   const [isDrawing, setIsDrawing] = useState(false);
-  const [penActive, setPenActive] = useState(false);
+  const [penActive, setPenActive] = useState(true);
   const [eraserActive, setEraserActive] = useState(false);
   const [isDrawingDisabled, setIsDrawingDisabled] = useState(false);
 

@@ -1,14 +1,10 @@
 import { SOCKET_ROOM_API, SOCKET_ROOM_ERROR_API } from "constants/api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGameSocketStore } from "store/socket";
 
 /**
- * useGameSocket 커스텀 훅
+ * useWaitingRoom 커스텀 훅
  *
- * 게임 웹소켓 서버에 연결
- * nickName과 roomId를 기반으로 초기 연결을 수행
- * 서버에 접속 정보를 publish
- * 연결 실패 시 5000ms 간격으로 재연결 시도
  */
 
 const roomExitEX = {
@@ -29,6 +25,8 @@ const gameUnreadyEX = {
 
 const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
   const { stompClient, isConnected } = useGameSocketStore();
+  const [isGameStart, setIsGameStart] = useState(false);
+  const [initGameInfo, setInitGameInfo] = useState(null);
 
   useEffect(() => {
     if (roomId === null) return;
@@ -61,6 +59,8 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
             break;
           case "START":
             console.log("START");
+            setIsGameStart(true);
+            setInitGameInfo(data.gameData);
             break;
           case "UPDATE":
             console.log("UPDATE");
@@ -140,7 +140,15 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
     });
   };
 
-  return { startGame, readyGame, unreadyGame, updateRoomInfo, quitRoom };
+  return {
+    startGame,
+    readyGame,
+    unreadyGame,
+    updateRoomInfo,
+    quitRoom,
+    isGameStart,
+    initGameInfo,
+  };
 };
 
 export default useWaitingRoomSocket;

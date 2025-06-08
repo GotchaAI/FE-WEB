@@ -1,0 +1,29 @@
+.timer-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 656.61px;
+  height: 18.26px;
+}
+
+.bomb-icon {
+  font-size: 24px;
+  color: #ff4500; // 붉은색 폭탄
+}
+
+.progress-bar {
+  flex: 1;
+  height: 20px;
+  background-color: #ddd; // 회색 배경
+  border-radius: 10px;
+  border: 1px solid;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #f4ec6f; // 초기 색상
+  transition: width 1s linear;
+}

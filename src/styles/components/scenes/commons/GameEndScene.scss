@@ -1,0 +1,20 @@
+.game-end-scene-container {
+  position: absolute; // 화면 위에 고정
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); // 화면 정중앙 배치
+
+  width: 300px;
+  height: 150px;
+  background-color: rgba(0, 0, 0, 0.8); // 반투명 배경
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000; // 다른 요소 위에 배치
+}

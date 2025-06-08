@@ -1,3 +1,4 @@
+import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import { Bongvong } from "commons/svgs/characters/Bongvong";
 import SearchIcon from "commons/svgs/SearchIcon";
 import FriendList from "components/lobby/friend/FriendList";
@@ -35,10 +36,7 @@ const Friend = ({ userUuid }) => {
       {friendActionType === "list" ? (
         <div className="friend-list-container">
           {friendList && friendList.length == 0 ? (
-            <div className="empty-friend">
-              <Bongvong />
-              <span>텅 비었어요!</span>
-            </div>
+            <EmptyContent />
           ) : (
             <FriendList friendList={friendList} />
           )}

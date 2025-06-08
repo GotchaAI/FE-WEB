@@ -15,7 +15,7 @@ const DrawTools = ({
   onSubmit,
   disabled,
 }) => {
-  const [activeTool, setActiveTool] = useState(null);
+  const [activeTool, setActiveTool] = useState("pen");
   const handlePenClick = () => {
     setActiveTool("pen");
     onTogglePen();
@@ -50,43 +50,47 @@ const DrawTools = ({
 
   return (
     <div className="draw-option-container">
-      <label
+      <button
+        type="button"
         className={`draw-tool pencil ${activeTool === "pen" ? "active" : ""}`}
         onClick={handlePenClick}
-        aria-disabled={disabled}
+        disabled={disabled}
       >
         <span>pen</span>
         <img className="carrot-img" src={carrotImg} alt="연필" />
-      </label>
+      </button>
 
-      <label
+      <button
+        type="button"
         className={`draw-tool eraser ${
           activeTool === "eraser" ? "active" : ""
         }`}
         onClick={handleEraserClick}
-        aria-disabled={disabled}
+        disabled={disabled}
       >
         <span>eraser</span>
         <img className="eraser-img" src={eraserImg} alt="지우개" />
-      </label>
+      </button>
 
-      <label
+      <button
+        type="button"
         className="draw-tool trashcan"
         onClick={onClearCanvas}
-        aria-disabled={disabled}
+        disabled={disabled}
       >
         <img className="trashcan-img" src={trashcanImg} alt="휴지통" />
-      </label>
+      </button>
 
       {!disabled ? (
-        <label
+        <button
+          type="button"
           className="draw-tool submit"
           onClick={submitHandler}
-          aria-disabled={disabled}
+          disabled={disabled}
         >
           <span>제출하기</span>
           <img className="bell-img" src={bellImg} alt="제출하기" />
-        </label>
+        </button>
       ) : (
         <img className="submitted-img" src={submittedImg} alt="제출완료" />
       )}

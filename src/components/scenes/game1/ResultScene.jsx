@@ -52,12 +52,12 @@ const ResultScene = ({ gameResultInfo }) => {
             alt="플레이어"
           />
         </div>
-        {gameWinner ? (
+        {gameWinner && (
           <div className="player-result-chat">
             <img src={playerChatImg} alt="플레이어 말풍선" />
             <span className="player-chat">우리가 이겼어!!</span>
           </div>
-        ) : null}
+        )}
       </div>
 
       {/* 결과 영역 */}
@@ -122,11 +122,11 @@ const ResultScene = ({ gameResultInfo }) => {
           alt="인공지능"
         />
       </div>
-      {!gameWinner ? (
+      {!gameWinner && (
         <div className="ai-result-chat">
           <img className="ai-chat" src={aiChatImg} alt="ai 말풍선" />
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

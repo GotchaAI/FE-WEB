@@ -21,8 +21,8 @@ const RoomTable = ({ rooms, onClickRow }) => {
         </tr>
       </thead>
       <tbody>
-        {rooms.map((room, index) => (
-          <tr key={index} onClick={() => onClickRow?.(room)}>
+        {rooms.map((room) => (
+          <tr key={room.roomId} onClick={() => onClickRow?.(room)}>
             <td>{room.hasPassword && <LockedIcon />}</td>
             <td>{getModeName(room.gameType)}</td>
             <td>{room.owner}</td>

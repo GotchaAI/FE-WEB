@@ -79,7 +79,7 @@ const Game1CreatePage = () => {
       maxUser: Number(player),
       hasPassword: isPrivate,
       password: isPrivate ? password : "",
-      difficulty: "BASIC", // todo 바꿔야함
+      difficulty: level, // todo 바꿔야함
       gameType: "TRICK_MYOMYO", // 고정
       roundCount: Number(round),
     };

@@ -12,19 +12,32 @@ export const useRoomActions = ({ roomList, enterRoom }) => {
   };
 
   const handleEnterSecretRoom = async (room) => {
+    const modalPayload = {
+      roomType:
+        room.gameType === "TRICK_MYOMYO"
+          ? "묘묘를 속여라!"
+          : "루루의 미대입시",
+      hostName: room.owner,
+      roomName: room.title,
+    };
+
     useModalStore.getState().openModal(
       "roomEnter",
-      {
-        roomType: room.gameType === "TRICK_MYOMYO" ? "묘묘를 속여라!" : "루루의 미대입시",
-        hostName: room.owner,
-        roomName: room.title,
-      },
+      modalPayload,
       async (password) => {
-        if (room.roomId) {
-          enterRoom(room.roomId, password);
+        console.log("입력한 비밀번호:", password);
+        const result = await enterRoom(room.roomId, password);
+        console.log(result);
+
+        if (result.success && result.roomId) {
+          console.log("방존재함");
+          navigate(`/lobby/waiting?roomId=${result.roomId}`);
+        } else {
+          console.log("방입장 실패");
         }
       }
     );
+
   };
 
   const handleQuickJoin = () => {

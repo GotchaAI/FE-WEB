@@ -2,7 +2,6 @@ import CheckBox from "commons/svgs/CheckBox";
 import PageArrowButton from "commons/svgs/PageArrowButton";
 import RoomTable from "components/game/Game1RoomTable";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { GAME1_LEVEL_OPTIONS, GAME1_ROOMS_PER_PAGE } from "constants/game";
 import "styles/pages/game/Game1LobbyPage.scss";
 import useLobbySocket from "hooks/lobby/useLobbySocket";
@@ -18,7 +17,6 @@ import { useRoomActions } from "hooks/lobby/useRoomActions";
 
 const Game1LobbyPage = () => {
   const [page, setPage] = useState(1);
-  const navigate = useNavigate();
   const userUuid = getUserUuid();
 
   const { roomList, selectedLevel, setSelectedLevel } =
@@ -31,7 +29,7 @@ const Game1LobbyPage = () => {
     handleCreateRoom,
     handleEnterCode,
     handleRoomClick,
-  } = useRoomActions({ roomList, enterRoom });
+  } = useRoomActions({ roomList, enterRoom, enterRoomId });
 
   const { showToast } = useToastStore.getState();
 
@@ -60,14 +58,6 @@ const Game1LobbyPage = () => {
       showToast("alert", "알 수 없는 에러 발생!", 3000);
     }
   }, [lobbyError, showToast]);
-
-  // 룸아이디가 반환되면 대기방으로 이동
-  useEffect(() => {
-    if (enterRoomId) {
-      console.log("✅ 방 입장 성공! 이동 →", enterRoomId);
-      navigate(`/lobby/waiting?roomId=${enterRoomId}`);
-    }
-  }, [enterRoomId, navigate]);
 
   // 난이도 선택
   // todo: 필터링 구현하기

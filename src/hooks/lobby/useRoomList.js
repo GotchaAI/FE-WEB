@@ -61,8 +61,9 @@ export const useRoomList = (initialGameType = "TRICK_MYOMYO", initialDifficulty 
   // ⭐ level 변경 시 자동 방목록 조회
   useEffect(() => {
     const fetchRooms = async () => {
+      const params = { gameType: initialGameType, difficulty: selectedLevel }
       try {
-        const response = await getRoomListAPI(initialGameType, selectedLevel);
+        const response = await getRoomListAPI(params);
         setRoomList(
           response.map((room) => ({ ...room, gameType: initialGameType }))
         );

@@ -1,13 +1,25 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useModalStore } from "store/modal";
 import { useToastStore } from "store/toast";
 
-export const useRoomActions = ({ roomList, enterRoom }) => {
+export const useRoomActions = ({ roomList, enterRoom, enterRoomId }) => {
   const navigate = useNavigate();
 
+  // 룸아이디가 반환되면 대기방으로 이동
+  useEffect(() => {
+    if (enterRoomId) {
+      console.log("✅ 방 입장 성공! 이동 →", enterRoomId);
+      navigate(`/lobby/waiting?roomId=${enterRoomId}`);
+    }
+  }, [enterRoomId, navigate]);
+
   const handleEnterRoom = async (room) => {
+    // 방이 존재하고, 공개방일시 입장 시도
     if (room.roomId) {
       enterRoom(room.roomId, "");
+    } else {
+      console.log("공개방 입장 실패")
     }
   };
 
@@ -26,14 +38,12 @@ export const useRoomActions = ({ roomList, enterRoom }) => {
       modalPayload,
       async (password) => {
         console.log("입력한 비밀번호:", password);
-        const result = await enterRoom(room.roomId, password);
-        console.log(result);
 
-        if (result.success && result.roomId) {
-          console.log("방존재함");
-          navigate(`/lobby/waiting?roomId=${result.roomId}`);
+        // 방이 존재하고, 비밀방일시 입장 시도
+        if (room.roomId) {
+          enterRoom(room.roomId, password);
         } else {
-          console.log("방입장 실패");
+          console.log("비밀방 입장 실패")
         }
       }
     );
@@ -57,8 +67,9 @@ export const useRoomActions = ({ roomList, enterRoom }) => {
   };
 
   const handleEnterCode = () => {
+    const modalPayload = { title: "코드 입력" };
     new Promise((resolve) => {
-      useModalStore.getState().openModal("codeInput", { title: "코드 입력" }, resolve);
+      useModalStore.getState().openModal("codeInput", modalPayload, resolve);
     }).then((code) => {
       const targetRoom = roomList.find((room) => room.roomId === code);
       if (!targetRoom) {

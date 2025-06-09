@@ -39,7 +39,6 @@ const useLobbySocket = ({ userUuid, onLobbyError, onLobbyRoomEvent }) => {
         const payload = JSON.parse(message.body);
         console.log("로비에러: ", payload);
         setLobbyError(payload)
-        // setRoomError(payload);
 
         // if (onLobbyError) {
         //   onLobbyError(payload);
@@ -93,7 +92,6 @@ const useLobbySocket = ({ userUuid, onLobbyError, onLobbyRoomEvent }) => {
       }
     );
 
-
     roomEventSubRef.current = subscription;
     // 🚀 방 생성 요청
     stompClient.publish({
@@ -104,51 +102,32 @@ const useLobbySocket = ({ userUuid, onLobbyError, onLobbyRoomEvent }) => {
 
   // 방 입장
   const enterRoom = (roomId, password) => {
-    return new Promise((resolve) => {
-      if (!isConnected) {
-        resolve({ success: false });
-        return;
-      }
+    if (!isConnected) return;
+    unsubscribePrev();
 
-      unsubscribePrev();
+    const subscription = stompClient.subscribe(
+      `/sub${SOCKET_LOBBY_JOIN_API}/${userUuid}`,
+      (message) => {
+        const responsePayload = JSON.parse(message.body);
+        const innerPayload = JSON.parse(responsePayload.payload);
 
-      const subscription = stompClient.subscribe(
-        `/sub${SOCKET_LOBBY_JOIN_API}/${userUuid}`,
-        (message) => {
-          const responsePayload = JSON.parse(message.body);
-          console.log("방 입장 응답:", responsePayload);
-
-          let innerPayload = {};
-          try {
-            innerPayload = JSON.parse(responsePayload.payload);
-          } catch (error) {
-            console.error("payload 파싱 실패!", error);
-            resolve({ success: false });
-            unsubscribePrev();
-            return;
-          }
-
-          if (innerPayload.roomId) {
-            console.log("방 입장 성공 → roomId:", innerPayload.roomId);
-            setEnterRoomId(innerPayload.roomId);
-            resolve({ success: true, roomId: innerPayload.roomId });
-            unsubscribePrev();
-            return;
-          }
-
+        console.log(responsePayload)
+        if (innerPayload?.roomId) {
+          console.log("방 입장 성공 → roomId:", innerPayload.roomId);
+          setEnterRoomId(innerPayload.roomId);
+        } else {
           console.error("방 입장 실패!");
-          resolve({ success: false });
-          unsubscribePrev();
         }
-      );
 
-      roomEventSubRef.current = subscription;
+        unsubscribePrev();
+      }
+    );
 
-      // 방 입장 요청 (password 만 전송)
-      stompClient.publish({
-        destination: `/pub${SOCKET_LOBBY_JOIN_API}/${roomId}`,
-        body: JSON.stringify({ password }),
-      });
+    roomEventSubRef.current = subscription;
+
+    stompClient.publish({
+      destination: `/pub${SOCKET_LOBBY_JOIN_API}/${roomId}`,
+      body: JSON.stringify({ password }),
     });
   };
 

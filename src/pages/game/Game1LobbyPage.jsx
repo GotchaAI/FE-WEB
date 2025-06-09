@@ -27,25 +27,8 @@ const Game1LobbyPage = () => {
   const { roomList, setRoomList, handleRoomEvent } =
     useRoomList("TRICK_MYOMYO");
 
-  const { enterRoom } = useLobbySocket({
+  const { enterRoom, enterRoomId, lobbyError } = useLobbySocket({
     userUuid,
-    onLobbyError: (errorPayload) => {
-      console.log("🔥 Game1LobbyPage에서 받은 로비에러:", errorPayload);
-      // 해당 방이 없을 때, 토스트 띄움
-      if (errorPayload.code === ROOM_NOT_EXIST) {
-        useToastStore
-          .getState()
-          .showToast("alert", "방이 존재하지 않아요!", 3000);
-      } else if (errorPayload.code === ROOM_PASSWORD_NOT_MATCHED) {
-        useToastStore
-          .getState()
-          .showToast("alert", "비밀번호가 올바르지 않아요!", 3000);
-      } else if (errorPayload.code === ROOM_IS_FULL) {
-        useToastStore.getState().showToast("alert", "방이 가득 찼어요!", 3000);
-      } else {
-        console.log("무슨 에러게~");
-      }
-    },
     // 방목록 실시간 반영
     onLobbyRoomEvent: handleRoomEvent,
   });
@@ -73,6 +56,37 @@ const Game1LobbyPage = () => {
     fetchRooms();
   }, [selectedLevel]);
 
+  // 에러 처리
+  useEffect(() => {
+    if (!lobbyError) return;
+
+    console.log("🔥 Game1LobbyPage에서 받은 로비에러:", lobbyError);
+
+    // 공통 에러 처리 분기
+    if (lobbyError.code === ROOM_NOT_EXIST) {
+      useToastStore
+        .getState()
+        .showToast("alert", "방이 존재하지 않아요!", 3000);
+    } else if (lobbyError.code === ROOM_PASSWORD_NOT_MATCHED) {
+      useToastStore
+        .getState()
+        .showToast("alert", "비밀번호가 올바르지 않아요!", 3000);
+    } else if (lobbyError.code === ROOM_IS_FULL) {
+      useToastStore.getState().showToast("alert", "방이 가득 찼어요!", 3000);
+    } else {
+      useToastStore
+        .getState()
+        .showToast("alert", "알 수 없는 에러 발생!", 3000);
+    }
+  }, [lobbyError]);
+
+  useEffect(() => {
+    if (enterRoomId) {
+      console.log("✅ 방 입장 성공! 이동 →", enterRoomId);
+      navigate(`/lobby/waiting?roomId=${enterRoomId}`);
+    }
+  }, [enterRoomId, navigate]);
+
   // 페이지 관련 함수
   const totalPages = Math.ceil(roomList.length / GAME1_ROOMS_PER_PAGE);
   const currentRooms = roomList.slice(
@@ -89,13 +103,8 @@ const Game1LobbyPage = () => {
   // 공개방 입장
   const handleEnterRoom = async (room) => {
     // 방이 존재하고, 공개방일 시 입장 시도
-    const result = await enterRoom(room.roomId, "");
-    console.log(result);
-
-    console.log(room);
-    if (result.success && result.roomId) {
-      console.log("방 존재함");
-      navigate(`/lobby/waiting?roomId=${result.roomId}`);
+    if (room.roomId) {
+      enterRoom(room.roomId, "");
     } else {
       console.log("방입장 실패");
     }
@@ -115,14 +124,11 @@ const Game1LobbyPage = () => {
       },
       async (password) => {
         console.log("입력한 비밀번호:", password);
-        const result = await enterRoom(room.roomId, password);
-        console.log(result);
 
-        if (result.success && result.roomId) {
-          console.log("방존재함");
-          navigate(`/lobby/waiting?roomId=${result.roomId}`);
+        // 방이 존재하고, 비밀방일시 입장 시도
+        if (room.roomId) {
+          enterRoom(room.roomId, password);
         } else {
-          // 방이 가득 찼거나 없어졌을 때
           console.log("방입장 실패");
         }
       }

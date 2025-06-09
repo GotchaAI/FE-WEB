@@ -9,7 +9,6 @@ import "styles/pages/game/Game1LobbyPage.scss";
 import useLobbySocket from "hooks/lobby/useLobbySocket";
 import { getUserUuid } from "utils/user";
 import { useToastStore } from "store/toast";
-import { getRoomListAPI } from "services/lobby/lobby";
 import { useRoomList } from "hooks/lobby/useRoomList";
 import {
   ROOM_IS_FULL,
@@ -19,42 +18,20 @@ import {
 
 const Game1LobbyPage = () => {
   const [page, setPage] = useState(1);
-  const [selectedLevel, setSelectedLevel] = useState(null);
   const navigate = useNavigate();
-
   const userUuid = getUserUuid();
 
-  const { roomList, setRoomList, handleRoomEvent } =
+  const { roomList, selectedLevel, setSelectedLevel } =
     useRoomList("TRICK_MYOMYO");
 
-  const { enterRoom, enterRoomId, lobbyError } = useLobbySocket({
-    userUuid,
-    // 방목록 실시간 반영
-    onLobbyRoomEvent: handleRoomEvent,
-  });
+  const { enterRoom, enterRoomId, lobbyError } = useLobbySocket({ userUuid });
 
-  // 방목록 조회 및 필터링
-  // todo: 필터링 구현하기
-  useEffect(() => {
-    const fetchRooms = async () => {
-      try {
-        const response = await getRoomListAPI(
-          "TRICK_MYOMYO",
-          // selectedLevel || "BASIC"
-          "BASIC"
-        );
-        setRoomList(
-          response.map((room) => ({ ...room, gameType: "TRICK_MYOMYO" }))
-        );
-        console.log(response);
-      } catch (error) {
-        console.error("방 목록 조회 실패", error);
-        setRoomList([]); // fallback
-      }
-    };
-
-    fetchRooms();
-  }, [selectedLevel]);
+  // 페이지 관련 함수
+  const totalPages = Math.ceil(roomList.length / GAME1_ROOMS_PER_PAGE);
+  const currentRooms = roomList.slice(
+    (page - 1) * GAME1_ROOMS_PER_PAGE,
+    page * GAME1_ROOMS_PER_PAGE
+  );
 
   // 에러 처리
   useEffect(() => {
@@ -87,13 +64,6 @@ const Game1LobbyPage = () => {
     }
   }, [enterRoomId, navigate]);
 
-  // 페이지 관련 함수
-  const totalPages = Math.ceil(roomList.length / GAME1_ROOMS_PER_PAGE);
-  const currentRooms = roomList.slice(
-    (page - 1) * GAME1_ROOMS_PER_PAGE,
-    page * GAME1_ROOMS_PER_PAGE
-  );
-
   // 난이도 선택
   // todo: 필터링 구현하기
   const handleSelectLevel = (level) => {
@@ -102,6 +72,7 @@ const Game1LobbyPage = () => {
 
   // 공개방 입장
   const handleEnterRoom = async (room) => {
+    console.log(room);
     // 방이 존재하고, 공개방일 시 입장 시도
     if (room.roomId) {
       enterRoom(room.roomId, "");

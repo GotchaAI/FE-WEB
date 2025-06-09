@@ -2,7 +2,6 @@ import {
   SOCKET_LOBBY_CREATE_API,
   SOCKET_LOBBY_ERROR_API,
   SOCKET_LOBBY_JOIN_API,
-  SOCKET_ROOM_LIST_EVENT,
 } from "constants/api";
 import { useEffect, useRef, useState } from "react";
 import { useGameSocketStore } from "store/socket";
@@ -13,7 +12,7 @@ import { useGameSocketStore } from "store/socket";
  * 로비에 필요한 pub 함수 및 구독 기능 제공
  */
 
-const useLobbySocket = ({ userUuid, onLobbyError, onLobbyRoomEvent }) => {
+const useLobbySocket = ({ userUuid }) => {
   const roomEventSubRef = useRef(null);
   const { stompClient, isConnected } = useGameSocketStore();
   const [enterRoomId, setEnterRoomId] = useState(null);
@@ -39,34 +38,15 @@ const useLobbySocket = ({ userUuid, onLobbyError, onLobbyRoomEvent }) => {
         const payload = JSON.parse(message.body);
         console.log("로비에러: ", payload);
         setLobbyError(payload)
-
-        // if (onLobbyError) {
-        //   onLobbyError(payload);
-        // }
-      }
-    );
-
-    // 🔔 방 목록 업데이트 구독
-    const roomListUpdateSub = stompClient.subscribe(
-      `/sub${SOCKET_ROOM_LIST_EVENT}`,
-      (message) => {
-        const payload = JSON.parse(message.body);
-        console.log("방목록: ", payload);
-
-        // ⭐ onLobbyRoomEvent 콜백 호출 (Game1LobbyPage에서 처리)
-        if (onLobbyRoomEvent) {
-          onLobbyRoomEvent(payload);
-        }
       }
     );
 
     // 🔕 로비 이벤트 구독 해제
     return () => {
       lobbyErrorSub.unsubscribe();
-      roomListUpdateSub.unsubscribe();
       unsubscribePrev();
     };
-  }, [isConnected, stompClient, userUuid, onLobbyError, onLobbyRoomEvent]);
+  }, [isConnected, stompClient, userUuid]);
 
   // 방 생성
   const createRoom = (payload) => {

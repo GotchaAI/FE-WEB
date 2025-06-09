@@ -1,9 +1,13 @@
-import { useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { SOCKET_ROOM_LIST_EVENT } from "constants/api";
+import { useGameSocketStore } from "store/socket";
+import { getRoomListAPI } from "services/lobby/lobby";
 
-export const useRoomList = (initialGameType = "TRICK_MYOMYO") => {
+export const useRoomList = (initialGameType = "TRICK_MYOMYO", initialDifficulty = "BASIC") => {
+  const { stompClient, isConnected } = useGameSocketStore();
   const [roomList, setRoomList] = useState([]);
+  const [selectedLevel, setSelectedLevel] = useState(initialDifficulty);
 
-  // 방목록 가져오기
   const mapRoomData = useCallback((data) => ({
     gameType: initialGameType,
     roomId: data.roomId?.toString(),
@@ -14,26 +18,63 @@ export const useRoomList = (initialGameType = "TRICK_MYOMYO") => {
     currentUser: data.currentUser,
   }), [initialGameType]);
 
-  // 방목록 변화 감지
   const handleRoomEvent = useCallback((payload) => {
     const { type, data } = payload;
     console.log("소켓 방 이벤트:", type, data);
 
-    // 생성시 목록에 추가
     if (type === "CREATE") {
       setRoomList((prev) => [...prev, mapRoomData(data)]);
-    } else if (type === "UPDATE") { // 수정사항 발견시 목록에 반영
+    } else if (type === "UPDATE") {
       setRoomList((prev) =>
         prev.map((room) =>
           room.roomId === data.roomId?.toString() ? mapRoomData(data) : room
         )
       );
-    } else if (type === "DELETE") { // 삭제시 목록에서 삭제
+    } else if (type === "DELETE") {
       setRoomList((prev) =>
         prev.filter((room) => room.roomId !== data.roomId?.toString())
       );
     }
   }, [mapRoomData]);
 
-  return { roomList, setRoomList, handleRoomEvent };
+  // ⭐ 소켓 구독
+  useEffect(() => {
+    if (!isConnected) return;
+
+    console.log("✅ 방목록 소켓 구독 시작");
+
+    const subscription = stompClient.subscribe(
+      `/sub${SOCKET_ROOM_LIST_EVENT}`,
+      (message) => {
+        const payload = JSON.parse(message.body);
+        console.log("방목록 소켓 수신:", payload);
+        handleRoomEvent(payload);
+      }
+    );
+
+    return () => {
+      console.log("🛑 방목록 소켓 구독 해제");
+      subscription.unsubscribe();
+    };
+  }, [isConnected, stompClient, handleRoomEvent]);
+
+  // ⭐ level 변경 시 자동 방목록 조회
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const response = await getRoomListAPI(initialGameType, selectedLevel);
+        setRoomList(
+          response.map((room) => ({ ...room, gameType: initialGameType }))
+        );
+        console.log("초기 방목록 조회 성공:", response);
+      } catch (error) {
+        console.error("초기 방목록 조회 실패", error);
+        setRoomList([]); // fallback
+      }
+    };
+
+    fetchRooms();
+  }, [initialGameType, selectedLevel]);
+
+  return { roomList, selectedLevel, setSelectedLevel };
 };

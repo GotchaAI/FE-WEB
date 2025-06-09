@@ -35,6 +35,13 @@ const Game1LobbyPage = () => {
 
   // 페이지 관련 함수
   const totalPages = Math.ceil(roomList.length / GAME1_ROOMS_PER_PAGE);
+
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(Math.max(totalPages, 1));
+    }
+  }, [roomList, totalPages, page]);
+
   const currentRooms = roomList.slice(
     (page - 1) * GAME1_ROOMS_PER_PAGE,
     page * GAME1_ROOMS_PER_PAGE
@@ -88,15 +95,15 @@ const Game1LobbyPage = () => {
         <div className="pagination">
           <PageArrowButton
             direction="left"
-            disabled={page === 1}
+            disabled={page === 1 || roomList.length === 0}
             onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           />
 
-          <span>{page}</span>
+          <span>{roomList.length === 0 ? 0 : page}</span>
 
           <PageArrowButton
             direction="right"
-            disabled={page === totalPages}
+            disabled={page === totalPages || roomList.length === 0}
             onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
           />
         </div>

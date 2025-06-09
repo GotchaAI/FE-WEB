@@ -1,0 +1,42 @@
+@use "styles/fonts.scss";
+
+.game2-draw-scene-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .game2-drawing-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    left: 159px;
+    right: 160px;
+    top: 114px;
+    bottom: 52px;
+
+    width: 691px;
+    height: 434px;
+
+    .game-header {
+      position: relative;
+      width: 100%;
+      height: 39px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      padding-top: 10.84px;
+    }
+
+    .drawing-zone {
+      box-sizing: border-box;
+      border: solid 1px black;
+      width: 200px;
+      height: 200px;
+
+      border-radius: 9px;
+    }
+  }
+}

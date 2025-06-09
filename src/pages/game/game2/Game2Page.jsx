@@ -8,7 +8,7 @@ import useGame2 from "hooks/game/game2/useGame2";
 
 import Game2Opening from "components/scenes/game2/Game2Opening";
 import DrawingDescription from "components/scenes/game2/DrawingDescription";
-import DrawScene from "components/scenes/game2/DrawScene";
+import Game2DrawScene from "components/scenes/game2/Game2DrawScene";
 import DrawingWaiting from "components/scenes/game2/DrawingWaiting";
 import Game2ResultScene from "components/scenes/game2/Game2ResultScene";
 
@@ -29,7 +29,7 @@ const Game2Page = () => {
         onOk={() => goToNextScene()}
         onCancel={() => {}}
       />,
-      <DrawScene gameData={gameData} onSubmit={() => goToNextScene()} />,
+      <Game2DrawScene gameData={gameData} onSubmit={() => goToNextScene()} />,
       <DrawingWaiting onDone={() => goToNextScene()} />,
       <Game2ResultScene onExit={() => navigate("/lobby")} />,
     ],
@@ -57,7 +57,7 @@ const Game2Page = () => {
     <div className="game2-page-container">
       <img src={logoImg} className="logo-img" alt="로고" />
 
-      <div className="game2-scene">{scenes[1] || null}</div>
+      <div className="game2-scene">{scenes[2] || null}</div>
     </div>
   );
 };

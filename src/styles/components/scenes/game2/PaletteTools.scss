@@ -1,0 +1,25 @@
+.palette-tools-container {
+  width: 69px;
+  height: 196px;
+  display: grid;
+  grid-template-columns: repeat(2, 29.6px); // 2열, 버튼 크기
+  grid-gap: 12px;
+  position: absolute;
+  right: 90px;
+  top: 153px; // 원하는 위치 (조절 가능)
+
+  .palette-color {
+    width: 29.6px;
+    height: 29.6px;
+    border-radius: 50%;
+    border: 1px solid black;
+
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+
+    &.active {
+      transform: scale(1.15);
+      border-color: #FFCC00;
+    }
+  }
+}

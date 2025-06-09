@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckBox from "commons/svgs/CheckBox";
 import "styles/pages/game/Game1CreatePage.scss";
 import CloseIcon from "commons/svgs/XIcon";
@@ -36,7 +36,7 @@ const Game1CreatePage = () => {
   const navigate = useNavigate();
 
   const userUuid = getUserUuid();
-  const { createRoom } = useLobbySocket({ userUuid });
+  const { createRoom, enterRoomId, lobbyError } = useLobbySocket({ userUuid });
 
   // 비밀번호 입력 감시 및 처리
   const handlePasswordChange = (e) => {
@@ -85,16 +85,24 @@ const Game1CreatePage = () => {
     };
 
     // 방생성 시도
-    const result = await createRoom(payload);
-
-    if (result.success && result.roomId) {
-      // 정상적으로 성공됐다면 대기방으로!
-      console.log("방 생성 성공 → 이동!", result.roomId);
-      navigate(`/lobby/waiting?roomId=${result.roomId}`);
-    } else {
-      console.error("방 생성 실패 → 이동 안함");
-    }
+    createRoom(payload);
   };
+
+  useEffect(() => {
+    if (enterRoomId) {
+      console.log("✅ 방 생성 성공! 이동 →", enterRoomId);
+      navigate(`/lobby/waiting?roomId=${enterRoomId}`);
+    }
+  }, [enterRoomId, navigate]);
+
+  // 에러 감지 시 처리
+  useEffect(() => {
+    if (!lobbyError) return;
+    if (lobbyError.code === "GLOBAL-400-001") {
+      // 필드값 유효하지 않을 시
+      console.error("❌ 에러 발생:", lobbyError);
+    }
+  }, [lobbyError]);
 
   return (
     <div className="game1-create-container">

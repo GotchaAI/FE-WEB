@@ -13,26 +13,11 @@ import { useGameSocketStore } from "store/socket";
  * 로비에 필요한 pub 함수 및 구독 기능 제공
  */
 
-// TODO: 로비 세부 로직 추가 예정
-// const roomCreateEX = {
-//   title: "ㅎㅇㅎㅇG",
-//   maxUser: 2,
-//   hasPassword: true,
-//   password: "1234",
-//   difficulty: "BASIC",
-//   gameType: "TRICK_MYOMYO",
-//   roundCount: 3,
-// };
-
-const roomEnterEX = {
-  eventType: "JOIN",
-  content: "1234",
-};
-
 const useLobbySocket = ({ userUuid, onLobbyError, onLobbyRoomEvent }) => {
   const roomEventSubRef = useRef(null);
   const { stompClient, isConnected } = useGameSocketStore();
   const [enterRoomId, setEnterRoomId] = useState(null);
+  const [lobbyError, setLobbyError] = useState(null);
 
   // 🔕 공통 구독 해제 로직
   const unsubscribePrev = () => {
@@ -53,10 +38,12 @@ const useLobbySocket = ({ userUuid, onLobbyError, onLobbyRoomEvent }) => {
       (message) => {
         const payload = JSON.parse(message.body);
         console.log("로비에러: ", payload);
+        setLobbyError(payload)
+        // setRoomError(payload);
 
-        if (onLobbyError) {
-          onLobbyError(payload);
-        }
+        // if (onLobbyError) {
+        //   onLobbyError(payload);
+        // }
       }
     );
 
@@ -83,69 +70,35 @@ const useLobbySocket = ({ userUuid, onLobbyError, onLobbyRoomEvent }) => {
   }, [isConnected, stompClient, userUuid, onLobbyError, onLobbyRoomEvent]);
 
   // 방 생성
-  const createRoom = (roomPayload) => {
-    return new Promise((resolve) => {
-      // 소켓이 연결 안되어 있다면 실패 처리
-      if (!isConnected) {
-        resolve({ success: false });
-        return;
-      }
+  const createRoom = (payload) => {
+    if (!isConnected) return;
+    unsubscribePrev();
+    // 🔔 방 이벤트 구독
+    const subscription = stompClient.subscribe(
+      `/sub${SOCKET_LOBBY_CREATE_API}/${userUuid}`,
+      (message) => {
+        // 생성 가능 여부 반환
+        const responsePayload = JSON.parse(message.body);
+        const innerPayload = JSON.parse(responsePayload.payload);
 
-      try {
-        // 이전 구독 해제
+        // 불가능(에러) 로직
+        if (innerPayload && innerPayload.roomId) {
+          setEnterRoomId(innerPayload.roomId);
+        } else {
+          console.log("방생성 실패 roomId 존재하지 않음!")
+        }
+
+        // 🔕 구독 해제
         unsubscribePrev();
-        console.log(roomPayload);
-
-        // 방 생성 응답 구독
-        const subscription = stompClient.subscribe(
-          `/sub${SOCKET_LOBBY_CREATE_API}/${userUuid}`,
-          (message) => {
-            // 외부 payload 파싱
-            const outerPayload = JSON.parse(message.body);
-            console.log("방 생성 성공 응답:", outerPayload);
-
-            let innerPayload = {};
-            try {
-              // 내부 payload (roomId 포함) 파싱
-              innerPayload = JSON.parse(outerPayload.payload);
-            } catch (error) {
-              console.error("payload 파싱 실패!", error);
-              // 파싱 실패시 구독 해제 및 실패 처리
-              resolve({ success: false });
-              unsubscribePrev();
-              return;
-            }
-
-            // roomId가 있으면 방 생성 성공
-            if (innerPayload.roomId) {
-              console.log("방 생성 성공 → roomId:", innerPayload.roomId);
-              setEnterRoomId(innerPayload.roomId);
-              // 성공 시 roomId 포함 반환
-              resolve({ success: true, roomId: innerPayload.roomId });
-              unsubscribePrev();
-              return;
-            }
-
-            // roomId가 없으면 방 생성 실패
-            console.error("방 생성 실패!", outerPayload.message || "알 수 없는 이유");
-            resolve({ success: false });
-            unsubscribePrev();
-          }
-        );
-
-        // 구독 참조 저장
-        roomEventSubRef.current = subscription;
-
-        // 방 생성 요청 전송
-        stompClient.publish({
-          destination: `/pub${SOCKET_LOBBY_CREATE_API}`,
-          body: JSON.stringify(roomPayload),
-        });
-      } catch (error) {
-        // 그 외의 예외 발생 실패 처리
-        console.error("예외 발생:", error);
-        resolve({ success: false });
       }
+    );
+
+
+    roomEventSubRef.current = subscription;
+    // 🚀 방 생성 요청
+    stompClient.publish({
+      destination: `/pub${SOCKET_LOBBY_CREATE_API}`,
+      body: JSON.stringify(payload),
     });
   };
 
@@ -201,7 +154,7 @@ const useLobbySocket = ({ userUuid, onLobbyError, onLobbyRoomEvent }) => {
 
 
 
-  return { createRoom, enterRoom, enterRoomId };
+  return { createRoom, enterRoom, enterRoomId, lobbyError };
 };
 
 export default useLobbySocket;

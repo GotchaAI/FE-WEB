@@ -1,14 +1,15 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Client } from "@stomp/stompjs";
-import SockJS from "sockjs-client";
-import { SOCKET_IP, SOCKET_CONNECT_API } from "constants/api";
-import { getAuthToken } from "utils/token";
-import { getFriendsListAPI } from "services/friend/friend";
+import { useCallback, useEffect, useState } from "react";
+import {
+  getFriendsListAPI,
+  getFriendsRequsetListAPI,
+} from "services/friend/friend";
+import { useGameSocketStore } from "store/socket";
 
 const useFriendSocket = ({ userUuid }) => {
-  const clientRef = useRef(null);
-  const subRef = useRef(null);
+  const { stompClient, isConnected } = useGameSocketStore();
+  const [friendActionType, setFriendActionType] = useState("list");
   const [friendList, setFriendList] = useState([]);
+  const [friendRequestList, setFriendRequestList] = useState([]);
 
   const fetchFriendList = useCallback(async () => {
     try {
@@ -19,72 +20,58 @@ const useFriendSocket = ({ userUuid }) => {
     }
   }, []);
 
-  useEffect(() => {
-    fetchFriendList();
-  }, [fetchFriendList]);
+  const fetchFriendRequestList = useCallback(async () => {
+    try {
+      const list = await getFriendsRequsetListAPI();
+      setFriendRequestList(list);
+    } catch (error) {
+      console.error("친구 신청 목록 불러오기 실패:", error);
+    }
+  }, []);
 
   useEffect(() => {
-    if (!userUuid) return;
+    if (friendActionType === "list") fetchFriendList();
+    else if (friendActionType === "request") fetchFriendRequestList();
+  }, [friendActionType, fetchFriendList, fetchFriendRequestList]);
 
-    const { accessToken } = getAuthToken();
+  useEffect(() => {
+    if (!isConnected || !userUuid) return;
 
-    const client = new Client({
-      webSocketFactory: () => new SockJS(`${SOCKET_IP}${SOCKET_CONNECT_API}`),
-      connectHeaders: {
-        Authorization: accessToken,
-      },
-      reconnectDelay: 5000,
-      debug: (str) => console.log(" [친구 소켓 DEBUG]", str),
-    });
+    const friendEventSub = stompClient.subscribe(
+      `/sub/friend/${userUuid}`,
+      (message) => {
+        const { eventType, data } = JSON.parse(message.body);
 
-    client.onConnect = () => {
-      console.log("친구 WebSocket 연결됨");
-
-      const subscription = client.subscribe(
-        `/sub/friend/${userUuid}`,
-        (message) => {
-          const { eventType, data } = JSON.parse(message.body);
-
-          setFriendList((prev) => {
-            switch (eventType) {
-              case "ONLINE":
-                return prev.map((f) =>
-                  f.uuid === data ? { ...f, online: true } : f
-                );
-              case "DELETE":
-              case "ACCEPT":
-                fetchFriendList();
-                break;
-              case "REQUEST":
-              case "REJECT":
-              default:
-                return prev;
-            }
-          });
-        }
-      );
-
-      clientRef.current = client;
-      subRef.current = subscription;
-    };
-
-    client.onWebSocketClose = () => {
-      console.warn("친구 소켓 연결 종료");
-    };
-
-    client.onStompError = (frame) => {
-      console.error("STOMP 오류", frame);
-    };
-
-    client.activate();
+        setFriendList((prev) => {
+          switch (eventType) {
+            case "ONLINE":
+              return prev.map((f) =>
+                f.uuid === data ? { ...f, online: true } : f
+              );
+            case "REQUEST":
+            case "REJECT":
+            case "ACCEPT":
+              fetchFriendList();
+              break;
+            case "DELETE":
+            default:
+              return prev;
+          }
+        });
+      }
+    );
 
     return () => {
-      if (subRef.current) subRef.current.unsubscribe();
-      if (clientRef.current) clientRef.current.deactivate();
+      friendEventSub.unsubscribe();
     };
-  }, [userUuid, fetchFriendList]);
+  }, [userUuid, fetchFriendList, isConnected, stompClient]);
 
-  return { friendList };
+  return {
+    friendList,
+    friendRequestList,
+    friendActionType,
+    setFriendActionType,
+  };
 };
 
 export default useFriendSocket;

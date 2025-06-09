@@ -1,0 +1,54 @@
+.friend-request-container {
+  position: relative;
+  left: 14px;
+  top: 12px;
+
+  width: 121px;
+  height: 264px;
+
+  .friend-add-btn {
+    width: 111px;
+    height: 33px;
+    font-family: "SUIT-family";
+    font-size: 12px;
+    font-weight: 400;
+
+    background-color: #ffc466;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      font-size: 16px;
+      margin-left: 8px;
+    }
+  }
+
+  .friend-search-container {
+  }
+
+  .close-add-btn {
+    width: 111px;
+    height: 25px;
+    background-color: #ffc466;
+
+    border: 1px solid black;
+    border-bottom: none;
+
+    button {
+      position: absolute;
+      right: 18px;
+      top: 5px;
+      background: none;
+      border: none;
+      width: 9.5px;
+      height: 9.5px;
+
+      svg {
+        width: 9.5px;
+        height: 9.5px;
+      }
+    }
+  }
+}

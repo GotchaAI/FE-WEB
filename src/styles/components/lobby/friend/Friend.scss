@@ -51,14 +51,13 @@
       font-size: 12px;
       font-weight: 400;
       white-space: nowrap;
-    }
-
-    .friend-list-btn {
-      background-color: #d3f16f;
+      background-color: #f2f3f6;
+      &.active {
+        background-color: #d3f16f;
+      }
     }
 
     .friend-request-btn {
-      background-color: #f2f3f6;
       border-left: none;
     }
   }
@@ -67,9 +66,6 @@
     position: relative;
     display: flex;
     align-items: center;
-
-    top: 12px;
-    left: 14px;
 
     width: 111px;
     height: 22px;
@@ -106,7 +102,6 @@
 
     width: 121px;
     height: 264px;
-
 
     &::after {
       bottom: 0;

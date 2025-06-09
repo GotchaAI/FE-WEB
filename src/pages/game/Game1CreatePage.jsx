@@ -13,7 +13,7 @@ import {
 import { getUserUuid } from "utils/user";
 import useLobbySocket from "hooks/lobby/useLobbySocket";
 import {
-  PASSWORD_EMTPY_ERROR_MESSAGE,
+  PASSWORD_EMPTY_ERROR_MESSAGE,
   PASSWORD_FOUR_DIGIT_ERROR_MESSAGE,
   ROOM_TITLE_INPUT_ERROR_MESSAGE,
 } from "constants/errorMessage";
@@ -63,7 +63,7 @@ const Game1CreatePage = () => {
     // 비밀번호 검사 (비공개 시)
     if (isPrivate) {
       if (!password) {
-        setPasswordError(PASSWORD_EMTPY_ERROR_MESSAGE);
+        setPasswordError(PASSWORD_EMPTY_ERROR_MESSAGE);
         hasError = true;
       } else if (!isFourDigitNumber(password)) {
         setPasswordError(PASSWORD_FOUR_DIGIT_ERROR_MESSAGE);
@@ -135,9 +135,7 @@ const Game1CreatePage = () => {
                 key={r}
                 label={r + "round"}
                 checked={round === r}
-                onChange={() => {
-                  if (round !== r) setRound(r);
-                }}
+                onChange={() => setRound(r)}
               />
             ))}
           </div>
@@ -152,9 +150,7 @@ const Game1CreatePage = () => {
                 key={p}
                 label={p + "명"}
                 checked={player === p}
-                onChange={() => {
-                  if (player !== p) setPlayer(p);
-                }}
+                onChange={() => setPlayer(p)}
                 disabled={p !== 2}
               />
             ))}
@@ -170,9 +166,7 @@ const Game1CreatePage = () => {
                 key={l}
                 label={l === "BASIC" ? "초보" : "고수"}
                 checked={level === l}
-                onChange={() => {
-                  if (level !== l) setLevel(l);
-                }}
+                onChange={() => setLevel(l)}
               />
             ))}
           </div>
@@ -184,7 +178,7 @@ const Game1CreatePage = () => {
         <label className="form-label">비밀번호</label>
         <div className="password-section">
           <input
-            type="text"
+            type="tel"
             maxLength={4}
             value={password}
             disabled={!isPrivate}

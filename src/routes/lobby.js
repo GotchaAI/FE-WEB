@@ -1,8 +1,9 @@
 import WaitingRoom from "components/lobby/waiting/WaitingRoom";
 import Game2LobbyPage from "pages/game/Game2LobbyPage";
-import Game1CreatePage from "pages/game/Gam1CreatePage";
+
 import Game1LobbyPage from "pages/game/Game1LobbyPage";
 import LobbyPage, { loader as lobbyLoader } from "pages/lobby/LobbyPage";
+import Game1CreatePage from "pages/game/Game1CreatePage";
 
 const lobby = [
   {

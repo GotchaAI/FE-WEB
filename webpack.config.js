@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 dotenv.config();
 
@@ -68,6 +69,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
+      favicon: "./public/gotcha.ico",
       filename: "index.html",
     }),
     new MiniCssExtractPlugin({
@@ -75,6 +77,10 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "process.env": JSON.stringify(process.env),
+    }),
+    new FaviconsWebpackPlugin({
+      logo: "src/assets/commons/logo.png",
+      manifest: "./public/manifest.json",
     }),
   ],
   devServer: {

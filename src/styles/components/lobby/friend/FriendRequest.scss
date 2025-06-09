@@ -13,6 +13,8 @@
     font-size: 12px;
     font-weight: 400;
 
+    border: 1px solid black;
+
     background-color: #ffc466;
 
     display: flex;
@@ -23,9 +25,6 @@
       font-size: 16px;
       margin-left: 8px;
     }
-  }
-
-  .friend-search-container {
   }
 
   .close-add-btn {
@@ -49,6 +48,12 @@
         width: 9.5px;
         height: 9.5px;
       }
+    }
+  }
+
+  .friend-search-container {
+    svg {
+      cursor: pointer;
     }
   }
 }

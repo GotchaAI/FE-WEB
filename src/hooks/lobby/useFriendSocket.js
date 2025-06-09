@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import {
+  acceptFriendRequestAPI,
+  addFriendAPI,
+  deleteFriendAPI,
   getFriendsListAPI,
   getFriendsRequsetListAPI,
+  rejectFriendRequestAPI,
 } from "services/friend/friend";
 import { useGameSocketStore } from "store/socket";
 
@@ -29,6 +33,53 @@ const useFriendSocket = ({ userUuid }) => {
     }
   }, []);
 
+  // 친구 신청
+  const addFriend = async (nickname) => {
+    try {
+      await addFriendAPI(nickname);
+      return true;
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  };
+
+  // 친구 수락
+  const acceptFriendRequest = async (id) => {
+    try {
+      await acceptFriendRequestAPI(id);
+      await fetchFriendRequestList();
+      return true;
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  };
+
+  // 친구 거절
+  const rejectFriendRequest = async (id) => {
+    try {
+      await rejectFriendRequestAPI(id);
+      await fetchFriendRequestList();
+      return true;
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  };
+
+  // 친구 삭제
+  const deleteFriendRequest = async (uuid) => {
+    try {
+      await deleteFriendAPI(uuid);
+      await fetchFriendList();
+      return true;
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  };
+
   useEffect(() => {
     if (friendActionType === "list") fetchFriendList();
     else if (friendActionType === "request") fetchFriendRequestList();
@@ -41,7 +92,8 @@ const useFriendSocket = ({ userUuid }) => {
       `/sub/friend/${userUuid}`,
       (message) => {
         const { eventType, data } = JSON.parse(message.body);
-
+        console.log(eventType);
+        console.log(data);
         setFriendList((prev) => {
           switch (eventType) {
             case "ONLINE":
@@ -71,6 +123,10 @@ const useFriendSocket = ({ userUuid }) => {
     friendRequestList,
     friendActionType,
     setFriendActionType,
+    addFriend,
+    acceptFriendRequest,
+    deleteFriendRequest,
+    rejectFriendRequest,
   };
 };
 

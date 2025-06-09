@@ -1,11 +1,10 @@
 import ContextMenu from "commons/contextMenu/ContextMenu";
 import useContextMenu from "hooks/contextmenu/useContextMenu";
-import { deleteFriendAPI } from "services/friend/friend";
 import { useToastStore } from "store/toast";
 import "styles/components/lobby/friend/FriendList.scss";
 import { isFuture } from "utils/time";
 
-const FriendList = ({ friendList }) => {
+const FriendList = ({ friendList, deleteFriendRequest }) => {
   const { showToast } = useToastStore.getState();
   // 온라인/오프라인 여부 반환
   const isOnline = (lastLogout) => {
@@ -36,10 +35,9 @@ const FriendList = ({ friendList }) => {
   };
 
   const deleteFriendHandler = async (uuid) => {
-    console.log(uuid);
-    const res = await deleteFriendAPI(uuid);
-    console.log(res);
-    showToast("alert", "친구가 삭제되었습니다.");
+    const res = await deleteFriendRequest(uuid);
+    if (res) showToast("alert", "친구가 삭제되었습니다.");
+    else showToast("alert", "친구 삭제 실패!");
   };
 
   return (

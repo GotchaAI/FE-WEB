@@ -11,7 +11,16 @@ const Friend = ({ userUuid }) => {
     friendRequestList,
     friendActionType,
     setFriendActionType,
+    addFriend,
+    acceptFriendRequest,
+    deleteFriendRequest,
+    rejectFriendRequest,
   } = useFriendSocket({ userUuid });
+  console.log(friendRequestList);
+
+  const searchFriendHandler = () => {
+    // TODO: 나중에 하자 ㅇㅇ
+  };
 
   return (
     <div className="friend-container">
@@ -42,16 +51,24 @@ const Friend = ({ userUuid }) => {
         <div className="friend-list-container">
           <div className="friend-search-container">
             <input className="friend-search-form" placeholder="검색" />
-            <SearchIcon />
+            <SearchIcon onClick={searchFriendHandler} />
           </div>
           {friendList && friendList.length === 0 ? (
             <EmptyContent />
           ) : (
-            <FriendList friendList={friendList} />
+            <FriendList
+              friendList={friendList}
+              deleteFriendRequest={deleteFriendRequest}
+            />
           )}
         </div>
       ) : (
-        <FriendRequest friendRequestList={friendRequestList} />
+        <FriendRequest
+          friendRequestList={friendRequestList}
+          addFriend={addFriend}
+          acceptFriendRequest={acceptFriendRequest}
+          rejectFriendRequest={rejectFriendRequest}
+        />
       )}
     </div>
   );

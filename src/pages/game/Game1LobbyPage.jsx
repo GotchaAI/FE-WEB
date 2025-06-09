@@ -1,78 +1,75 @@
 import CheckBox from "commons/svgs/CheckBox";
 import PageArrowButton from "commons/svgs/PageArrowButton";
 import RoomTable from "components/game/Game1RoomTable";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useModalStore } from "store/modal";
+import { useEffect, useState } from "react";
 import { GAME1_LEVEL_OPTIONS, GAME1_ROOMS_PER_PAGE } from "constants/game";
 import "styles/pages/game/Game1LobbyPage.scss";
-
-// 임시 방목록 데이터
-const dummyRooms = Array(21)
-  .fill(null)
-  .map((_, i) => ({
-    isLocked: i % 2 === 0,
-    mode: "AI를 속여라!",
-    host: `호스트${i + 1}`,
-    intro: "성인만/19/여기보통 뭐적지?/19시출",
-    code: `#98${40 + i}`,
-    players: `${1 + (i % 2)}/${2 + (i % 3)}`,
-  }));
+import useLobbySocket from "hooks/lobby/useLobbySocket";
+import { getUserUuid } from "utils/user";
+import { useToastStore } from "store/toast";
+import { useRoomList } from "hooks/lobby/useRoomList";
+import {
+  ROOM_IS_FULL,
+  ROOM_NOT_EXIST,
+  ROOM_PASSWORD_NOT_MATCHED,
+} from "constants/errorCode";
+import { useRoomActions } from "hooks/lobby/useRoomActions";
 
 const Game1LobbyPage = () => {
   const [page, setPage] = useState(1);
-  const [selectedLevel, setSelectedLevel] = useState(null);
-  const navigate = useNavigate();
+  const userUuid = getUserUuid();
 
-  const totalPages = Math.ceil(dummyRooms.length / GAME1_ROOMS_PER_PAGE);
-  const currentRooms = dummyRooms.slice(
+  const { roomList, selectedLevel, setSelectedLevel } =
+    useRoomList("TRICK_MYOMYO");
+
+  const { enterRoom, enterRoomId, lobbyError } = useLobbySocket({ userUuid });
+
+  const {
+    handleQuickJoin,
+    handleCreateRoom,
+    handleEnterCode,
+    handleRoomClick,
+  } = useRoomActions({ roomList, enterRoom, enterRoomId });
+
+  const { showToast } = useToastStore.getState();
+
+  // 페이지 관련 함수
+  const totalPages = Math.ceil(roomList.length / GAME1_ROOMS_PER_PAGE);
+
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(Math.max(totalPages, 1));
+    }
+  }, [roomList, totalPages, page]);
+
+  const currentRooms = roomList.slice(
     (page - 1) * GAME1_ROOMS_PER_PAGE,
     page * GAME1_ROOMS_PER_PAGE
   );
 
+  // 에러 처리
+  useEffect(() => {
+    console.log(showToast);
+    if (!lobbyError) return;
+
+    console.log("🔥 Game1LobbyPage에서 받은 로비에러:", lobbyError);
+
+    // 공통 에러 처리 분기
+    if (lobbyError.code === ROOM_NOT_EXIST) {
+      showToast("alert", "방이 존재하지 않아요!", 3000);
+    } else if (lobbyError.code === ROOM_PASSWORD_NOT_MATCHED) {
+      showToast("alert", "비밀번호가 올바르지 않아요!", 3000);
+    } else if (lobbyError.code === ROOM_IS_FULL) {
+      showToast("alert", "방이 가득 찼어요!", 3000);
+    } else {
+      showToast("alert", "알 수 없는 에러 발생!", 3000);
+    }
+  }, [lobbyError, showToast]);
+
+  // 난이도 선택
+  // todo: 필터링 구현하기
   const handleSelectLevel = (level) => {
     setSelectedLevel(selectedLevel === level ? null : level);
-  };
-
-  const handleQuickJoin = () => {
-    // TODO: 자동 입장 로직
-  };
-
-  const handleCreateRoom = () => {
-    navigate("/lobby/game1/create");
-  };
-
-  const handleEnterCode = () => {
-    useModalStore.getState().openModal(
-      "codeInput",
-      {
-        title: "코드 입력",
-      },
-      (code) => {
-        console.log("입력된 코드:", code);
-      }
-    );
-  };
-
-  const handleRoomClick = (room) => {
-    if (room.isLocked) {
-      // 비밀방일 경우 비밀번호 입력
-      useModalStore.getState().openModal(
-        "roomEnter",
-        {
-          roomType: room.mode,
-          hostName: room.host,
-          roomName: room.intro,
-        },
-        (password) => {
-          console.log("입력한 비밀번호:", password);
-        }
-      );
-    } else {
-      // 공개방일 경우 바로 입장
-      // 방이 가득 찼다면 토스트 메시지
-      console.log(`[${room.intro}] 에 입장~`);
-    }
   };
 
   return (
@@ -82,7 +79,7 @@ const Game1LobbyPage = () => {
         {GAME1_LEVEL_OPTIONS.map((level) => (
           <CheckBox
             key={level}
-            label={level}
+            label={level === "BASIC" ? "초보" : "고수"}
             checked={selectedLevel === level}
             onChange={() => handleSelectLevel(level)}
           />
@@ -98,15 +95,15 @@ const Game1LobbyPage = () => {
         <div className="pagination">
           <PageArrowButton
             direction="left"
-            disabled={page === 1}
+            disabled={page === 1 || roomList.length === 0}
             onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
           />
 
-          <span>{page}</span>
+          <span>{roomList.length === 0 ? 0 : page}</span>
 
           <PageArrowButton
             direction="right"
-            disabled={page === totalPages}
+            disabled={page === totalPages || roomList.length === 0}
             onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
           />
         </div>

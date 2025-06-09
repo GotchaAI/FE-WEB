@@ -54,4 +54,16 @@
   input[type="checkbox"]:focus+.custom-checkbox {
     border: 2px solid black;
   }
+
+
+}
+
+.custom-checkbox-wrapper.disabled {
+  .custom-checkbox {
+    color: #999;
+  }
+
+  .checkbox-label {
+    color: #999; // 회색으로
+  }
 }

@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckBox from "commons/svgs/CheckBox";
 import "styles/pages/game/Game1CreatePage.scss";
 import CloseIcon from "commons/svgs/XIcon";
 import OkayButton from "commons/svgs/OkayButton";
-import { isNumeric } from "utils/validation";
+import { isFourDigitNumber, isNumeric } from "utils/validation";
 import { useNavigate } from "react-router-dom";
 import {
   GAME1_LEVEL_OPTIONS,
   GAME1_PLAYER_OPTIONS,
   GAME1_ROUND_OPTIONS,
 } from "constants/game";
+import { getUserUuid } from "utils/user";
+import useLobbySocket from "hooks/lobby/useLobbySocket";
+import {
+  PASSWORD_EMPTY_ERROR_MESSAGE,
+  PASSWORD_FOUR_DIGIT_ERROR_MESSAGE,
+  ROOM_TITLE_INPUT_ERROR_MESSAGE,
+} from "constants/errorMessage";
 
 const roundOptions = GAME1_ROUND_OPTIONS;
 const playerOptions = GAME1_PLAYER_OPTIONS;
@@ -23,8 +30,15 @@ const Game1CreatePage = () => {
   const [password, setPassword] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
 
+  const [titleError, setTitleError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
   const navigate = useNavigate();
 
+  const userUuid = getUserUuid();
+  const { createRoom, enterRoomId, lobbyError } = useLobbySocket({ userUuid });
+
+  // 비밀번호 입력 감시 및 처리
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     if (isNumeric(value)) {
@@ -32,18 +46,63 @@ const Game1CreatePage = () => {
     }
   };
 
-  const handleCreateRoom = () => {
+  // 폼검증 후 방생성
+  const handleCreateRoom = async () => {
+    setTitleError("");
+    setPasswordError("");
+
+    // 에러 여부 flag
+    let hasError = false;
+
+    // 방 제목 검사
+    if (!title.trim()) {
+      setTitleError(ROOM_TITLE_INPUT_ERROR_MESSAGE);
+      hasError = true;
+    }
+
+    // 비밀번호 검사 (비공개 시)
+    if (isPrivate) {
+      if (!password) {
+        setPasswordError(PASSWORD_EMPTY_ERROR_MESSAGE);
+        hasError = true;
+      } else if (!isFourDigitNumber(password)) {
+        setPasswordError(PASSWORD_FOUR_DIGIT_ERROR_MESSAGE);
+        hasError = true;
+      }
+    }
+
+    // 에러가 있으면 방 생성 시도 안 함
+    if (hasError) return;
+
     const payload = {
       title,
-      round,
-      player,
-      level,
-      password: isPrivate ? password : null,
-      isPrivate,
+      maxUser: Number(player),
+      hasPassword: isPrivate,
+      password: isPrivate ? password : "",
+      difficulty: level, // todo 바꿔야함
+      gameType: "TRICK_MYOMYO", // 고정
+      roundCount: Number(round),
     };
-    console.log(payload);
-    // TODO: 실제 API 요청 또는 상태 저장
+
+    // 방생성 시도
+    createRoom(payload);
   };
+
+  useEffect(() => {
+    if (enterRoomId) {
+      console.log("✅ 방 생성 성공! 이동 →", enterRoomId);
+      navigate(`/lobby/waiting?roomId=${enterRoomId}`);
+    }
+  }, [enterRoomId, navigate]);
+
+  // 에러 감지 시 처리
+  useEffect(() => {
+    if (!lobbyError) return;
+    if (lobbyError.code === "GLOBAL-400-001") {
+      // 필드값 유효하지 않을 시
+      console.error("❌ 에러 발생:", lobbyError);
+    }
+  }, [lobbyError]);
 
   return (
     <div className="game1-create-container">
@@ -59,10 +118,11 @@ const Game1CreatePage = () => {
         <label className="form-label">방 제목</label>
         <input
           type="text"
-          placeholder="방 제목을 입력하세요."
+          placeholder="방 제목을 입력해주세요."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+        {titleError && <span className="error-text">{titleError}</span>}
       </div>
 
       <div className="middle-container">
@@ -73,11 +133,9 @@ const Game1CreatePage = () => {
             {roundOptions.map((r) => (
               <CheckBox
                 key={r}
-                label={r}
+                label={r + "round"}
                 checked={round === r}
-                onChange={() => {
-                  if (round !== r) setRound(r);
-                }}
+                onChange={() => setRound(r)}
               />
             ))}
           </div>
@@ -90,11 +148,10 @@ const Game1CreatePage = () => {
             {playerOptions.map((p) => (
               <CheckBox
                 key={p}
-                label={p}
+                label={p + "명"}
                 checked={player === p}
-                onChange={() => {
-                  if (player !== p) setPlayer(p);
-                }}
+                onChange={() => setPlayer(p)}
+                disabled={p !== 2}
               />
             ))}
           </div>
@@ -107,11 +164,9 @@ const Game1CreatePage = () => {
             {levelOptions.map((l) => (
               <CheckBox
                 key={l}
-                label={l}
+                label={l === "BASIC" ? "초보" : "고수"}
                 checked={level === l}
-                onChange={() => {
-                  if (level !== l) setLevel(l);
-                }}
+                onChange={() => setLevel(l)}
               />
             ))}
           </div>
@@ -123,7 +178,7 @@ const Game1CreatePage = () => {
         <label className="form-label">비밀번호</label>
         <div className="password-section">
           <input
-            type="text"
+            type="tel"
             maxLength={4}
             value={password}
             disabled={!isPrivate}
@@ -143,6 +198,7 @@ const Game1CreatePage = () => {
             />
           </div>
         </div>
+        {passwordError && <span className="error-text">{passwordError}</span>}
       </div>
 
       {/* 확인 버튼 */}

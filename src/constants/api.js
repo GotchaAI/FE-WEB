@@ -47,7 +47,8 @@ export const SOCKET_ROOM_ERROR_API = process.env.REACT_APP_WS_ROOM_ERROR_API; //
 
 export const SOCKET_ROOM_API = process.env.REACT_APP_WS_ROOM_API; // 대기방 API
 
-// 게임 API
+export const ROOM_LIST_API = process.env.REACT_APP_ROOM_LIST_API; // 방목록 API
+
 export const SOCKET_GAME_API = process.env.REACT_APP_WS_GAME_API; // 게임 API
 
 export const SOCKET_GAME_ERROR_API = process.env.REACT_APP_WS_GAME_ERROR_API; // 게임 API

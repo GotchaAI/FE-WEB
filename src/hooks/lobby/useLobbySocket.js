@@ -25,8 +25,7 @@ const roomCreateEX = {
 };
 
 const roomEnterEX = {
-  eventType: "JOIN",
-  content: "1234",
+  password: "1234",
 };
 
 const useLobbySocket = ({ userUuid }) => {

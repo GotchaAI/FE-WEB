@@ -15,8 +15,10 @@ export const EMAIL_VERIFY_API = process.env.REACT_APP_EMAIL_VERIFY_API;
 
 // 사용자 정보 조회
 export const USER_ME_API = process.env.REACT_APP_USER_ME_API;
-
 export const NICKNAME_CHECK_API = process.env.REACT_APP_NICKNAME_CHECK_API;
+
+// 이미지 전송 API
+export const IMAGE_UPLOAD_API = process.env.REACT_APP_IMAGE_UPLOAD_API;
 
 // 소켓 Base url
 export const SOCKET_IP = process.env.REACT_APP_SOCKET_BASE_URL;
@@ -44,3 +46,8 @@ export const SOCKET_LOBBY_JOIN_API = process.env.REACT_APP_WS_LOBBY_JOIN_API; //
 export const SOCKET_ROOM_ERROR_API = process.env.REACT_APP_WS_ROOM_ERROR_API; // 대기방 에러 API
 
 export const SOCKET_ROOM_API = process.env.REACT_APP_WS_ROOM_API; // 대기방 API
+
+// 게임 API
+export const SOCKET_GAME_API = process.env.REACT_APP_WS_GAME_API; // 게임 API
+
+export const SOCKET_GAME_ERROR_API = process.env.REACT_APP_WS_GAME_ERROR_API; // 게임 API

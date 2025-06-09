@@ -6,6 +6,7 @@ import { isFuture } from "utils/time";
 
 const FriendList = ({ friendList, deleteFriendRequest }) => {
   const { showToast } = useToastStore.getState();
+
   // 온라인/오프라인 여부 반환
   const isOnline = (lastLogout) => {
     if (!lastLogout) return false;
@@ -21,11 +22,11 @@ const FriendList = ({ friendList, deleteFriendRequest }) => {
     openMenu(e.clientX, e.clientY, [
       {
         label: "채팅하기",
-        action: () => console.log("귓속말:"),
+        action: () => console.log("귓속말"), // TODO: 선안이
       },
       {
         label: "따라가기",
-        action: () => console.log("친구 삭제:", friend.nickname),
+        action: () => console.log("따라가기"), // TODO: 따라가기
       },
       {
         label: "친구삭제",
@@ -45,7 +46,7 @@ const FriendList = ({ friendList, deleteFriendRequest }) => {
       {friendList.map((item) => (
         <li
           className="friend-item"
-          key={`friend-${item.id}`}
+          key={`friend-item-${item.id}`}
           onClick={(e) => friendOptionHandler(e, item)}
         >
           <div className="friend-status">

@@ -47,12 +47,16 @@ const Friend = ({ userUuid }) => {
         </button>
       </div>
 
+      {/** list:친구 목록, request: 친구 신청 */}
       {friendActionType === "list" ? (
         <div className="friend-list-container">
+          {/** 검색창 */}
           <div className="friend-search-container">
             <input className="friend-search-form" placeholder="검색" />
             <SearchIcon onClick={searchFriendHandler} />
           </div>
+
+          {/** 친구 유무 */}
           {friendList && friendList.length === 0 ? (
             <EmptyContent />
           ) : (

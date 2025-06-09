@@ -9,12 +9,16 @@ import {
 } from "services/friend/friend";
 import { useGameSocketStore } from "store/socket";
 
+// TODO: 에러핸들링 보완
+
 const useFriendSocket = ({ userUuid }) => {
   const { stompClient, isConnected } = useGameSocketStore();
-  const [friendActionType, setFriendActionType] = useState("list");
-  const [friendList, setFriendList] = useState([]);
-  const [friendRequestList, setFriendRequestList] = useState([]);
 
+  const [friendActionType, setFriendActionType] = useState("list"); // list:친구 목록, request:친구 신청
+  const [friendList, setFriendList] = useState([]); // 친구 목록
+  const [friendRequestList, setFriendRequestList] = useState([]); // 친구 신청 목록
+
+  // 친구 목록 요청
   const fetchFriendList = useCallback(async () => {
     try {
       const list = await getFriendsListAPI();
@@ -24,6 +28,7 @@ const useFriendSocket = ({ userUuid }) => {
     }
   }, []);
 
+  // 친구 신청 목록 요청
   const fetchFriendRequestList = useCallback(async () => {
     try {
       const list = await getFriendsRequsetListAPI();
@@ -48,7 +53,7 @@ const useFriendSocket = ({ userUuid }) => {
   const acceptFriendRequest = async (id) => {
     try {
       await acceptFriendRequestAPI(id);
-      await fetchFriendRequestList();
+      await fetchFriendRequestList(); // 수락하고 친구 신청 목록 패치
       return true;
     } catch (e) {
       console.error(e);
@@ -60,7 +65,7 @@ const useFriendSocket = ({ userUuid }) => {
   const rejectFriendRequest = async (id) => {
     try {
       await rejectFriendRequestAPI(id);
-      await fetchFriendRequestList();
+      await fetchFriendRequestList(); // 거절하고 친구 신청 목록 패치
       return true;
     } catch (e) {
       console.error(e);
@@ -72,7 +77,7 @@ const useFriendSocket = ({ userUuid }) => {
   const deleteFriendRequest = async (uuid) => {
     try {
       await deleteFriendAPI(uuid);
-      await fetchFriendList();
+      await fetchFriendList(); // 삭제하고 친구 목록 패치
       return true;
     } catch (e) {
       console.error(e);
@@ -80,6 +85,7 @@ const useFriendSocket = ({ userUuid }) => {
     }
   };
 
+  // 친구 목록/ 친구 신청 TOGGLE 시 데이터 요청
   useEffect(() => {
     if (friendActionType === "list") fetchFriendList();
     else if (friendActionType === "request") fetchFriendRequestList();
@@ -91,21 +97,26 @@ const useFriendSocket = ({ userUuid }) => {
     const friendEventSub = stompClient.subscribe(
       `/sub/friend/${userUuid}`,
       (message) => {
-        const { eventType, data } = JSON.parse(message.body);
-        console.log(eventType);
-        console.log(data);
+        const { type, data } = JSON.parse(message.body);
+
         setFriendList((prev) => {
-          switch (eventType) {
+          switch (type) {
             case "ONLINE":
               return prev.map((f) =>
                 f.uuid === data ? { ...f, online: true } : f
               );
             case "REQUEST":
+              fetchFriendRequestList(); // 친구 신청 목록 패치
+              return prev;
             case "REJECT":
+              // TODO: 이땐 뭐 어카지
+              return prev;
             case "ACCEPT":
-              fetchFriendList();
-              break;
+              fetchFriendList(); // 친구 목록 패치
+              return prev;
             case "DELETE":
+              fetchFriendList(); // 친구 목록 패치
+              return prev;
             default:
               return prev;
           }

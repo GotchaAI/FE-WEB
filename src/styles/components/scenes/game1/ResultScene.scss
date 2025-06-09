@@ -1,0 +1,280 @@
+.result-scene-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .result-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    left: 301px;
+    bottom: 61px;
+
+    width: 409px;
+    height: 398px;
+
+    background-color: none;
+    border: none;
+
+    .game-result-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .round-container {
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+
+        height: 41px;
+
+        gap: 8px;
+
+        .round-select-btn {
+          width: 54px;
+          height: 32px;
+
+          background-color: WHITE;
+          color: #89c881;
+          border: none;
+          border-radius: 8px;
+
+          font-family: "SUIT-Regular";
+          font-size: 13px;
+          font-weight: 800;
+
+          &.active {
+            background-color: #89c881;
+            color: black;
+            border: 1px solid black;
+          }
+        }
+      }
+
+      .round-detail-container {
+        //background-color: #d3f16f;
+
+        .round-detail {
+          position: relative;
+          display: flex;
+
+          margin-top: 12px;
+
+          width: 409px;
+          height: 140px;
+
+          border: 1px solid black;
+          border-radius: 16px;
+
+          background-color: #e9ff9f;
+
+          &.win {
+            background-color: #e9ff9f;
+          }
+          &.lose {
+            background-color: #ffc466;
+          }
+
+          .drawing-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+
+            margin-left: 12px;
+            top: 21.5px;
+
+            width: 110px;
+            height: 102px;
+
+            background-color: white;
+            border: 1px solid black;
+
+            box-sizing: content-box;
+
+            .nickname-container {
+              display: flex;
+              align-items: center;
+
+              width: 110px;
+              height: 22px;
+              border-bottom: 1px solid black;
+              box-sizing: content-box;
+
+              .nickname {
+                width: 88px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                font-family: "SUIT-Regular";
+                font-size: 12px;
+                font-weight: 400;
+              }
+              .post-it {
+                position: absolute;
+                right: 0px;
+                width: 22px;
+                height: 22px;
+
+                &.win {
+                  background-color: #d3f16f;
+                }
+                &.lose {
+                  background-color: #f6aa30;
+                }
+              }
+            }
+            img {
+              width: 110px;
+              height: 79px;
+            }
+          }
+          font-family: "SUIT-Regular";
+
+          .ai-prediction-container {
+            margin-left: 24px;
+
+            .word-label {
+              margin-top: 15px;
+              font-weight: 800;
+            }
+
+            .ai-predictions {
+              display: flex;
+              flex-direction: column;
+
+              gap: 8px;
+              padding-left: 0;
+
+              width: 155px;
+
+              list-style: none;
+              font-size: 13px;
+              font-weight: 400;
+
+              .prediction {
+                display: flex;
+                justify-content: space-between;
+              }
+            }
+          }
+
+          .score-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-left: 24px;
+            margin-top: 44px;
+
+            width: 56px;
+            height: 56px;
+
+            background-color: white;
+            border-radius: 16px;
+
+            font-size: 20px;
+
+            &.win {
+              border: 2px solid #89c881;
+              color: #89c881;
+            }
+            &.lose {
+              border: 2px solid #f28110;
+              color: #f28110;
+            }
+          }
+        }
+      }
+    }
+
+    .exit-btn {
+      position: relative;
+
+      margin-top: 12px;
+
+      width: 409px;
+      height: 41px;
+
+      background-color: #ffda37;
+      border: 1px solid black;
+      border-radius: 10px;
+    }
+  }
+
+  .user-container,
+  .ai-container {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .user-container {
+    left: 0px;
+    bottom: 0px;
+
+    width: 300px;
+    height: 328.28px;
+    img {
+      width: 300px;
+      height: 328.28px;
+      &.lose {
+        filter: grayscale(100%);
+      }
+    }
+
+    .player-result-chat {
+      position: absolute;
+
+      left: 50px;
+      bottom: 386px;
+
+      background-color: red;
+      img {
+        position: absolute;
+        width: 100px;
+        height: 53px;
+      }
+
+      span {
+        position: absolute;
+        top: 17px;
+        left: 10px;
+
+        width: 100px;
+
+        font-size: 13px;
+        font-family: "SUIT-Regular";
+      }
+    }
+  }
+
+  .ai-container {
+    right: 0px;
+    bottom: 0px;
+
+    width: 300px;
+    height: 291px;
+
+    img {
+      width: 300px;
+      height: 291px;
+
+      &.lose {
+        filter: grayscale(100%);
+      }
+    }
+  }
+  .ai-result-chat {
+    position: absolute;
+    right: 114px;
+    bottom: 286px;
+
+    img {
+      width: 109px;
+      height: 50.5px;
+    }
+  }
+}

@@ -9,7 +9,7 @@ import "styles/components/lobby/waiting/WaitingRoom.scss";
 import { getUserUuid } from "utils/user";
 
 const dummyData = {
-  roomMetadata: {
+  roomInfo: {
     id: "0767",
     title: "고양이의 비밀 방",
     owner: "테스트",
@@ -19,7 +19,7 @@ const dummyData = {
     min: 2,
     difficulty: "ADVANCED",
     gameType: "TRICK_MYOMYO",
-    roundCount: 3,
+    roundCount: 1,
     ownerUuid: "2",
   },
   userInfos: [
@@ -49,9 +49,15 @@ const WaitingRoom = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState("BASIC"); // 난이도
   const [isReady, setIsReady] = useState(false); // 준비 여부
 
-  const { startGame, readyGame, unreadyGame, updateRoomInfo, quitRoom } =
-    useWaitingRoomSocket({ roomId, userUuid, setRoomInfo });
-
+  const {
+    startGame,
+    readyGame,
+    unreadyGame,
+    updateRoomInfo,
+    quitRoom,
+    isGameStart,
+    initGameInfo,
+  } = useWaitingRoomSocket({ roomId, userUuid, setRoomInfo });
   // 최초 방정보 갱신
   // TODO: roomId로 방 세부 정보 받아오는 api 필요
   useEffect(() => {
@@ -82,8 +88,15 @@ const WaitingRoom = () => {
     setIsReady(myState?.ready);
 
     // 난이도 적용
-    setSelectedDifficulty(roomInfo.roomMetadata.difficulty);
+    setSelectedDifficulty(roomInfo.roomInfo.difficulty);
   }, [roomInfo]);
+
+  // 게임 시작
+  useEffect(() => {
+    if (!isGameStart || !initGameInfo) return;
+
+    navigate(`../play?roomId=${roomId}`, { state: initGameInfo });
+  }, [isGameStart, initGameInfo, navigate, roomId]);
 
   // 방 나가기
   const quitRoomHandler = () => {
@@ -91,7 +104,7 @@ const WaitingRoom = () => {
     navigate("/lobby");
   };
 
-  // 게임 시작
+  // 게임 시작 요청
   const gameStartHandler = () => {
     startGame(roomId);
   };
@@ -111,11 +124,11 @@ const WaitingRoom = () => {
 
     // 업데이트 DTO
     const updateRoomDTO = {
-      title: roomInfo.roomMetadata.title,
-      hasPassword: roomInfo.roomMetadata.hasPassword,
-      password: roomInfo.roomMetadata.password,
+      title: roomInfo.roomInfo.title,
+      hasPassword: roomInfo.roomInfo.hasPassword,
+      password: roomInfo.roomInfo.password,
       difficulty: difficulty,
-      roundCount: roomInfo.roomMetadata.roundCount,
+      roundCount: roomInfo.roomInfo.roundCount,
     };
 
     updateRoomInfo(roomId, updateRoomDTO);
@@ -129,7 +142,7 @@ const WaitingRoom = () => {
         <>
           <div className="room-info-header-container">
             <span className="room-info">
-              #{roomId} &nbsp; {roomInfo.roomMetadata.title}
+              #{roomId} &nbsp; {roomInfo.roomInfo.title}
             </span>
             <button className="room-quit-btn" onClick={quitRoomHandler}>
               방 나가기
@@ -162,7 +175,7 @@ const WaitingRoom = () => {
               </div>
             </div>
 
-            {userUuid === roomInfo.roomMetadata.ownerUuid ? (
+            {userUuid === roomInfo.roomInfo.ownerUuid ? (
               <label className="start-btn-wrapper">
                 <GameStartButton onClick={gameStartHandler} />
               </label>

@@ -8,13 +8,12 @@ const FriendRequestList = ({
   acceptFriendRequest,
   rejectFriendRequest,
 }) => {
-  console.log(friendRequestList);
-
   const { showToast } = useToastStore.getState();
 
   // 컨텍스트 메뉴
   const { isOpen, menus, position, closeMenu, openMenu } = useContextMenu();
 
+  // 컨텍스트 메뉴 생성
   const friendRequestOptionHandler = (e, friend) => {
     e.preventDefault();
 
@@ -30,12 +29,14 @@ const FriendRequestList = ({
     ]);
   };
 
+  // 수락 액션
   const acceptFriendRequestAction = async (friend) => {
     const res = await acceptFriendRequest(friend.id);
     if (res) showToast("alert", `${friend.nickname}님과 친구가 되었습니다`);
     else showToast("alert", `수락 실패!!`);
   };
 
+  // 거절 액션
   const rejectFriendRequestAction = async (friend) => {
     const res = await rejectFriendRequest(friend.id);
     if (res)

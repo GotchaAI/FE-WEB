@@ -1,9 +1,9 @@
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import SearchIcon from "commons/svgs/SearchIcon";
 import FriendList from "components/lobby/friend/FriendList";
+import FriendRequest from "components/lobby/friend/FriendRequest";
 import useFriendSocket from "hooks/lobby/useFriendSocket";
 import "styles/components/lobby/friend/Friend.scss";
-import FriendRequest from "./FriendRequest";
 
 const Friend = ({ userUuid, setWhisperNickname }) => {
   const {
@@ -16,7 +16,6 @@ const Friend = ({ userUuid, setWhisperNickname }) => {
     deleteFriendRequest,
     rejectFriendRequest,
   } = useFriendSocket({ userUuid });
-  console.log(friendRequestList);
 
   const searchFriendHandler = () => {
     // TODO: 나중에 하자 ㅇㅇ

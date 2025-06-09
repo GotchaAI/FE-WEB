@@ -1,13 +1,13 @@
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import SearchIcon from "commons/svgs/SearchIcon";
 import CloseIcon from "commons/svgs/XIcon";
+import FriendRequestList from "components/lobby/friend/FriendRequestList";
+import FriendSearchList from "components/lobby/friend/FriendSearchList";
 import { useState } from "react";
 import { searchFriendAPI } from "services/friend/friend";
 import "styles/components/lobby/friend/FriendRequest.scss";
 import { isPressEnterKey } from "utils/keyDown";
 import { isBlank } from "utils/validation";
-import FriendRequestList from "./FriendRequestList";
-import FriendSearchList from "./FriendSearchList";
 
 const FriendRequest = ({
   friendRequestList,
@@ -19,6 +19,7 @@ const FriendRequest = ({
   const [searchInputValue, setSearchInputValue] = useState("");
   const [searchFriendList, setSearchFriendList] = useState([]);
 
+  // 검색 요청
   const submitHandler = async () => {
     if (isBlank(searchInputValue)) return;
 
@@ -30,12 +31,14 @@ const FriendRequest = ({
     }
   };
 
+  // 엔터 시 검색
   const pressHandler = (e) => {
     if (isPressEnterKey(e)) {
       submitHandler();
     }
   };
 
+  // 검색
   const searchHandler = () => {
     submitHandler();
   };

@@ -23,13 +23,15 @@ const Game2DrawScene = ({ onSubmit }) => {
     toggleEraser,
     handleClearCanvas,
     getImageUrl,
+    strokeStyle,
+    setStrokeStyle,
     isDrawingDisabled,
   } = useCanvas();
 
   const goToNextFlow = () => {};
 
   const handleColorChange = (color) => {
-    // setStrokeStyle(color);
+    setStrokeStyle(color);
   };
 
   // 제출 핸들러

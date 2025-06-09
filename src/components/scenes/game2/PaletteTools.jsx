@@ -2,20 +2,20 @@ import { useState } from "react";
 import "styles/components/scenes/game2/PaletteTools.scss";
 
 const PALETTE_COLORS = [
-  "#FFC371",
-  "#FFA63D",
-  "#FF7A00",
-  "#7B4B18",
-  "#FAFBEA",
-  "#EBF788",
-  "#AEE4FA",
-  "#86C37F",
+  "#FFC466",
+  "#F6AA31",
+  "#F2810F",
+  "#7E5614",
+  "#FBFFEC",
+  "#E9FF9F",
+  "#AAE8FF",
+  "#89C881",
   "#FFFFFF",
   "#000000",
 ];
 
 const PaletteTools = ({ onSelectColor }) => {
-  const [activeColor, setActiveColor] = useState(PALETTE_COLORS[0]);
+  const [activeColor, setActiveColor] = useState(PALETTE_COLORS[9]);
 
   const handleColorClick = (color) => {
     setActiveColor(color);

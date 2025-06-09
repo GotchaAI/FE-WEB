@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
 import chattingLob from "assets/chattingLob.png";
-import "styles/components/lobby/LobbyChatting.scss";
 import SendButton from "commons/svgs/SendButton";
-import { isBlank } from "utils/validation";
-import throttle from "lodash.throttle";
-import ChatWindow from "./ChatWindow";
-import { getUserName, getUserUuid } from "utils/user";
 import useChatSocket from "hooks/lobby/useChatSocket";
+import throttle from "lodash.throttle";
+import { useEffect, useRef, useState } from "react";
+import "styles/components/lobby/LobbyChatting.scss";
+import { getUserName, getUserUuid } from "utils/user";
+import { isBlank } from "utils/validation";
+import ChatWindow from "./ChatWindow";
 /**
  * 로비 채팅 컴포넌트
  *
@@ -24,21 +24,23 @@ import useChatSocket from "hooks/lobby/useChatSocket";
  * - @ 추가/제거: 귓속말일 때 @가 없으면 추가, 일반채팅으로 바꿀 때 제일 앞에 @가 있으면 제거
  * - 채팅 테스트 코드 : 랜덤 사용자와 메시지를 생성하여 5초마다 메시지를 추가하는 테스트 코드 (추후 삭제 예정)
  */
-const LobbyChatting = ({ errorMessage }) => {
+const LobbyChatting = ({
+  errorMessage,
+  whisperNickname,
+  setWhisperNickname,
+}) => {
   const [input, setInput] = useState("");
   const [chatType, setChatType] = useState("일반채팅");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(true);
   const chatWindowRef = useRef(null);
+  const inputRef = useRef(null);
 
   // 채팅 메시지의 고유 ID 생성 함수
   // 메시지 전송 시 고유 ID를 생성하여 메시지에 추가
   const myNickname = getUserName();
-  const myUuid = getUserUuid();
-  const { messages, sendMessage, isRateLimited } = useChatSocket(
-    myUuid,
-    myNickname
-  );
+  const userUuid = getUserUuid();
+  const { messages, sendMessage, isRateLimited } = useChatSocket({ userUuid });
   // 채팅 테스트 코드 끝
 
   // 메시지 전송 핸들러
@@ -55,16 +57,17 @@ const LobbyChatting = ({ errorMessage }) => {
         trimmedInput.startsWith("@") &&
         trimmedInput.length > 1)
     ) {
-      // receiverUuid 추출 (귓속말일 경우에만)
-      const receiverUuid = chatType === "귓속말" ? "2" : null;
+      let success;
 
-      // @nickname 제거 후 실제 보낼 메시지 추출
-      const textContent =
-        chatType === "귓속말"
-          ? trimmedInput.replace(/^@\S+\s*/, "")
-          : trimmedInput;
-
-      const success = sendMessage(textContent, receiverUuid);
+      // receiverNickname 추출 (귓속말일 경우에만)
+      const match = input.match(/^@(\S+)\s+(.*)$/);
+      if (match) {
+        const nickname = match[1];
+        const text = match[2];
+        success = sendMessage(text, nickname);
+      } else {
+        success = sendMessage(trimmedInput);
+      }
 
       if (success) {
         setInput("");
@@ -73,6 +76,16 @@ const LobbyChatting = ({ errorMessage }) => {
       }
     }
   };
+
+  // 어디선가 귓속말을 한다면 호출된다.. ..
+  useEffect(() => {
+    if (!whisperNickname) return;
+
+    setChatType("귓속말");
+    setInput(`@${whisperNickname} `);
+    inputRef.current?.focus();
+    setWhisperNickname("");
+  }, [whisperNickname]);
 
   // 채팅 타입 변경 시 @ 추가/제거
   // 귓속말일 때 @가 없으면 추가, 일반채팅일 때 @가 있으면 제거
@@ -178,12 +191,12 @@ const LobbyChatting = ({ errorMessage }) => {
 
       <div className="chat-input-container">
         <textarea
+          ref={inputRef}
           className="chat-input"
           value={input}
           onChange={(e) => {
-            if (e.target.value.length <= 100) {
-              setInput(e.target.value);
-            }
+            if (e.target.value.length > 100) return;
+            setInput(e.target.value);
           }}
           onKeyDown={(e) => handleKeyDown(e)}
           placeholder="채팅을 입력해주세요.(100자 이내)"

@@ -5,7 +5,7 @@ import useFriendSocket from "hooks/lobby/useFriendSocket";
 import "styles/components/lobby/friend/Friend.scss";
 import FriendRequest from "./FriendRequest";
 
-const Friend = ({ userUuid }) => {
+const Friend = ({ userUuid, setWhisperNickname }) => {
   const {
     friendList,
     friendRequestList,
@@ -63,6 +63,7 @@ const Friend = ({ userUuid }) => {
             <FriendList
               friendList={friendList}
               deleteFriendRequest={deleteFriendRequest}
+              setWhisperNickname={setWhisperNickname}
             />
           )}
         </div>

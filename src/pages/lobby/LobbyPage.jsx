@@ -18,6 +18,8 @@ const LobbyPage = () => {
   const [selectedRoomId, setSelectedRoomId] = useState("5590"); // 입장할 roomId
   console.log(setSelectedRoomId); // ESLint 방지
 
+  const [whisperNickname, setWhisperNickname] = useState("");
+
   const userUuid = getUserUuid();
 
   const { createRoom, enterRoom, enterRoomId } = useLobbySocket({
@@ -49,7 +51,7 @@ const LobbyPage = () => {
     <div className="lobby-page-container">
       <LobbyHeader />
       <div className="body-container">
-        <Friend userUuid={userUuid} />
+        <Friend userUuid={userUuid} setWhisperNickname={setWhisperNickname} />
         <div className="main-content-container">
           <img src={springImg} alt="스프링" className="main-content-img" />
           <div className="main-content-nav-container">
@@ -75,7 +77,10 @@ const LobbyPage = () => {
         </div>
 
         <div className="lobby-chat-container">
-          <LobbyChatting />
+          <LobbyChatting
+            whisperNickname={whisperNickname}
+            setWhisperNickname={setWhisperNickname}
+          />
         </div>
       </div>
     </div>

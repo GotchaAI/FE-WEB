@@ -4,7 +4,11 @@ import { useToastStore } from "store/toast";
 import "styles/components/lobby/friend/FriendList.scss";
 import { isFuture } from "utils/time";
 
-const FriendList = ({ friendList, deleteFriendRequest }) => {
+const FriendList = ({
+  friendList,
+  deleteFriendRequest,
+  setWhisperNickname,
+}) => {
   const { showToast } = useToastStore.getState();
 
   // 온라인/오프라인 여부 반환
@@ -22,7 +26,7 @@ const FriendList = ({ friendList, deleteFriendRequest }) => {
     openMenu(e.clientX, e.clientY, [
       {
         label: "채팅하기",
-        action: () => console.log("귓속말"), // TODO: 선안이
+        action: () => whisperHandler(friend.nickname),
       },
       {
         label: "따라가기",
@@ -33,6 +37,10 @@ const FriendList = ({ friendList, deleteFriendRequest }) => {
         action: () => deleteFriendHandler(friend.uuid),
       },
     ]);
+  };
+
+  const whisperHandler = (nickname) => {
+    setWhisperNickname(nickname);
   };
 
   const deleteFriendHandler = async (uuid) => {

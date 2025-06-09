@@ -3,6 +3,7 @@ import Game1CreatePage from "pages/game/Game1CreatePage";
 import Game1LobbyPage from "pages/game/Game1LobbyPage";
 import Game2LobbyPage from "pages/game/Game2LobbyPage";
 import Game1Page from "pages/game/game1/Game1Page";
+import Game2Page from "pages/game/game2/Game2Page";
 import LobbyLayout, {
   loader as lobbyLayoutLoader,
 } from "pages/lobby/LobbyLayout";
@@ -58,6 +59,10 @@ const lobby = [
         path: "play",
         element: <Game1Page />,
       },
+      {
+        path: "play2",
+        element: <Game2Page />,
+      }
     ],
   },
 ];

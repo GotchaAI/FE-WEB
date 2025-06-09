@@ -1,0 +1,26 @@
+.game2-opening-container {
+  position: relative; // 기준 컨테이너 고정
+  width: 100%;
+  height: 100%; // 원하는 높이 (ex: Game2Page에서 height 100%면 채움)
+
+  // 테이블 이미지 (바닥 고정 예시)
+  .art-table-img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    max-width: 1010px;
+    z-index: 0;
+  }
+
+  // 토끼 이미지 (원하는 위치에 절대 배치)
+  .rabbit-img {
+    position: absolute;
+    top: 207px; // 예시 (원하는 위치 지정)
+    left: 85px;
+    width: 290px; // 원하는 크기 지정
+    height: auto;
+    z-index: 1;
+  }
+}

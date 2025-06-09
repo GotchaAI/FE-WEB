@@ -1,0 +1,30 @@
+.game2-page-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; // 수평 중앙 정렬
+  margin: 0 auto;
+
+  width: 1010px;
+  height: 600px;
+
+  background: linear-gradient(rgba(170, 232, 255, 1) 0%,
+      rgba(255, 255, 255, 1) 34%);
+  z-index: 100;
+
+  .logo-img {
+    position: absolute;
+
+    top: 17px;
+    left: 352px;
+
+    width: 305.95px;
+    height: 83.98px;
+  }
+
+  .game2-scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+}

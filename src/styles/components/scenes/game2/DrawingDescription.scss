@@ -1,0 +1,69 @@
+.drawing-description-container {
+  position: relative; // 기준 컨테이너 고정
+  width: 100%;
+  height: 100%; // 원하는 높이 (ex: Game2Page에서 height 100%면 채움)
+
+  .description-box {
+    position: absolute;
+    top: 126px; // 원하는 위치
+    right: 114px;
+    width: 544px;
+    height: 227px;
+    padding: 20px;
+    background: white;
+    border: 1.5px solid black;
+    border-radius: 9px;
+    font-size: 20px;
+
+    z-index: 2;
+  }
+
+  .button-box {
+    position: absolute;
+    top: 361px; // 원하는 위치
+    left: 354px;
+    display: flex;
+    gap: 11px;
+    z-index: 2;
+
+    button {
+      width: 127px;
+      height: 53px;
+      font-size: 20px;
+      border-radius: 6px;
+      border-width: 0px 2px 2px 0px;
+      border-style: solid;
+    }
+
+    .ok-btn {
+      background: #D3F16F;
+      border-color: #89C881;
+    }
+
+    .cancel-btn {
+      background: #FFC466;
+      border-color: #F28110;
+    }
+  }
+
+  // 테이블 이미지 (바닥 고정 예시)
+  .art-table-img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    max-width: 1010px;
+    z-index: 0;
+  }
+
+  // 토끼 이미지 (원하는 위치에 절대 배치)
+  .rabbit-img {
+    position: absolute;
+    top: 198px; // 예시 (원하는 위치 지정)
+    left: 75px;
+    width: 290px; // 원하는 크기 지정
+    height: auto;
+    z-index: 1;
+  }
+}

@@ -54,8 +54,14 @@ const useGameSocket = ({ userUuid }) => {
     };
 
     // stomp 에러 디버깅
-    client.onStompError = (frame) => {
+    client.onStompError = async (frame) => {
       console.log("STOMP 오류", frame);
+      if (frame.body.includes("JWT-401-001")) {
+        console.warn(" 액세스 토큰 만료됨. 리프레시 토큰으로 재발급 시도");
+        const newToken = await getAuthToken(); // 네 구현에 맞게 작성
+        client.connectHeaders.Authorization = newToken;
+        client.activate(); // 재시도
+      }
     };
 
     client.onWebSocketClose = (frame) => {

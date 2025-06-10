@@ -52,3 +52,7 @@ export const ROOM_LIST_API = process.env.REACT_APP_ROOM_LIST_API; // 방목록 A
 export const SOCKET_GAME_API = process.env.REACT_APP_WS_GAME_API; // 게임 API
 
 export const SOCKET_GAME_ERROR_API = process.env.REACT_APP_WS_GAME_ERROR_API; // 게임 API
+
+// 채팅 소켓 API
+export const SOCKET_CHAT_ALL = process.env.REACT_APP_WS_CHAT_ALL_API;
+export const SOCKET_CHAT_PRIVATE = process.env.REACT_APP_WS_CHAT_PRIVATE_API;

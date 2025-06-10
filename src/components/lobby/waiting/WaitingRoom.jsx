@@ -26,6 +26,8 @@ const WaitingRoom = () => {
     unreadyGame,
     updateRoomInfo,
     quitRoom,
+    ownerChange,
+    kickPlayer,
     isGameStart,
     initGameInfo,
   } = useWaitingRoomSocket({ roomId, userUuid, setRoomInfo });
@@ -134,6 +136,8 @@ const WaitingRoom = () => {
                 key={roomInfo.userInfos[i]?.nickname ?? `empty-${i}`}
                 index={i}
                 player={roomInfo.userInfos[i]}
+                ownerChange={ownerChange}
+                kickPlayer={kickPlayer}
               />
             ))}
           </div>

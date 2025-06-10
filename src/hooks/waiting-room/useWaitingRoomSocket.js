@@ -1,5 +1,6 @@
 import { SOCKET_ROOM_API, SOCKET_ROOM_ERROR_API } from "constants/api";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { useGameSocketStore } from "store/socket";
 
 /**
@@ -24,6 +25,7 @@ const gameUnreadyEX = {
 };
 
 const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
+  const navigate = useNavigate();
   const { stompClient, isConnected } = useGameSocketStore();
   const [isGameStart, setIsGameStart] = useState(false);
   const [initGameInfo, setInitGameInfo] = useState(null);
@@ -87,6 +89,14 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
             break;
           case "EXIT":
             console.log("EXIT");
+            setRoomInfo((prev) => ({
+              ...prev,
+              userInfos: prev.userInfos.filter((user) => user.userUuid != data),
+            }));
+            break;
+          case "KICK":
+            console.log("KICK");
+            if (data == userUuid) navigate("/lobby");
             setRoomInfo((prev) => ({
               ...prev,
               userInfos: prev.userInfos.filter((user) => user.userUuid != data),
@@ -167,12 +177,36 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
     });
   };
 
+  // 방장 위임
+  const ownerChange = (data) => {
+    if (!stompClient?.connected) return;
+
+    // 🚀 방 퇴장 publish
+    stompClient.publish({
+      destination: `/pub${SOCKET_ROOM_API}/${roomId}`,
+      body: JSON.stringify(data),
+    });
+  };
+
+  // 방 강퇴
+  const kickPlayer = (data) => {
+    if (!stompClient?.connected) return;
+
+    // 🚀 방 퇴장 publish
+    stompClient.publish({
+      destination: `/pub${SOCKET_ROOM_API}/${roomId}`,
+      body: JSON.stringify(data),
+    });
+  };
+
   return {
     startGame,
     readyGame,
     unreadyGame,
     updateRoomInfo,
     quitRoom,
+    ownerChange,
+    kickPlayer,
     isGameStart,
     initGameInfo,
   };

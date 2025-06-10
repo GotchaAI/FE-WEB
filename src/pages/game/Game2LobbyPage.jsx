@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import game2_rabbit from "assets/components/lobby/game2-lobby-rabbit.png";
 import GameStartButton from "commons/svgs/GameStartButton";
 import "styles/pages/game/Game2LobbyPage.scss";
+import { startGame2API } from "services/game/game2";
 
 const Game2LobbyPage = () => {
   const navigate = useNavigate();
@@ -10,9 +11,10 @@ const Game2LobbyPage = () => {
   // 서버 요청 추가
   const gameStartHandler = async () => {
     try {
-      // const response = await startGame2API(); // gameId 받아오기
-      // const { gameId } = response.data;
-      const { gameId } = { gameId: 1234 };
+      const response = await startGame2API(); // gameId 받아오기
+      const { message: gameId } = response;
+      console.log(response);
+      // const { gameId } = { gameId: 1234 };
 
       navigate(`/lobby/play2?gameId=${gameId}`);
     } catch (error) {

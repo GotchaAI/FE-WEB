@@ -53,6 +53,6 @@ export const SOCKET_GAME_API = process.env.REACT_APP_WS_GAME_API; // 게임 API
 
 export const SOCKET_GAME_ERROR_API = process.env.REACT_APP_WS_GAME_ERROR_API; // 게임 API
 
-export const GAME2_START_API = process.env.GAME2_START_API;
-export const GAME2_TASK_API = process.env.GAME2_TASK_API;
-export const GAME2_EVALUATE_API = process.env.GAME2_EVALUATE_API
+export const GAME2_START_API = process.env.REACT_APP_GAME2_START_API;
+export const GAME2_TASK_API = process.env.REACT_APP_GAME2_TASK_API;
+export const GAME2_EVALUATE_API = process.env.REACT_APP_GAME2_EVALUATE_API

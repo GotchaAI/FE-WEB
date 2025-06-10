@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import logoImg from "assets/commons/logo.png";
 import "styles/pages/game/game2/Game2Page.scss";
@@ -12,6 +12,8 @@ import Game2DrawScene from "components/scenes/game2/Game2DrawScene";
 import Game2ResultScene from "components/scenes/game2/Game2ResultScene";
 
 const Game2Page = () => {
+  const [searchParams] = useSearchParams();
+  const gameId = searchParams.get("gameId");
   const navigate = useNavigate();
 
   const {
@@ -21,7 +23,7 @@ const Game2Page = () => {
     resetGame,
     fetchPrompt,
     handleSubmitDrawing,
-  } = useGame2();
+  } = useGame2({ gameId });
 
   useEffect(() => {
     fetchPrompt(); // 게임 시작 시 제시어 요청
@@ -33,8 +35,11 @@ const Game2Page = () => {
 
   const scenes = useMemo(
     () => [
-      <Game2Opening fetchPrompt={fetchPrompt} onNext={goToNextScene} />,
-      <DrawingDescription gameData={gameData} onOk={goToNextScene} />,
+      <Game2Opening onNext={goToNextScene} />,
+      <DrawingDescription
+        description={gameData.description}
+        onOk={goToNextScene}
+      />,
       <Game2DrawScene
         gameData={gameData}
         onSubmit={async (imageUrl) => {

@@ -7,7 +7,7 @@ import { getAuthToken, isTokenExpired } from "utils/token";
 
 const baseConfig = {
   baseURL: LOCAL_SERVER_IP,
-  timeout: 3000,
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
   },

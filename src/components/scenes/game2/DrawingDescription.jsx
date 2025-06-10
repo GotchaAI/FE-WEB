@@ -2,9 +2,7 @@ import art_table from "assets/components/scenes/game2/art-table.png";
 import midae_rabbit from "assets/components/scenes/game2/midae-rabbit5.png";
 import "styles/components/scenes/game2/DrawingDescription.scss";
 
-const DrawingDescription = ({ gameData, onOk }) => {
-  const description = gameData?.description || `설명을 불러오는 중입니다...`;
-
+const DrawingDescription = ({ description, onOk }) => {
   const onCancel = () => {
     console.log("이딴걸 그리라고?");
   };
@@ -12,7 +10,9 @@ const DrawingDescription = ({ gameData, onOk }) => {
   return (
     <div className="drawing-description-container">
       {/* 설명 박스 */}
-      <div className="description-box">{description}</div>
+      <div className="description-box">
+        {description && "설명을 불러오는 중입니다..."}
+      </div>
 
       {/* 버튼 박스 */}
       <div className="button-box">

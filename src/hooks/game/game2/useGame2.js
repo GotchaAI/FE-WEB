@@ -1,14 +1,12 @@
 import { useState, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
+import { fetchPromptAPI } from "services/game/game2";
 
-const useGame2 = () => {
-  const [searchParams] = useSearchParams();
-  const gameId = searchParams.get("gameId");
-
+const useGame2 = ({ gameId }) => {
   const [sceneIdx, setSceneIdx] = useState(0);
   const [gameData, setGameData] = useState({
     endTime: "",
-    gameId,
+    gameId: "",
     keyword: "",
     description: "",
     result: null,
@@ -34,9 +32,13 @@ const useGame2 = () => {
       description: `어둠이 숨을 죽이고 있을 때,\n하늘에 누군가의 기분이 터지는 걸 보았어.\n반짝임이 너무 빨라서 눈이 따라가지 못했지만,\n그 짧은 순간만큼은 모두가 같은 쪽을 보고 있었지.\n그 장면, 나한테 다시 보여줄 수 있을까..?`,
     };
 
+    const res = await fetchPromptAPI(gameId);
+    console.log(res)
     setGameData((prev) => ({
       ...prev,
-      ...mockData,
+      gameId,
+      keyword: res.keyword,
+      description: res.situation,
     }));
   }, [gameId]);
 

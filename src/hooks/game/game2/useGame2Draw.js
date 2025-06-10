@@ -9,12 +9,15 @@ const useGame2Draw = ({ isDrawingDisabled,
     setIsDrawingDisabled(true);
 
     const imageUrl = await getImageUrl();
-    await onSubmit?.(imageUrl); // 서버 제출 + 평가 요청
 
     // 3초 후 4 -> DrawingWaiting 씬 보여줌
     setTimeout(() => {
       setFlow(4);
     }, 3000);
+
+    await onSubmit?.(imageUrl); // 서버 제출 + 평가 요청
+
+
   }, [getImageUrl, setIsDrawingDisabled]);
 
   // ⏹️ 게임 종료

@@ -21,11 +21,17 @@ const Game2ResultScene = ({ gameData, onExit }) => {
       <div className="result-content">
         <div className="result-score-box">
           <div className="score-title">SCORE</div>
-          <div className="score-value">{gameData.result.score || 22}</div>
+          <div className="score-value">
+            {gameData.result?.score !== undefined
+              ? gameData.result.score
+              : "??"}
+          </div>
         </div>
 
         <div className="result-feedback-box">
-          {gameData.result.feedback || "asdf"}
+          {gameData.result?.feedback
+            ? gameData.result.feedback
+            : "채점중입니다..."}
         </div>
       </div>
 

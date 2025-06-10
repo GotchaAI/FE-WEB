@@ -7,7 +7,7 @@ import {
   GAME2_ROBBY_URL,
   WAITING_ROOM_URL,
 } from "constants/url";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { reconnectAPI } from "services/lobby/lobby";
 import "styles/pages/lobby/LobbyPage.scss";
@@ -16,7 +16,6 @@ const LobbyPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const navType = location.pathname.includes("/game2") ? "game2" : "game1";
-  const [selectedRoomId, setSelectedRoomId] = useState(""); // 입장할 roomId
   const [whisperNickname, setWhisperNickname] = useState("");
 
   const reconnect = async () => {

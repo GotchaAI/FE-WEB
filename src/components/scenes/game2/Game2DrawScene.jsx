@@ -38,6 +38,10 @@ const Game2DrawScene = ({ gameData, onSubmit, onNext }) => {
     setLocalEndTime(endTime);
   }, []);
 
+  const handleDone = () => {
+    onNext();
+  };
+
   const handleColorChange = (color) => {
     setStrokeStyle(color);
   };
@@ -50,11 +54,9 @@ const Game2DrawScene = ({ gameData, onSubmit, onNext }) => {
     <div className="game2-draw-scene-container">
       <>
         {/* 타임오버 오버레이 */}
-        {flow === 3 && <GameEndScene goToNextFlow={goToNextFlow} />}{" "}
-        {/* 애니메이션만 */}
+        {flow === 3 && <GameEndScene goToNextFlow={goToNextFlow} />}
         {/* 로딩 중 오버레이 (평가 진행중) */}
-        {flow === 4 && <DrawingWaiting onDone={() => {}} />}{" "}
-        {/* 필요 시 prop으로 대체 */}
+        {flow === 4 && <DrawingWaiting onDone={handleDone} />}{" "}
       </>
 
       {/* 좌측 툴 */}

@@ -32,7 +32,6 @@ const useGame2 = () => {
     const mockData = {
       keyword: "폭죽",
       description: `어둠이 숨을 죽이고 있을 때,\n하늘에 누군가의 기분이 터지는 걸 보았어.\n반짝임이 너무 빨라서 눈이 따라가지 못했지만,\n그 짧은 순간만큼은 모두가 같은 쪽을 보고 있었지.\n그 장면, 나한테 다시 보여줄 수 있을까..?`,
-      timeLimit: 60,
     };
 
     setGameData((prev) => ({

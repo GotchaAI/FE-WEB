@@ -44,7 +44,7 @@ const Game2Page = () => {
       />,
       <Game2ResultScene
         gameData={gameData}
-        onExit={() => navigate("/lobby")}
+        onExit={() => navigate("/lobby/game2")}
       />,
     ],
     [gameData, goToNextScene, handleSubmitDrawing, navigate, fetchPrompt]

@@ -6,6 +6,7 @@ import TimeOverToast from "commons/toast/game/TimeOverToast";
 import GameXToast from "commons/toast/game/GameXToast";
 import GameOToast from "commons/toast/game/GameOToast";
 import CountdownToast from "commons/toast/game/CountdownToast";
+import PrayWaitingToast from "./game/PrayWaitingToast";
 
 const ToastContainer = () => {
   const toasts = useToastStore((state) => state.toasts);
@@ -26,12 +27,14 @@ const ToastContainer = () => {
         return <GameOToast key={id} />;
       case "countdown":
         return <CountdownToast key={id} />;
+      case "praywaiting":
+        return <PrayWaitingToast key={id} />;
       default:
         return null;
     }
   };
 
-  const darkTypes = ["gamealert", "timeover", "countdown"];
+  const darkTypes = ["gamealert", "timeover", "countdown", "praywaiting"];
 
   const backdropClassName = darkTypes.includes(toasts[0]?.type)
     ? "toast-backdrop-dark"

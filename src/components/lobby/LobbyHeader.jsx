@@ -2,7 +2,7 @@ import logoImage from "assets/commons/logo.png";
 import Mypage from "commons/options/Mypage";
 import Settings from "commons/options/Settings";
 import Sound from "commons/options/Sound";
-import Profile from "pages/home/Profile";
+import Profile from "components/home/Profile";
 import "styles/components/lobby/LobbyLayout.scss";
 
 const LobbyHeader = () => {

@@ -1,6 +1,5 @@
 import { useState, useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
-import { fetchPromptAPI } from "services/game/game2";
+import { evaluateDrawingAPI, fetchPromptAPI } from "services/game/game2";
 
 const useGame2 = ({ gameId }) => {
   const [sceneIdx, setSceneIdx] = useState(0);
@@ -9,6 +8,7 @@ const useGame2 = ({ gameId }) => {
     gameId: "",
     keyword: "",
     description: "",
+    imageUrl: "",
     result: null,
   });
 
@@ -33,37 +33,38 @@ const useGame2 = ({ gameId }) => {
     };
 
     const res = await fetchPromptAPI(gameId);
-    console.log(res)
+    console.log(res);
     setGameData((prev) => ({
       ...prev,
-      gameId,
       keyword: res.keyword,
       description: res.situation,
     }));
   }, [gameId]);
 
   // 이미지 제출 + 평가 요청 (MOCK)
-  const handleSubmitDrawing = useCallback(async (imageUrl) => {
-    try {
-      console.log("이미지 제출됨:", imageUrl);
+  const handleSubmitDrawing = useCallback(
+    async (imageUrl) => {
+      try {
+        console.log("이미지 제출됨:", imageUrl);
 
-      // MOCK 변환 및 평가
-      const mockResult = {
-        score: 85,
-        feedback: "폭죽의 느낌이 잘 살아있어요!",
-      };
+        // 실제 API 요청
+        const res = await evaluateDrawingAPI(gameData.gameId, imageUrl);
+        const { score, feedback } = res;
 
-      setGameData((prev) => ({
-        ...prev,
-        result: mockResult,
-      }));
+        setGameData((prev) => ({
+          ...prev,
+          imageUrl,
+          result: { score, feedback },
+        }));
 
-      return true;
-    } catch (err) {
-      console.error("이미지 제출/평가 실패:", err);
-      return false;
-    }
-  }, []);
+        return true;
+      } catch (err) {
+        console.error("이미지 제출/평가 실패:", err);
+        return false;
+      }
+    },
+    [gameData.gameId]
+  );
 
   return {
     sceneIdx,

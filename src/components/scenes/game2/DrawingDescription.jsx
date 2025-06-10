@@ -11,7 +11,7 @@ const DrawingDescription = ({ description, onOk }) => {
     <div className="drawing-description-container">
       {/* 설명 박스 */}
       <div className="description-box">
-        {description && "설명을 불러오는 중입니다..."}
+        {description ? description : "토선생이 생각중입니다..."}
       </div>
 
       {/* 버튼 박스 */}

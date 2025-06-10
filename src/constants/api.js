@@ -27,6 +27,9 @@ export const LOCAL_SOCKET_IP = process.env.REACT_APP_SOCKET_BASE_URL;
 // 소켓 연결 API
 export const SOCKET_CONNECT_API = process.env.REACT_APP_WS_ENDPOINT;
 
+// 소켓 재연결 API(접속 중이던 대기방 로드)
+export const SOCKET_RECONNECT_API = process.env.REACT_APP_SOCKET_RECONNECT_API; // 게임 API
+
 // 소켓 글로벌 에러 API
 export const SOCKET_GLOBAL_ERROR_API =
   process.env.REACT_APP_WS_GLOBAL_ERROR_API;

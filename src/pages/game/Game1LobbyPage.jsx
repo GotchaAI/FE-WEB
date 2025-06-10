@@ -1,19 +1,19 @@
 import CheckBox from "commons/svgs/CheckBox";
 import PageArrowButton from "commons/svgs/PageArrowButton";
 import RoomTable from "components/game/Game1RoomTable";
-import { useEffect, useState } from "react";
-import { GAME1_LEVEL_OPTIONS, GAME1_ROOMS_PER_PAGE } from "constants/game";
-import "styles/pages/game/Game1LobbyPage.scss";
-import useLobbySocket from "hooks/lobby/useLobbySocket";
-import { getUserUuid } from "utils/user";
-import { useToastStore } from "store/toast";
-import { useRoomList } from "hooks/lobby/useRoomList";
 import {
   ROOM_IS_FULL,
   ROOM_NOT_EXIST,
   ROOM_PASSWORD_NOT_MATCHED,
 } from "constants/errorCode";
+import { GAME1_LEVEL_OPTIONS, GAME1_ROOMS_PER_PAGE } from "constants/game";
+import useLobbySocket from "hooks/lobby/useLobbySocket";
 import { useRoomActions } from "hooks/lobby/useRoomActions";
+import { useRoomList } from "hooks/lobby/useRoomList";
+import { useEffect, useState } from "react";
+import { useToastStore } from "store/toast";
+import "styles/pages/game/Game1LobbyPage.scss";
+import { getUserUuid } from "utils/user";
 
 const Game1LobbyPage = () => {
   const [page, setPage] = useState(1);

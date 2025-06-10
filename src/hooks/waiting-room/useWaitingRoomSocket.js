@@ -2,6 +2,7 @@ import { SOCKET_ROOM_API, SOCKET_ROOM_ERROR_API } from "constants/api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useGameSocketStore } from "store/socket";
+import { useToastStore } from "store/toast";
 
 /**
  * useWaitingRoom 커스텀 훅
@@ -29,7 +30,7 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
   const { stompClient, isConnected } = useGameSocketStore();
   const [isGameStart, setIsGameStart] = useState(false);
   const [initGameInfo, setInitGameInfo] = useState(null);
-
+  const { showToast } = useToastStore.getState();
   useEffect(() => {
     if (roomId === null) return;
     if (!isConnected) return;
@@ -96,7 +97,10 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
             break;
           case "KICK":
             console.log("KICK");
-            if (data == userUuid) navigate("/lobby");
+            if (data == userUuid) {
+              navigate("/lobby");
+              showToast("alert", "나~~가 ㅋㅋ");
+            }
             setRoomInfo((prev) => ({
               ...prev,
               userInfos: prev.userInfos.filter((user) => user.userUuid != data),

@@ -14,7 +14,8 @@ const Profile = () => {
           max="100"
         />
         <span className="exp-text">
-          EXP.{experience.expInLevel} [{experience.expProgress * 100}%]
+          EXP.{experience.expInLevel} [
+          {(experience.expProgress * 100).toFixed(1)}%]
         </span>
       </div>
       <div className="profile-user-info-container">
@@ -26,7 +27,7 @@ const Profile = () => {
             <span className="nickname">{profile.nickname}</span>
             <div className="ranking-container">
               <div className="left-strip" />
-              {/*<span>{userInfo.rank}</span> -> 빠른 시일 내로 자기 랭크와 총 점수 알려주는 api를 파주겠다고 함*/}
+              <span>{experience.level} 레벨</span>
             </div>
           </div>
         </div>

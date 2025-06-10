@@ -39,6 +39,7 @@ const Game2DrawScene = ({ gameData, onSubmit, onNext }) => {
   }, []);
 
   const handleDone = () => {
+    // 그림 데이터가 왔다면
     onNext();
   };
 

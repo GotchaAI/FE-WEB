@@ -14,7 +14,6 @@ const Game2LobbyPage = () => {
       const response = await startGame2API(); // gameId 받아오기
       const { message: gameId } = response;
       console.log(response);
-      // const { gameId } = { gameId: 1234 };
 
       navigate(`/lobby/play2?gameId=${gameId}`);
     } catch (error) {

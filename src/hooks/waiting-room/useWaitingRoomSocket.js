@@ -53,9 +53,21 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
         switch (eventType) {
           case "READY":
             console.log("READY");
+            setRoomInfo((prev) => ({
+              ...prev,
+              userInfos: prev.userInfos.map((user) =>
+                user.userUuid === data ? { ...user, ready: true } : user
+              ),
+            }));
             break;
           case "UNREADY":
             console.log("UNREADY");
+            setRoomInfo((prev) => ({
+              ...prev,
+              userInfos: prev.userInfos.map((user) =>
+                user.userUuid === data ? { ...user, ready: false } : user
+              ),
+            }));
             break;
           case "START":
             console.log("START");
@@ -66,6 +78,21 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
             console.log("UPDATE");
             setRoomInfo(data);
             break;
+          case "JOIN":
+            console.log("JOIN");
+            setRoomInfo((prev) => ({
+              ...prev,
+              userInfos: data,
+            }));
+            break;
+          case "EXIT":
+            console.log("EXIT");
+            setRoomInfo((prev) => ({
+              ...prev,
+              userInfos: prev.userInfos.filter((user) => user.userUuid != data),
+            }));
+            break;
+
           default:
             break;
         }

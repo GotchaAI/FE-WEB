@@ -26,16 +26,11 @@ const useGame2 = ({ gameId }) => {
   const fetchPrompt = useCallback(async () => {
     if (!gameId) return;
 
-    // MOCK DATA
-    const mockData = {
-      keyword: "폭죽",
-      description: `어둠이 숨을 죽이고 있을 때,\n하늘에 누군가의 기분이 터지는 걸 보았어.\n반짝임이 너무 빨라서 눈이 따라가지 못했지만,\n그 짧은 순간만큼은 모두가 같은 쪽을 보고 있었지.\n그 장면, 나한테 다시 보여줄 수 있을까..?`,
-    };
-
     const res = await fetchPromptAPI(gameId);
     console.log(res);
     setGameData((prev) => ({
       ...prev,
+      gameId: gameId,
       keyword: res.keyword,
       description: res.situation,
     }));
@@ -45,10 +40,11 @@ const useGame2 = ({ gameId }) => {
   const handleSubmitDrawing = useCallback(
     async (imageUrl) => {
       try {
-        console.log("이미지 제출됨:", imageUrl);
+        console.log("이미지 제출됨:", imageUrl, gameData.gameId);
 
         // 실제 API 요청
         const res = await evaluateDrawingAPI(gameData.gameId, imageUrl);
+
         const { score, feedback } = res;
 
         setGameData((prev) => ({

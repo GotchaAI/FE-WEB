@@ -1,21 +1,37 @@
-import art_table from "assets/components/scenes/game2/art-table.png"; // 방금 올리신 이미지 경로 사용
-import "styles/components/scenes/game2/Game2Opening.scss";
+import fail_rabbit from "assets/components/scenes/game2/result-rabbit1.png";
+import pass_rabbit from "assets/components/scenes/game2/result-rabbit2.png";
+import "styles/components/scenes/game2/Game2ResultScene.scss";
 
 const Game2ResultScene = ({ gameData, onExit }) => {
   return (
-    <div className="game2-opening-container">
-      {/* <img src={art_table} alt="Art Table" className="game2-opening-table" /> */}
-      {/* 그린 그림 */}
-      {gameData.imageUrl && (
+    <div className="game2-result-container">
+      <span className="result-title">축하합니다!</span>
+      <span className="result-subtitle">와! 재수 확정!</span>
+
+      <img src={fail_rabbit} alt="Rabbit" className="result-rabbit" />
+
+      <div className="game2-result-drawing">
         <img
           src={gameData.imageUrl}
           alt="내가 그린 그림"
-          className="game2-result-drawing"
+          className="game2-drawing-img"
         />
-      )}
-      <div>score: {gameData.result.score}</div>
-      <div>description: {gameData.result.feedback} </div>
-      <button onClick={onExit}></button>
+      </div>
+
+      <div className="result-content">
+        <div className="result-score-box">
+          <div className="score-title">SCORE</div>
+          <div className="score-value">{gameData.result.score || 22}</div>
+        </div>
+
+        <div className="result-feedback-box">
+          {gameData.result.feedback || "asdf"}
+        </div>
+      </div>
+
+      <button className="exit-button" onClick={onExit}>
+        나가기
+      </button>
     </div>
   );
 };

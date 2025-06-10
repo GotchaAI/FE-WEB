@@ -1,0 +1,125 @@
+@use "styles/fonts.scss";
+
+.game2-result-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+
+  background-color: rgba(0, 0, 0, 0.3);
+
+  .result-title {
+    position: absolute;
+    left: 146px;
+    top: 109px;
+    font-size: 16px;
+    color: #7E5615;
+  }
+
+  .result-subtitle {
+    position: absolute;
+    left: 146px;
+    top: 131px;
+    font-size: 48px;
+    color: #FFC466;
+  }
+
+  .result-rabbit {
+    position: absolute;
+    left: 176px;
+    bottom: 218px;
+    height: 200px;
+  }
+
+  .game2-result-drawing {
+    position: absolute;
+    right: 122px;
+    top: 125px;
+    width: 370px;
+    height: 218px;
+
+    background: #FFC466;
+    border: 1px solid #000000;
+    border-radius: 22px;
+    padding: 8px;
+
+    .game2-drawing-img {
+      width: auto;
+      height: 200px;
+
+      border-radius: 16px;
+    }
+  }
+
+  .result-content {
+    position: absolute;
+    left: 120px;
+    bottom: 109px;
+
+    height: 200px;
+    width: 771px;
+    height: 136px;
+
+    background-image: repeating-linear-gradient(to bottom,
+        #ffc466,
+        #ffc466 21px,
+        #ffa93b 22px,
+        #ffc466 23px);
+    border: 1px solid black;
+    border-radius: 16px;
+
+    display: flex;
+    align-items: center;
+    padding: 26px;
+    gap: 32px;
+
+    .result-score-box {
+      background-color: white;
+      border: 1px solid black;
+      width: 131px;
+      height: 101px;
+
+      .score-title {
+        border-bottom: 1px solid black;
+        font-size: 12px;
+      }
+
+      .score-value {
+        font-size: 48px;
+        color: #FF0000;
+      }
+    }
+
+    .result-score-box::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 176px;
+      width: 1px;
+      height: 100%;
+      background-color: orange;
+    }
+
+    .result-feedback-box {
+
+      width: 531px;
+      font-size: 13px;
+      text-align: left;
+    }
+  }
+
+  .exit-button {
+    position: absolute;
+    right: 120px;
+    bottom: 44px;
+
+    width: 170px;
+    height: 47px;
+
+    background-color: #FFDA37;
+    border-radius: 16px;
+    border: 1px solid #000;
+
+    font-size: 24px;
+  }
+}

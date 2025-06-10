@@ -15,14 +15,16 @@ const DrawingDescription = ({ description, onOk }) => {
       </div>
 
       {/* 버튼 박스 */}
-      <div className="button-box">
-        <button className="ok-btn" onClick={onOk}>
-          오케이
-        </button>
-        <button className="cancel-btn" onClick={onCancel}>
-          네?
-        </button>
-      </div>
+      {description && (
+        <div className="button-box">
+          <button className="ok-btn" onClick={onOk}>
+            오케이
+          </button>
+          <button className="cancel-btn" onClick={onCancel}>
+            네?
+          </button>
+        </div>
+      )}
 
       <img src={art_table} alt="Art Table" className="art-table-img" />
       <img src={midae_rabbit} alt="Art Table" className="rabbit-img" />

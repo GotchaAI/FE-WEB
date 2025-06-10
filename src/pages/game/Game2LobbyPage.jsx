@@ -7,26 +7,16 @@ const Game2LobbyPage = () => {
   const navigate = useNavigate();
 
   // 게임 시작 요청
+  // 서버 요청 추가
   const gameStartHandler = async () => {
     try {
-      console.log("게임 데이터 요청 중...");
-      // 예시: 서버에 API 요청
-      // const response = await fetch("/api/game2/start");
-      // const data = await response.json();
+      // const response = await startGame2API(); // gameId 받아오기
+      // const { gameId } = response.data;
+      const { gameId } = { gameId: 1234 };
 
-      // 임시 mock 데이터
-      const data = {
-        keyword: "초코 케이크",
-        timeLimit: 60,
-        // ... 기타 게임 데이터
-      };
-
-      console.log("게임 데이터 수신 완료:", data);
-
-      // 페이지 이동 + 데이터 전달
-      navigate("/lobby/play2", { state: data });
+      navigate(`/lobby/play2?gameId=${gameId}`);
     } catch (error) {
-      console.error("게임 데이터 요청 실패", error);
+      console.error("게임 시작 실패", error);
     }
   };
 

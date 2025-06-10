@@ -1,10 +1,11 @@
-import art_table from "assets/components/scenes/game2/art-table.png"; // 방금 올리신 이미지 경로 사용
-import "styles/components/scenes/game2/Game2Opening.scss";
+import "styles/components/scenes/game2/DrawingWaiting.scss";
 
 const DrawingWaiting = () => {
   return (
-    <div className="game2-opening-container">
-      <img src={art_table} alt="Art Table" className="game2-opening-table" />
+    <div className="drawing-waiting-overlay">
+      <div className="waiting-box">
+        <p>AI가 당신의 그림을 평가 중입니다...</p>
+      </div>
     </div>
   );
 };

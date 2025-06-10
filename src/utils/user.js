@@ -28,4 +28,10 @@ const getUserUuid = () => {
   return uuid;
 };
 
-export { getUserInfo, getUserUuid };
+const getUserName = () => {
+  const { profile } = getUserInfo();
+  const nickname = profile.nickname;
+  return nickname;
+};
+
+export { getUserInfo, getUserUuid, getUserName };

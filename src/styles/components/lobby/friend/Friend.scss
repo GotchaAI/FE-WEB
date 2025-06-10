@@ -27,6 +27,7 @@
     color: white;
     font-size: 32px;
     font-weight: 400;
+    font-family: "DarumadropOne-Regular";
   }
 
   .friend-option-container {
@@ -51,14 +52,13 @@
       font-size: 12px;
       font-weight: 400;
       white-space: nowrap;
-    }
-
-    .friend-list-btn {
-      background-color: #d3f16f;
+      background-color: #f2f3f6;
+      &.active {
+        background-color: #d3f16f;
+      }
     }
 
     .friend-request-btn {
-      background-color: #f2f3f6;
       border-left: none;
     }
   }
@@ -67,9 +67,6 @@
     position: relative;
     display: flex;
     align-items: center;
-
-    top: 12px;
-    left: 14px;
 
     width: 111px;
     height: 22px;
@@ -96,6 +93,7 @@
       width: 16px;
       height: 16px;
       margin-right: 7.5px;
+      cursor: pointer;
     }
   }
 
@@ -106,16 +104,6 @@
 
     width: 121px;
     height: 264px;
-
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      width: 110px;
-      height: 0.6px;
-      background-color: black;
-      z-index: 1;
-    }
 
     &::after {
       bottom: 0;

@@ -3,8 +3,10 @@ import SignUpForm from "components/auth/SignUpForm";
 import { ROOT_URL } from "constants/url";
 import { redirect } from "react-router-dom";
 import { signUpAPI, tokenReissueAPI } from "services/auth/auth";
+import { getUserInfoAPI } from "services/user/user";
 import "styles/pages/auth/SignUpPage.scss";
 import { getAuthToken } from "utils/token";
+import { getUserInfo } from "utils/user";
 
 /**
  * 회원가입 페이지 (Root Page)
@@ -21,15 +23,15 @@ import { getAuthToken } from "utils/token";
  */
 
 const SignUpPage = () => {
-	return (
-		<div className="sign-up-page-container">
-			<SignUpForm />
+  return (
+    <div className="sign-up-page-container">
+      <SignUpForm />
 
-			<div className="cloud-container">
-				<img className="cloud" src={cloudImage} alt="cloud background" />
-			</div>
-		</div>
-	);
+      <div className="cloud-container">
+        <img className="cloud" src={cloudImage} alt="cloud background" />
+      </div>
+    </div>
+  );
 };
 
 export default SignUpPage;
@@ -44,22 +46,22 @@ export default SignUpPage;
  * @returns redirect(ROOT_URL) | undefined (회원가입 페이지 유지)
  */
 export const loader = async () => {
-	const { accessToken, setAccessToken } = getAuthToken();
+  const { accessToken, setAccessToken } = getAuthToken();
 
-	if (!accessToken) {
-		// 토큰 재발급
-		try {
-			const res = await tokenReissueAPI();
-			const newAccessToken = res.accessToken;
-			const expireTime = res.expiredAt;
-			setAccessToken(newAccessToken, expireTime);
-		} catch (e) {
-			// 토큰 없으면 페이지 유지
-			return;
-		}
-	}
+  if (!accessToken) {
+    // 토큰 재발급
+    try {
+      const res = await tokenReissueAPI();
+      const newAccessToken = res.accessToken;
+      const expireTime = res.expiredAt;
+      setAccessToken(newAccessToken, expireTime);
+    } catch (e) {
+      // 토큰 없으면 페이지 유지
+      return;
+    }
+  }
 
-	return;
+  return;
 };
 
 /**
@@ -73,29 +75,47 @@ export const loader = async () => {
  * @returns redirect(ROOT_URL) | errorMessage - 리디렉트 응답 또는 에러 메시지
  */
 export const action = async ({ request }) => {
-	const data = await request.formData();
+  const data = await request.formData();
 
-	// 회원가입 폼
-	const authForm = {
-		email: data.get("email"),
-		password: data.get("password"),
-		passwordCheck: data.get("passwordCheck"),
-		nickname: data.get("nickname"),
-	};
+  // 회원가입 폼
+  const authForm = {
+    email: data.get("email"),
+    password: data.get("password"),
+    passwordCheck: data.get("passwordCheck"),
+    nickname: data.get("nickname"),
+  };
 
-	// 회원가입 API 요청
-	try {
-		const res = await signUpAPI(authForm);
+  // 회원가입 API 요청
+  try {
+    const res = await signUpAPI(authForm);
 
-		const { setAccessToken } = getAuthToken();
-		const accessToken = res.accessToken;
-		const expireTime = res.expiredAt;
+    const { setAccessToken } = getAuthToken();
+    const accessToken = res.accessToken;
+    const expireTime = res.expiredAt;
 
-		// 토큰 저장
-		setAccessToken(accessToken, expireTime);
-		return redirect(ROOT_URL);
-	} catch (e) {
-		// 회원가입 에러
-		console.error(e);
-	}
+    // 토큰 저장
+    setAccessToken(accessToken, expireTime);
+
+    //유저 정보 저장
+    const userInfo = await getUserInfoAPI();
+    const { setProfile, setExperience } = getUserInfo();
+
+    setProfile({
+      email: userInfo.email,
+      nickname: userInfo.nickname,
+      role: userInfo.role,
+      uuid: userInfo.uuid,
+    });
+
+    setExperience({
+      level: userInfo.level,
+      expInLevel: userInfo.expInLevel,
+      expProgress: userInfo.expProgress,
+      expToNextLevel: userInfo.expToNextLevel,
+    });
+    return redirect(ROOT_URL);
+  } catch (e) {
+    // 회원가입 에러
+    console.error(e);
+  }
 };

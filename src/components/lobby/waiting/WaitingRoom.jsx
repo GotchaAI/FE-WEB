@@ -108,7 +108,6 @@ const WaitingRoom = () => {
     // 업데이트 DTO
     const updateRoomDTO = {
       title: roomInfo.roomInfo.title,
-      hasPassword: roomInfo.roomInfo.hasPassword,
       difficulty: difficulty,
       roundCount: roomInfo.roomInfo.roundCount,
     };
@@ -135,6 +134,9 @@ const WaitingRoom = () => {
               <PlayerSlot
                 key={roomInfo.userInfos[i]?.nickname ?? `empty-${i}`}
                 index={i}
+                ownerUuid={roomInfo.roomInfo.ownerUuid}
+                isOwner={roomInfo.roomInfo.ownerUuid === userUuid}
+                userUuid={userUuid}
                 player={roomInfo.userInfos[i]}
                 ownerChange={ownerChange}
                 kickPlayer={kickPlayer}

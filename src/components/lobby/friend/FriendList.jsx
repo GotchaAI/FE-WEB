@@ -51,16 +51,16 @@ const FriendList = ({
 
   return (
     <ul className="friend-list">
-      {friendList.map((item) => (
+      {friendList.map((item, idx) => (
         <li
           className="friend-item"
-          key={`friend-item-${item.id}`}
+          key={`friend-items-${idx}`}
           onClick={(e) => friendOptionHandler(e, item)}
         >
           <div className="friend-status">
             <div
               className={`status ${
-                isOnline(item.lastLogout) ? "online" : "offline"
+                isOnline(item?.lastLogout) ? "online" : "offline"
               }`}
             />
           </div>

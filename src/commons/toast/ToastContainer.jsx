@@ -16,19 +16,19 @@ const ToastContainer = () => {
   const renderToast = (type, message, id) => {
     switch (type) {
       case "alert":
-        return <AlertToast key={id} message={message} />;
+        return <AlertToast key={`alert-${id}`} message={message} />;
       case "gamealert":
-        return <GameAlertToast key={id} message={message} />;
+        return <GameAlertToast key={`gamealert-${id}`} message={message} />;
       case "timeover":
-        return <TimeOverToast key={id} />;
+        return <TimeOverToast key={`timeover-${id}`} />;
       case "gameX":
-        return <GameXToast key={id} />;
+        return <GameXToast key={`gameX-${id}`} />;
       case "gameO":
-        return <GameOToast key={id} />;
+        return <GameOToast key={`gameO-${id}`} />;
       case "countdown":
-        return <CountdownToast key={id} />;
+        return <CountdownToast key={`countdown-${id}`} />;
       case "praywaiting":
-        return <PrayWaitingToast key={id} />;
+        return <PrayWaitingToast key={`praywaiting-${id}`} />;
       default:
         return null;
     }

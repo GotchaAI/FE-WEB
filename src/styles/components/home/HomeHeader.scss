@@ -45,35 +45,3 @@
     background-color: #89c881;
   }
 }
-
-.background-container {
-  position: relative;
-  width: 100%;
-  height: 700px;
-
-  img {
-    position: absolute;
-    bottom: 0;
-  }
-
-  .left-background-img {
-    left: 0;
-    width: 659.54px;
-    height: 577.1px;
-    z-index: 1;
-  }
-
-  .right-background-img {
-    right: 0;
-    width: 908.24px;
-    height: 351.71px;
-  }
-
-  .intro-msg-img {
-    right: 5%;
-    bottom: 35%;
-    width: 349px;
-    height: 124px;
-    z-index: 2;
-  }
-}

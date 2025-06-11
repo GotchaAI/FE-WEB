@@ -13,6 +13,19 @@ import "styles/components/scenes/game2/PaletteTools.scss";
  *   사용자가 색상을 선택했을 때 상위 컴포넌트로 해당 색상(hex 코드)을 전달하는 콜백
  */
 
+const PALETTE_COLORS = [
+  "#FFC466",
+  "#F6AA31",
+  "#F2810F",
+  "#7E5614",
+  "#FBFFEC",
+  "#E9FF9F",
+  "#AAE8FF",
+  "#89C881",
+  "#FFFFFF",
+  "#000000",
+];
+
 const PaletteTools = ({ onSelectColor }) => {
   // 현재 선택된 색상 상태 (기본값: 검정)
   const [activeColor, setActiveColor] = useState(PALETTE_COLORS[9]);

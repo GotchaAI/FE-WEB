@@ -55,6 +55,7 @@
     .drawing {
       width: 656.61px;
       height: 375.37px;
+      border-radius: 9px;
     }
 
     .game-header {
@@ -100,6 +101,13 @@
     }
   }
 
+  // 포커스 올 경우 border 더 진하게
+  .bubble-container:focus-within .left-cloud-img {
+    path {
+      stroke-width: 2px;
+    }
+  }
+
   .player-input {
     flex-wrap: wrap;
     position: absolute;
@@ -115,6 +123,8 @@
     resize: none;
     background: none;
     border: none;
+
+    outline: none;
   }
 
   .ai-input {

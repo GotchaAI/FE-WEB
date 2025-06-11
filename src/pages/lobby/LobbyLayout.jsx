@@ -1,6 +1,5 @@
-import { ROOT_URL } from "constants/url";
 import useGameSocket from "hooks/useGameSocket";
-import { Outlet, redirect } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { tokenReissueAPI } from "services/auth/auth";
 import "styles/pages/lobby/LobbyPage.scss";
 import { getAuthToken } from "utils/token";
@@ -31,7 +30,9 @@ export const loader = async () => {
 
       setAccessToken(newAccessToken, newExpireTime);
     } catch (e) {
-      return redirect(ROOT_URL);
+      console.log(accessToken);
+      console.error(e);
+      return;
     }
   }
 

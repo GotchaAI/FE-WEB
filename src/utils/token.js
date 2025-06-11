@@ -28,6 +28,7 @@ const isAccessToken = () => {
  */
 const isTokenExpired = () => {
   const { expireTime } = getAuthToken();
+  console.log("만료시간이다", expireTime);
   return expireTime && dayjs().isAfter(dayjs(expireTime));
 };
 

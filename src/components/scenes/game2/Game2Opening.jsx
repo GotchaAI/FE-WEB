@@ -7,7 +7,7 @@ import "styles/components/scenes/game2/Game2Opening.scss";
 /**
  * Game2Opening:
  * - 진입 시 토스트 알림
- * - 제시어/설명 fetch 완료되면 자동으로 다음 씬으로 전환
+ * - 일정시간 후 자동으로 다음 씬으로 전환
  */
 const Game2Opening = ({ onNext }) => {
   useEffect(() => {

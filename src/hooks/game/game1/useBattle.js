@@ -1,10 +1,12 @@
 import { SOCKET_GAME_API } from "constants/api";
 import { useCallback, useEffect, useState } from "react";
 import { useGameSocketStore } from "store/socket";
+import { useToastStore } from "store/toast";
 import { getUserUuid } from "utils/user";
 
 const useBattle = ({ roomId }) => {
   const userUuid = getUserUuid();
+  const { showToast } = useToastStore.getState();
   const { stompClient, isConnected } = useGameSocketStore();
 
   const [endTime, setEndTime] = useState(null);
@@ -54,6 +56,8 @@ const useBattle = ({ roomId }) => {
     (guess) => {
       if (!isConnected) return;
       setIsSubmit(true);
+      showToast("alert", "제출 완료!");
+
       stompClient.publish({
         destination: `/pub${SOCKET_GAME_API}/${roomId}`,
         body: JSON.stringify({

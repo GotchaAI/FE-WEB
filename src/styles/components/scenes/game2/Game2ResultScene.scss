@@ -13,7 +13,9 @@
     left: 146px;
     top: 109px;
     font-size: 16px;
-    color: #7E5615;
+    color: white;
+    font-family: "SUIT-Regular";
+    font-weight: bold;
   }
 
   .result-subtitle {
@@ -22,6 +24,7 @@
     top: 131px;
     font-size: 48px;
     color: #FFC466;
+    font-family: "YoonChild";
   }
 
   .result-rabbit {
@@ -87,6 +90,7 @@
       .score-value {
         font-size: 48px;
         color: #FF0000;
+        font-family: "YoonChild";
       }
     }
 
@@ -121,6 +125,17 @@
     border: 1px solid #000;
 
     font-size: 24px;
+    font-family: "YoonChild";
+  }
+
+  .game2-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 90px;
+    color: #FF0000;
+    font-family: "YoonChild";
   }
 }
 

@@ -26,10 +26,20 @@ import "styles/components/scenes/game2/Game2ResultScene.scss";
 
 const Game2ResultScene = ({ gameData, onExit }) => {
   const score = gameData.result?.score;
+  const feedback = gameData.result?.feedback;
+  const imageUrl = gameData.imageUrl;
+
+  // 필요한 데이터가 하나라도 없으면 렌더링 생략
+  if (score === undefined || !imageUrl || !feedback)
+    return (
+      <div className="game2-result-container">
+        <span className="game2-loading">채점 중입니다...</span>
+      </div>
+    );
+
   const isPass = score >= 30;
 
   return (
-    // pass/fail 클래스에 따라 배경 색, 스타일 변화 가능
     <div className={`game2-result-container ${isPass ? "pass" : "fail"}`}>
       {/* 제목 및 결과 문구 */}
       <span className="result-title">축하합니다!</span>
@@ -47,7 +57,7 @@ const Game2ResultScene = ({ gameData, onExit }) => {
       {/* 사용자가 그린 그림 */}
       <div className="game2-result-drawing">
         <img
-          src={gameData.imageUrl}
+          src={imageUrl}
           alt="내가 그린 그림"
           className="game2-drawing-img"
         />
@@ -57,16 +67,10 @@ const Game2ResultScene = ({ gameData, onExit }) => {
       <div className={`result-content ${isPass ? "pass" : "fail"}`}>
         <div className="result-score-box">
           <div className="score-title">SCORE</div>
-          <div className="score-value">
-            {score !== undefined ? score : "??"}
-          </div>
+          <div className="score-value">{score}</div>
         </div>
 
-        <div className="result-feedback-box">
-          {gameData.result?.feedback
-            ? gameData.result.feedback
-            : "채점중입니다..."}
-        </div>
+        <div className="result-feedback-box">{feedback}</div>
       </div>
 
       {/* 종료 버튼 */}

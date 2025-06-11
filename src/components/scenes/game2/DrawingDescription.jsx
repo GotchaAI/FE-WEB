@@ -23,8 +23,12 @@ const DrawingDescription = ({ description, onOk }) => {
   return (
     <div className="drawing-description-container">
       {/* 설명 박스 - 설명이 있으면 출력, 없으면 로딩 메시지 */}
-      <div className="description-box">
-        {description ? description : "토선생이 생각중입니다..."}
+      <div className="description-box-wrapper">
+        <div className="description-box">
+          <div className="text-content">
+            {description ? description : "토선생이 생각중입니다..."}
+          </div>
+        </div>
       </div>
 
       {/* 버튼 박스 - 설명이 있을 때만 표시 */}

@@ -5,9 +5,13 @@ import StartButton from "commons/svgs/StartButton";
 import { InformationContainer } from "components/home/InformationContainer";
 import IntroduceCharacterPreview from "components/home/IntroduceCharacterPreview";
 import { LOBBY_URL } from "constants/url";
-import { useNavigate } from "react-router-dom";
-import { RankingPreview } from "./RankingPreview";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import { guestSignInAPI } from "services/auth/auth";
+import { getUserInfoAPI } from "services/user/user";
 import "styles/components/home/Home.scss";
+import { getAuthToken } from "utils/token";
+import { getUserInfo } from "utils/user";
+import { RankingPreview } from "./RankingPreview";
 const rankingData = [
   { username: "Player1", score: 1000 },
   { username: "Player2", score: 900 },
@@ -22,9 +26,41 @@ const rankingData = [
 ];
 const Home = () => {
   const navigate = useNavigate();
+  const { isSignIn } = useOutletContext();
 
-  const handleStartBtn = () => {
-    navigate(LOBBY_URL);
+  const handleStartBtn = async () => {
+    if (isSignIn) navigate(LOBBY_URL);
+
+    try {
+      const res = await guestSignInAPI();
+      const { setAccessToken } = getAuthToken();
+      const accessToken = res.accessToken;
+      const expireTime = res.expiredAt;
+
+      // 토큰 저장
+      setAccessToken(accessToken, expireTime);
+
+      //유저 정보 저장
+      const userInfo = await getUserInfoAPI();
+      const { setProfile, setExperience } = getUserInfo();
+
+      setProfile({
+        email: userInfo.email,
+        nickname: userInfo.nickname,
+        role: userInfo.role,
+        uuid: userInfo.uuid,
+      });
+
+      setExperience({
+        level: userInfo.level,
+        expInLevel: userInfo.expInLevel,
+        expProgress: userInfo.expProgress,
+        expToNextLevel: userInfo.expToNextLevel,
+      });
+      navigate(LOBBY_URL);
+    } catch (e) {
+      console.error(e);
+    }
   };
   return (
     <div className="home-container">

@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+import { useToastStore } from "store/toast";
+import "styles/components/scenes/game2/DrawingWaiting.scss";
+
 /**
  * DrawingWaiting 컴포넌트
  *

@@ -3,12 +3,21 @@ import pass_rabbit from "assets/components/scenes/game2/result-rabbit2.png";
 import "styles/components/scenes/game2/Game2ResultScene.scss";
 
 const Game2ResultScene = ({ gameData, onExit }) => {
-  return (
-    <div className="game2-result-container">
-      <span className="result-title">축하합니다!</span>
-      <span className="result-subtitle">와! 재수 확정!</span>
+  const score = gameData.result?.score;
+  const isPass = score >= 30;
 
-      <img src={fail_rabbit} alt="Rabbit" className="result-rabbit" />
+  return (
+    <div className={`game2-result-container ${isPass ? "pass" : "fail"}`}>
+      <span className="result-title">축하합니다!</span>
+      <span className="result-subtitle">
+        {isPass ? "떴다 합격각ㅋ" : "와! 재수 확정!"}
+      </span>
+
+      <img
+        src={isPass ? pass_rabbit : fail_rabbit}
+        alt="Rabbit"
+        className="result-rabbit"
+      />
 
       <div className="game2-result-drawing">
         <img
@@ -18,13 +27,11 @@ const Game2ResultScene = ({ gameData, onExit }) => {
         />
       </div>
 
-      <div className="result-content">
+      <div className={`result-content ${isPass ? "pass" : "fail"}`}>
         <div className="result-score-box">
           <div className="score-title">SCORE</div>
           <div className="score-value">
-            {gameData.result?.score !== undefined
-              ? gameData.result.score
-              : "??"}
+            {score !== undefined ? score : "??"}
           </div>
         </div>
 

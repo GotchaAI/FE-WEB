@@ -34,7 +34,7 @@ const Game2DrawScene = ({ gameData, onSubmit, onNext }) => {
   const [localEndTime, setLocalEndTime] = useState(null);
 
   useEffect(() => {
-    const endTime = new Date(Date.now() + 30 * 1000).toISOString();
+    const endTime = new Date(Date.now() + 60 * 1000).toISOString();
     setLocalEndTime(endTime);
   }, []);
 

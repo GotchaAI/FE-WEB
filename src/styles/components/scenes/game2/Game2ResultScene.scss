@@ -123,3 +123,27 @@
     font-size: 24px;
   }
 }
+
+.game2-result-container.pass {
+
+  .game2-result-drawing {
+    background: #D3F16F;
+  }
+
+  .result-subtitle {
+    color: #D3F16F; // 예: 초록빛
+  }
+
+  .result-content {
+    background-image: repeating-linear-gradient(to bottom,
+        #E9FF9F,
+        #E9FF9F 21px,
+        #90ee90 22px,
+        #ccffcc 23px);
+
+    .result-score-box::after {
+      background-color: #90ee90;
+    }
+  }
+
+}

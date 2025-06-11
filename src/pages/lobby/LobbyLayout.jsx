@@ -30,8 +30,8 @@ export const loader = async () => {
 
       setAccessToken(newAccessToken, newExpireTime);
     } catch (e) {
-      console.log(accessToken);
-      console.error(e);
+      console.log("at없음", accessToken);
+      console.error("음", e);
       return;
     }
   }

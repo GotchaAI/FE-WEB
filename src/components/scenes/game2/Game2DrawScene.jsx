@@ -7,6 +7,7 @@ import DrawingWaiting from "components/scenes/game2/DrawingWaiting";
 import PaletteTools from "./PaletteTools";
 import "styles/components/scenes/game2/Game2DrawScene.scss";
 import useGame2Draw from "hooks/game/game2/useGame2Draw";
+import { useModalStore } from "store/modal";
 
 /**
  * Game2DrawScene 컴포넌트
@@ -72,6 +73,12 @@ const Game2DrawScene = ({ gameData, onSubmit, onNext }) => {
     setFlow((prev) => prev + 1);
   }, [setFlow]);
 
+  const handleOpenDescription = () => {
+    useModalStore
+      .getState()
+      .openModal("description", { message: gameData.description });
+  };
+
   return (
     <div className="game2-draw-scene-container">
       <>
@@ -93,6 +100,13 @@ const Game2DrawScene = ({ gameData, onSubmit, onNext }) => {
 
       {/* 우측 컬러 팔레트 */}
       <PaletteTools onSelectColor={handleColorChange} />
+
+      <div className="help-btn-container">
+        <label className="help-btn-label">도와줘?</label>
+        <button className="help-btn" onClick={handleOpenDescription}>
+          ?
+        </button>
+      </div>
 
       {/* 드로잉 캔버스 영역 */}
       <div className="game2-drawing-container">

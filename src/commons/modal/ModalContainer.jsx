@@ -7,6 +7,7 @@ import ReportModal from "commons/modal/lobby/ReportModal";
 import ConfirmModal2 from "commons/modal/lobby/ConfirmModal2";
 import HomeModal from "commons/modal/home/HomeModal";
 import { useEffect } from "react";
+import DescriptionModal from "commons/modal/game/DescriptionModal";
 
 const ModalContainer = () => {
   const { type, props, onConfirm, closeModal } = useModalStore();
@@ -82,6 +83,17 @@ const ModalContainer = () => {
       case "home":
         return (
           <HomeModal
+            {...props}
+            onConfirm={() => {
+              onConfirm?.();
+              closeModal();
+            }}
+          />
+        );
+
+      case "description":
+        return (
+          <DescriptionModal
             {...props}
             onConfirm={() => {
               onConfirm?.();

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useModalStore } from "store/modal";
 
 /**
  * useGame2Draw 커스텀 훅
@@ -27,7 +28,7 @@ const useGame2Draw = ({ isDrawingDisabled, setIsDrawingDisabled, getImageUrl, on
 
     // 현재 그림을 이미지 URL로 변환
     const imageUrl = await getImageUrl();
-
+    useModalStore.getState().closeModal()
     // 3초 후 flow를 4로 전환 → 평가 결과 대기 상태로 이동
     setTimeout(() => {
       setFlow(4);

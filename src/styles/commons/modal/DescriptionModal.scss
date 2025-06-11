@@ -1,0 +1,62 @@
+  .description-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 544px;
+    height: 227px;
+    padding: 40px;
+    background: white;
+    border: 1.5px solid black;
+    border-radius: 9px;
+    font-size: 20px;
+    z-index: 2;
+
+    .close {
+      position: absolute;
+      top: 13.7px;
+      right: 14.67px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    .description-box {
+      position: absolute;
+      top: 0px;
+      left: 40px;
+      width: 520px;
+      height: 227px;
+      padding-right: 40px;
+
+      overflow-y: auto;
+      scrollbar-width: thin;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #999;
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-button {
+        display: none;
+        height: 0;
+      }
+
+      .text-content {
+        padding-top: 45px;
+        // max-height: 50px; // ✅ 텍스트 자체 높이 조절
+        box-sizing: border-box;
+      }
+    }
+
+  }

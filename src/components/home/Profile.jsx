@@ -27,7 +27,7 @@ const Profile = () => {
             <span className="nickname">{profile.nickname}</span>
             <div className="ranking-container">
               <div className="left-strip" />
-              <span>{experience.level} 레벨</span>
+              <span>{experience.level} LV</span>
             </div>
           </div>
         </div>

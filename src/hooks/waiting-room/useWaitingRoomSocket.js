@@ -1,6 +1,8 @@
 import { SOCKET_ROOM_API, SOCKET_ROOM_ERROR_API } from "constants/api";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { useGameSocketStore } from "store/socket";
+import { useToastStore } from "store/toast";
 
 /**
  * useWaitingRoom 커스텀 훅
@@ -24,10 +26,11 @@ const gameUnreadyEX = {
 };
 
 const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
+  const navigate = useNavigate();
   const { stompClient, isConnected } = useGameSocketStore();
   const [isGameStart, setIsGameStart] = useState(false);
   const [initGameInfo, setInitGameInfo] = useState(null);
-
+  const { showToast } = useToastStore.getState();
   useEffect(() => {
     if (roomId === null) return;
     if (!isConnected) return;
@@ -53,9 +56,21 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
         switch (eventType) {
           case "READY":
             console.log("READY");
+            setRoomInfo((prev) => ({
+              ...prev,
+              userInfos: prev.userInfos.map((user) =>
+                user.userUuid === data ? { ...user, ready: true } : user
+              ),
+            }));
             break;
           case "UNREADY":
             console.log("UNREADY");
+            setRoomInfo((prev) => ({
+              ...prev,
+              userInfos: prev.userInfos.map((user) =>
+                user.userUuid === data ? { ...user, ready: false } : user
+              ),
+            }));
             break;
           case "START":
             console.log("START");
@@ -66,6 +81,32 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
             console.log("UPDATE");
             setRoomInfo(data);
             break;
+          case "JOIN":
+            console.log("JOIN");
+            setRoomInfo((prev) => ({
+              ...prev,
+              userInfos: data,
+            }));
+            break;
+          case "EXIT":
+            console.log("EXIT");
+            setRoomInfo((prev) => ({
+              ...prev,
+              userInfos: prev.userInfos.filter((user) => user.userUuid != data),
+            }));
+            break;
+          case "KICK":
+            console.log("KICK");
+            if (data == userUuid) {
+              navigate("/lobby");
+              showToast("alert", "나~~가 ㅋㅋ");
+            }
+            setRoomInfo((prev) => ({
+              ...prev,
+              userInfos: prev.userInfos.filter((user) => user.userUuid != data),
+            }));
+            break;
+
           default:
             break;
         }
@@ -140,12 +181,36 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
     });
   };
 
+  // 방장 위임
+  const ownerChange = (data) => {
+    if (!stompClient?.connected) return;
+
+    // 🚀 방 퇴장 publish
+    stompClient.publish({
+      destination: `/pub${SOCKET_ROOM_API}/${roomId}`,
+      body: JSON.stringify(data),
+    });
+  };
+
+  // 방 강퇴
+  const kickPlayer = (data) => {
+    if (!stompClient?.connected) return;
+
+    // 🚀 방 퇴장 publish
+    stompClient.publish({
+      destination: `/pub${SOCKET_ROOM_API}/${roomId}`,
+      body: JSON.stringify(data),
+    });
+  };
+
   return {
     startGame,
     readyGame,
     unreadyGame,
     updateRoomInfo,
     quitRoom,
+    ownerChange,
+    kickPlayer,
     isGameStart,
     initGameInfo,
   };

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { LOCAL_SERVER_IP } from "constants/api";
 import { REFRESH_TOKEN_EXPIRED } from "constants/errorCode";
-import { SIGN_IN_URL } from "constants/url";
 import { tokenReissueAPI } from "services/auth/auth";
 import { getAuthToken, isTokenExpired } from "utils/token";
 
@@ -32,9 +31,10 @@ function attachTokenInterceptors(instance) {
     async (config) => {
       const { accessToken, setAccessToken } = getAuthToken();
       const isExpired = isTokenExpired();
-
+      console.log("토큰 만료됐냐?: ", isExpired);
       if (isExpired || !accessToken) {
         try {
+          console.log("만료됐네", accessToken);
           // 토큰 재발급 호출
           const res = await tokenReissueAPI();
           const newToken = res.accessToken;
@@ -44,7 +44,7 @@ function attachTokenInterceptors(instance) {
           config.headers["Authorization"] = `${newToken}`;
         } catch (error) {
           console.error("토큰 재발급 실패", error);
-          window.location.href = SIGN_IN_URL;
+          //window.location.href = SIGN_IN_URL;
           return Promise.reject(error);
         }
       } else {
@@ -64,12 +64,13 @@ function attachTokenInterceptors(instance) {
     (response) => response,
     async (error) => {
       const originalRequest = error.config;
-
+      console.log("오리지날: ", originalRequest);
       // AT가 만료됐고, REFRESH_TOKEN_EXPIRED 에러가 아닌 경우
       if (
         error.response?.status === 401 &&
         error.response?.data.code !== REFRESH_TOKEN_EXPIRED
       ) {
+        console.log("오류 코드 :", error.response?.data.code);
         const { setAccessToken } = getAuthToken();
         try {
           // 토큰 재발급 재시도
@@ -85,7 +86,8 @@ function attachTokenInterceptors(instance) {
 
           return axios.request(originalRequest);
         } catch (err) {
-          window.location.href = SIGN_IN_URL;
+          console.log("아 뭐지 : ", err);
+          //window.location.href = SIGN_IN_URL;
           return Promise.reject(err);
         }
       }

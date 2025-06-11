@@ -16,7 +16,7 @@ const HomePage = () => {
     <div className="home-page-container">
       <ScrollToTop />
       <HomeHeader isSignIn={isSignIn} />
-      <Outlet />
+      <Outlet context={{ isSignIn }} />
     </div>
   );
 };

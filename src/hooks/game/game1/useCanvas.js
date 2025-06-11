@@ -10,6 +10,8 @@ const useCanvas = () => {
   const [eraserActive, setEraserActive] = useState(false);
   const [isDrawingDisabled, setIsDrawingDisabled] = useState(false);
 
+  const [strokeStyle, setStrokeStyle] = useState("black");
+
   useEffect(() => {
     const canvas = canvasRef.current;
 
@@ -47,7 +49,7 @@ const useCanvas = () => {
       contextRef.current.strokeStyle = "white";
       contextRef.current.lineWidth = 20;
     } else {
-      contextRef.current.strokeStyle = "black";
+      contextRef.current.strokeStyle = strokeStyle;
       contextRef.current.lineWidth = 5;
     }
 
@@ -136,6 +138,8 @@ const useCanvas = () => {
     getImageUrl,
     isDrawingDisabled,
     setIsDrawingDisabled,
+    strokeStyle,
+    setStrokeStyle,
   };
 };
 

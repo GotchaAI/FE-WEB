@@ -1,21 +1,11 @@
 .friend-list {
   padding: 0;
-  width: 118px;
-  height: 100%;
+  width: 117px;
+  height: 265px;
   list-style: none;
   overflow: auto;
   overflow-x: hidden;
   z-index: 2;
-
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #fbffec;
-    border-radius: 4px;
-    min-height: 60px;
-  }
 
   .friend-item {
     position: relative;
@@ -27,8 +17,12 @@
     padding: 0;
     background-color: white;
 
-    border: 1px solid;
-    margin-bottom: -1px; // 중복 테두리 제거를 위한 처리
+    border: 1px solid black;
+    border-bottom: none;
+
+    &:last-child {
+      border-bottom: 1px solid black;
+    }
 
     font-size: 12px;
     line-height: 22px;

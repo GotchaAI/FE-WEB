@@ -1,20 +1,18 @@
 .friend-search-list-container {
   position: relative;
 
-  width: 121px;
-  max-height: 245px;
+  width: 117px;
+  height: 245px;
 
   overflow-y: auto;
   top: 13px;
 
   .friend-search-list {
     width: 110px;
-    max-height: 221px;
+    height: auto;
 
     padding: 0;
     margin: 0;
-
-    //box-sizing: content-box;
 
     .friend-search-item {
       display: flex;

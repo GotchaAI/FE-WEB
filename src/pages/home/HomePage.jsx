@@ -11,7 +11,7 @@ const HomePage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
+  console.log("hi");
   return (
     <div className="home-page-container">
       <ScrollToTop />

@@ -15,7 +15,7 @@ const Profile = () => {
         />
         <span className="exp-text">
           EXP.{experience.expInLevel} [
-          {Math.round(experience.expProgress * 100)}%]
+          {(experience.expProgress * 100).toFixed(1)}%]
         </span>
       </div>
       <div className="profile-user-info-container">

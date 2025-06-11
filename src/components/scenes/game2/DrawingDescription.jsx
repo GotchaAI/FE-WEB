@@ -1,6 +1,9 @@
 import art_table from "assets/components/scenes/game2/art-table.png";
-import midae_rabbit from "assets/components/scenes/game2/midae-rabbit5.png";
+import midae_rabbit5 from "assets/components/scenes/game2/midae-rabbit5.png";
+import midae_rabbit3 from "assets/components/scenes/game2/midae-rabbit3.png";
+import midae_rabbit4 from "assets/components/scenes/game2/midae-rabbit4.png";
 import "styles/components/scenes/game2/DrawingDescription.scss";
+import { useState } from "react";
 
 /**
  * DrawingDescription 컴포넌트
@@ -16,13 +19,23 @@ import "styles/components/scenes/game2/DrawingDescription.scss";
  */
 
 const DrawingDescription = ({ description, onOk }) => {
+  const rabbitImages = [midae_rabbit5, midae_rabbit3, midae_rabbit4];
+  const [rabbitSrc, setRabbitSrc] = useState(rabbitImages[0]);
+
+  const rabbitClassMap = {
+    [midae_rabbit5]: "rabbit-img rabbit-5",
+    [midae_rabbit3]: "rabbit-img rabbit-3",
+    [midae_rabbit4]: "rabbit-img rabbit-4",
+  };
+
   const onCancel = () => {
-    console.log("이딴걸 그리라고?"); // 사용자의 의문 반응 시 출력 (비기능성)
+    const randomIndex = Math.floor(Math.random() * rabbitImages.length);
+    setRabbitSrc(rabbitImages[randomIndex]);
+    console.log("이딴걸 그리라고?");
   };
 
   return (
     <div className="drawing-description-container">
-      {/* 설명 박스 - 설명이 있으면 출력, 없으면 로딩 메시지 */}
       <div className="description-box-wrapper">
         <div className="description-box">
           <div className="text-content">
@@ -31,7 +44,6 @@ const DrawingDescription = ({ description, onOk }) => {
         </div>
       </div>
 
-      {/* 버튼 박스 - 설명이 있을 때만 표시 */}
       {description && (
         <div className="button-box">
           <button className="ok-btn" onClick={onOk}>
@@ -43,9 +55,12 @@ const DrawingDescription = ({ description, onOk }) => {
         </div>
       )}
 
-      {/* 배경 이미지: 아트 테이블 및 토끼 */}
       <img src={art_table} alt="Art Table" className="art-table-img" />
-      <img src={midae_rabbit} alt="Midae Rabbit" className="rabbit-img" />
+      <img
+        src={rabbitSrc}
+        alt="Midae Rabbit"
+        className={rabbitClassMap[rabbitSrc]}
+      />
     </div>
   );
 };

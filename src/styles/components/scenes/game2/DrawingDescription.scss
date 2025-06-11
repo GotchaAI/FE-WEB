@@ -54,7 +54,6 @@
 
   }
 
-
   .button-box {
     position: absolute;
     top: 361px; // 원하는 위치
@@ -101,6 +100,23 @@
     left: 75px;
     width: 290px; // 원하는 크기 지정
     height: auto;
-    z-index: 1;
+    z-index: 5;
+  }
+
+  .rabbit-5 {
+    top: 198px;
+    left: 75px;
+  }
+
+  .rabbit-3 {
+    width: 300px;
+    top: 210px;
+    left: 80px;
+  }
+
+  .rabbit-4 {
+    width: 300px;
+    top: 197px;
+    left: 80px;
   }
 }

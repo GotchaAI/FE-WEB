@@ -3,7 +3,9 @@ import rightCloudImg from "assets/components/scenes/commons/right-cloud.png";
 import aiImg from "assets/components/scenes/game1/ai.png";
 import userImg from "assets/components/scenes/game1/player.png";
 import Timer from "commons/Timer";
+import useBGM from "hooks/game/game1/useBGM";
 import useBattle from "hooks/game/game1/useBattle";
+import useEffectSound from "hooks/game/game1/useEffectSound";
 import { useEffect, useRef, useState } from "react";
 import { useToastStore } from "store/toast";
 import "styles/components/scenes/game1/BattleScene.scss";
@@ -24,9 +26,12 @@ const BattleScene = ({ roomId, drawings }) => {
   } = useBattle({ roomId });
 
   const { showToast } = useToastStore.getState();
+
   const inputRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
   const [aiSaying, setAiSaying] = useState(true);
+  useBGM("BattleScene");
+  const { playEffect } = useEffectSound();
 
   useEffect(() => {
     showToast("gamealert", "AI가 맞출 차례입니다!");
@@ -57,8 +62,13 @@ const BattleScene = ({ roomId, drawings }) => {
   useEffect(() => {
     if (guessResult === null) return;
 
-    if (guessResult) showToast("gameO");
-    else showToast("gameX");
+    if (guessResult) {
+      showToast("gameO");
+      playEffect("correct");
+    } else {
+      showToast("gameX");
+      playEffect("incorrect");
+    }
   }, [guessResult]);
 
   const handleKeyDown = (e) => {

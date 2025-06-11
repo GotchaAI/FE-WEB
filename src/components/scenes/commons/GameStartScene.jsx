@@ -1,3 +1,4 @@
+import useEffectSound from "hooks/game/game1/useEffectSound";
 import { useEffect } from "react";
 import { useToastStore } from "store/toast";
 import "styles/components/scenes/commons/GameStartScene.scss";
@@ -9,7 +10,10 @@ import "styles/components/scenes/commons/GameStartScene.scss";
  *
  */
 const GameStartScene = ({ goToNextFlow }) => {
+  const { playEffect } = useEffectSound();
+
   useEffect(() => {
+    playEffect("countdown");
     useToastStore
       .getState()
       .showToast("countdown", "AI를 속여 제시어를 그려주세요!", 3000);

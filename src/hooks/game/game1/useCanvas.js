@@ -96,6 +96,7 @@ const useCanvas = () => {
     if (!context) return;
     context.fillStyle = "white";
     context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    drawGrid(context, canvasRef.current.width, canvasRef.current.height);
   };
 
   // 캔버스 반환

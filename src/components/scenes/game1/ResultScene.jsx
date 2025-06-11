@@ -38,7 +38,7 @@ const ResultScene = ({ gameResultInfo }) => {
     // 게임 종료 api 로직
 
     // 대기방으로 이동
-    navigate(`../test?roomId=${gameResultInfo.roomId}`);
+    navigate(`../waiting?roomId=${gameResultInfo.roomId}`);
   };
 
   return (

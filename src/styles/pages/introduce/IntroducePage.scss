@@ -1,133 +1,127 @@
-body {
-    overflow-y: auto !important;
-    overflow-x: hidden;
-}
-
-::-webkit-scrollbar {
-    display: none;
-}
-
 .introduce-page-container {
-    position: relative;
-    width: 100%;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+
+  .introduce-top-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    width: 100%;
 
-    .introduce-top-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-
-        .introduce-logo {
-            width: 548px;
-            height: 208px;
-            margin: 328px 0 79px 0;
-        }
-
-        .introduce-choose-bar {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin: 0 0 107px 0;
-            padding: 0px;
-            list-style: none;
-            gap: 31px;
-
-            .introduce-choose-button {
-                width: 129px;
-                height: 58px;
-                border: none;
-                background-color: transparent;
-                font-family: 'YoonChild';
-                font-size: 24px;
-                font-weight: regular;
-
-                &.active {
-                    background-color: #89C881;
-                    border: 2px solid black;
-                    border-radius: 50%;
-                }
-            }
-        }
+    .introduce-logo {
+      width: 548px;
+      height: 208px;
+      margin: 328px 0 79px 0;
     }
 
-    .introduce-main-container {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        gap: 151px;
-        font-family: 'WalterTurncoat';
+    .introduce-choose-bar {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 0 0 107px 0;
+      padding: 0px;
+      list-style: none;
+      gap: 31px;
 
-        .introduce-character-box {
-            display: flex;
-            width: 1127px;
-            height: 453px;
-            position: relative;
-
-            &.left {
-                flex-direction: row;
-                justify-content: space-between;
-
-                .introduce-character-info {
-                    margin-left: 50px;
-                }
-                img {
-                    left: 200px;
-                }
-            }
-
-            &.right {
-                flex-direction: row-reverse;
-                justify-content: space-between;
-
-                .introduce-character-info {
-                    margin-right: 50px;
-                }
-                img {
-                    right: 200px;
-                }
-            }
-
-            svg {
-                order: 1;
-                height: auto;
-                width: auto;
-                max-width: 540px;
-                max-height: 414px;
-                z-index: 1;
-                margin-top: auto;
-            }
-
-            .introduce-character-info {
-                order: 2;
-                z-index: 2;
-                padding-top: 28px;
-                width: 482px;
-
-                h2 {
-                    font-size: 48px;
-                }
-                p {
-                    font-size: 32px;
-                }
-            }
-
-            img {
-                position: absolute;
-                max-height: 446px;
-                width: auto;
-                z-index: 0;
-            }
-        }
-    }
-
-    .coming-soon {
-        font-family: 'YoonChild';
-        font-size: 32px;
+      .introduce-choose-button {
+        width: 129px;
+        height: 58px;
+        border: none;
+        background-color: transparent;
+        font-family: "YoonChild";
+        font-size: 24px;
         font-weight: regular;
-        margin: 300px 0 300px 0;
+
+        &.active {
+          background-color: #89c881;
+          border: 2px solid black;
+          border-radius: 50%;
+        }
+      }
     }
+  }
+
+  .introduce-main-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 151px;
+    font-family: "SUIT-Regular";
+
+    .introduce-character-box {
+      display: flex;
+      width: 1127px;
+      height: 453px;
+      position: relative;
+
+      &.left {
+        flex-direction: row;
+        justify-content: space-between;
+
+        .introduce-character-info {
+          margin-left: 50px;
+        }
+        img {
+          left: 200px;
+        }
+      }
+
+      &.right {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+
+        .introduce-character-info {
+          margin-right: 50px;
+        }
+        img {
+          right: 200px;
+        }
+      }
+
+      svg {
+        order: 1;
+        height: auto;
+        width: auto;
+        max-width: 540px;
+        max-height: 414px;
+        z-index: 1;
+        margin-top: auto;
+      }
+
+      .introduce-character-info {
+        order: 2;
+        z-index: 2;
+        padding-top: 28px;
+        width: 482px;
+
+        h2 {
+          font-size: 48px;
+        }
+        p {
+          font-size: 32px;
+        }
+      }
+
+      img {
+        position: absolute;
+        max-height: 446px;
+        width: auto;
+        z-index: 0;
+      }
+    }
+  }
+
+  .coming-soon {
+    font-family: "YoonChild";
+    font-size: 32px;
+    font-weight: regular;
+    margin: 300px 0 300px 0;
+  }
 }

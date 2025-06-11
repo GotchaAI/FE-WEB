@@ -24,117 +24,121 @@ import "styles/components/auth/SignInForm.scss";
  */
 
 const SignInForm = ({ errorMessage }) => {
-	const { email, setEmail, password, setPassword, validateError, validate } =
-		useSignInForm();
-	const [emailSave, setEmailSave] = useState(false);
-	const [autoSignin, setAutoSignin] = useState(false);
+  const { email, setEmail, password, setPassword, validateError, validate } =
+    useSignInForm();
+  const [emailSave, setEmailSave] = useState(false);
+  const [autoSignin, setAutoSignin] = useState(false);
 
-	useEffect(() => {
-		const email = localStorage.getItem("savedEmail");
-		if (email) {
-			setEmailSave(true);
-			setEmail(email);
-		}
-	}, [setEmail]);
+  useEffect(() => {
+    const email = localStorage.getItem("savedEmail");
+    if (email) {
+      setEmailSave(true);
+      setEmail(email);
+    }
+  }, [setEmail]);
 
-	// 아이디 저장 핸들러
-	const emailSaveHandler = (e) => {
-		setEmailSave(e.target.checked);
-	};
+  // 아이디 저장 핸들러
+  const emailSaveHandler = (e) => {
+    setEmailSave(e.target.checked);
+  };
 
-	// 자동 로그인 핸들러
-	const autoSigninHandler = (e) => {
-		setAutoSignin(e.target.checked);
-	};
+  // 자동 로그인 핸들러
+  const autoSigninHandler = (e) => {
+    setAutoSignin(e.target.checked);
+  };
 
-	// 로그인 제출 전 로직
-	const submitHandler = (e) => {
-		if (!validate()) {
-			e.preventDefault();
-			return;
-		}
+  // 로그인 제출 전 로직
+  const submitHandler = (e) => {
+    const submitter = e.nativeEvent.submitter;
+    const signInType = submitter?.value;
 
-		if (emailSave) {
-			localStorage.setItem("savedEmail", email);
-		} else {
-			localStorage.removeItem("savedEmail");
-		}
-	};
+    // 유저 로그인만 검사
+    if (signInType === "user" && !validate()) {
+      e.preventDefault();
+      return;
+    }
 
-	return (
-		<Form
-			className="sign-in-form-container"
-			method="post"
-			onSubmit={submitHandler}
-		>
-			<div className="sign-in-form">
-				<input
-					className="email-form"
-					placeholder="Email"
-					name="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-				/>
-				<input
-					className="password-form"
-					type="password"
-					placeholder="Password"
-					name="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-				/>
-			</div>
+    if (emailSave) {
+      localStorage.setItem("savedEmail", email);
+    } else {
+      localStorage.removeItem("savedEmail");
+    }
+  };
 
-			{errorMessage && (
-				<span className="sign-in-error-message">{errorMessage}</span>
-			)}
+  return (
+    <Form
+      className="sign-in-form-container"
+      method="post"
+      onSubmit={submitHandler}
+    >
+      <div className="sign-in-form">
+        <input
+          className="email-form"
+          placeholder="Email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          className="password-form"
+          type="password"
+          placeholder="Password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
 
-			{validateError && (
-				<span className="sign-in-error-message">{validateError}</span>
-			)}
+      {errorMessage && (
+        <span className="sign-in-error-message">{errorMessage}</span>
+      )}
 
-			<div className="sign-in-option-container">
-				<div className="email-save-container">
-					<input
-						type="checkbox"
-						id="save-id-btn"
-						checked={emailSave}
-						onChange={emailSaveHandler}
-						className={`email-save-btn ${emailSave ? "active" : ""}`}
-					/>
-					<label htmlFor="save-id-btn">아이디 저장</label>
-				</div>
-				<div className="auto-sign-in-container">
-					<input
-						type="checkbox"
-						id="auto-sign-in-btn"
-						onChange={autoSigninHandler}
-						className={`auto-sign-in-btn ${autoSignin ? "active" : ""}`}
-					/>
-					<label htmlFor="auto-sign-in-btn">자동로그인</label>
-				</div>
-			</div>
+      {validateError && (
+        <span className="sign-in-error-message">{validateError}</span>
+      )}
 
-			<button
-				type="submit"
-				className="sign-in-btn"
-				name="sign-in-type"
-				value="user"
-			>
-				로그인
-			</button>
-			<button
-				type="submit"
-				className="guest-sign-in-btn"
-				name="sign-in-type"
-				value="guest"
-			>
-				게스트 로그인
-			</button>
+      <div className="sign-in-option-container">
+        <div className="email-save-container">
+          <input
+            type="checkbox"
+            id="save-id-btn"
+            checked={emailSave}
+            onChange={emailSaveHandler}
+            className={`email-save-btn ${emailSave ? "active" : ""}`}
+          />
+          <label htmlFor="save-id-btn">아이디 저장</label>
+        </div>
+        <div className="auto-sign-in-container">
+          <input
+            type="checkbox"
+            id="auto-sign-in-btn"
+            onChange={autoSigninHandler}
+            className={`auto-sign-in-btn ${autoSignin ? "active" : ""}`}
+          />
+          <label htmlFor="auto-sign-in-btn">자동로그인</label>
+        </div>
+      </div>
 
-			<input type="hidden" name="autoSignin" value={autoSignin} />
-		</Form>
-	);
+      <button
+        type="submit"
+        className="sign-in-btn"
+        name="sign-in-type"
+        value="user"
+      >
+        로그인
+      </button>
+      <button
+        type="submit"
+        className="guest-sign-in-btn"
+        name="sign-in-type"
+        value="guest"
+      >
+        게스트 로그인
+      </button>
+
+      <input type="hidden" name="autoSignin" value={autoSignin} />
+    </Form>
+  );
 };
 
 export default SignInForm;

@@ -8,8 +8,8 @@ import {
 } from "constants/url";
 import { Link } from "react-router-dom";
 import logo from "assets/commons/home-logo.png";
-import Profile from "pages/home/Profile";
 import "styles/components/home/HomeHeader.scss";
+import Profile from "components/home/Profile";
 
 export const HomeHeader = ({ isSignIn }) => {
   return (

@@ -32,7 +32,6 @@ const useCanvas = () => {
     // 흰색 배경 초기화
     context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
-    drawGrid(context, canvas.width, canvas.height);
     contextRef.current = context;
   }, []);
 
@@ -56,25 +55,6 @@ const useCanvas = () => {
 
     contextRef.current.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     contextRef.current.stroke();
-  };
-
-  const drawGrid = (ctx, width, height, gridSize = 13.78) => {
-    ctx.strokeStyle = "#EFEFEF"; // 격자 선 색
-    ctx.lineWidth = 0.57;
-
-    for (let x = 0; x <= width; x += gridSize) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, height);
-      ctx.stroke();
-    }
-
-    for (let y = 0; y <= height; y += gridSize) {
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(width, y);
-      ctx.stroke();
-    }
   };
 
   const stopDrawing = () => {

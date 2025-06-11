@@ -27,9 +27,11 @@ const rankingData = [
 const Home = () => {
   const navigate = useNavigate();
   const { isSignIn } = useOutletContext();
-
   const handleStartBtn = async () => {
-    if (isSignIn) navigate(LOBBY_URL);
+    if (isSignIn) {
+      navigate(LOBBY_URL);
+      return;
+    }
 
     try {
       const res = await guestSignInAPI();

@@ -4,6 +4,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 dotenv.config();
 
@@ -83,6 +84,19 @@ module.exports = {
       manifest: "./public/manifest.json",
     }),
   ],
+  optimization: {
+    minimize: true, // 최소화는 그대로 진행
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: false, // ✅ console.log 제거하지 않도록 고정
+          },
+        },
+        extractComments: false, // 주석도 제거 안 함 (선택사항)
+      }),
+    ],
+  },
   devServer: {
     static: "./dist",
     port: 3000,

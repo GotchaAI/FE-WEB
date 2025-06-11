@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "webpack serve --open",
-    "build": "webpack --mode production",
+    "build": "webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -1,41 +1,65 @@
-import { useEffect, useState, useCallback } from "react";
 import { SOCKET_ROOM_LIST_EVENT } from "constants/api";
-import { useGameSocketStore } from "store/socket";
+import { useCallback, useEffect, useState } from "react";
 import { getRoomListAPI } from "services/lobby/lobby";
+import { useGameSocketStore } from "store/socket";
 
-export const useRoomList = (initialGameType = "TRICK_MYOMYO", initialDifficulty = "BASIC") => {
+export const useRoomList = (
+  initialGameType = "TRICK_MYOMYO",
+  initialDifficulty = "BASIC"
+) => {
   const { stompClient, isConnected } = useGameSocketStore();
   const [roomList, setRoomList] = useState([]);
   const [selectedLevel, setSelectedLevel] = useState(initialDifficulty);
 
-  const mapRoomData = useCallback((data) => ({
-    gameType: initialGameType,
-    roomId: data.roomId?.toString(),
-    title: data.title,
-    owner: data.owner,
-    hasPassword: data.hasPassword,
-    maxUser: data.maxUser,
-    currentUser: data.currentUser,
-  }), [initialGameType]);
+  const mapRoomData = useCallback(
+    (data) => ({
+      gameType: initialGameType,
+      roomId: data.roomId?.toString(),
+      difficulty: data.difficulty,
+      title: data.title,
+      owner: data.owner,
+      hasPassword: data.hasPassword,
+      maxUser: data.maxUser,
+      currentUser: data.currentUser,
+    }),
+    [initialGameType]
+  );
 
-  const handleRoomEvent = useCallback((payload) => {
-    const { type, data } = payload;
-    console.log("소켓 방 이벤트:", type, data);
+  const handleRoomEvent = useCallback(
+    (payload) => {
+      const { type, data } = payload;
+      console.log("소켓 방 이벤트:", type, data);
 
-    if (type === "CREATE") {
-      setRoomList((prev) => [...prev, mapRoomData(data)]);
-    } else if (type === "UPDATE") {
-      setRoomList((prev) =>
-        prev.map((room) =>
-          room.roomId === data.roomId?.toString() ? mapRoomData(data) : room
-        )
-      );
-    } else if (type === "DELETE") {
-      setRoomList((prev) =>
-        prev.filter((room) => room.roomId !== data.roomId?.toString())
-      );
-    }
-  }, [mapRoomData]);
+      if (type === "CREATE") {
+        setRoomList((prev) => [...prev, mapRoomData(data)]);
+      } else if (type === "UPDATE") {
+        setRoomList((prev) => {
+          const updatedRoomId = data.roomId;
+          const exists = prev.some((room) => room.roomId === updatedRoomId);
+
+          // 없으면 걍 추가
+          if (!exists) {
+            return [...prev, mapRoomData(data)];
+          }
+
+          // 있는데 단이도가 바뀌면 삭제
+          if (data.difficulty !== selectedLevel) {
+            return prev.filter((room) => room.roomId !== updatedRoomId);
+          }
+
+          // 걍 방정보만 변경
+          return prev.map((room) =>
+            room.roomId === updatedRoomId ? mapRoomData(data) : room
+          );
+        });
+      } else if (type === "DELETE") {
+        setRoomList((prev) =>
+          prev.filter((room) => room.roomId !== data.roomId?.toString())
+        );
+      }
+    },
+    [mapRoomData]
+  );
 
   // ⭐ 소켓 구독
   useEffect(() => {
@@ -61,7 +85,7 @@ export const useRoomList = (initialGameType = "TRICK_MYOMYO", initialDifficulty 
   // ⭐ level 변경 시 자동 방목록 조회
   useEffect(() => {
     const fetchRooms = async () => {
-      const params = { gameType: initialGameType, difficulty: selectedLevel }
+      const params = { gameType: initialGameType, difficulty: selectedLevel };
       try {
         const response = await getRoomListAPI(params);
         setRoomList(

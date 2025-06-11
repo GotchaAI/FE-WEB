@@ -1,5 +1,6 @@
 import React from "react";
 import "styles/components/lobby/ChatMessage.scss";
+import { getUserName } from "utils/user";
 
 /**
  * 로비 채팅 메시지 컴포넌트
@@ -16,10 +17,10 @@ import "styles/components/lobby/ChatMessage.scss";
  * - 귓속말 처리: 귓속말 메시지의 경우 '@'로 시작하는 닉네임을 강조 표시
  * - 일반채팅 처리: 일반채팅 메시지는 별도의 스타일 없이 텍스트만 표시
  */
-const ChatMessage = ({ msg, myNickname }) => {
-  const role = msg.sender === myNickname ? "mine" : "theirs";
+const ChatMessage = ({ msg }) => {
+  if (!msg.text || !msg.sender) return null;
+  const role = msg.sender === getUserName() ? "mine" : "theirs";
   const mode = msg.type === "일반채팅" ? "" : "whisper";
-
   const renderFormattedMessage = () => {
     if (msg.type === "귓속말" && msg.text.startsWith("@")) {
       const match = msg.text.match(/^(@\S+)(\s*)([\s\S]*)$/);

@@ -39,11 +39,6 @@ const useGame2 = ({ gameId }) => {
     setSceneIdx((prev) => prev + 1);
   }, []);
 
-  // 게임 초기화 (씬 인덱스를 0으로)
-  const resetGame = useCallback(() => {
-    setSceneIdx(0);
-  }, []);
-
   // 게임 시작 시 키워드 + 상황 설명 요청
   const fetchPrompt = useCallback(async () => {
     if (!gameId) return;
@@ -89,7 +84,6 @@ const useGame2 = ({ gameId }) => {
     gameData,
     setGameData,
     goToNextScene,
-    resetGame,
     fetchPrompt,
     handleSubmitDrawing,
   };

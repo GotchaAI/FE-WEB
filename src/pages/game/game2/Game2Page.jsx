@@ -36,7 +36,6 @@ const Game2Page = () => {
     sceneIdx,
     gameData,
     goToNextScene,
-    resetGame,
     fetchPrompt,
     handleSubmitDrawing,
   } = useGame2({ gameId });
@@ -44,10 +43,6 @@ const Game2Page = () => {
   useEffect(() => {
     fetchPrompt(); // 게임 시작 시 제시어 요청
   }, [fetchPrompt]);
-
-  useEffect(() => {
-    resetGame(); // 씬 인덱스 초기화
-  }, [resetGame]);
 
   const scenes = useMemo(
     () => [

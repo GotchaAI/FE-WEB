@@ -40,12 +40,13 @@ const PaletteTools = ({ onSelectColor }) => {
 
   return (
     <div className="palette-tools-container">
-      {PALETTE_COLORS.map((color, index) => (
+      {PALETTE_COLORS.map((color) => (
         <button
-          key={index}
+          key={color}
           type="button"
-          className={`palette-color ${activeColor === color ? "active" : ""}`}
-          style={{ backgroundColor: color }}
+          className={`palette-color color-${color.slice(1)} ${
+            activeColor === color ? "active" : ""
+          }`}
           onClick={() => handleColorClick(color)}
         />
       ))}

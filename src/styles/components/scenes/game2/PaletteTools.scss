@@ -2,24 +2,64 @@
   width: 69px;
   height: 196px;
   display: grid;
-  grid-template-columns: repeat(2, 29.6px); // 2열, 버튼 크기
+  grid-template-columns: repeat(2, 29.6px);
   grid-gap: 12px;
   position: absolute;
   right: 90px;
-  top: 153px; // 원하는 위치 (조절 가능)
+  top: 153px;
 
   .palette-color {
     width: 29.6px;
     height: 29.6px;
     border-radius: 50%;
     border: 1px solid black;
-
     cursor: pointer;
     transition: transform 0.2s ease, border-color 0.2s ease;
 
     &.active {
       transform: scale(1.15);
       border-color: #FFCC00;
+    }
+
+    // 개별 색상 클래스 정의
+    &.color-FFC466 {
+      background-color: #FFC466;
+    }
+
+    &.color-F6AA31 {
+      background-color: #F6AA31;
+    }
+
+    &.color-F2810F {
+      background-color: #F2810F;
+    }
+
+    &.color-7E5614 {
+      background-color: #7E5614;
+    }
+
+    &.color-FBFFEC {
+      background-color: #FBFFEC;
+    }
+
+    &.color-E9FF9F {
+      background-color: #E9FF9F;
+    }
+
+    &.color-AAE8FF {
+      background-color: #AAE8FF;
+    }
+
+    &.color-89C881 {
+      background-color: #89C881;
+    }
+
+    &.color-FFFFFF {
+      background-color: #FFFFFF;
+    }
+
+    &.color-000000 {
+      background-color: #000000;
     }
   }
 }

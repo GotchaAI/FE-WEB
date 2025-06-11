@@ -20,7 +20,7 @@ export default LobbyLayout;
 
 export const loader = async () => {
   const { accessToken, setAccessToken } = getAuthToken();
-
+  console.log("at없음1", accessToken);
   if (!accessToken) {
     // 토큰 재발급
     try {

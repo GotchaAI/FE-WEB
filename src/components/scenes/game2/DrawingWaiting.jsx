@@ -1,3 +1,4 @@
+import useEffectSound2 from "hooks/game/game2/useEffectSound2";
 import { useEffect } from "react";
 import { useToastStore } from "store/toast";
 import "styles/components/scenes/game2/DrawingWaiting.scss";
@@ -6,7 +7,7 @@ import "styles/components/scenes/game2/DrawingWaiting.scss";
  * DrawingWaiting 컴포넌트
  *
  * 그림 제출 이후 AI 평가가 진행되는 동안 사용자에게 "대기 중"임을 표시하는 컴포넌트입니다.
- * - 자동으로 일정 시간 후 (`10초`) 평가 완료 상태로 전환됩니다.
+ * - 자동으로 일정 시간 후 (`9초`) 평가 완료 상태로 전환됩니다.
  * - 해당 시간 동안 토스트 메시지를 표시하여 기다리는 상황을 사용자에게 전달합니다.
  *
  * Props:
@@ -17,14 +18,16 @@ import "styles/components/scenes/game2/DrawingWaiting.scss";
  */
 
 const DrawingWaiting = ({ onDone }) => {
+  const { playEffect } = useEffectSound2();
   useEffect(() => {
+    playEffect("pray");
     // 1. 'praywaiting' 타입의 토스트 메시지를 10초 동안 화면에 표시
-    useToastStore.getState().showToast("praywaiting", "", 10000);
+    useToastStore.getState().showToast("praywaiting", "", 9000);
 
-    // 2. 10초 후 자동으로 평가 완료 처리
+    // 2. 9초 후 자동으로 평가 완료 처리
     const timer = setTimeout(() => {
       onDone();
-    }, 10000);
+    }, 9000);
 
     // 컴포넌트 언마운트 시 타이머 정리
     return () => clearTimeout(timer);

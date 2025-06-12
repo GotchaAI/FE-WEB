@@ -43,6 +43,9 @@ const Friend = ({ userUuid, setWhisperNickname }) => {
           onClick={() => setFriendActionType("request")}
         >
           친구 신청
+          {friendRequestList.length > 0 && (
+            <span className="notification-dot" />
+          )}
         </button>
       </div>
 

@@ -53,13 +53,25 @@
       font-weight: 400;
       white-space: nowrap;
       background-color: #f2f3f6;
+
       &.active {
         background-color: #d3f16f;
       }
     }
 
     .friend-request-btn {
+      position: relative;
       border-left: none;
+
+      .notification-dot {
+        position: absolute;
+        top: 4px;
+        right: 6px;
+        width: 4px;
+        height: 4px;
+        background-color: red;
+        border-radius: 50%;
+      }
     }
   }
 

@@ -11,11 +11,12 @@
   justify-content: center;
 
   z-index: 100;
+  font-family: "YoonChild-ManSeh";
 
   pointer-events: none;
 }
 
-.toast-backdrop-none>* {
+.toast-backdrop-none > * {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -34,7 +35,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  font-family: "YoonChild-ManSeh";
   z-index: 100;
 
   // pointer-events: none;

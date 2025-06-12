@@ -21,7 +21,7 @@ const LobbyPage = () => {
   const userUuid = getUserUuid();
   const [whisperNickname, setWhisperNickname] = useState("");
 
-  useBGM3("LobbyBGM");
+  useBGM3("LobbyBGM", 0.5);
 
   const reconnect = async () => {
     try {

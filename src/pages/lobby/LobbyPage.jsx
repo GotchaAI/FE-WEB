@@ -7,6 +7,7 @@ import {
   GAME2_ROBBY_URL,
   WAITING_ROOM_URL,
 } from "constants/url";
+import useBGM3 from "hooks/lobby/useBGM3";
 import { useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { reconnectAPI } from "services/lobby/lobby";
@@ -19,6 +20,8 @@ const LobbyPage = () => {
   const navType = location.pathname.includes("/game2") ? "game2" : "game1";
   const userUuid = getUserUuid();
   const [whisperNickname, setWhisperNickname] = useState("");
+
+  useBGM3("LobbyBGM", 0.5);
 
   const reconnect = async () => {
     try {

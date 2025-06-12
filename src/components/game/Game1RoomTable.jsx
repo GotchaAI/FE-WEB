@@ -15,7 +15,7 @@ const RoomTable = ({ rooms, onClickRow }) => {
           <th></th>
           <th>모드</th>
           <th>모집자</th>
-          <th>소개말</th>
+          <th>방제목</th>
           <th>코드</th>
           <th>인원</th>
         </tr>
@@ -33,7 +33,11 @@ const RoomTable = ({ rooms, onClickRow }) => {
               <td>{room.hasPassword && <LockedIcon />}</td>
               <td>{getModeName(room.gameType)}</td>
               <td>{room.owner}</td>
-              <td>{room.title}</td>
+              <td>
+                {room.title.length > 24
+                  ? `${room.title.slice(0, 24)}`
+                  : room.title}
+              </td>
               <td>#{room.roomId}</td>
               <td>
                 {room.currentUser}/{room.maxUser}

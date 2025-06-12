@@ -3,6 +3,7 @@ import art_table from "assets/components/scenes/game2/art-table.png";
 import midae_rabbit from "assets/components/scenes/game2/midae-rabbit0.png";
 import { useToastStore } from "store/toast";
 import "styles/components/scenes/game2/Game2Opening.scss";
+import useEffectSound2 from "hooks/game/game2/useEffectSound2";
 
 /**
  * Game2Opening:
@@ -10,15 +11,17 @@ import "styles/components/scenes/game2/Game2Opening.scss";
  * - 일정시간 후 자동으로 다음 씬으로 전환
  */
 const Game2Opening = ({ onNext }) => {
+  const { playEffect } = useEffectSound2();
   useEffect(() => {
+    playEffect("opening");
     // 토스트 표시
     useToastStore
       .getState()
-      .showToast("gamealert", "AI를 속여 제시어를 그려주세요!", 5000);
+      .showToast("gamealert", "루루가 원하는 것을 그려주세요!", 3000);
 
     setTimeout(() => {
       onNext(); // 자동 이동
-    }, 5000); // 토스트 끝나자마자 살짝 여유 주기
+    }, 3000); // 토스트 끝나자마자 살짝 여유 주기
   }, [onNext]);
 
   return (

@@ -22,11 +22,21 @@
     height: 262px;
 
     .room-table {
+      position: relative;
       width: 100%;
       border-collapse: collapse;
+      table-layout: fixed; // 열 너비 고정
       font-family: SUIT-Regular;
       font-size: 12px;
 
+      .empty-room-cell {
+        padding-top: 60px;
+        border-bottom: none;
+        cursor: default;
+        pointer-events: none;
+      }
+
+      // 열 고정 너비
       th,
       td {
         height: 39px;
@@ -34,23 +44,48 @@
         text-align: left;
         vertical-align: middle;
         cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
-      td:first-child {
-        padding-left: 12px;
+      th:nth-child(1),
+      td:nth-child(1) {
+        text-indent: 15px;
+        width: 40px; // 🔒 아이콘
       }
 
-      td:last-child {
-        padding-right: 12px;
+      th:nth-child(2),
+      td:nth-child(2) {
+        width: 70px; // 모드
+      }
+
+      th:nth-child(3),
+      td:nth-child(3) {
+        width: 64px; // 모집자
+      }
+
+      th:nth-child(4),
+      td:nth-child(4) {
+        width: 220px; // 소개말
+      }
+
+      th:nth-child(5),
+      td:nth-child(5) {
+        width: 50px; // 코드
+      }
+
+      th:nth-child(6),
+      td:nth-child(6) {
+        width: 40px; // 인원
       }
 
       thead {
-        background-color: #F2F3F6;
+        background-color: #f2f3f6;
 
         th {
           height: 21px;
           border-top: 1px solid black;
-
           font-size: 12px;
           color: #999999;
           font-weight: normal;
@@ -59,10 +94,14 @@
 
       tbody tr:hover {
         background-color: #f1f1f1;
+
+        &.empty-row:hover {
+          background-color: transparent;
+          cursor: default;
+        }
       }
     }
   }
-
 
   .page-and-btn {
     display: flex;

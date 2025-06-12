@@ -1,6 +1,7 @@
-import intro_msg from "assets/intro-msg.png";
-import rabbitBot from "assets/rabbit-bot.png";
-import rabbit from "assets/rabbit-hand-up.png";
+import intro_msg from "assets/components/home/intro-msg.png";
+import rabbitBot from "assets/components/home/myoumyo-grass-background.png";
+import rabbit from "assets/components/home/rabbit-hand-up.png";
+import sketch from "assets/components/home/home-sketch-book.png";
 import StartButton from "commons/svgs/StartButton";
 import { InformationContainer } from "components/home/InformationContainer";
 import IntroduceCharacterPreview from "components/home/IntroduceCharacterPreview";
@@ -78,9 +79,12 @@ const Home = () => {
             alt="공원 위 토끼 봇"
             className="right-background-img"
           />
-          <img src={intro_msg} alt="게임 소개 글" className="intro-msg-img" />
         </div>
-        <StartButton onClick={handleStartBtn} />
+        <div className="start-container">
+          <img src={sketch} alt="시작 버튼 배경" className="start-background" />
+          <img src={intro_msg} alt="게임 소개 글" className="intro-msg-img" />
+          <StartButton onClick={handleStartBtn} />
+        </div>
       </div>
 
       <div className="home-middle-container">

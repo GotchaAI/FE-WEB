@@ -12,6 +12,10 @@
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
 
+  * {
+    font-family: "SUIT";
+  }
+
   h1 {
     position: relative;
 
@@ -51,11 +55,14 @@
       border: 1px solid black;
       font-size: 12px;
       font-weight: 400;
+      font-family: "YoonChild";
       white-space: nowrap;
       background-color: #f2f3f6;
+      color: #999;
 
       &.active {
         background-color: #d3f16f;
+        color: #000;
       }
     }
 

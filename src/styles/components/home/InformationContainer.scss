@@ -10,7 +10,7 @@
     display: flex;
     left: -400px;
     gap: 13px;
-    font-family: 'SUIT-Regular';
+    font-family: "SUIT-Regular";
     font-weight: 1000;
     font-size: 36px;
 
@@ -21,9 +21,9 @@
       border: none;
       border-top-left-radius: 12px;
       border-top-right-radius: 12px;
-      border-top: 2px solid;
-      border-left: 2px solid;
-      border-right: 2px solid;
+      border-top: 3px solid;
+      border-left: 3px solid;
+      border-right: 3px solid;
       background-color: #f2f3f6;
       padding: 10px;
       text-decoration: none;
@@ -32,7 +32,7 @@
       justify-content: center;
       align-items: center;
       font-size: 36px;
-      font-weight: 1000;
+      font-weight: 800;
 
       &.active {
         background-color: white;
@@ -99,11 +99,11 @@
       }
 
       .answer-wait {
-        color: #F28110;
+        color: #f28110;
       }
 
       .answer-done {
-        color: #2286FF;
+        color: #2286ff;
       }
     }
   }

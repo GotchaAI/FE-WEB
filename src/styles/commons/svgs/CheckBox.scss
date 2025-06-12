@@ -39,7 +39,7 @@
     }
   }
 
-  input[type="checkbox"]:checked+.custom-checkbox {
+  input[type="checkbox"]:checked + .custom-checkbox {
     border-color: #000;
 
     .check-icon {
@@ -49,13 +49,12 @@
 
   .checkbox-label {
     font-size: 12px;
+    font-family: "SUIT-Regular";
   }
 
-  input[type="checkbox"]:focus+.custom-checkbox {
+  input[type="checkbox"]:focus + .custom-checkbox {
     border: 2px solid black;
   }
-
-
 }
 
 .custom-checkbox-wrapper.disabled {

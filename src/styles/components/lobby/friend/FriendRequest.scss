@@ -30,23 +30,23 @@
   .close-add-btn {
     width: 111px;
     height: 25px;
-    background-color: #ffc466;
 
-    border: 1px solid black;
-    border-bottom: none;
+    border: none;
 
     button {
       position: absolute;
-      right: 18px;
-      top: 5px;
-      background: none;
-      border: none;
-      width: 9.5px;
-      height: 9.5px;
-
+      right: 10px;
+      background-color: #ffc466;
+      border: 1px solid black;
+      width: 31px;
+      height: 25px;
+      border-bottom: none;
       svg {
         width: 9.5px;
         height: 9.5px;
+        path {
+          stroke-width: 10px;
+        }
       }
     }
   }

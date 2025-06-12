@@ -5,22 +5,23 @@
   height: 559px;
   border-radius: 12px;
   border: 2px solid black;
-  background-color: #F4EC6F;
+  background-color: #f4ec6f;
   padding: 45px 73px 0 73px;
 
-  .character-introduce-header{
+  .character-introduce-header {
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    
+
     h2 {
-        font-size: 36px;
-        font-family: 'YoonChild';
+      font-size: 36px;
+      font-weight: 400;
+      font-family: "YoonChild";
     }
   }
-  .character-introduce-main-header{
+  .character-introduce-main-header {
     display: flex;
     align-items: center;
     justify-self: center;
@@ -61,8 +62,8 @@
       width: 500px;
       height: 64px;
       padding: 17px 34px 17px 34px;
-      gap:34px;
-      font-family: 'SUIT-Regular';
+      gap: 34px;
+      font-family: "SUIT-Regular";
 
       h2 {
         font-size: 16px;
@@ -73,5 +74,5 @@
         font-size: 24px;
       }
     }
-  } 
+  }
 }

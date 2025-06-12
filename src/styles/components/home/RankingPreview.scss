@@ -6,21 +6,22 @@
   height: 559px;
   border-radius: 12px;
   border: 2px solid black;
-  background-color: #FBFFEC;
+  background-color: #fbffec;
   padding: 45px 73px 0 73px;
 
   h2 {
     font-size: 36px;
-    font-family: 'YoonChild';
+    font-weight: 400;
+    font-family: "YoonChild";
   }
 
   .ranking-list {
     margin: 0;
     padding: 0;
     list-style: none;
-    font-family: 'SUIT-regular';
+    font-family: "SUIT-regular";
     font-size: 32px;
-    p{
+    p {
       display: flex;
       align-items: center;
       justify-self: center;
@@ -59,7 +60,7 @@
     .my-score-dots {
       flex: 1;
       height: 1px;
-      border-bottom: 6px dashed #F6AA30;
+      border-bottom: 6px dashed #f6aa30;
       margin: 0 8px;
       transform: translateY(22px);
     }
@@ -71,7 +72,7 @@
     .my-score-background {
       display: inline-flex;
       align-items: center;
-      background-color: #F6D74E;
+      background-color: #f6d74e;
       margin: 0px;
       top: 11px;
       position: relative;
@@ -82,7 +83,7 @@
     .my-score-edge {
       width: 9px;
       height: 100%;
-      background-color: #EABC44;
+      background-color: #eabc44;
       margin-right: 8px;
       flex-shrink: 0;
     }

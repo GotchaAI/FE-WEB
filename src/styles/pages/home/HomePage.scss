@@ -1,13 +1,9 @@
-body{
-  overflow-x: hidden;
-  overflow-y: auto;
-}
 .home-page-container {
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  height: auto;
   background-color: white;
 }

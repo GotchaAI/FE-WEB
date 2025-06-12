@@ -8,6 +8,7 @@ import PaletteTools from "./PaletteTools";
 import "styles/components/scenes/game2/Game2DrawScene.scss";
 import useGame2Draw from "hooks/game/game2/useGame2Draw";
 import { useModalStore } from "store/modal";
+import useBGM from "hooks/game/game1/useBGM";
 
 /**
  * Game2DrawScene 컴포넌트
@@ -37,7 +38,6 @@ const Game2DrawScene = ({ gameData, onSubmit, onNext }) => {
     toggleEraser,
     handleClearCanvas,
     getImageUrl,
-    strokeStyle,
     setStrokeStyle,
     isDrawingDisabled,
     setIsDrawingDisabled,
@@ -50,6 +50,8 @@ const Game2DrawScene = ({ gameData, onSubmit, onNext }) => {
     getImageUrl,
     onSubmit,
   });
+
+  useBGM("DrawScene");
 
   // 타이머 종료 시점 (60초 후)
   const [localEndTime, setLocalEndTime] = useState(null);

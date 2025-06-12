@@ -22,10 +22,20 @@
     height: 262px;
 
     .room-table {
+      position: relative;
       width: 100%;
       border-collapse: collapse;
       font-family: SUIT-Regular;
       font-size: 12px;
+
+      .empty-room-cell {
+        padding-top: 60px;
+        border-bottom: none;
+
+        cursor: default;
+        pointer-events: none;
+      }
+
 
       th,
       td {
@@ -59,6 +69,11 @@
 
       tbody tr:hover {
         background-color: #f1f1f1;
+
+        &.empty-row:hover {
+          background-color: transparent;
+          cursor: default;
+        }
       }
     }
   }

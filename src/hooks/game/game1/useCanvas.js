@@ -19,7 +19,7 @@ const useCanvas = () => {
     canvas.width = 1312;
     canvas.height = 762;
     canvas.style.width = "656px";
-    canvas.style.height = "376px";
+    canvas.style.height = "381px";
 
     const context = canvas.getContext("2d");
     context.scale(2, 2);

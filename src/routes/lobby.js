@@ -1,14 +1,13 @@
-import { loader as lobbyLayoutLoader } from "pages/lobby/LobbyLayout";
-import { lazy } from "react";
-
-const LobbyLayout = lazy(() => import("pages/lobby/LobbyLayout"));
-const LobbyPage = lazy(() => import("pages/lobby/LobbyPage"));
-const Game1LobbyPage = lazy(() => import("pages/game/Game1LobbyPage"));
-const Game1CreatePage = lazy(() => import("pages/game/Game1CreatePage"));
-const Game2LobbyPage = lazy(() => import("pages/game/Game2LobbyPage"));
-const WaitingRoom = lazy(() => import("components/lobby/waiting/WaitingRoom"));
-const Game1Page = lazy(() => import("pages/game/game1/Game1Page"));
-const Game2Page = lazy(() => import("pages/game/game2/Game2Page"));
+import WaitingRoom from "components/lobby/waiting/WaitingRoom";
+import LazyGame1Page from "pages/game/game1/LazyGame1Page";
+import Game1CreatePage from "pages/game/Game1CreatePage";
+import Game1LobbyPage from "pages/game/Game1LobbyPage";
+import LazyGame2Page from "pages/game/game2/LazyGame2Page";
+import Game2LobbyPage from "pages/game/Game2LobbyPage";
+import LobbyLayout, {
+  loader as lobbyLayoutLoader,
+} from "pages/lobby/LobbyLayout";
+import LobbyPage from "pages/lobby/LobbyPage";
 
 const lobby = [
   {
@@ -54,11 +53,11 @@ const lobby = [
       },
       {
         path: "play",
-        element: <Game1Page />,
+        element: <LazyGame1Page />,
       },
       {
         path: "play2",
-        element: <Game2Page />,
+        element: <LazyGame2Page />,
       },
     ],
   },

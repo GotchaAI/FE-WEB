@@ -1,11 +1,11 @@
-import { MYPAGE_URL } from "constants/url";
+import { MY_PAGE_URL } from "constants/url";
 import { Link } from "react-router-dom";
 
 import "styles/commons/options/OptionBtn.scss";
 
-const Mypage = ({ onClick }) => {
+const Mypage = () => {
   return (
-    <Link to={MYPAGE_URL} className="option-btn">
+    <Link to={MY_PAGE_URL} className="option-btn">
       <svg
         width="28"
         height="28"

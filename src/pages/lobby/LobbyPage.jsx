@@ -17,6 +17,7 @@ import { getUserUuid } from "utils/user";
 const LobbyPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [contentMode, setContentMode] = useState("game");
   const navType = location.pathname.includes("/game2") ? "game2" : "game1";
   const userUuid = getUserUuid();
   const [whisperNickname, setWhisperNickname] = useState("");
@@ -37,6 +38,19 @@ const LobbyPage = () => {
     reconnect();
   }, []);
 
+  useEffect(() => {
+    //나중에 설정, 같은것도 추가하면됨
+    if (location.pathname.includes("mypage")) {
+      setContentMode("mypage");
+    } else if (location.pathname.includes("game")) {
+      setContentMode("game");
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    reconnect();
+  }, []);
+
   return (
     <div className="lobby-page-container">
       <LobbyHeader />
@@ -45,18 +59,37 @@ const LobbyPage = () => {
         <div className="main-content-container">
           <img src={springImg} alt="스프링" className="main-content-img" />
           <div className="main-content-nav-container">
-            <Link
-              to={GAME2_ROBBY_URL}
-              className={`a-btn ${navType === "game2" ? "active" : ""}`}
-            >
-              루루의 미대입시
-            </Link>
-            <Link
-              to={GAME1_ROBBY_URL}
-              className={`b-btn ${navType === "game1" ? "active" : ""}`}
-            >
-              묘묘를 속여라!
-            </Link>
+            {contentMode === "game" ? (
+              <>
+                <Link
+                  to={GAME2_ROBBY_URL}
+                  className={`a-btn ${navType === "game2" ? "active" : ""}`}
+                >
+                  루루의 미대입시
+                </Link>
+                <Link
+                  to={GAME1_ROBBY_URL}
+                  className={`b-btn ${navType === "game1" ? "active" : ""}`}
+                >
+                  묘묘를 속여라!
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to={GAME2_ROBBY_URL}
+                  className={`a-btn ${navType === "game2" ? "active" : ""}`}
+                >
+                  내 전적
+                </Link>
+                <Link
+                  to={GAME1_ROBBY_URL}
+                  className={`b-btn ${navType === "game1" ? "active" : ""}`}
+                >
+                  정보
+                </Link>
+              </>
+            )}
           </div>
           <div className="main-content-layout">
             {/* 상태나 라우팅에 따라 WaitingRoom or Mypage로 */}

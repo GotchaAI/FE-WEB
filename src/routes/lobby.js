@@ -53,6 +53,10 @@ const lobby = [
             path: "waiting",
             element: <WaitingRoom />,
           },
+          {
+            path: "mypage",
+            element: <>하이 반갑다</>,
+          },
         ],
       },
       {
@@ -62,7 +66,7 @@ const lobby = [
       {
         path: "play2",
         element: <Game2Page />,
-      }
+      },
     ],
   },
 ];

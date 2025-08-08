@@ -1,3 +1,4 @@
+import GameHistory from "components/lobby/gamehistory/GameHistory";
 import WaitingRoom from "components/lobby/waiting/WaitingRoom";
 import LazyGame1Page from "pages/game/game1/LazyGame1Page";
 import Game1CreatePage from "pages/game/Game1CreatePage";
@@ -49,6 +50,10 @@ const lobby = [
             path: "waiting",
             element: <WaitingRoom />,
           },
+          {
+            path: "history",
+            element: <GameHistory />,
+          }
         ],
       },
       {

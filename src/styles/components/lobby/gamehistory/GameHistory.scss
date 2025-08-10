@@ -1,9 +1,225 @@
 .game-history-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 599px;
   height: 408px;
-  padding-left: 35px;
-  padding-top: 17px;
 
+  .book-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 57px;
+    height: 406px;
+
+    background-color: white;
+    border: 1px solid #000000;
+    border-radius: 0px 12px 12px 0px;
+  }
+
+  .book-sidebar:first-of-type {
+    left: 10px;
+  }
+
+  .tab-list {
+    position: absolute;
+    top: 35px;
+    left: 57px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tab-button {
+    position: relative;
+    width: 36px;
+    height: 27px;
+    border: 1px solid black;
+    border-left: none;
+    background: white;
+    font-size: 13px;
+    font-family: SUIT-Regular;
+
+    &.active {
+      background: #D3F16F;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        left: -1px;
+        width: 1px;
+        height: 26px;
+        background: white;
+      }
+    }
+  }
+
+  .history-content-container {
+    position: absolute;
+    top: 34px;
+    left: 128px;
+
+    .history-header {
+      font-family: SUIT-Regular;
+      font-size: 20px;
+      font-weight: bold;
+
+      .history-meta {
+        margin-left: 8px;
+        font-size: 12px;
+        font-weight: normal;
+        color: #999999;
+      }
+    }
+
+    .round-tab-list {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .round-tab {
+      width: 54px;
+      height: 32px;
+      font-family: SUIT-Regular;
+      border: none;
+      border-radius: 12px;
+      background: #F2F3F6;
+      color: #6B6B6B;
+      font-weight: 800;
+      font-size: 13px;
+
+      &.active {
+        background: #D3F16F;
+        color: #000;
+        font-weight: 700;
+      }
+    }
+
+    .history-list-scroll {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      margin-top: 14px;
+      padding: 0;
+      width: 100%;
+      height: 280px;
+      max-height: 280px;
+      overflow-y: auto;
+      gap: 10px;
+
+      /* 전적 카드 공통 */
+      .history-card {
+        position: relative;
+        width: 408px;
+        height: 140px;
+        border: 1px solid black;
+        border-radius: 16px;
+        flex-shrink: 0;
+        background:
+          repeating-linear-gradient(to bottom,
+            transparent 0,
+            transparent 23px,
+            rgba(0, 0, 0, 0.06) 23px,
+            rgba(0, 0, 0, 0.06) 24px);
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 136px;
+          top: 0px;
+          bottom: 0;
+          width: 1px;
+          height: 139px;
+          background-color: #F28110;
+        }
+      }
+
+      .history-card.ai-win {
+        background-color: #FFC466;
+      }
+
+      .history-card.user-win {
+        background-color: #E9FF9F;
+
+        &::before {
+          background-color: #89C881;
+        }
+      }
+
+      /* 왼쪽 제시문 */
+      .prompt-col {
+        position: absolute;
+        top: 18.5px;
+        left: 12px;
+        width: 110px;
+        height: 101px;
+        border: 1px solid black;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+
+        .prompt-head {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid black;
+
+          .prompt-head-title {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+          }
+
+          .prompt-deco-box {
+            width: 22px;
+            height: 22px;
+            background-color: gray;
+            background: #D3F16F
+          }
+        }
+
+        .prompt-body {
+          width: 100%;
+        }
+      }
+
+      .similarity-col {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 16px;
+        left: 146px;
+        gap: 8px;
+
+        .sim-title {
+          font-weight: bold;
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+        }
+
+        .sim-list {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          padding-left: 20px;
+          font-size: 13px;
+
+          li {
+            line-height: 1.3;
+          }
+        }
+      }
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+
+  }
 }

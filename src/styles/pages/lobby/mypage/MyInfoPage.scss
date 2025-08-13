@@ -1,0 +1,51 @@
+.my-info-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    .user-info-panel{
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        width: 216px;
+        height: 100%;
+        font-family: "SUIT-Regular";
+        border-right: 1px solid black;
+        border-radius: 20px;
+        .my-page-title{
+            margin-top: 45px;
+            font-family: "YoonChild-ManSeh";
+            font-size: 24px;
+        }
+        .user-avatar{
+            margin-top: 14px;
+            width: 120px;
+            height: 120px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background-color:#FFDA37;
+        }
+        .user-nickname{
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 9px;
+        }
+        .user-email{
+            color: #999999;
+            font-weight: 400;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .withdraw-button{
+            background-color: transparent;
+            border: none;
+            margin-top: auto;
+            margin-bottom: 34px;
+            font-weight: 400;
+            font-size: 12px;
+            color: #999999;
+        }
+    }
+}

@@ -5,6 +5,8 @@ import Friend from "components/lobby/friend/Friend";
 import {
   GAME1_ROBBY_URL,
   GAME2_ROBBY_URL,
+  MY_PAGE_URL,
+  MY_RECORD_URL,
   WAITING_ROOM_URL,
 } from "constants/url";
 import useBGM3 from "hooks/lobby/useBGM3";
@@ -40,8 +42,8 @@ const LobbyPage = () => {
 
   useEffect(() => {
     //나중에 설정, 같은것도 추가하면됨
-    if (location.pathname.includes("mypage")) {
-      setContentMode("mypage");
+    if (location.pathname.includes("myinfo")) {
+      setContentMode("myinfo");
     } else if (location.pathname.includes("game")) {
       setContentMode("game");
     }
@@ -77,13 +79,13 @@ const LobbyPage = () => {
             ) : (
               <>
                 <Link
-                  to={GAME2_ROBBY_URL}
+                  to={MY_RECORD_URL}
                   className={`a-btn ${navType === "game2" ? "active" : ""}`}
                 >
                   내 전적
                 </Link>
                 <Link
-                  to={GAME1_ROBBY_URL}
+                  to={MY_PAGE_URL}
                   className={`b-btn ${navType === "game1" ? "active" : ""}`}
                 >
                   정보

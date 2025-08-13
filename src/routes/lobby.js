@@ -8,6 +8,8 @@ import LobbyLayout, {
   loader as lobbyLayoutLoader,
 } from "pages/lobby/LobbyLayout";
 import LobbyPage from "pages/lobby/LobbyPage";
+import MyInfoPage from "pages/lobby/mypage/MyInfoPage";
+import MyRecordPage from "pages/lobby/mypage/MyRecordPage";
 
 const lobby = [
   {
@@ -54,8 +56,17 @@ const lobby = [
             element: <WaitingRoom />,
           },
           {
-            path: "mypage",
-            element: <>하이 반갑다</>,
+            path: "myinfo",
+            children: [
+              {
+                index: true,
+                element: <MyInfoPage />,
+              },
+              {
+                path: "record",
+                element: <MyRecordPage />,
+              },
+            ],
           },
         ],
       },

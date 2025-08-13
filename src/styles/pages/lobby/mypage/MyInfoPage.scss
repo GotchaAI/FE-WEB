@@ -3,6 +3,7 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+
     .user-info-panel{
         display: flex;
         flex-direction: column;
@@ -13,13 +14,21 @@
         font-family: "SUIT-Regular";
         border-right: 1px solid black;
         border-radius: 20px;
+
         .my-page-title{
             margin-top: 45px;
             font-family: "YoonChild-ManSeh";
             font-size: 24px;
         }
+
+        .avatar-wrapper{
+            position: relative;
+            margin-top: 14px;      
+            width: 120px;
+            height: 120px; 
+        }
+
         .user-avatar{
-            margin-top: 14px;
             width: 120px;
             height: 120px;
             display:flex;
@@ -27,17 +36,66 @@
             justify-content:center;
             background-color:#FFDA37;
         }
+
+        .user-avatar.dimmed{
+            filter: brightness(0.6);
+        }
+
+        .avatar-edit{
+            position: absolute;
+            top: 45%;
+            right: 40%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            z-index: 1;
+
+            &:hover{ filter: brightness(0.9); }
+            &:focus{
+                outline: 2px solid #ffda37;
+                border-radius: 4px;
+            }
+        }
+        /* === 아바타 영역 끝 === */
+
         .user-nickname{
             font-size: 16px;
             font-weight: 500;
-            margin-top: 9px;
+            /* margin-top은 info-row가 담당 */
         }
+
         .user-email{
             color: #999999;
             font-weight: 400;
             font-size: 12px;
-            margin-top: 5px;
+            /* margin-top은 info-row가 담당 */
         }
+
+        /* 정보 행 + ✏️ (추가) */
+        .info-row{
+            margin-top: 12px;          /* 아바타와 간격 확보 (기존 9px보다 여유) */
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .edit-icon{
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            padding: 0 2px;
+
+            &:hover{ filter: brightness(0.9); }
+            &:focus{
+                outline: 2px solid #ffda37;
+                border-radius: 4px;
+            }
+        }
+
         .withdraw-button{
             background-color: transparent;
             border: none;

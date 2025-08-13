@@ -57,14 +57,23 @@ const lobby = [
           },
           {
             path: "myinfo",
+            element: <MyInfoPage />,
             children: [
               {
                 index: true,
-                element: <MyInfoPage />,
+                element: <>업적 한눈에 보기</>,
               },
               {
                 path: "record",
                 element: <MyRecordPage />,
+              },
+              {
+                path: "edit-avatar",
+                element: <>아바타 변경</>,
+              },
+              {
+                path: "edit-nickname",
+                element: <>닉네임 변경</>,
               },
             ],
           },

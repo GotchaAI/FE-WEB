@@ -1,15 +1,14 @@
 import { Carrot } from "commons/svgs/characters/carrot";
 import { EditButton } from "commons/svgs/EditButton";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import "styles/pages/lobby/mypage/MyInfoPage.scss";
 
 const MyInfoPage = () => {
   const nav = useNavigate();
   const { pathname } = useLocation();
 
-  const isAvatarActive = pathname.endsWith("/edit/avatar");
-  const isNicknameActive = pathname.endsWith("/edit/nickname");
-  const isEmailActive = pathname.endsWith("/edit/email");
+  const isAvatarActive = pathname.endsWith("/edit-avatar");
+  const isNicknameActive = pathname.endsWith("/edit-nickname");
   const isWithdrawActive = pathname.endsWith("/withdraw");
 
   return (
@@ -24,8 +23,8 @@ const MyInfoPage = () => {
           {!isAvatarActive && (
             <button
               className="edit-icon avatar-edit"
-              aria-label="아바타 수정"
-              onClick={() => nav("edit/avatar")}
+              ariaLabel="아바타 수정"
+              onClick={() => nav("edit-avatar")}
               type="button"
             >
               <EditButton />
@@ -38,8 +37,8 @@ const MyInfoPage = () => {
           {!isNicknameActive && (
             <button
               className="edit-icon"
-              aria-label="닉네임 수정"
-              onClick={() => nav("edit/nickname")}
+              ariaLabel="닉네임 수정"
+              onClick={() => nav("edit-nickname")}
               type="button"
             >
               ✏️
@@ -47,19 +46,7 @@ const MyInfoPage = () => {
           )}
         </div>
 
-        <div className="info-row">
-          <span className="user-email">lucas123@yu.ac.kr</span>
-          {!isEmailActive && (
-            <button
-              className="edit-icon"
-              aria-label="이메일 수정"
-              onClick={() => nav("edit/email")}
-              type="button"
-            >
-              ✏️
-            </button>
-          )}
-        </div>
+        <span className="user-email">lucas123@yu.ac.kr</span>
 
         {!isWithdrawActive && (
           <button
@@ -72,7 +59,9 @@ const MyInfoPage = () => {
         )}
       </div>
 
-      <div> 우측 아울렛</div>
+      <div>
+        <Outlet />
+      </div>
     </div>
   );
 };

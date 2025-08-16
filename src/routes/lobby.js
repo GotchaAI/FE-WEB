@@ -8,6 +8,7 @@ import LobbyLayout, {
   loader as lobbyLayoutLoader,
 } from "pages/lobby/LobbyLayout";
 import LobbyPage from "pages/lobby/LobbyPage";
+import SettingPage from "pages/lobby/SettingPage";
 
 const lobby = [
   {
@@ -48,6 +49,10 @@ const lobby = [
           {
             path: "waiting",
             element: <WaitingRoom />,
+          },
+          {
+            path: "setting",
+            element: <SettingPage />,
           },
         ],
       },

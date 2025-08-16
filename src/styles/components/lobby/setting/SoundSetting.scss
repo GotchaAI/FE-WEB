@@ -1,0 +1,18 @@
+.sound-setting-container {
+  position: relative;
+
+  .sound-setting {
+    .background-container,
+    .sound-effect-container {
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      .background-title,
+      .sound-effect-title {
+        width: 59px;
+      }
+    }
+  }
+}

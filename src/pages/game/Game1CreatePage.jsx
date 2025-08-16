@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CheckBox from "commons/svgs/CheckBox";
 import "styles/pages/game/Game1CreatePage.scss";
-import CloseIcon from "commons/svgs/XIcon";
+import CloseIcon from "commons/svgs/CloseIcon";
 import OkayButton from "commons/svgs/OkayButton";
 import { isFourDigitNumber, isNumeric } from "utils/validation";
 import { useNavigate } from "react-router-dom";

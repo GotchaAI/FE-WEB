@@ -1,6 +1,6 @@
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import SearchIcon from "commons/svgs/SearchIcon";
-import CloseIcon from "commons/svgs/XIcon";
+import CloseIcon from "commons/svgs/CloseIcon";
 import FriendRequestList from "components/lobby/friend/FriendRequestList";
 import FriendSearchList from "components/lobby/friend/FriendSearchList";
 import { useState } from "react";

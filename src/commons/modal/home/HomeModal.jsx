@@ -1,4 +1,4 @@
-import CloseIcon from "commons/svgs/XIcon";
+import CloseIcon from "commons/svgs/CloseIcon";
 import { useModalStore } from "store/modal";
 import "styles/commons/modal/HomeModal.scss";
 

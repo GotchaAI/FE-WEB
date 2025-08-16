@@ -1,5 +1,5 @@
 import CheckBox from "commons/svgs/CheckBox";
-import CloseIcon from "commons/svgs/XIcon";
+import CloseIcon from "commons/svgs/CloseIcon";
 import { REPORT_REASONS } from "constants/reportReasons";
 import { useState } from "react";
 import { useModalStore } from "store/modal";

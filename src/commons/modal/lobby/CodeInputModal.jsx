@@ -1,4 +1,4 @@
-import CloseIcon from "commons/svgs/XIcon";
+import CloseIcon from "commons/svgs/CloseIcon";
 import { useEffect, useRef, useState } from "react";
 import { useModalStore } from "store/modal";
 import "styles/commons/modal/CodeInputModal.scss";

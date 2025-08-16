@@ -1,4 +1,4 @@
-import CloseIcon from "commons/svgs/XIcon";
+import CloseIcon from "commons/svgs/CloseIcon";
 import roomKingIcon from "assets/components/lobby/room-king-icon.png";
 import { useState } from "react";
 import { useModalStore } from "store/modal";

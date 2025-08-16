@@ -1,8 +1,18 @@
+import { SETTING_URL } from "constants/url";
+import { useLocation, useNavigate } from "react-router-dom";
 import "styles/commons/options/OptionBtn.scss";
 
 const Settings = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const settingHandler = () => {
+    if (location.pathname === SETTING_URL) return;
+    navigate(SETTING_URL);
+  };
+
   return (
-    <button className="option-btn">
+    <button className="option-btn" onClick={settingHandler}>
       <svg
         width="28"
         height="28"

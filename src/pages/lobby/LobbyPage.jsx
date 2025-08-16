@@ -1,23 +1,19 @@
 import springImg from "assets/commons/spring.png";
 import LobbyChatting from "components/lobby/LobbyChatting";
 import LobbyHeader from "components/lobby/LobbyHeader";
+import LobbyNavBar from "components/lobby/LobbyNavBar";
 import Friend from "components/lobby/friend/Friend";
-import {
-  GAME1_ROBBY_URL,
-  GAME2_ROBBY_URL,
-  WAITING_ROOM_URL,
-} from "constants/url";
+import { WAITING_ROOM_URL } from "constants/url";
 import useBGM3 from "hooks/lobby/useBGM3";
 import { useEffect, useState } from "react";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { reconnectAPI } from "services/lobby/lobby";
 import "styles/pages/lobby/LobbyPage.scss";
 import { getUserUuid } from "utils/user";
 
 const LobbyPage = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const navType = location.pathname.includes("/game2") ? "game2" : "game1";
+
   const userUuid = getUserUuid();
   const [whisperNickname, setWhisperNickname] = useState("");
 
@@ -45,18 +41,7 @@ const LobbyPage = () => {
         <div className="main-content-container">
           <img src={springImg} alt="스프링" className="main-content-img" />
           <div className="main-content-nav-container">
-            <Link
-              to={GAME2_ROBBY_URL}
-              className={`a-btn ${navType === "game2" ? "active" : ""}`}
-            >
-              루루의 미대입시
-            </Link>
-            <Link
-              to={GAME1_ROBBY_URL}
-              className={`b-btn ${navType === "game1" ? "active" : ""}`}
-            >
-              묘묘를 속여라!
-            </Link>
+            <LobbyNavBar />
           </div>
           <div className="main-content-layout">
             {/* 상태나 라우팅에 따라 WaitingRoom or Mypage로 */}

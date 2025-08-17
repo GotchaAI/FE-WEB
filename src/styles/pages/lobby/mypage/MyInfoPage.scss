@@ -3,6 +3,7 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+    
 
     .user-info-panel{
         display: flex;
@@ -10,6 +11,7 @@
         justify-content: start;
         align-items: center;
         width: 216px;
+        flex: 0 0 216px; //shrink방지 목적임
         height: 100%;
         font-family: "SUIT-Regular";
         border-right: 1px solid black;
@@ -58,24 +60,20 @@
                 border-radius: 4px;
             }
         }
-        /* === 아바타 영역 끝 === */
 
         .user-nickname{
             font-size: 16px;
             font-weight: 500;
-            /* margin-top은 info-row가 담당 */
         }
 
         .user-email{
             color: #999999;
             font-weight: 400;
             font-size: 12px;
-            /* margin-top은 info-row가 담당 */
         }
 
-        /* 정보 행 + ✏️ (추가) */
         .info-row{
-            margin-top: 12px;          /* 아바타와 간격 확보 (기존 9px보다 여유) */
+            margin-top: 12px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -105,5 +103,9 @@
             font-size: 12px;
             color: #999999;
         }
+    }
+    .user-info-edit-container{
+        width: 100%;
+        height: 100%;
     }
 }

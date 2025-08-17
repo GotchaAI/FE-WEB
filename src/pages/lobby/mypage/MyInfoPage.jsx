@@ -57,7 +57,7 @@ const MyInfoPage = () => {
         )}
       </div>
 
-      <div>
+      <div className="user-info-edit-container">
         <Outlet />
       </div>
     </div>

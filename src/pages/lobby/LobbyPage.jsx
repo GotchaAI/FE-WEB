@@ -8,7 +8,9 @@ import useBGM3 from "hooks/lobby/useBGM3";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { reconnectAPI } from "services/lobby/lobby";
+import { audioStore } from "store/audio";
 import "styles/pages/lobby/LobbyPage.scss";
+import { getVolumes } from "utils/audio";
 import { getUserUuid } from "utils/user";
 
 const LobbyPage = () => {
@@ -17,7 +19,11 @@ const LobbyPage = () => {
   const userUuid = getUserUuid();
   const [whisperNickname, setWhisperNickname] = useState("");
 
-  useBGM3("LobbyBGM", 0.5);
+  // 오디오 초기화
+  const [background] = getVolumes();
+  const { setVolume } = audioStore.getState();
+  setVolume(background);
+  useBGM3("LobbyBGM", background);
 
   const reconnect = async () => {
     try {

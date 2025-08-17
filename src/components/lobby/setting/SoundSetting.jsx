@@ -2,19 +2,22 @@ import VolumeControl from "commons/ui/inputs/VolumeControl";
 import { useEffect, useState } from "react";
 import { audioStore } from "store/audio";
 import "styles/components/lobby/setting/SoundSetting.scss";
+import { getVolumes, setVolumes } from "utils/audio";
 
 const SoundSetting = ({ save, setSave }) => {
-  const [background, setBackground] = useState(50);
-  const [soundEffect, setSoundEffect] = useState(50);
+  const [backgroundVolume, soundEffectVolume] = getVolumes();
+  const [background, setBackground] = useState(backgroundVolume);
+  const [soundEffect, setSoundEffect] = useState(soundEffectVolume);
 
   const { setVolume } = audioStore.getState();
 
   useEffect(() => {
     if (!save) return;
-    setVolume(background / 100); // 0~1 의 범위
-    // 저장
+    setVolume(background);
+    setVolumes(background, soundEffect);
+
     setSave((prev) => !prev);
-  });
+  }, [save, setSave]);
 
   return (
     <div className="sound-setting-container">

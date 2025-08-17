@@ -18,7 +18,7 @@ const useBGM3 = (type, volume = 1.0) => {
     if (type === "LobbyBGM") {
       const audio = new Audio(LobbyBGM);
       audio.loop = true;
-      audio.volume = volume;
+      audio.volume = volume / 100;
       audio.play().catch((err) => {
         console.log("자동 재생 실패:", err);
       });

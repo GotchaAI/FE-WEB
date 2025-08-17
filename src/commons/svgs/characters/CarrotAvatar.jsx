@@ -1,4 +1,4 @@
-export const Carrot = () => {
+export const CarrotAvatar = () => {
   return (
     <svg
       width="57"

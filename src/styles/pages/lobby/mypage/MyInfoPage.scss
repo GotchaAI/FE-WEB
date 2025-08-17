@@ -1,111 +1,142 @@
-.my-info-container{
+.my-info-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+
+  .user-info-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 216px;
+    flex: 0 0 216px; // shrink 방지
+    height: 100%;
+    font-family: "SUIT-Regular";
+    border-right: 1px solid black;
+    border-radius: 20px;
+
+    .my-page-title {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      width: 116px;
+      height: 33px;
+      margin-left: 53px;
+      margin-top: 45px;
+      font-family: "YoonChild-ManSeh";
+      font-size: 24px;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      margin-left: 52px;
+      margin-top: 14px;
+      width: 120px;
+      height: 120px;
+    }
+
+    .user-avatar {
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffda37;
+      overflow: hidden;
+    }
+
+    .user-avatar.dimmed {
+      filter: brightness(0.6);
+    }
+
+    .avatar-edit {
+      position: absolute;
+      top: 50%;
+      left: 50%;          
+      transform: translate(-50%, -50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      z-index: 1;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        filter: brightness(0.9);
+      }
+      &:focus-visible {
+        outline: 2px solid #ffda37;
+        border-radius: 4px;
+      }
+    }
+
+    .user-email {
+      color: #999999;
+      font-weight: 400;
+      font-size: 12px;
+      margin-left: 56px;
+      margin-top: 6px;
+    }
+
+    .info-row {
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 56px;
+
+      .user-nickname {
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .edit-icon {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 1;
+        padding: 0 2px;
+        svg{
+            width: 20px;
+            height: 19px;
+        }
+        &:hover {
+          filter: brightness(0.9);
+        }
+        &:focus-visible {
+          outline: 2px solid #ffda37;
+          border-radius: 4px;
+        }
+      }
+    }
+
+    .withdraw-button {
+      background-color: transparent;
+      border: none;
+      margin-top: auto;
+      margin-bottom: 34px;
+      font-weight: 400;
+      font-size: 12px;
+      color: #999999;
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(0.9);
+      }
+      &:focus-visible {
+        outline: 2px solid #ffda37;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .user-info-edit-container {
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: row;
-    
-
-    .user-info-panel{
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;
-        width: 216px;
-        flex: 0 0 216px; //shrink방지 목적임
-        height: 100%;
-        font-family: "SUIT-Regular";
-        border-right: 1px solid black;
-        border-radius: 20px;
-
-        .my-page-title{
-            margin-top: 45px;
-            font-family: "YoonChild-ManSeh";
-            font-size: 24px;
-        }
-
-        .avatar-wrapper{
-            position: relative;
-            margin-top: 14px;      
-            width: 120px;
-            height: 120px; 
-        }
-
-        .user-avatar{
-            width: 120px;
-            height: 120px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            background-color:#FFDA37;
-        }
-
-        .user-avatar.dimmed{
-            filter: brightness(0.6);
-        }
-
-        .avatar-edit{
-            position: absolute;
-            top: 45%;
-            right: 40%;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            line-height: 1;
-            z-index: 1;
-
-            &:hover{ filter: brightness(0.9); }
-            &:focus{
-                outline: 2px solid #ffda37;
-                border-radius: 4px;
-            }
-        }
-
-        .user-nickname{
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        .user-email{
-            color: #999999;
-            font-weight: 400;
-            font-size: 12px;
-        }
-
-        .info-row{
-            margin-top: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .edit-icon{
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            line-height: 1;
-            padding: 0 2px;
-
-            &:hover{ filter: brightness(0.9); }
-            &:focus{
-                outline: 2px solid #ffda37;
-                border-radius: 4px;
-            }
-        }
-
-        .withdraw-button{
-            background-color: transparent;
-            border: none;
-            margin-top: auto;
-            margin-bottom: 34px;
-            font-weight: 400;
-            font-size: 12px;
-            color: #999999;
-        }
-    }
-    .user-info-edit-container{
-        width: 100%;
-        height: 100%;
-    }
+  }
 }

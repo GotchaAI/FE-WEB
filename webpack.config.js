@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 dotenv.config();
 
@@ -83,6 +84,10 @@ module.exports = {
       logo: "src/assets/commons/logo.png",
       manifest: "./public/manifest.json",
     }),
+    new ESLintPlugin({
+      extensions: ["js", "jsx", "ts", "tsx"], // 검사할 확장자
+      emitWarning: true,
+    }),
   ],
   optimization: {
     minimize: true, // 최소화는 그대로 진행
@@ -90,10 +95,10 @@ module.exports = {
       new TerserPlugin({
         terserOptions: {
           compress: {
-            drop_console: false, // ✅ console.log 제거하지 않도록 고정
+            drop_console: false, // console.log 제거x
           },
         },
-        extractComments: false, // 주석도 제거 안 함 (선택사항)
+        extractComments: ture, // 주석 제거
       }),
     ],
   },

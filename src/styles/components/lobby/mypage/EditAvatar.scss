@@ -1,0 +1,67 @@
+.edit-avatar-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
+  .close-btn {
+    position: absolute;
+    top: 29.7px;
+    right: 23.69px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    svg {
+      width: 24px;
+      height: 19px;
+      display: block;
+    }
+  }
+
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 84px); // 3열
+    grid-auto-rows: 84px;
+    gap: 8px;
+    width: 283px;
+    height: 321px;
+    overflow-y: auto;
+    .avatar-swatch {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        .swatch-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg   
+            {
+                width: 48px;
+                height: 48px;
+                }
+            }
+
+            &:hover {
+                filter: brightness(0.95);
+            }
+
+            &.is-selected {
+                border: 3px solid #000;
+            }
+        }
+    }
+
+  
+}

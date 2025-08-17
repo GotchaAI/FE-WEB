@@ -13,6 +13,7 @@ export const effectAudioStore = create((set, get) => ({
     a.volume = v / 100;
   },
   pause: () => get().effectAudio?.pause(),
+  start: () => get().effectAudio?.play(),
   stop: () => {
     const a = get().effectAudio;
     if (!a) return;

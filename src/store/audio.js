@@ -14,6 +14,7 @@ export const audioStore = create((set, get) => ({
     a.volume = v / 100;
   },
   pause: () => get().audio?.pause(),
+  start: () => get().audio?.play(),
   stop: () => {
     const a = get().audio;
     if (!a) return;

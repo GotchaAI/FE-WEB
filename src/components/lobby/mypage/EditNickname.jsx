@@ -1,9 +1,14 @@
 import CloseIcon from "commons/svgs/XIcon";
+import { useNavigate } from "react-router-dom";
 import "styles/components/lobby/mypage/EditNickname.scss";
 export const EditNickname = () => {
+  const navigate = useNavigate();
+  const handleClose = () => {
+    navigate("/lobby/myinfo");
+  };
   return (
     <div className="edit-nickname-container">
-      <button className="close-btn">
+      <button className="close-btn" onClick={handleClose}>
         <CloseIcon />
       </button>
       <span className="edit-nickname-title">닉네임 설정</span>

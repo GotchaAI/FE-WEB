@@ -1,9 +1,11 @@
 import CloseIcon from "commons/svgs/XIcon";
 import "styles/components/lobby/mypage/MyPageHome.scss";
 import rabbitCarrot from "assets/commons/carrot-rabbit.png";
+import { useNavigate } from "react-router-dom";
 
 export const MyPageHome = () => {
   // 예시 데이터
+  const navigate = useNavigate();
   const achievements = [
     { id: 1, title: "빨리그리기 장인", desc: "3초 내로 제출" },
     { id: 2, title: "사진사", desc: "유사도 95% 이상" },
@@ -12,10 +14,12 @@ export const MyPageHome = () => {
     { id: 4, title: "발로 그리기 왕", desc: "유사도 5% 미만" },
     { id: 4, title: "발로 그리기 왕", desc: "유사도 5% 미만" },
   ];
-
+  const handleClose = () => {
+    navigate("/lobby");
+  };
   return (
     <div className="my-page-home-container">
-      <button className="close-btn">
+      <button className="close-btn" onClick={handleClose}>
         <CloseIcon />
       </button>
 

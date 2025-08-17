@@ -98,7 +98,7 @@ module.exports = {
             drop_console: false, // console.log 제거x
           },
         },
-        extractComments: ture, // 주석 제거
+        extractComments: true, // 주석 제거
       }),
     ],
   },

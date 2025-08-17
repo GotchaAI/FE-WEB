@@ -1,8 +1,30 @@
+import { useState } from "react";
+import { audioStore } from "store/audio";
+import { effectAudioStore } from "store/effectAudio";
 import "styles/commons/options/OptionBtn.scss";
+import "styles/commons/options/Sound.scss";
+import { setVolumes } from "utils/audio";
 
 const Sound = () => {
+  const [isSoundOn, setIsSoundOn] = useState(true);
+
+  const { start, stop } = audioStore.getState();
+
+  const soundHandler = () => {
+    if (isSoundOn) {
+      stop();
+      setIsSoundOn(false);
+    } else {
+      start();
+      setIsSoundOn(true);
+    }
+  };
+
   return (
-    <button className="option-btn">
+    <button
+      className={`option-btn ${!isSoundOn && "sound-off"}`}
+      onClick={soundHandler}
+    >
       <svg
         width="28"
         height="28"
@@ -15,6 +37,25 @@ const Sound = () => {
           fill="black"
         />
       </svg>
+
+      {!isSoundOn && (
+        <svg
+          className="sound-off-line"
+          width="27"
+          height="27"
+          viewBox="0 0 27 27"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            y="25.4558"
+            width="36"
+            height="1"
+            transform="rotate(-45 0 25.4558)"
+            fill="black"
+          />
+        </svg>
+      )}
     </button>
   );
 };

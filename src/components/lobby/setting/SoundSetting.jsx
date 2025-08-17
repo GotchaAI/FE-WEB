@@ -12,6 +12,11 @@ const SoundSetting = ({ save, setSave }) => {
   const { setVolume } = audioStore.getState();
 
   useEffect(() => {
+    setBackground(backgroundVolume);
+    setSoundEffect(soundEffectVolume);
+  }, [backgroundVolume, soundEffectVolume]);
+
+  useEffect(() => {
     if (!save) return;
     setVolume(background);
     setVolumes(background, soundEffect);

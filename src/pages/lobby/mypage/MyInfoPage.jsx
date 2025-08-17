@@ -1,4 +1,4 @@
-import { Carrot } from "commons/svgs/characters/carrot";
+import { CarrotAvatar } from "commons/svgs/characters/CarrotAvatar";
 import { EditButton } from "commons/svgs/EditButton";
 import { EditCarrotButton } from "commons/svgs/EditCarrotButtton";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ const MyInfoPage = () => {
 
         <div className="avatar-wrapper">
           <div className={`user-avatar ${!isAvatarActive ? "dimmed" : ""}`}>
-            <Carrot />
+            <CarrotAvatar />
           </div>
           {!isAvatarActive && (
             <button

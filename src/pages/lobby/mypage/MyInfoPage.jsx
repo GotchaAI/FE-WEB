@@ -1,5 +1,6 @@
 import { Carrot } from "commons/svgs/characters/carrot";
 import { EditButton } from "commons/svgs/EditButton";
+import { EditCarrotButton } from "commons/svgs/EditCarrotButtton";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import "styles/pages/lobby/mypage/MyInfoPage.scss";
 
@@ -8,7 +9,6 @@ const MyInfoPage = () => {
   const { pathname } = useLocation();
 
   const isAvatarActive = pathname.endsWith("/edit-avatar");
-  const isNicknameActive = pathname.endsWith("/edit-nickname");
   const isWithdrawActive = pathname.endsWith("/withdraw");
 
   return (
@@ -34,16 +34,14 @@ const MyInfoPage = () => {
 
         <div className="info-row">
           <span className="user-nickname">불닭먹고시퍼</span>
-          {!isNicknameActive && (
-            <button
-              className="edit-icon"
-              ariaLabel="닉네임 수정"
-              onClick={() => nav("edit-nickname")}
-              type="button"
-            >
-              ✏️
-            </button>
-          )}
+          <button
+            className="edit-icon"
+            ariaLabel="닉네임 수정"
+            onClick={() => nav("edit-nickname")}
+            type="button"
+          >
+            <EditCarrotButton />
+          </button>
         </div>
 
         <span className="user-email">lucas123@yu.ac.kr</span>

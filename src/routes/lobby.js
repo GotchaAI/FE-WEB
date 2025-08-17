@@ -1,3 +1,6 @@
+import { EditAvatar } from "components/lobby/mypage/EditAvatar";
+import { EditNickname } from "components/lobby/mypage/EditNickname";
+import { MyPageHome } from "components/lobby/mypage/MyPageHome";
 import WaitingRoom from "components/lobby/waiting/WaitingRoom";
 import Game1CreatePage from "pages/game/Game1CreatePage";
 import Game1LobbyPage from "pages/game/Game1LobbyPage";
@@ -61,7 +64,7 @@ const lobby = [
             children: [
               {
                 index: true,
-                element: <>업적 한눈에 보기</>,
+                element: <MyPageHome />,
               },
               {
                 path: "record",
@@ -69,11 +72,11 @@ const lobby = [
               },
               {
                 path: "edit-avatar",
-                element: <>아바타 변경</>,
+                element: <EditAvatar />,
               },
               {
                 path: "edit-nickname",
-                element: <>닉네임 변경</>,
+                element: <EditNickname />,
               },
             ],
           },

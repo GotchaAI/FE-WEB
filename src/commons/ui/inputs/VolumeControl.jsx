@@ -1,11 +1,23 @@
 import "styles/commons/ui/inputs/VolumeControl.scss";
 const VolumeControl = ({ value = 50, setValue }) => {
+  const MAX_VOLUME = 100;
+  const MIN_VOLUME = 0;
+
+  const volumeUpHandler = () => {
+    setValue((prev) => {
+      return Math.min(MAX_VOLUME, prev + 1);
+    });
+  };
+
+  const volumeDownHandler = () => {
+    setValue((prev) => {
+      return Math.max(MIN_VOLUME, prev - 1);
+    });
+  };
+
   return (
     <div className="volume-control-container">
-      <button
-        className="minus-btn"
-        onClick={() => setValue((prev) => prev - 1)}
-      >
+      <button className="minus-btn" onClick={volumeDownHandler}>
         <svg
           width="18"
           height="2"
@@ -23,7 +35,7 @@ const VolumeControl = ({ value = 50, setValue }) => {
       <progress className="volume-progress" value={value} max="100" />
       <span className="volume-value">{value}</span>
 
-      <button className="plus-btn" onClick={() => setValue((prev) => prev + 1)}>
+      <button className="plus-btn" onClick={volumeUpHandler}>
         <svg
           width="40"
           height="18"

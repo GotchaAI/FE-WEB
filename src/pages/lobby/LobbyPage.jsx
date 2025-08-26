@@ -20,7 +20,16 @@ const LobbyPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [contentMode, setContentMode] = useState("game");
-  const navType = location.pathname.includes("/game2") ? "game2" : "game1";
+  const navType = location.pathname.includes("/game1")
+    ? "game1"
+    : location.pathname.includes("/game2")
+    ? "game2"
+    : location.pathname.includes("/record")
+    ? "record"
+    : location.pathname.includes("/myinfo")
+    ? "myinfo"
+    : "game1";
+
   const userUuid = getUserUuid();
   const [whisperNickname, setWhisperNickname] = useState("");
 
@@ -81,13 +90,13 @@ const LobbyPage = () => {
               <>
                 <Link
                   to={MY_RECORD_URL}
-                  className={`a-btn ${navType === "game2" ? "active" : ""}`}
+                  className={`a-btn ${navType === "record" ? "active" : ""}`}
                 >
-                  내 전적
+                  전적
                 </Link>
                 <Link
                   to={MY_PAGE_URL}
-                  className={`b-btn ${navType === "game1" ? "active" : ""}`}
+                  className={`b-btn ${navType === "myinfo" ? "active" : ""}`}
                 >
                   정보
                 </Link>

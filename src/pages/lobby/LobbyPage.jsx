@@ -24,7 +24,7 @@ const LobbyPage = () => {
   const userUuid = getUserUuid();
   const [whisperNickname, setWhisperNickname] = useState("");
 
-  useBGM3("LobbyBGM", 0.5);
+  //useBGM3("LobbyBGM", 0.5);
 
   const reconnect = async () => {
     try {
@@ -44,7 +44,8 @@ const LobbyPage = () => {
     //나중에 설정, 같은것도 추가하면됨
     if (location.pathname.includes("myinfo")) {
       setContentMode("myinfo");
-    } else if (location.pathname.includes("game")) {
+    } else {
+      // 로비의 경우 (디폴트로 생각하면 됨)
       setContentMode("game");
     }
   }, [location.pathname]);

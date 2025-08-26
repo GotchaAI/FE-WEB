@@ -30,6 +30,14 @@
     width: 283px;
     height: 321px;
     overflow-y: auto;
+    &::-webkit-scrollbar { width: 8px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { background: #999999; border-radius: 3px; border: 2px solid transparent;}
+    &::-webkit-scrollbar-button {
+      display: none;
+      width: 0;
+      height: 0;
+    } 
     .avatar-swatch {
         display: flex;
         align-items: center;

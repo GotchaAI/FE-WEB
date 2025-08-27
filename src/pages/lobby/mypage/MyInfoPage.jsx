@@ -1,6 +1,11 @@
 import { CarrotAvatar } from "commons/svgs/characters/CarrotAvatar";
 import { EditButton } from "commons/svgs/EditButton";
 import { EditCarrotButton } from "commons/svgs/EditCarrotButtton";
+import {
+  MY_PAGE_EDIT_AVATAR,
+  MY_PAGE_EDIT_NICKNAME,
+  WITHDRAW_URL,
+} from "constants/url";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import "styles/pages/lobby/mypage/MyInfoPage.scss";
 
@@ -8,9 +13,14 @@ const MyInfoPage = () => {
   const nav = useNavigate();
   const { pathname } = useLocation();
 
-  const isAvatarActive = pathname.endsWith("/edit-avatar");
-  const isWithdrawActive = pathname.endsWith("/withdraw");
-
+  const isAvatarActive = pathname.endsWith(MY_PAGE_EDIT_AVATAR);
+  const isWithdrawActive = pathname.endsWith(WITHDRAW_URL);
+  const handleEditNicknameClick = () => {
+    nav(MY_PAGE_EDIT_NICKNAME);
+  };
+  const handleEditAvatarClick = () => {
+    nav(MY_PAGE_EDIT_AVATAR);
+  };
   return (
     <div className="my-info-container">
       <div className="user-info-panel">
@@ -24,7 +34,7 @@ const MyInfoPage = () => {
             <button
               className="edit-icon avatar-edit"
               ariaLabel="아바타 수정"
-              onClick={() => nav("edit-avatar")}
+              onClick={handleEditAvatarClick}
               type="button"
             >
               <EditButton />
@@ -37,7 +47,7 @@ const MyInfoPage = () => {
           <button
             className="edit-icon"
             ariaLabel="닉네임 수정"
-            onClick={() => nav("edit-nickname")}
+            onClick={handleEditNicknameClick}
             type="button"
           >
             <EditCarrotButton />
@@ -49,7 +59,7 @@ const MyInfoPage = () => {
         {!isWithdrawActive && (
           <button
             className="withdraw-button"
-            onClick={() => nav("withdraw")}
+            onClick={handleEditAvatarClick}
             type="button"
           >
             회원탈퇴

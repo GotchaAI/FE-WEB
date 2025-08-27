@@ -1,6 +1,3 @@
-import { EditAvatar } from "components/lobby/mypage/EditAvatar";
-import { EditNickname } from "components/lobby/mypage/EditNickname";
-import { MyPageHome } from "components/lobby/mypage/MyPageHome";
 import WaitingRoom from "components/lobby/waiting/WaitingRoom";
 import Game1CreatePage from "pages/game/Game1CreatePage";
 import Game1LobbyPage from "pages/game/Game1LobbyPage";
@@ -11,8 +8,7 @@ import LobbyLayout, {
   loader as lobbyLayoutLoader,
 } from "pages/lobby/LobbyLayout";
 import LobbyPage from "pages/lobby/LobbyPage";
-import MyInfoPage from "pages/lobby/mypage/MyInfoPage";
-import MyRecordPage from "pages/lobby/mypage/MyRecordPage";
+import mypage from "routes/mypage";
 
 const lobby = [
   {
@@ -58,28 +54,7 @@ const lobby = [
             path: "waiting",
             element: <WaitingRoom />,
           },
-          {
-            path: "myinfo",
-            element: <MyInfoPage />,
-            children: [
-              {
-                index: true,
-                element: <MyPageHome />,
-              },
-              {
-                path: "record",
-                element: <MyRecordPage />,
-              },
-              {
-                path: "edit-avatar",
-                element: <EditAvatar />,
-              },
-              {
-                path: "edit-nickname",
-                element: <EditNickname />,
-              },
-            ],
-          },
+          ...mypage,
         ],
       },
       {

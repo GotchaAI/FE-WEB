@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "styles/components/lobby/mypage/EditNickname.scss";
 import { isValidNickname } from "utils/validation";
+import { checkNicknameDuplicateAPI } from "services/user/user";
+import { MY_PAGE_URL } from "constants/url";
 
 export const EditNickname = () => {
   const navigate = useNavigate();
-  const handleClose = () => navigate("/lobby/myinfo");
+  const handleClose = () => navigate(MY_PAGE_URL);
 
   const [nickname, setNickname] = useState("");
   const [status, setStatus] = useState("idle"); // 'idle' | 'available' | 'duplicate' | 'cooldown'
@@ -16,7 +18,7 @@ export const EditNickname = () => {
   const handleDuplicateCheck = () => {
     if (!valid) return;
     const mockCooldown = false;
-    const mockDuplicate = false;
+    const mockDuplicate = checkNicknameDuplicateAPI(nickname);
 
     if (mockCooldown) return setStatus("cooldown");
     if (mockDuplicate) return setStatus("duplicate");

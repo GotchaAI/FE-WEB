@@ -35,8 +35,8 @@ export const MyPageHome = () => {
 
       {/* 업적 리스트 */}
       <div className="achievements-list">
-        {achievements.map((a) => (
-          <div key={`achievement-${a.id}`} className="achievement-item">
+        {achievements.map(({ id, title, desc }) => (
+          <div key={`achievement-${id}`} className="achievement-item">
             <div className="achievement-icon-wrapper">
               <img
                 src={rabbitCarrot}
@@ -45,8 +45,8 @@ export const MyPageHome = () => {
               />
             </div>
             <div className="achievement-texts">
-              <span className="title">{a.title}</span>
-              <span className="desc">{a.desc}</span>
+              <span className="title">{title}</span>
+              <span className="desc">{desc}</span>
             </div>
           </div>
         ))}

@@ -2,6 +2,7 @@ import CloseIcon from "commons/svgs/XIcon";
 import "styles/components/lobby/mypage/MyPageHome.scss";
 import rabbitCarrot from "assets/commons/carrot-rabbit.png";
 import { useNavigate } from "react-router-dom";
+import { LOBBY_URL } from "constants/url";
 
 export const MyPageHome = () => {
   // 예시 데이터
@@ -15,7 +16,7 @@ export const MyPageHome = () => {
     { id: 4, title: "발로 그리기 왕", desc: "유사도 5% 미만" },
   ];
   const handleClose = () => {
-    navigate("/lobby");
+    navigate(LOBBY_URL);
   };
   return (
     <div className="my-page-home-container">

@@ -12,8 +12,8 @@
     flex: 0 0 216px; // shrink 방지
     height: 100%;
     font-family: "SUIT-Regular";
-    border-right: 1px solid black;
     border-radius: 20px;
+    box-shadow: 1px 0 0 #000;
 
     .my-page-title {
       display: flex;

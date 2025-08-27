@@ -30,7 +30,7 @@ export const EditAvatar = ({ onSelect }) => {
       <div className="swatch-grid">
         {COLOR_PALETTE.map((color) => (
           <div
-            key={color}
+            key={`avatar-${color}`}
             className={`avatar-swatch ${
               selected === color ? "is-selected" : ""
             }`}

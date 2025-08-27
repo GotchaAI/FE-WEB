@@ -25,6 +25,11 @@ export const EditNickname = () => {
     return setStatus("available");
   };
 
+  const handleNicknameChange = (e) => {
+    setNickname(e.target.value);
+    setStatus("idle");
+  };
+
   return (
     <div className="edit-nickname-container">
       <button className="close-btn" onClick={handleClose}>
@@ -44,10 +49,7 @@ export const EditNickname = () => {
           placeholder="닉네임적는곳"
           className="nickname-input"
           value={nickname}
-          onChange={(e) => {
-            setNickname(e.target.value);
-            setStatus("idle");
-          }}
+          onChange={handleNicknameChange}
         />
         <button
           className={`duplicate-check-btn ${valid ? "enabled" : ""}`}

@@ -4,6 +4,7 @@ import CloseIcon from "commons/svgs/XIcon";
 import "styles/components/lobby/mypage/EditAvatar.scss";
 import { CarrotAvatar } from "commons/svgs/characters/CarrotAvatar";
 import { avatarBackgroundColorList } from "constants/avatarBackgroundColor";
+import { MY_PAGE_URL } from "constants/url";
 
 const COLOR_PALETTE = avatarBackgroundColorList;
 
@@ -17,7 +18,7 @@ export const EditAvatar = ({ onSelect }) => {
   };
 
   const handleClose = () => {
-    navigate("/lobby/myinfo");
+    navigate(MY_PAGE_URL);
   };
 
   return (

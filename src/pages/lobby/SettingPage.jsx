@@ -48,7 +48,7 @@ const SettingPage = () => {
           <ChatSetting save={save} setSave={setSave} />
         )}
         <button className="save-btn" onClick={saveHandler}>
-          설정 완료
+          설정 저장
         </button>
       </div>
     </div>

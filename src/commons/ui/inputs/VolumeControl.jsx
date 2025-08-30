@@ -17,7 +17,11 @@ const VolumeControl = ({ value = 50, setValue }) => {
 
   return (
     <div className="volume-control-container">
-      <button className="minus-btn" onClick={volumeDownHandler}>
+      <button
+        className="minus-btn"
+        disabled={value === MIN_VOLUME}
+        onClick={volumeDownHandler}
+      >
         <svg
           width="18"
           height="2"
@@ -35,7 +39,11 @@ const VolumeControl = ({ value = 50, setValue }) => {
       <progress className="volume-progress" value={value} max="100" />
       <span className="volume-value">{value}</span>
 
-      <button className="plus-btn" onClick={volumeUpHandler}>
+      <button
+        className="plus-btn"
+        onClick={volumeUpHandler}
+        disabled={value === MAX_VOLUME}
+      >
         <svg
           width="40"
           height="18"

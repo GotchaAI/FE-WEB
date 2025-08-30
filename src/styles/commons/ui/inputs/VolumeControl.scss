@@ -18,6 +18,10 @@
     border: 1px solid black;
     border-radius: 4px;
     background-color: white;
+
+    &:disabled {
+      background-color: #999;
+    }
   }
 
   .volume-progress {

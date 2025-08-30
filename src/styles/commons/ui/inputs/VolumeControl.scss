@@ -29,18 +29,8 @@
     height: 10px;
 
     border: 1px solid black;
-    border-radius: 32px;
 
     overflow: hidden;
-    &::-webkit-progress-bar {
-      background-color: white;
-    }
-    &::-webkit-progress-value {
-      border-radius: 32px;
-      background-color: #ffc466;
-      transition: width 0.3s ease;
-      box-shadow: 1px 0 0 #000;
-    }
   }
 
   .volume-value {

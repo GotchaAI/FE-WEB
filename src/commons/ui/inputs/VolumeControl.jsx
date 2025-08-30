@@ -36,7 +36,14 @@ const VolumeControl = ({ value = 50, setValue }) => {
         </svg>
       </button>
 
-      <progress className="volume-progress" value={value} max="100" />
+      <input
+        className="volume-progress"
+        type="range"
+        value={value}
+        min={MIN_VOLUME}
+        max={MAX_VOLUME}
+        onChange={(e) => setValue(Number(e.target.value))}
+      />
       <span className="volume-value">{value}</span>
 
       <button

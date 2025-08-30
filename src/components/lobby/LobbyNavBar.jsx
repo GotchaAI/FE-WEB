@@ -49,6 +49,7 @@ const LobbyNavBar = () => {
       {navType.map((nav) => {
         return (
           <Link
+            key={nav.title}
             to={nav.url}
             className={`${path.includes(nav.url) && "active"}`}
           >

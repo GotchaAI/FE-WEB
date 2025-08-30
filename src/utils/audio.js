@@ -1,8 +1,12 @@
 const getVolumes = () => {
-  const a = Number(localStorage.getItem("background-sound") ?? "100");
-  const b = Number(localStorage.getItem("sound-effect-sound") ?? "100");
+  const backgroundSound = Number(
+    localStorage.getItem("background-sound") ?? "100",
+  );
+  const soundEffectSound = Number(
+    localStorage.getItem("sound-effect-sound") ?? "100",
+  );
 
-  return [a, b];
+  return [backgroundSound, soundEffectSound];
 };
 
 const setVolumes = (background = 100, soundEffect = 100) => {

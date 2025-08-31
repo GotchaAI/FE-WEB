@@ -138,6 +138,7 @@ const LobbyChatting = ({
   }, 100);
 
   const handleKeyDown = (e) => {
+    if (e.shiftKey) return;
     if (e.key === "Enter" && !e.nativeEvent.isComposing) {
       e.preventDefault();
       handleSendMessage();

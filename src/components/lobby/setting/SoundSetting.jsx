@@ -5,20 +5,21 @@ import "styles/components/lobby/setting/SoundSetting.scss";
 import { getVolumes, setVolumes } from "utils/audio";
 
 const SoundSetting = ({ save, setSave }) => {
-  const [backgroundVolume, soundEffectVolume] = getVolumes();
-  const [background, setBackground] = useState(backgroundVolume);
-  const [soundEffect, setSoundEffect] = useState(soundEffectVolume);
+  const { bgm, sfx } = getVolumes();
+  const [background, setBackground] = useState(bgm);
+  const [soundEffect, setSoundEffect] = useState(sfx);
 
   const { setVolume } = audioStore.getState();
 
   useEffect(() => {
-    setBackground(backgroundVolume);
-    setSoundEffect(soundEffectVolume);
-  }, [backgroundVolume, soundEffectVolume]);
+    setBackground(bgm);
+    setSoundEffect(sfx);
+  }, [bgm, sfx]);
 
   useEffect(() => {
     if (!save) return;
-    setVolume(background);
+    setVolume("bgm", background);
+    setVolume("sfx", soundEffect);
     setVolumes(background, soundEffect);
 
     setSave((prev) => !prev);

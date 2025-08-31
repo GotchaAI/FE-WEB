@@ -3,14 +3,13 @@ import LobbyChatting from "components/lobby/LobbyChatting";
 import LobbyHeader from "components/lobby/LobbyHeader";
 import LobbyNavBar from "components/lobby/LobbyNavBar";
 import Friend from "components/lobby/friend/Friend";
+import { LobbyBGM } from "constants/audio";
 import { WAITING_ROOM_URL } from "constants/url";
-import useBGM3 from "hooks/lobby/useBGM3";
+import useAudio from "hooks/audio/useAudio";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { reconnectAPI } from "services/lobby/lobby";
-import { audioStore } from "store/audio";
 import "styles/pages/lobby/LobbyPage.scss";
-import { getVolumes } from "utils/audio";
 import { getUserUuid } from "utils/user";
 
 const LobbyPage = () => {
@@ -20,10 +19,7 @@ const LobbyPage = () => {
   const [whisperNickname, setWhisperNickname] = useState("");
 
   // 오디오 초기화
-  const [background] = getVolumes();
-  const { setVolume } = audioStore.getState();
-  setVolume(background);
-  useBGM3("LobbyBGM", background);
+  useAudio(LobbyBGM);
 
   const reconnect = async () => {
     try {

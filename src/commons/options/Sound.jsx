@@ -1,21 +1,18 @@
 import { useState } from "react";
 import { audioStore } from "store/audio";
-import { effectAudioStore } from "store/effectAudio";
 import "styles/commons/options/OptionBtn.scss";
 import "styles/commons/options/Sound.scss";
-import { setVolumes } from "utils/audio";
 
 const Sound = () => {
   const [isSoundOn, setIsSoundOn] = useState(true);
-
   const { start, stop } = audioStore.getState();
 
   const soundHandler = () => {
     if (isSoundOn) {
-      stop();
+      stop("bgm");
       setIsSoundOn(false);
     } else {
-      start();
+      start("bgm");
       setIsSoundOn(true);
     }
   };

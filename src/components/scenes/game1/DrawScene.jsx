@@ -2,7 +2,8 @@ import Timer from "commons/Timer";
 import GameEndScene from "components/scenes/commons/GameEndScene";
 import GameStartScene from "components/scenes/commons/GameStartScene";
 import DrawTools from "components/scenes/game1/DrawTools";
-import useBGM from "hooks/game/game1/useBGM";
+import { game1DrawingBGM } from "constants/audio";
+import useAudio from "hooks/audio/useAudio";
 import useCanvas from "hooks/game/game1/useCanvas";
 import useDrawSocket from "hooks/game/game1/useDrawSocket";
 import { useCallback } from "react";
@@ -47,7 +48,7 @@ const DrawScene = ({ topic, roomId, endTime }) => {
   });
 
   // 🪝 배경음악
-  useBGM("DrawScene");
+  useAudio(game1DrawingBGM);
 
   // 다음 flow
   const goToNextFlow = useCallback(() => {

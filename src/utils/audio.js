@@ -10,14 +10,10 @@
  * const [bg, sfx] = getVolumes(); // 예: [80, 70]
  */
 const getVolumes = () => {
-  const backgroundSound = Number(
-    localStorage.getItem("background-sound") ?? "100",
-  );
-  const soundEffectSound = Number(
-    localStorage.getItem("sound-effect-sound") ?? "100",
-  );
+  const bgm = Number(localStorage.getItem("background-sound") ?? "100");
+  const sfx = Number(localStorage.getItem("sound-effect-sound") ?? "100");
 
-  return [backgroundSound, soundEffectSound];
+  return { bgm, sfx };
 };
 
 /**

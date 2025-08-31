@@ -3,7 +3,8 @@ import rightCloudImg from "assets/components/scenes/commons/right-cloud.png";
 import aiImg from "assets/components/scenes/game1/ai.png";
 import userImg from "assets/components/scenes/game1/player.png";
 import Timer from "commons/Timer";
-import useBGM from "hooks/game/game1/useBGM";
+import { game1BattleBGM } from "constants/audio";
+import useAudio from "hooks/audio/useAudio";
 import useBattle from "hooks/game/game1/useBattle";
 import useEffectSound from "hooks/game/game1/useEffectSound";
 import { useEffect, useRef, useState } from "react";
@@ -30,7 +31,8 @@ const BattleScene = ({ roomId, drawings }) => {
   const inputRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
   const [aiSaying, setAiSaying] = useState(true);
-  useBGM("BattleScene");
+
+  useAudio(game1BattleBGM);
   const { playEffect } = useEffectSound();
 
   useEffect(() => {

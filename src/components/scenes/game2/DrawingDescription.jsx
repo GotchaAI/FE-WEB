@@ -5,7 +5,8 @@ import midae_rabbit4 from "assets/components/scenes/game2/midae-rabbit4.png";
 import "styles/components/scenes/game2/DrawingDescription.scss";
 import { useState } from "react";
 import useEffectSound2 from "hooks/game/game2/useEffectSound2";
-import useBGM2 from "hooks/game/game2/useBGM2";
+import useAudio from "hooks/audio/useAudio";
+import { game2DescriptionBGM } from "constants/audio";
 
 /**
  * DrawingDescription 컴포넌트
@@ -21,7 +22,8 @@ import useBGM2 from "hooks/game/game2/useBGM2";
  */
 
 const DrawingDescription = ({ description, onOk }) => {
-  useBGM2("Description", 0.5);
+  useAudio(game2DescriptionBGM);
+
   const { playEffect } = useEffectSound2();
   const rabbitImages = [midae_rabbit5, midae_rabbit3, midae_rabbit4];
   const [rabbitSrc, setRabbitSrc] = useState(rabbitImages[0]);

@@ -1,28 +1,83 @@
+import { getVolumes } from "utils/audio";
 import { create } from "zustand";
 
+const volumeMap = getVolumes();
+
+const initTrack = (type) => {
+  return {
+    audio: null,
+    volume: volumeMap[type],
+  };
+};
+
 export const audioStore = create((set, get) => ({
-  audio: null,
-  volume: 100,
-
-  setAudio: (audio) => set({ audio }),
-
-  setVolume: (v) => {
-    set({ volume: v });
-
-    const a = get().audio;
-    if (!a) return;
-    a.volume = v / 100;
+  tracks: {
+    bgm: initTrack("bgm"),
+    sfx: initTrack("sfx"),
   },
-  pause: () => get().audio?.pause(),
-  start: () => get().audio?.play(),
-  stop: () => {
-    const a = get().audio;
-    if (!a) return;
-    a.pause();
-    a.currentTime = 0;
+
+  setAudio: (key, audio) =>
+    set((state) => {
+      const track = state.tracks?.[key];
+      if (!track) return state;
+
+      const prevAudio = track.audio;
+      if (prevAudio && prevAudio !== audio) {
+        get().pause(key);
+      }
+
+      return {
+        tracks: {
+          ...state.tracks,
+          [key]: {
+            ...track,
+            audio,
+          },
+        },
+      };
+    }),
+
+  setVolume: (key, volume) =>
+    set((state) => {
+      const track = state.tracks?.[key];
+      if (!track) return state;
+
+      const vol = Math.max(0, Math.min(100, Number(volume)));
+      if (track.audio) {
+        track.audio.volume = vol / 100;
+      }
+
+      return {
+        tracks: {
+          ...state.tracks,
+          [key]: {
+            ...track,
+            volume: vol,
+          },
+        },
+      };
+    }),
+
+  pause: (key) => {
+    const audio = get().tracks[key]?.audio;
+    audio?.pause();
   },
-  init: () => {
-    get().stop();
-    get().setAudio(null);
+
+  start: (key) => {
+    const audio = get().tracks[key]?.audio;
+    audio?.play();
+  },
+
+  stop: (key) => {
+    const audio = get().tracks[key]?.audio;
+    if (!audio) return;
+
+    get().pause(key);
+    audio.currentTime = 0;
+  },
+
+  init: (key) => {
+    get().stop(key);
+    get().setAudio(key, null);
   },
 }));

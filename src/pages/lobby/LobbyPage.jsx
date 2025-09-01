@@ -98,7 +98,7 @@ const LobbyPage = () => {
                   to={MY_PAGE_URL}
                   className={`b-btn ${navType === "myinfo" ? "active" : ""}`}
                 >
-                  정보
+                  내 정보
                 </Link>
               </>
             )}

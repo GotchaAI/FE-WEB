@@ -21,6 +21,9 @@ const MyInfoPage = () => {
   const handleEditAvatarClick = () => {
     nav(MY_PAGE_EDIT_AVATAR);
   };
+  const handleWithdrawClick = () => {
+    //회원탈퇴 동작
+  };
   return (
     <div className="my-info-container">
       <div className="user-info-panel">
@@ -59,7 +62,7 @@ const MyInfoPage = () => {
         {!isWithdrawActive && (
           <button
             className="withdraw-button"
-            onClick={handleEditAvatarClick}
+            onClick={handleWithdrawClick}
             type="button"
           >
             회원탈퇴

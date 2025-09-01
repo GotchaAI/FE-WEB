@@ -138,15 +138,13 @@ const LobbyChatting = ({
   }, 100);
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      if (e.shiftKey) {
-        return;
-      } else {
-        e.preventDefault();
-        handleSendMessage();
-      }
+    if (e.shiftKey) return;
+    if (e.key === "Enter" && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      handleSendMessage();
     }
   };
+
   return (
     <div className="lobby-chatting-container">
       <img

@@ -8,7 +8,6 @@ import PaletteTools from "./PaletteTools";
 import "styles/components/scenes/game2/Game2DrawScene.scss";
 import useGame2Draw from "hooks/game/game2/useGame2Draw";
 import { useModalStore } from "store/modal";
-import useBGM from "hooks/game/game1/useBGM";
 import useBGM2 from "hooks/game/game2/useBGM2";
 
 /**

@@ -32,7 +32,7 @@
     overflow-y: auto;
     &::-webkit-scrollbar { width: 8px; }
     &::-webkit-scrollbar-track { background: transparent; }
-    &::-webkit-scrollbar-thumb { background: #999999; border-radius: 3px; border: 2px solid transparent;}
+    &::-webkit-scrollbar-thumb { background: #999999; border-radius: 3px; border: 2px solid white;}
     &::-webkit-scrollbar-button {
       display: none;
       width: 0;

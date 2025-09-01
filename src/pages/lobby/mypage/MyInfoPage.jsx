@@ -1,6 +1,6 @@
 import { CarrotAvatar } from "commons/svgs/characters/CarrotAvatar";
 import { EditButton } from "commons/svgs/EditButton";
-import { EditCarrotButton } from "commons/svgs/EditCarrotButtton";
+import { EditCarrotButton } from "commons/svgs/EditCarrotButton";
 import {
   MY_PAGE_EDIT_AVATAR,
   MY_PAGE_EDIT_NICKNAME,

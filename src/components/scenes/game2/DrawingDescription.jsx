@@ -4,9 +4,8 @@ import midae_rabbit3 from "assets/components/scenes/game2/midae-rabbit3.png";
 import midae_rabbit4 from "assets/components/scenes/game2/midae-rabbit4.png";
 import "styles/components/scenes/game2/DrawingDescription.scss";
 import { useState } from "react";
-import useEffectSound2 from "hooks/game/game2/useEffectSound2";
 import useAudio from "hooks/audio/useAudio";
-import { game2DescriptionBGM } from "constants/audio";
+import { game2DescriptionBGM, huhSFX } from "constants/audio";
 
 /**
  * DrawingDescription 컴포넌트
@@ -22,9 +21,9 @@ import { game2DescriptionBGM } from "constants/audio";
  */
 
 const DrawingDescription = ({ description, onOk }) => {
+  const { playTrack } = useAudio();
   useAudio(game2DescriptionBGM);
 
-  const { playEffect } = useEffectSound2();
   const rabbitImages = [midae_rabbit5, midae_rabbit3, midae_rabbit4];
   const [rabbitSrc, setRabbitSrc] = useState(rabbitImages[0]);
 
@@ -35,7 +34,7 @@ const DrawingDescription = ({ description, onOk }) => {
   };
 
   const onCancel = () => {
-    playEffect("huh");
+    playTrack(huhSFX);
     const randomIndex = Math.floor(Math.random() * rabbitImages.length);
     setRabbitSrc(rabbitImages[randomIndex]);
     console.log("이딴걸 그리라고?");
@@ -61,6 +60,14 @@ const DrawingDescription = ({ description, onOk }) => {
           </button>
         </div>
       )}
+      <div className="button-box">
+        <button className="ok-btn" onClick={onOk}>
+          오케이
+        </button>
+        <button className="cancel-btn" onClick={onCancel}>
+          네?
+        </button>
+      </div>
 
       <img src={art_table} alt="Art Table" className="art-table-img" />
       <img

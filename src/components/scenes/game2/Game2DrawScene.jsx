@@ -8,8 +8,8 @@ import PaletteTools from "./PaletteTools";
 import "styles/components/scenes/game2/Game2DrawScene.scss";
 import useGame2Draw from "hooks/game/game2/useGame2Draw";
 import { useModalStore } from "store/modal";
-import useBGM from "hooks/game/game1/useBGM";
-import useBGM2 from "hooks/game/game2/useBGM2";
+import { game2DrawingBGM } from "constants/audio";
+import useAudio from "hooks/audio/useAudio";
 
 /**
  * Game2DrawScene 컴포넌트
@@ -52,7 +52,7 @@ const Game2DrawScene = ({ gameData, onSubmit, onNext }) => {
     onSubmit,
   });
 
-  useBGM2(flow === 2 || flow === 3 ? "DrawScene" : null, 0.5);
+  useAudio(flow === 2 || flow === 3 ? game2DrawingBGM : null);
 
   // 타이머 종료 시점 (60초 후)
   const [localEndTime, setLocalEndTime] = useState(null);

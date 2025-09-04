@@ -1,4 +1,4 @@
-import CloseIcon from "commons/svgs/CloseIcon";
+import CloseButton from "commons/ui/button/CloseButton";
 import ChatSetting from "components/lobby/setting/ChatSetting";
 import SoundSetting from "components/lobby/setting/SoundSetting";
 import { useState } from "react";
@@ -37,9 +37,7 @@ const SettingPage = () => {
       </div>
 
       <div className="setting-content-container">
-        <div className="close-btn">
-          <CloseIcon onClick={closeHandler} />
-        </div>
+        <CloseButton onClick={closeHandler} />
         <span className="title">{settingType} 설정</span>
         <div className="divide-line" />
         {settingType === "소리" ? (

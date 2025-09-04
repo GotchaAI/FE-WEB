@@ -1,4 +1,4 @@
-import CloseIcon from "commons/svgs/CloseIcon";
+import CloseButton from "commons/ui/button/CloseButton";
 import { useModalStore } from "store/modal";
 import "styles/commons/modal/HomeModal.scss";
 
@@ -7,9 +7,7 @@ const HomeModal = ({ message, onConfirm }) => {
 
   return (
     <div className="home-modal">
-      <button className="close-btn" onClick={closeModal}>
-        <CloseIcon />
-      </button>
+      <CloseButton onClick={closeModal} />
       <div className="content">{message}</div>
       <button className="confirm-btn" onClick={onConfirm}>
         확인

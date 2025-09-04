@@ -1,5 +1,5 @@
 import CheckBox from "commons/svgs/CheckBox";
-import CloseIcon from "commons/svgs/CloseIcon";
+import CloseButton from "commons/ui/button/CloseButton";
 import { REPORT_REASONS } from "constants/reportReasons";
 import { useState } from "react";
 import { useModalStore } from "store/modal";
@@ -25,9 +25,7 @@ const ReportModal = ({ reportedUser, onConfirm }) => {
 
   return (
     <div className="report-modal">
-      <div className="close-btn" onClick={closeModal}>
-        <CloseIcon />
-      </div>
+      <CloseButton onClick={closeModal} />
       <div className="title">채팅 신고</div>
 
       <div className="reported-user">{reportedUser}</div>

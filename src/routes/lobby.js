@@ -9,6 +9,7 @@ import LobbyLayout, {
 } from "pages/lobby/LobbyLayout";
 import LobbyPage from "pages/lobby/LobbyPage";
 import SettingPage from "pages/lobby/SettingPage";
+import { redirect } from "react-router-dom";
 
 const lobby = [
   {
@@ -20,10 +21,7 @@ const lobby = [
         path: "",
         element: <LobbyPage />,
         children: [
-          {
-            index: true,
-            element: <Game1LobbyPage />,
-          },
+          { index: true, loader: () => redirect("game1") },
           {
             path: "game1",
             children: [

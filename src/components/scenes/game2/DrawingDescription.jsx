@@ -6,6 +6,7 @@ import "styles/components/scenes/game2/DrawingDescription.scss";
 import { useState } from "react";
 import useAudio from "hooks/audio/useAudio";
 import { game2DescriptionBGM, huhSFX } from "constants/audio";
+import { randomIdxSelect } from "utils/random";
 
 /**
  * DrawingDescription 컴포넌트
@@ -35,7 +36,7 @@ const DrawingDescription = ({ description, onOk }) => {
 
   const onCancel = () => {
     playTrack(huhSFX);
-    const randomIndex = Math.floor(Math.random() * rabbitImages.length);
+    const randomIndex = randomIdxSelect(rabbitImages.length);
     setRabbitSrc(rabbitImages[randomIndex]);
     console.log("이딴걸 그리라고?");
   };

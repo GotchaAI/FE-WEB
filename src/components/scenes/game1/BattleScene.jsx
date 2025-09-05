@@ -3,7 +3,7 @@ import rightCloudImg from "assets/components/scenes/commons/right-cloud.png";
 import aiImg from "assets/components/scenes/game1/ai.png";
 import userImg from "assets/components/scenes/game1/player.png";
 import Timer from "commons/Timer";
-import { game1BattleBGM } from "constants/audio";
+import { correctSFX, game1BattleBGM, incorrectSFX } from "constants/audio";
 import useAudio from "hooks/audio/useAudio";
 import useBattle from "hooks/game/game1/useBattle";
 import useEffectSound from "hooks/game/game1/useEffectSound";
@@ -33,7 +33,8 @@ const BattleScene = ({ roomId, drawings }) => {
   const [aiSaying, setAiSaying] = useState(true);
 
   useAudio(game1BattleBGM);
-  const { playEffect } = useEffectSound();
+  const { playTrack } = useAudio();
+  // const { playEffect } = useEffectSound();
 
   useEffect(() => {
     showToast("gamealert", "AI가 맞출 차례입니다!");
@@ -66,10 +67,12 @@ const BattleScene = ({ roomId, drawings }) => {
 
     if (guessResult) {
       showToast("gameO");
-      playEffect("correct");
+      playTrack(correctSFX);
+      // playEffect("correct");
     } else {
       showToast("gameX");
-      playEffect("incorrect");
+      playTrack(incorrectSFX);
+      // playEffect("incorrect");
     }
   }, [guessResult]);
 

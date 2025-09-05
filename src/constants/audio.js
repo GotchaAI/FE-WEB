@@ -4,6 +4,13 @@ import drawing_bgm from "assets/audio/drawing.mp3";
 import description_bgm from "assets/audio/description.mp3";
 import hook_sfx from "assets/audio/sfx/hook.mp3";
 
+import correct from "assets/audio/correct.mp3";
+import countdown from "assets/audio/countdown.mp3";
+import defeat from "assets/audio/defeat.mp3";
+import incorrect from "assets/audio/incorrect.mp3";
+import pling from "assets/audio/pling.mp3";
+import victory from "assets/audio/victory.mp3";
+
 import drawing_bgm2 from "assets/audio/drawing2.mp3";
 import fail from "assets/audio/fail.mp3";
 import pass from "assets/audio/pass.mp3";
@@ -51,6 +58,42 @@ const hookSFX = {
   type: "sfx",
   isLoop: false,
   src: hook_sfx,
+};
+
+const correctSFX = {
+  type: "sfx",
+  isLoop: false,
+  src: correct,
+};
+
+const countdownSFX = {
+  type: "sfx",
+  isLoop: false,
+  src: countdown,
+};
+
+const defeatSFX = {
+  type: "sfx",
+  isLoop: false,
+  src: defeat,
+};
+
+const incorrectSFX = {
+  type: "sfx",
+  isLoop: false,
+  src: incorrect,
+};
+
+const plingSFX = {
+  type: "sfx",
+  isLoop: false,
+  src: pling,
+};
+
+const victorySFX = {
+  type: "sfx",
+  isLoop: false,
+  src: victory,
 };
 
 const game2DrawingBGM = {
@@ -101,6 +144,12 @@ export {
   game1BattleBGM,
   game2DescriptionBGM,
   hookSFX,
+  correctSFX,
+  countdownSFX,
+  defeatSFX,
+  incorrectSFX,
+  plingSFX,
+  victorySFX,
   game2DrawingBGM,
   failSFX,
   passSFX,

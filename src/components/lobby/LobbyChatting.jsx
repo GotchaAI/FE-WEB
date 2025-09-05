@@ -25,7 +25,7 @@ import ChatWindow from "./ChatWindow";
  * - 채팅 테스트 코드 : 랜덤 사용자와 메시지를 생성하여 5초마다 메시지를 추가하는 테스트 코드 (추후 삭제 예정)
  */
 const LobbyChatting = ({
-  errorMessage,
+  // errorMessage, ESLint 때문에 주석처리
   whisperNickname,
   setWhisperNickname,
 }) => {
@@ -138,15 +138,13 @@ const LobbyChatting = ({
   }, 100);
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      if (e.shiftKey) {
-        return;
-      } else {
-        e.preventDefault();
-        handleSendMessage();
-      }
+    if (e.shiftKey) return;
+    if (e.key === "Enter" && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      handleSendMessage();
     }
   };
+
   return (
     <div className="lobby-chatting-container">
       <img

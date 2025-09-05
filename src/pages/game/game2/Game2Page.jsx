@@ -46,12 +46,14 @@ const Game2Page = () => {
 
   const scenes = useMemo(
     () => [
-      <Game2Opening onNext={goToNextScene} />,
+      <Game2Opening key="game2-opening" onNext={goToNextScene} />,
       <DrawingDescription
+        key="drawing-description"
         description={gameData.description}
         onOk={goToNextScene}
       />,
       <Game2DrawScene
+        key="game2-draw-scene"
         gameData={gameData}
         onSubmit={async (imageUrl) => {
           await handleSubmitDrawing(imageUrl);
@@ -59,11 +61,12 @@ const Game2Page = () => {
         onNext={goToNextScene} // Game2ResultScene으로 이동
       />,
       <Game2ResultScene
+        key="game2-result-scene"
         gameData={gameData}
         onExit={() => navigate("/lobby/game2")}
       />,
     ],
-    [gameData, goToNextScene, handleSubmitDrawing, navigate, fetchPrompt]
+    [gameData, goToNextScene, handleSubmitDrawing, navigate, fetchPrompt],
   );
 
   return (

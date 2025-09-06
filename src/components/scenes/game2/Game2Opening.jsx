@@ -3,7 +3,8 @@ import art_table from "assets/components/scenes/game2/art-table.png";
 import midae_rabbit from "assets/components/scenes/game2/midae-rabbit0.png";
 import { useToastStore } from "store/toast";
 import "styles/components/scenes/game2/Game2Opening.scss";
-import useEffectSound2 from "hooks/game/game2/useEffectSound2";
+import { openingSFX } from "constants/audio";
+import useAudio from "hooks/audio/useAudio";
 
 /**
  * Game2Opening:
@@ -11,9 +12,11 @@ import useEffectSound2 from "hooks/game/game2/useEffectSound2";
  * - 일정시간 후 자동으로 다음 씬으로 전환
  */
 const Game2Opening = ({ onNext }) => {
-  const { playEffect } = useEffectSound2();
+  const { playTrack } = useAudio();
+
   useEffect(() => {
-    playEffect("opening");
+    playTrack(openingSFX);
+
     // 토스트 표시
     useToastStore
       .getState()

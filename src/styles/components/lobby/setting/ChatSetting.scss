@@ -1,0 +1,22 @@
+.chat-setting-container {
+  position: relative;
+
+  .chat-setting {
+    .normal-chat-setting,
+    .whisper-chat-setting {
+      display: flex;
+      align-items: center;
+
+      margin-top: 24px;
+      gap: 25.28px;
+
+      .normal-chat-title,
+      .whisper-chat-title {
+        width: 49px;
+
+        font-size: 12px;
+        font-family: YoonChild;
+      }
+    }
+  }
+}

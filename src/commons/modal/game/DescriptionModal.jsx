@@ -1,4 +1,4 @@
-import CloseIcon from "commons/svgs/XIcon";
+import CloseButton from "commons/ui/button/CloseButton";
 import { useModalStore } from "store/modal";
 import "styles/commons/modal/DescriptionModal.scss";
 
@@ -7,9 +7,8 @@ const DescriptionModal = ({ message }) => {
 
   return (
     <div className="description-modal">
-      <button className="close" onClick={closeModal}>
-        <CloseIcon />
-      </button>
+      <CloseButton onClick={closeModal} />
+
       <div className="description-box">
         <div className="text-content">{message}</div>
       </div>

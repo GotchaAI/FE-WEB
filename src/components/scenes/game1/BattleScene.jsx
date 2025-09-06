@@ -3,7 +3,8 @@ import rightCloudImg from "assets/components/scenes/commons/right-cloud.png";
 import aiImg from "assets/components/scenes/game1/ai.png";
 import userImg from "assets/components/scenes/game1/player.png";
 import Timer from "commons/Timer";
-import useBGM from "hooks/game/game1/useBGM";
+import { correctSFX, game1BattleBGM, incorrectSFX } from "constants/audio";
+import useAudio from "hooks/audio/useAudio";
 import useBattle from "hooks/game/game1/useBattle";
 import useEffectSound from "hooks/game/game1/useEffectSound";
 import { useEffect, useRef, useState } from "react";
@@ -30,8 +31,10 @@ const BattleScene = ({ roomId, drawings }) => {
   const inputRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
   const [aiSaying, setAiSaying] = useState(true);
-  useBGM("BattleScene");
-  const { playEffect } = useEffectSound();
+
+  useAudio(game1BattleBGM);
+  const { playTrack } = useAudio();
+  // const { playEffect } = useEffectSound();
 
   useEffect(() => {
     showToast("gamealert", "AI가 맞출 차례입니다!");
@@ -64,10 +67,12 @@ const BattleScene = ({ roomId, drawings }) => {
 
     if (guessResult) {
       showToast("gameO");
-      playEffect("correct");
+      playTrack(correctSFX);
+      // playEffect("correct");
     } else {
       showToast("gameX");
-      playEffect("incorrect");
+      playTrack(incorrectSFX);
+      // playEffect("incorrect");
     }
   }, [guessResult]);
 

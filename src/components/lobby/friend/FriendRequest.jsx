@@ -1,6 +1,5 @@
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import SearchIcon from "commons/svgs/SearchIcon";
-import CloseIcon from "commons/svgs/XIcon";
 import FriendRequestList from "components/lobby/friend/FriendRequestList";
 import FriendSearchList from "components/lobby/friend/FriendSearchList";
 import { useState } from "react";
@@ -8,6 +7,7 @@ import { searchFriendAPI } from "services/friend/friend";
 import "styles/components/lobby/friend/FriendRequest.scss";
 import { isPressEnterKey } from "utils/keyDown";
 import { isBlank } from "utils/validation";
+import CloseButton from "commons/ui/button/CloseButton";
 
 const FriendRequest = ({
   friendRequestList,
@@ -56,12 +56,7 @@ const FriendRequest = ({
       ) : (
         <>
           <div className="close-add-btn">
-            <button
-              type="button"
-              onClick={() => setFriendRequestMode("request")}
-            >
-              <CloseIcon />
-            </button>
+            <CloseButton onClick={() => setFriendRequestMode("request")} />
           </div>
           <div className="friend-search-container">
             <input

@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: #FFC466;
+  background-color: #ffc466;
   border: 1px solid #000;
   border-radius: 12px;
   width: 410px;
@@ -10,14 +10,11 @@
   justify-content: center;
   text-align: center;
 
-  .close {
+  .close-btn {
     position: absolute;
     top: 13.7px;
     right: 14.67px;
-    background: none;
-    border: none;
     font-size: 20px;
-    cursor: pointer;
   }
 
   .title {

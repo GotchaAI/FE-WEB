@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import CheckBox from "commons/svgs/CheckBox";
 import "styles/pages/game/Game1CreatePage.scss";
-import CloseIcon from "commons/svgs/XIcon";
 import OkayButton from "commons/svgs/OkayButton";
 import { isFourDigitNumber, isNumeric } from "utils/validation";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +16,8 @@ import {
   PASSWORD_FOUR_DIGIT_ERROR_MESSAGE,
   ROOM_TITLE_INPUT_ERROR_MESSAGE,
 } from "constants/errorMessage";
+import CloseButton from "commons/ui/button/CloseButton";
+import { GAME1_ROBBY_URL } from "constants/url";
 
 const roundOptions = GAME1_ROUND_OPTIONS;
 const playerOptions = GAME1_PLAYER_OPTIONS;
@@ -108,9 +109,7 @@ const Game1CreatePage = () => {
     <div className="game1-create-container">
       <div className="game1-create-header">
         <span>방 만들기</span>
-        <button onClick={() => navigate("/lobby/game1")}>
-          <CloseIcon />
-        </button>
+        <CloseButton onClick={() => navigate(GAME1_ROBBY_URL)} />
       </div>
 
       {/* 방 제목 */}

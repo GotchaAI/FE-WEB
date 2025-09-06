@@ -53,7 +53,8 @@
   }
 
   input[type="checkbox"]:focus + .custom-checkbox {
-    border: 2px solid black;
+    outline: 2px solid black;
+    outline-offset: -1px;
   }
 }
 

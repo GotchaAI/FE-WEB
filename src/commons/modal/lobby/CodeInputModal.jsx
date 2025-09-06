@@ -1,4 +1,4 @@
-import CloseIcon from "commons/svgs/XIcon";
+import CloseButton from "commons/ui/button/CloseButton";
 import { useEffect, useRef, useState } from "react";
 import { useModalStore } from "store/modal";
 import "styles/commons/modal/CodeInputModal.scss";
@@ -40,9 +40,7 @@ const CodeInputModal = ({ title, onConfirm }) => {
 
   return (
     <div className="code-input-modal">
-      <button className="close" onClick={closeModal}>
-        <CloseIcon />
-      </button>
+      <CloseButton onClick={closeModal} />
       <div className="title">{title}</div>
       <div className="code-inputs">
         {code.map((val, idx) => (

@@ -1,0 +1,47 @@
+.volume-control-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 11px;
+  button {
+    width: 24px;
+    height: 24px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: white;
+
+    &:disabled {
+      background-color: #999;
+    }
+  }
+
+  .volume-progress {
+    width: 260px;
+    height: 10px;
+
+    border: 1px solid black;
+
+    overflow: hidden;
+  }
+
+  .volume-value {
+    position: absolute;
+    display: block;
+    width: 14px;
+
+    font-size: 12px;
+
+    bottom: 23px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

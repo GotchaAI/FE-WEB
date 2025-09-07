@@ -4,7 +4,7 @@ import playerChatImg from "assets/components/scenes/game1/player-chat.png";
 import userImg from "assets/components/scenes/game1/player.png";
 import { defeatSFX, victorySFX } from "constants/audio";
 import useAudio from "hooks/audio/useAudio";
-import useEffectSound from "hooks/game/game1/useEffectSound";
+// import useEffectSound from "hooks/game/game1/useEffectSound";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "styles/components/scenes/game1/ResultScene.scss";

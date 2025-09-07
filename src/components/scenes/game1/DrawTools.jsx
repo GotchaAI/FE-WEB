@@ -7,7 +7,7 @@ import carrotCurosr from "assets/cursor/carrot.png";
 import eraserCurosr from "assets/cursor/eraser.png";
 import { plingSFX } from "constants/audio";
 import useAudio from "hooks/audio/useAudio";
-import useEffectSound from "hooks/game/game1/useEffectSound";
+// import useEffectSound from "hooks/game/game1/useEffectSound";
 import { useEffect, useState } from "react";
 import { useToastStore } from "store/toast";
 import "styles/components/scenes/game1/DrawTools.scss";

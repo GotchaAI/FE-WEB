@@ -1,6 +1,7 @@
 .announce-page-container {
   width: 1187px;
-  margin-top: 186px;
+  min-height: 100vh;
+  padding-top: 186px;
   display: flex;
   flex-direction: column;
   align-items: center;

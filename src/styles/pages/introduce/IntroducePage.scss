@@ -2,6 +2,7 @@
   ::-webkit-scrollbar {
     display: none;
   }
+
   position: relative;
   width: 100%;
   display: flex;
@@ -68,6 +69,7 @@
         .introduce-character-info {
           margin-left: 50px;
         }
+
         img {
           left: 200px;
         }
@@ -80,6 +82,7 @@
         .introduce-character-info {
           margin-right: 50px;
         }
+
         img {
           right: 200px;
         }
@@ -104,6 +107,7 @@
         h2 {
           font-size: 48px;
         }
+
         p {
           font-size: 32px;
         }

@@ -6,7 +6,7 @@ import Timer from "commons/Timer";
 import { correctSFX, game1BattleBGM, incorrectSFX } from "constants/audio";
 import useAudio from "hooks/audio/useAudio";
 import useBattle from "hooks/game/game1/useBattle";
-import useEffectSound from "hooks/game/game1/useEffectSound";
+// import useEffectSound from "hooks/game/game1/useEffectSound";
 import { useEffect, useRef, useState } from "react";
 import { useToastStore } from "store/toast";
 import "styles/components/scenes/game1/BattleScene.scss";

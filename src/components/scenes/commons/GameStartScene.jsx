@@ -1,6 +1,6 @@
 import { countdownSFX } from "constants/audio";
 import useAudio from "hooks/audio/useAudio";
-import useEffectSound from "hooks/game/game1/useEffectSound";
+// import useEffectSound from "hooks/game/game1/useEffectSound";
 import { useEffect } from "react";
 import { useToastStore } from "store/toast";
 import "styles/components/scenes/commons/GameStartScene.scss";
@@ -13,7 +13,7 @@ import "styles/components/scenes/commons/GameStartScene.scss";
  */
 const GameStartScene = ({ goToNextFlow }) => {
   const { playTrack } = useAudio();
-  const { playEffect } = useEffectSound();
+  // const { playEffect } = useEffectSound();
 
   useEffect(() => {
     playTrack(countdownSFX);

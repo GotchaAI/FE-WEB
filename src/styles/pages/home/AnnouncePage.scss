@@ -1,0 +1,113 @@
+.announce-page-container {
+  width: 1187px;
+  margin-top: 186px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .announce-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .announce-navbar {
+    margin-top: 27px;
+
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 169.5px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+    }
+
+    .tab {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 129px;
+      height: 58px;
+      font-size: 20px;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 50%;
+      border: 2px solid transparent;
+
+      &.active {
+        background: #89C881;
+        border-color: #000;
+      }
+    }
+  }
+
+  /* 리스트 */
+  .announce-list-container {
+    position: relative;
+    width: 100%;
+    min-height: 340px;
+    margin-top: 25px;
+
+    .announce-sort {
+      position: absolute;
+      top: -38px;
+      right: 0;
+      display: flex;
+
+      button {
+        width: 78px;
+        height: 30px;
+        font-size: 16px;
+        border: 1px solid #000;
+        background: #fff;
+        cursor: pointer;
+
+        &.active {
+          background: #FFC466;
+        }
+      }
+    }
+
+    .announce-item {
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1.5px solid #E0E0E0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .title {
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .date {
+        width: 100px;
+        text-align: right;
+        color: #999999;
+      }
+    }
+
+    .empty {
+      text-align: center;
+    }
+  }
+
+  /* 페이지네이션 */
+  .announce-pagination {
+    margin: 16px 0 56px;
+    display: flex;
+    gap: 6.32px;
+    align-items: center;
+    justify-content: center;
+
+    .page-index {
+      font-size: 16px;
+    }
+  }
+}

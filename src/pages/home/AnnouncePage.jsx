@@ -1,3 +1,4 @@
+import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import PageArrowButton from "commons/svgs/PageArrowButton";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -99,7 +100,9 @@ const AnnouncePage = () => {
         </div>
 
         {items.length === 0 && (
-          <div className="empty">표시할 공지사항이 없습니다.</div>
+          <div className="empty">
+            <EmptyContent />
+          </div>
         )}
 
         {items.map((n) => (

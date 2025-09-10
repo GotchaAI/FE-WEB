@@ -56,7 +56,36 @@
       }
     }
 
-    .announce-detail-content {}
+    .announce-detail-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 127px;
+      gap: 43px;
+
+      .content-title {
+        display: flex;
+        gap: 3.42px;
+        height: 52px;
+        align-items: center;
+        font-weight: 500;
+        font-size: 24px;
+
+      }
+
+      .content-description {
+        width: 923px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 200;
+        font-size: 20px;
+        text-align: center;
+        padding-top: 24px;
+        white-space: pre-line;
+      }
+    }
   }
 
 }

@@ -1,5 +1,6 @@
 import PageArrowButton from "commons/svgs/PageArrowButton";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "styles/pages/home/AnnouncePage.scss";
 
 const MOCK_NOTICES = [
@@ -103,7 +104,9 @@ const AnnouncePage = () => {
 
         {items.map((n) => (
           <div key={n.id} className="announce-item">
-            <div className="title">{n.title}</div>
+            <Link className="title" to={`${n.id}`}>
+              {n.title}
+            </Link>
             <div className="date">{(n.date || "").replaceAll("-", ".")}</div>
           </div>
         ))}

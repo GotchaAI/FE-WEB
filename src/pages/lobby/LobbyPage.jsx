@@ -35,20 +35,6 @@ const LobbyPage = () => {
     reconnect();
   }, []);
 
-  useEffect(() => {
-    //나중에 설정, 같은것도 추가하면됨
-    if (location.pathname.includes("myinfo")) {
-      setContentMode("myinfo");
-    } else {
-      // 로비의 경우 (디폴트로 생각하면 됨)
-      setContentMode("game");
-    }
-  }, [location.pathname]);
-
-  useEffect(() => {
-    reconnect();
-  }, []);
-
   return (
     <div className="lobby-page-container">
       <LobbyHeader />

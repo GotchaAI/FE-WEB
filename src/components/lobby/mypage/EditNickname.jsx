@@ -1,10 +1,10 @@
-import CloseIcon from "commons/svgs/XIcon";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "styles/components/lobby/mypage/EditNickname.scss";
 import { isValidNickname } from "utils/validation";
 import { checkNicknameDuplicateAPI } from "services/user/user";
 import { MY_PAGE_URL } from "constants/url";
+import CloseIcon from "commons/svgs/CloseIcon";
 
 export const EditNickname = () => {
   const navigate = useNavigate();

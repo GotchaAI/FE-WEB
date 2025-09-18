@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CloseIcon from "commons/svgs/XIcon";
 import "styles/components/lobby/mypage/EditAvatar.scss";
 import { CarrotAvatar } from "commons/svgs/characters/CarrotAvatar";
 import { avatarBackgroundColorList } from "constants/avatarBackgroundColor";
 import { MY_PAGE_URL } from "constants/url";
+import CloseIcon from "commons/svgs/CloseIcon";
 
 const COLOR_PALETTE = avatarBackgroundColorList;
 

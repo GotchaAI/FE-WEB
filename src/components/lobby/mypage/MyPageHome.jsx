@@ -1,8 +1,8 @@
-import CloseIcon from "commons/svgs/XIcon";
 import "styles/components/lobby/mypage/MyPageHome.scss";
 import rabbitCarrot from "assets/commons/carrot-rabbit.png";
 import { useNavigate } from "react-router-dom";
 import { LOBBY_URL } from "constants/url";
+import CloseIcon from "commons/svgs/CloseIcon";
 
 export const MyPageHome = () => {
   // 예시 데이터

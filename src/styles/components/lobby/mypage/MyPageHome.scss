@@ -1,0 +1,141 @@
+
+.my-page-home-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding-left: 40px;
+
+  .close-btn {
+    position: absolute;
+    top: 21px;
+    right: 19px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .achievements-header {
+    margin-top: 52px;
+    font-size: 20px;
+    font-weight: 400;
+
+    .total {
+      color: #000;
+    }
+    .current {
+      color: #ff7b00;
+      margin-left: 8px;
+    }
+    .divider {
+      color: black;
+      margin-left: 2px;
+      font-size: 14px;
+    }
+    .rank {
+      color: #999;
+      margin-left: 8px;
+      font-size: 13px;
+    }
+  }
+  .progress {
+    margin-top: 16px;
+    width: 318px;
+    height: 10px;
+    appearance: none;
+    border: 1.5px solid black;
+    background: transparent;
+    border-radius: 6px; 
+    overflow: hidden;   
+  }
+
+  .progress::-webkit-progress-bar {
+    background-color: #FBFFEC;  
+    border-radius: 6px;
+  }
+  .progress::-webkit-progress-value {
+    background-color: #89C881;  
+    border-radius: 6px;
+    transition: width 200ms ease;
+  }
+
+  .progress::-moz-progress-bar {
+    background-color: #89C881;   /* 진행 바 */
+    border-radius: 6px;
+    transition: width 200ms ease;
+  }
+
+
+    .achievements-list {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        max-height: 242px;
+        width: 318px;
+        overflow-y: auto;
+
+       
+        &::-webkit-scrollbar { width: 8px; }
+        &::-webkit-scrollbar-track { background: #F2F3F6; }
+        &::-webkit-scrollbar-thumb { background: #999999; border-radius: 3px; border: 2px solid #F2F3F6;}
+        &::-webkit-scrollbar-button {
+          display: none;
+          width: 0;
+          height: 0;
+        } 
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            width: 100%;
+            height: 60px;
+            box-sizing: border-box;
+
+            &:first-child {
+                border-top: 1px solid black;
+            }
+            border-bottom: 1px solid black;
+
+            .achievement-icon-wrapper{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 60px;
+                height: 58px;
+                background-color: #F2F3F6;
+            
+                .achievement-icon {
+                    width: 41.73px;
+                    height: 37px;
+                }
+            }
+      
+
+        .achievement-texts {
+            display: flex;
+            align-items: flex-start;
+            justify-items: center;
+            margin-left: 8px;
+            display: flex;
+            flex-direction: column;
+
+            .title {
+                font-size: 16px;
+                font-weight: 400;
+                color: #000;
+            }
+            .desc {
+                font-size: 13px;
+                color: #999;
+            }
+        }
+    }
+  }
+}

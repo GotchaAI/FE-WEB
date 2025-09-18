@@ -1,4 +1,10 @@
-import { GAME1_ROBBY_URL, GAME2_ROBBY_URL, SETTING_URL } from "constants/url";
+import {
+  GAME1_ROBBY_URL,
+  GAME2_ROBBY_URL,
+  MY_PAGE_URL,
+  MY_RECORD_URL,
+  SETTING_URL,
+} from "constants/url";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "styles/components/lobby/LobbyNavBar.scss";
@@ -14,15 +20,14 @@ const gameNav = [
   },
 ];
 
-// 임시
 const myInfoNav = [
   {
     title: "전적",
-    url: "url",
+    url: MY_RECORD_URL,
   },
   {
     title: "내 정보",
-    url: "url",
+    url: MY_PAGE_URL,
   },
 ];
 

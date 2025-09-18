@@ -1,8 +1,11 @@
+import { MY_PAGE_URL } from "constants/url";
+import { Link } from "react-router-dom";
+
 import "styles/commons/options/OptionBtn.scss";
 
 const Mypage = () => {
   return (
-    <button className="option-btn">
+    <Link to={MY_PAGE_URL} className="option-btn">
       <svg
         width="28"
         height="28"
@@ -15,7 +18,7 @@ const Mypage = () => {
           fill="black"
         />
       </svg>
-    </button>
+    </Link>
   );
 };
 

@@ -1,0 +1,72 @@
+.edit-avatar-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  .close-btn {
+    position: absolute;
+    top: 21px;
+    right: 19px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+  }
+
+  .swatch-grid {
+    margin-top: 52px;
+    display: grid;
+    grid-template-columns: repeat(3, 84px); // 3열
+    grid-auto-rows: 84px;
+    gap: 8px;
+    width: 283px;
+    height: 321px;
+    overflow-y: auto;
+    &::-webkit-scrollbar { width: 8px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { background: #999999; border-radius: 3px; border: 2px solid white;}
+    &::-webkit-scrollbar-button {
+      display: none;
+      width: 0;
+      height: 0;
+    } 
+    .avatar-swatch {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        .swatch-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+              svg   
+              {
+                width: 48px;
+                height: 48px;
+              }
+            }
+
+            &:hover {
+                filter: brightness(0.95);
+            }
+
+            &.is-selected {
+                border: 3px solid #000;
+            }
+        }
+    }
+
+  
+}

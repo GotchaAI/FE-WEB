@@ -8,6 +8,7 @@ import LobbyLayout, {
   loader as lobbyLayoutLoader,
 } from "pages/lobby/LobbyLayout";
 import LobbyPage from "pages/lobby/LobbyPage";
+import mypage from "routes/mypage";
 import SettingPage from "pages/lobby/SettingPage";
 import { redirect } from "react-router-dom";
 
@@ -48,6 +49,7 @@ const lobby = [
             path: "waiting",
             element: <WaitingRoom />,
           },
+          ...mypage,
           {
             path: "setting",
             element: <SettingPage />,

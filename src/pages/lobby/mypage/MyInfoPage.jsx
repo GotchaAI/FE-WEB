@@ -36,7 +36,6 @@ const MyInfoPage = () => {
           {!isAvatarActive && (
             <button
               className="edit-icon avatar-edit"
-              ariaLabel="아바타 수정"
               onClick={handleEditAvatarClick}
               type="button"
             >
@@ -49,7 +48,6 @@ const MyInfoPage = () => {
           <span className="user-nickname">불닭먹고시퍼</span>
           <button
             className="edit-icon"
-            ariaLabel="닉네임 수정"
             onClick={handleEditNicknameClick}
             type="button"
           >

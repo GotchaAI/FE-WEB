@@ -2,14 +2,17 @@ import aiChatImg from "assets/components/scenes/game1/ai-chat.png";
 import aiImg from "assets/components/scenes/game1/ai.png";
 import playerChatImg from "assets/components/scenes/game1/player-chat.png";
 import userImg from "assets/components/scenes/game1/player.png";
-import useEffectSound from "hooks/game/game1/useEffectSound";
+import { defeatSFX, victorySFX } from "constants/audio";
+import useAudio from "hooks/audio/useAudio";
+// import useEffectSound from "hooks/game/game1/useEffectSound";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "styles/components/scenes/game1/ResultScene.scss";
 
 const ResultScene = ({ gameResultInfo }) => {
   const navigate = useNavigate();
-  const { playEffect } = useEffectSound();
+  const { playTrack } = useAudio();
+  // const { playEffect } = useEffectSound();
   const [selectedRound, setSelectedRound] = useState(0);
 
   const gameWinner = gameResultInfo.playerWon; // 우승자 : true: 플레이어 승, false: AI 승
@@ -26,8 +29,10 @@ const ResultScene = ({ gameResultInfo }) => {
   ));
 
   useEffect(() => {
-    if (gameWinner) playEffect("victory");
-    else playEffect("defeat");
+    if (gameWinner) playTrack(victorySFX);
+    // if (gameWinner) playEffect("victory");
+    else playTrack(defeatSFX);
+    // else playEffect("defeat");
   }, [gameWinner]);
 
   const roundResultInfo = gameResultInfo.rounds.map((round) => ({

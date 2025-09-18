@@ -1,14 +1,16 @@
 import WaitingRoom from "components/lobby/waiting/WaitingRoom";
+import LazyGame1Page from "pages/game/game1/LazyGame1Page";
 import Game1CreatePage from "pages/game/Game1CreatePage";
 import Game1LobbyPage from "pages/game/Game1LobbyPage";
+import LazyGame2Page from "pages/game/game2/LazyGame2Page";
 import Game2LobbyPage from "pages/game/Game2LobbyPage";
-import Game1Page from "pages/game/game1/Game1Page";
-import Game2Page from "pages/game/game2/Game2Page";
 import LobbyLayout, {
   loader as lobbyLayoutLoader,
 } from "pages/lobby/LobbyLayout";
 import LobbyPage from "pages/lobby/LobbyPage";
 import mypage from "routes/mypage";
+import SettingPage from "pages/lobby/SettingPage";
+import { redirect } from "react-router-dom";
 
 const lobby = [
   {
@@ -20,10 +22,7 @@ const lobby = [
         path: "",
         element: <LobbyPage />,
         children: [
-          {
-            index: true,
-            element: <Game1LobbyPage />,
-          },
+          { index: true, loader: () => redirect("game1") },
           {
             path: "game1",
             children: [
@@ -44,10 +43,6 @@ const lobby = [
                 index: true,
                 element: <Game2LobbyPage />,
               },
-              // {
-              //   path: "create",
-              //   element: <Game1CreatePage />,
-              // },
             ],
           },
           {
@@ -55,15 +50,19 @@ const lobby = [
             element: <WaitingRoom />,
           },
           ...mypage,
+          {
+            path: "setting",
+            element: <SettingPage />,
+          },
         ],
       },
       {
         path: "play",
-        element: <Game1Page />,
+        element: <LazyGame1Page />,
       },
       {
         path: "play2",
-        element: <Game2Page />,
+        element: <LazyGame2Page />,
       },
     ],
   },

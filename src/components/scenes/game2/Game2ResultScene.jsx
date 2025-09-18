@@ -1,8 +1,9 @@
 import fail_rabbit from "assets/components/scenes/game2/result-rabbit1.png";
 import pass_rabbit from "assets/components/scenes/game2/result-rabbit2.png";
-import useEffectSound2 from "hooks/game/game2/useEffectSound2";
 import { useEffect } from "react";
 import "styles/components/scenes/game2/Game2ResultScene.scss";
+import { passSFX, failSFX } from "constants/audio";
+import useAudio from "hooks/audio/useAudio";
 
 /**
  * Game2ResultScene 컴포넌트
@@ -31,15 +32,14 @@ const Game2ResultScene = ({ gameData, onExit }) => {
   const feedback = gameData.result?.feedback;
   const imageUrl = gameData.imageUrl;
 
-  const { playEffect } = useEffectSound2();
-
+  const { playTrack } = useAudio();
   const isPass = score >= 50;
 
   useEffect(() => {
     if (score !== undefined && feedback && imageUrl) {
-      playEffect(isPass ? "pass" : "fail");
+      playTrack(isPass ? passSFX : failSFX);
     }
-  }, [score, feedback, imageUrl, playEffect]);
+  }, [score, feedback, imageUrl]);
 
   // 필요한 데이터가 하나라도 없으면 렌더링 생략
   if (score === undefined || !imageUrl || !feedback)

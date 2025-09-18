@@ -1,9 +1,9 @@
-import CloseIcon from "commons/svgs/XIcon";
 import roomKingIcon from "assets/components/lobby/room-king-icon.png";
 import { useState } from "react";
 import { useModalStore } from "store/modal";
 import "styles/commons/modal/RoomEnterModal.scss";
 import { isNumeric } from "utils/validation";
+import CloseButton from "commons/ui/button/CloseButton";
 
 const RoomEnterModal = ({ roomType, hostName, roomName, onConfirm }) => {
   const closeModal = useModalStore((state) => state.closeModal);
@@ -25,9 +25,7 @@ const RoomEnterModal = ({ roomType, hostName, roomName, onConfirm }) => {
 
   return (
     <div className="room-enter-modal">
-      <button className="close-btn" onClick={closeModal}>
-        <CloseIcon />
-      </button>
+      <CloseButton onClick={closeModal} />
       <div className="title">입장</div>
 
       <div className="room-type">{roomType}</div>

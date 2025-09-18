@@ -1,8 +1,18 @@
 import "styles/commons/svgs/CheckBox.scss";
 
-const CheckBox = ({ label, checked = false, onChange, disabled = false }) => {
+const CheckBox = ({
+  label,
+  checked = false,
+  onChange,
+  disabled = false,
+  styleDisabled = false,
+}) => {
   return (
-    <label className={`custom-checkbox-wrapper ${disabled ? "disabled" : ""}`}>
+    <label
+      className={`custom-checkbox-wrapper ${
+        disabled || styleDisabled ? "disabled" : ""
+      }`}
+    >
       <input
         type="checkbox"
         checked={checked}

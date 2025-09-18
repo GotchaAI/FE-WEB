@@ -1,39 +1,25 @@
 import springImg from "assets/commons/spring.png";
 import LobbyChatting from "components/lobby/LobbyChatting";
 import LobbyHeader from "components/lobby/LobbyHeader";
+import LobbyNavBar from "components/lobby/LobbyNavBar";
 import Friend from "components/lobby/friend/Friend";
-import {
-  GAME1_ROBBY_URL,
-  GAME2_ROBBY_URL,
-  MY_PAGE_URL,
-  MY_RECORD_URL,
-  WAITING_ROOM_URL,
-} from "constants/url";
-import useBGM3 from "hooks/lobby/useBGM3";
+import { LobbyBGM } from "constants/audio";
+import { WAITING_ROOM_URL } from "constants/url";
+import useAudio from "hooks/audio/useAudio";
 import { useEffect, useState } from "react";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { reconnectAPI } from "services/lobby/lobby";
 import "styles/pages/lobby/LobbyPage.scss";
 import { getUserUuid } from "utils/user";
 
 const LobbyPage = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const [contentMode, setContentMode] = useState("game");
-  const navType = location.pathname.includes("/game1")
-    ? "game1"
-    : location.pathname.includes("/game2")
-    ? "game2"
-    : location.pathname.includes("/record")
-    ? "record"
-    : location.pathname.includes("/myinfo")
-    ? "myinfo"
-    : "game1";
 
   const userUuid = getUserUuid();
   const [whisperNickname, setWhisperNickname] = useState("");
 
-  useBGM3("LobbyBGM", 0.5);
+  // 오디오 초기화
+  useAudio(LobbyBGM);
 
   const reconnect = async () => {
     try {
@@ -71,37 +57,7 @@ const LobbyPage = () => {
         <div className="main-content-container">
           <img src={springImg} alt="스프링" className="main-content-img" />
           <div className="main-content-nav-container">
-            {contentMode === "game" ? (
-              <>
-                <Link
-                  to={GAME2_ROBBY_URL}
-                  className={`a-btn ${navType === "game2" ? "active" : ""}`}
-                >
-                  루루의 미대입시
-                </Link>
-                <Link
-                  to={GAME1_ROBBY_URL}
-                  className={`b-btn ${navType === "game1" ? "active" : ""}`}
-                >
-                  묘묘를 속여라!
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  to={MY_RECORD_URL}
-                  className={`a-btn ${navType === "record" ? "active" : ""}`}
-                >
-                  전적
-                </Link>
-                <Link
-                  to={MY_PAGE_URL}
-                  className={`b-btn ${navType === "myinfo" ? "active" : ""}`}
-                >
-                  내 정보
-                </Link>
-              </>
-            )}
+            <LobbyNavBar />
           </div>
           <div className="main-content-layout">
             {/* 상태나 라우팅에 따라 WaitingRoom or Mypage로 */}

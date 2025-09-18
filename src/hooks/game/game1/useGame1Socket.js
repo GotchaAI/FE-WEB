@@ -39,7 +39,7 @@ const useGame1Socket = () => {
     for (let round = 0; round < gameInfo.totalRounds; round++) {
       const roundData = gameInfo.rounds[round];
       const myRoundData = roundData.words.find(
-        (wordObj) => wordObj.drawerUuid === userUuid
+        (wordObj) => wordObj.drawerUuid === userUuid,
       );
       const topic = myRoundData ? myRoundData.word : "";
 
@@ -50,7 +50,7 @@ const useGame1Socket = () => {
           topic={topic}
           roomId={gameInfo.roomId}
           endTime={endTime}
-        />
+        />,
       );
 
       // BattleScene (첫 번째 배틀)
@@ -60,7 +60,7 @@ const useGame1Socket = () => {
           roomId={gameInfo.roomId}
           drawings={drawings}
           isMyBattleTurn={gameInfo.gamePlayers[1].playerUuid === userUuid}
-        />
+        />,
       );
 
       // BattleScene (두 번째 배틀)
@@ -70,7 +70,7 @@ const useGame1Socket = () => {
           roomId={gameInfo.roomId}
           drawings={drawings}
           isMyBattleTurn={gameInfo.gamePlayers[0].playerUuid === userUuid}
-        />
+        />,
       );
     }
 
@@ -89,7 +89,7 @@ const useGame1Socket = () => {
       (message) => {
         const payload = JSON.parse(message.body);
         console.log("게임 에러 발생!!!", payload);
-      }
+      },
     );
 
     // 🔔 게임 상태 구독
@@ -110,7 +110,7 @@ const useGame1Socket = () => {
             setSceneIdx((prev) => prev + 1);
             setDrawings(data.imageURL);
             break;
-          case "BATTLE_END":
+          case "BATTLE_END": {
             // TODO: API 변경되면 확인
             // 문자열 "null" → 실제 null로 바꿔줌
             const answerResults = [];
@@ -124,6 +124,7 @@ const useGame1Socket = () => {
             setAnswerResults(answerResults);
 
             break;
+          }
           case "GAME_END":
             setGameResultInfo(data);
             setSceneIdx((prev) => prev + 1);
@@ -131,7 +132,7 @@ const useGame1Socket = () => {
           default:
             break;
         }
-      }
+      },
     );
 
     return () => {

@@ -1,7 +1,8 @@
-import useEffectSound2 from "hooks/game/game2/useEffectSound2";
 import { useEffect } from "react";
 import { useToastStore } from "store/toast";
 import "styles/components/scenes/game2/DrawingWaiting.scss";
+import { praySFX } from "constants/audio";
+import useAudio from "hooks/audio/useAudio";
 
 /**
  * DrawingWaiting 컴포넌트
@@ -18,9 +19,9 @@ import "styles/components/scenes/game2/DrawingWaiting.scss";
  */
 
 const DrawingWaiting = ({ onDone }) => {
-  const { playEffect } = useEffectSound2();
+  const { playTrack } = useAudio();
   useEffect(() => {
-    playEffect("pray");
+    playTrack(praySFX);
     // 1. 'praywaiting' 타입의 토스트 메시지를 10초 동안 화면에 표시
     useToastStore.getState().showToast("praywaiting", "", 9000);
 

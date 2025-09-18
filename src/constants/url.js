@@ -17,6 +17,7 @@ export const CHARACTER_INTRO_URL = "/character-intro";
 export const SERVICE_CENTER_URL = "/service-center";
 
 export const WAITING_ROOM_URL = "/lobby/waiting";
+export const SETTING_URL = "/lobby/setting";
 
-export const GAME1_ROBBY_URL = "game1";
-export const GAME2_ROBBY_URL = "game2";
+export const GAME1_ROBBY_URL = "/lobby/game1";
+export const GAME2_ROBBY_URL = "/lobby/game2";

@@ -5,7 +5,9 @@ import submittedImg from "assets/components/scenes/commons/submitted.png";
 import trashcanImg from "assets/components/scenes/commons/trashcan.png";
 import carrotCurosr from "assets/cursor/carrot.png";
 import eraserCurosr from "assets/cursor/eraser.png";
-import useEffectSound from "hooks/game/game1/useEffectSound";
+import { plingSFX } from "constants/audio";
+import useAudio from "hooks/audio/useAudio";
+// import useEffectSound from "hooks/game/game1/useEffectSound";
 import { useEffect, useState } from "react";
 import { useToastStore } from "store/toast";
 import "styles/components/scenes/game1/DrawTools.scss";
@@ -17,7 +19,8 @@ const DrawTools = ({
   disabled,
 }) => {
   const [activeTool, setActiveTool] = useState("pen");
-  const { playEffect } = useEffectSound();
+  const { playTrack } = useAudio();
+  // const { playEffect } = useEffectSound();
   const handlePenClick = () => {
     setActiveTool("pen");
     onTogglePen();
@@ -30,7 +33,8 @@ const DrawTools = ({
 
   const submitHandler = () => {
     useToastStore.getState().showToast("alert", "제출 완료!!!");
-    playEffect("pling");
+    playTrack(plingSFX);
+    // playEffect("pling");
     onSubmit();
   };
 

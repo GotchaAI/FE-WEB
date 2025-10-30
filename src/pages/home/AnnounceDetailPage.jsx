@@ -2,11 +2,12 @@ import AnnounceBear from "commons/svgs/AnnounceBear";
 import CloseButton from "commons/ui/button/CloseButton";
 import { useNavigate } from "react-router-dom";
 import "styles/pages/home/AnnounceDetailPage.scss";
+import { formatDate } from "utils/time";
 
 const mockAnnounce = {
   id: 1,
   title: "서버 점검 및 업데이트",
-  date: "2025.07.21",
+  createdAt: "2025-03-27T16:13:32",
   content: `
     어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌
     asdfasfasfd a sdfa asdfa asdf assdfasdvasdvas
@@ -15,6 +16,8 @@ const mockAnnounce = {
     어쩌고저쩌고어쩌고저쩌고어쩌고저쩌고어쩌
     asdfasfasfd a sdfa asdfa asdf assdfasdvasdvas
   `,
+  modifiedAt: "2025-11-16T16:13:32",
+  writer: "묘묘",
 };
 
 const AnnounceDetailPage = () => {
@@ -29,7 +32,9 @@ const AnnounceDetailPage = () => {
       <h1 className="announce-detail-title">공지사항</h1>
       <article className="announce-detail-container">
         <header className="announce-detail-header">
-          <span className="meta-date">{mockAnnounce.date}</span>
+          <span className="meta-date">
+            {formatDate(mockAnnounce.createdAt)}
+          </span>
           <CloseButton onClick={closeDetailpage} />
         </header>
         <div className="announce-detail-content">

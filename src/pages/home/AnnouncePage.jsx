@@ -1,11 +1,11 @@
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
-import PageArrowButton from "commons/svgs/PageArrowButton";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "styles/pages/home/AnnouncePage.scss";
 import { HOME_ANNOUNCE_TABS } from "constants/home";
 import AnnounceSortButtons from "components/home/AnnounceSortButton";
 import { formatDate } from "utils/time";
+import Pagination from "commons/ui/Pagination";
 
 const MOCK_NOTICES = [
   {
@@ -93,9 +93,6 @@ const AnnouncePage = () => {
     setCurrentPage(1);
   };
 
-  const handlePrev = () => setCurrentPage((p) => Math.max(1, p - 1));
-  const handleNext = () => setCurrentPage((p) => Math.min(totalPages, p + 1));
-
   return (
     <div className="announce-page-container">
       <h1 className="announce-title">공지사항</h1>
@@ -115,7 +112,6 @@ const AnnouncePage = () => {
         </ul>
       </nav>
 
-      {/* 리스트 + 정렬 */}
       <div className="announce-list-container">
         <AnnounceSortButtons sortOrder={sortOrder} onChange={setSortOrder} />
 
@@ -140,16 +136,11 @@ const AnnouncePage = () => {
 
       {/* 페이지네이션 */}
       <div className="announce-pagination">
-        <PageArrowButton
-          direction="left"
-          disabled={currentPage === 1}
-          onClick={handlePrev}
-        />
-        <span className="page-index">{currentPage}</span>
-        <PageArrowButton
-          direction="right"
-          disabled={currentPage === totalPages}
-          onClick={handleNext}
+        <Pagination
+          page={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          isDisabled={currentItems.length === 0}
         />
       </div>
     </div>

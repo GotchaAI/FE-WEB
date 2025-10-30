@@ -7,6 +7,13 @@ import AnnounceSortButtons from "components/home/AnnounceSortButton";
 import { formatDate } from "utils/time";
 import Pagination from "commons/ui/Pagination";
 
+/* 
+  - notificationId: 고유 ID
+  - title: 공지 제목
+  - createdAt: 생성일
+  - type: 공지 분류 (전체 / 이벤트 / 업데이트)
+  - writer: 작성자
+*/
 const MOCK_NOTICES = [
   {
     notificationId: 1,
@@ -61,6 +68,11 @@ const MOCK_NOTICES = [
 
 const PAGE_SIZE = 5;
 
+/**
+ * 탭의 활성 상태 및 표시 스타일을 결정하는 헬퍼 함수
+ * @param {string} tabName - 탭 이름 (전체 / 이벤트 / 업데이트)
+ * @param {string} currentTab - 현재 선택된 탭
+ */
 const getTabClassName = (tabName, currentTab) => {
   const classes = ["tab"];
   if (tabName === currentTab) classes.push("active");

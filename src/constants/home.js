@@ -1,0 +1,1 @@
+export const HOME_ANNOUNCE_TABS = ["전체", "이벤트", "업데이트"];

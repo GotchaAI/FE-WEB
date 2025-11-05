@@ -1,6 +1,8 @@
 import HomePage, { loader as homeLoader } from "pages/home/HomePage";
 import IntroducePage from "pages/introduce/IntroducePage";
 import Home from "components/home/Home";
+import AnnouncePage from "pages/home/AnnouncePage";
+import AnnounceDetailPage from "pages/home/AnnounceDetailPage";
 const home = [
   {
     path: "/",
@@ -16,6 +18,14 @@ const home = [
         path: "character-intro",
         element: <IntroducePage />,
       },
+      {
+        path: "announce",
+        element: <AnnouncePage />,
+      },
+      {
+        path: "announce/:id",
+        element: <AnnounceDetailPage />
+      }
     ],
   },
 ];

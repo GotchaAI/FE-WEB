@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
-import { userToken } from "store/auth";
+import dayjs from 'dayjs';
+import { csrfTokenStore, userToken } from 'store/auth';
 
 /**
  * 인증 토큰 반환
@@ -22,6 +22,17 @@ const isAccessToken = () => {
   return true;
 };
 
+const getCsrfToken = () => {
+  const { csrfToken } = csrfTokenStore.getState();
+  return csrfToken;
+};
+
+const setCsrfToken = (csrfToken) => {
+  const { setCsrfToken } = csrfTokenStore.getState();
+  console.log(csrfToken);
+  setCsrfToken(csrfToken);
+};
+
 /**
  * 토큰 만료 여부 확인
  * @return true/false
@@ -31,4 +42,10 @@ const isTokenExpired = () => {
   return expireTime && dayjs().isAfter(dayjs(expireTime));
 };
 
-export { getAuthToken, isAccessToken, isTokenExpired };
+export {
+  getAuthToken,
+  isAccessToken,
+  getCsrfToken,
+  setCsrfToken,
+  isTokenExpired,
+};

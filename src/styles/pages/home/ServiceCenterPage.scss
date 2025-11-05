@@ -1,0 +1,44 @@
+.servicecenter-page-container {
+  width: 1187px;
+  min-height: 100vh;
+  padding-top: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: SUIT-Regular;
+
+  .servicecenter-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .qna-box-tabs {
+    display: flex;
+    gap: 11px;
+    margin-top: 45px;
+
+    .qna-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 451px;
+      height: 297px;
+
+      background: #89C881;
+      border: none;
+      border-radius: 16px;
+
+      font-weight: 500;
+      font-style: Medium;
+      font-size: 24px;
+
+      // 두 번째 박스 색상 변경
+      &:nth-child(2) {
+        background: #D3F16F;
+      }
+    }
+  }
+
+}

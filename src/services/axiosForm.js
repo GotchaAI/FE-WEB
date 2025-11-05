@@ -6,7 +6,12 @@ import {
 } from 'constants/errorCode';
 import { SIGN_IN_URL } from 'constants/url';
 import { csrfTokenRequestAPI, tokenReissueAPI } from 'services/auth/auth';
-import { getAuthToken, isTokenExpired, setCsrfToken } from 'utils/token';
+import {
+  getAuthToken,
+  getCsrfToken,
+  isTokenExpired,
+  setCsrfToken,
+} from 'utils/token';
 
 const baseConfig = {
   baseURL: LOCAL_SERVER_IP,
@@ -31,6 +36,11 @@ const instance = axios.create(baseConfig); // 인터셉터 미적용
 const multipartInstance = axios.create(multipartConfig);
 
 function attachCsrfTokenInterceptors(instance) {
+  instance.interceptors.request.use((config) => {
+    const csrfToken = getCsrfToken(); // 저장된 토큰 불러오기
+    if (csrfToken) config.headers['X-XSRF-TOKEN'] = csrfToken;
+    return config;
+  });
   // --- Response 인터셉터: csrf토큰 에러 시 재발급 후 요청 ---
   instance.interceptors.response.use(
     (response) => response,

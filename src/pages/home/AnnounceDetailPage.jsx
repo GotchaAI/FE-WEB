@@ -6,7 +6,7 @@ import { formatDate } from "utils/time";
 import { useEffect, useState } from "react";
 import { getAnnounceDetailAPI } from "services/home/announce";
 
-/** 🔹 공통 상태 컴포넌트 */
+/** 공통 상태 컴포넌트 */
 const AnnounceStatus = ({ type, message }) => (
   <div className="announce-detail-page-container">
     <h1 className="announce-detail-title">공지사항</h1>

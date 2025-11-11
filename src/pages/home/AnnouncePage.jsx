@@ -1,78 +1,13 @@
-import { EmptyContent } from "commons/emptyContent/EmptyContent";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import "styles/pages/home/AnnouncePage.scss";
 import { HOME_ANNOUNCE_TABS } from "constants/home";
-import AnnounceSortButtons from "components/home/AnnounceSortButton";
 import { formatDate } from "utils/time";
 import Pagination from "commons/ui/Pagination";
+import { getAnnounceListAPI } from "services/home/announce";
+import { EmptyContent } from "commons/emptyContent/EmptyContent";
+import AnnounceSortButtons from "commons/ui/button/AnnounceSortButton";
 
-/* 
-  - notificationId: 고유 ID
-  - title: 공지 제목
-  - createdAt: 생성일
-  - type: 공지 분류 (전체 / 이벤트 / 업데이트)
-  - writer: 작성자
-*/
-const MOCK_NOTICES = [
-  {
-    notificationId: 1,
-    title: "상대방에게 욕설, 비난이 담긴 채팅 신고",
-    createdAt: "2025-06-21",
-    type: "전체",
-    writer: "묘묘",
-  },
-  {
-    notificationId: 2,
-    title: "2025. 07. 21 업데이트 안내",
-    createdAt: "2025-06-21",
-    type: "업데이트",
-    writer: "묘묘",
-  },
-  {
-    notificationId: 3,
-    title: "AI 업그레이드 안내",
-    createdAt: "2025-06-21",
-    type: "이벤트",
-    writer: "묘묘",
-  },
-  {
-    notificationId: 4,
-    title: "2026. 08. 21 점검 안내",
-    createdAt: "2025-06-21",
-    type: "업데이트",
-    writer: "묘묘",
-  },
-  {
-    notificationId: 5,
-    title: "상대방에게 욕설, 비난이 담긴 채팅 신고",
-    createdAt: "2025-06-21",
-    type: "전체",
-    writer: "묘묘",
-  },
-  {
-    notificationId: 6,
-    title: "서비스 정책 변경 안내",
-    createdAt: "2025-05-30",
-    type: "이벤트",
-    writer: "묘묘",
-  },
-  {
-    notificationId: 7,
-    title: "시스템 안정화 패치",
-    createdAt: "2025-05-01",
-    type: "업데이트",
-    writer: "묘묘",
-  },
-];
-
-const PAGE_SIZE = 5;
-
-/**
- * 탭의 활성 상태 및 표시 스타일을 결정하는 헬퍼 함수
- * @param {string} tabName - 탭 이름 (전체 / 이벤트 / 업데이트)
- * @param {string} currentTab - 현재 선택된 탭
- */
 const getTabClassName = (tabName, currentTab) => {
   const classes = ["tab"];
   if (tabName === currentTab) classes.push("active");
@@ -81,29 +16,71 @@ const getTabClassName = (tabName, currentTab) => {
 };
 
 const AnnouncePage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [activeTab, setActiveTab] = useState("전체");
-  const [sortOrder, setSortOrder] = useState("old");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [notices, setNotices] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const filteredNotices =
-    activeTab === "전체"
-      ? MOCK_NOTICES
-      : MOCK_NOTICES.filter((notice) => notice.type === activeTab);
+  // URL 파라미터에서 page, sort 가져오기
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const sortOrder = searchParams.get("sort") || "DATE_DESC";
 
-  const sortedNotices = [...filteredNotices].sort((a, b) => {
-    if (sortOrder === "new")
-      return new Date(b.createdAt) - new Date(a.createdAt);
-    return new Date(a.createdAt) - new Date(b.createdAt);
-  });
+  /** 공지사항 API 호출 */
+  const fetchNotices = async (page = 1, sort = "DATE_DESC") => {
+    try {
+      setLoading(true);
+      setError(null);
 
-  const totalPages = Math.max(1, Math.ceil(sortedNotices.length / PAGE_SIZE));
-  const startIndex = (currentPage - 1) * PAGE_SIZE;
-  const currentItems = sortedNotices.slice(startIndex, startIndex + PAGE_SIZE);
+      const res = await getAnnounceListAPI({
+        keyword: "",
+        page: page - 1, // 서버는 0부터 시작
+        sort,
+      });
 
+      if (res?.content && res.content.length > 0) {
+        setNotices(res.content);
+        setTotalPages(res.page.totalPages);
+      } else {
+        setNotices([]);
+        setTotalPages(0);
+      }
+    } catch (err) {
+      setError("공지사항을 불러오는 중 오류가 발생했습니다.");
+      setTotalPages(0);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /** 페이지/정렬 변경 시 URL 갱신 */
+  const updateSearchParams = (page = currentPage, sort = sortOrder) => {
+    setSearchParams({ page: String(page), sort });
+  };
+
+  /** 페이지 이동 핸들러 */
+  const handlePageChange = (newPage) => {
+    updateSearchParams(newPage, sortOrder);
+  };
+
+  /** 정렬 변경 핸들러 */
+  const handleSortChange = (order) => {
+    const newOrder = order === "DATE_DESC" ? "DATE_DESC" : "DATE_ASC";
+    updateSearchParams(1, newOrder); // 정렬 바꾸면 1페이지로 이동
+  };
+
+  /** 탭 클릭 시 1페이지로 리셋 */
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
-    setCurrentPage(1);
+    updateSearchParams(1, sortOrder);
   };
+
+  /** URL 변경 시마다 데이터 다시 불러오기 */
+  useEffect(() => {
+    fetchNotices(currentPage, sortOrder);
+  }, [currentPage, sortOrder]);
 
   return (
     <div className="announce-page-container">
@@ -124,35 +101,44 @@ const AnnouncePage = () => {
         </ul>
       </nav>
 
+      {/* 공지 리스트 */}
       <div className="announce-list-container">
-        <AnnounceSortButtons sortOrder={sortOrder} onChange={setSortOrder} />
+        <AnnounceSortButtons
+          sortOrder={sortOrder}
+          onChange={handleSortChange}
+        />
 
-        {currentItems.length === 0 ? (
+        {loading ? (
+          <div className="empty">로딩 중...</div>
+        ) : error ? (
+          <div className="empty">{error}</div>
+        ) : notices.length === 0 ? (
           <div className="empty">
             <EmptyContent />
           </div>
         ) : (
-          currentItems.map((notice, idx) => (
+          notices.map((notice) => (
             <div
-              key={`${notice.notificationId}-${idx}`}
+              key={`notice-${notice.notificationId}`}
               className="announce-item"
             >
               <Link className="title" to={`/announce/${notice.notificationId}`}>
                 {notice.title}
               </Link>
-              <div className="date">{formatDate(notice.createdAt)}</div>
+              <div className="meta">
+                <span className="date">{formatDate(notice.createdAt)}</span>
+              </div>
             </div>
           ))
         )}
       </div>
 
-      {/* 페이지네이션 */}
       <div className="announce-pagination">
         <Pagination
           page={currentPage}
           totalPages={totalPages}
-          onPageChange={setCurrentPage}
-          isDisabled={currentItems.length === 0}
+          onPageChange={handlePageChange}
+          isDisabled={notices.length === 0}
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import "styles/components/home/AnnounceSortButtons.scss";
+import "styles/commons/ui/button/AnnounceSortButtons.scss";
 
 export default function AnnounceSortButtons({ sortOrder, onChange }) {
   return (

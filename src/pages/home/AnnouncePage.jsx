@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import "styles/pages/home/AnnouncePage.scss";
 import { HOME_ANNOUNCE_TABS } from "constants/home";
-import AnnounceSortButtons from "components/home/AnnounceSortButton";
 import { formatDate } from "utils/time";
 import Pagination from "commons/ui/Pagination";
 import { getAnnounceListAPI } from "services/home/announce";
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
+import AnnounceSortButtons from "commons/ui/button/AnnounceSortButton";
 
 const getTabClassName = (tabName, currentTab) => {
   const classes = ["tab"];
@@ -118,7 +118,10 @@ const AnnouncePage = () => {
           </div>
         ) : (
           notices.map((notice) => (
-            <div key={notice.notificationId} className="announce-item">
+            <div
+              key={`notice-${notice.notificationId}`}
+              className="announce-item"
+            >
               <Link className="title" to={`/announce/${notice.notificationId}`}>
                 {notice.title}
               </Link>

@@ -1,20 +1,57 @@
-import CheckBox from "commons/svgs/CheckBox";
-import { useState } from "react";
-import "styles/components/lobby/setting/ChatSetting.scss";
+import CheckBox from 'commons/svgs/CheckBox';
+import { useEffect, useState } from 'react';
+import {
+  putChatSetting,
+  requestChatSetting,
+} from 'services/lobby/setting/setting';
+import 'styles/components/lobby/setting/ChatSetting.scss';
 
-const ChatSetting = () => {
-  const [normalChatType, setNormalChatType] = useState(0);
-  const [whisperChatType, setWhisperChatType] = useState(0);
+const ChatSetting = ({ save, setSave }) => {
+  // const NORMAL_CHAT_TYPE = ['ALLOW_ALL', 'ALLOW_FRIEND_ONLY', 'DISALLOW'];
+  // const WISPER_CHAT_TYPE = ['ALLOW', 'DISALLOW'];
+
+  const [normalChatType, setNormalChatType] = useState('ALLOW_ALL');
+  const [whisperChatType, setWhisperChatType] = useState('ALLOW');
+
+  useEffect(() => {
+    if (!save) return;
+    const saveChatSetting = async () => {
+      try {
+        const chatSetting = {
+          chatOption: normalChatType,
+          privateChatOption: whisperChatType,
+        };
+        await putChatSetting(chatSetting);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    saveChatSetting();
+    setSave((prev) => !prev);
+  }, [save]);
+
+  useEffect(() => {
+    const getChatSetting = async () => {
+      try {
+        const res = await requestChatSetting();
+        setNormalChatType(res.chatOption);
+        setWhisperChatType(res.privateChatOption);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    getChatSetting();
+  }, []);
 
   const normalChatOptions = [
-    { label: "모두 허용", value: 0 },
-    { label: "친구만 허용", value: 1 },
-    { label: "모두 차단", value: 2 },
+    { label: '모두 허용', value: 'ALLOW_ALL' },
+    { label: '친구만 허용', value: 'ALLOW_FRIEND_ONLY' },
+    { label: '모두 차단', value: 'DISALLOW' },
   ];
 
   const whisperChatOptions = [
-    { label: "허용", value: 0 },
-    { label: "차단", value: 1 },
+    { label: '허용', value: 'ALLOW' },
+    { label: '차단', value: 'DISALLOW' },
   ];
 
   return (

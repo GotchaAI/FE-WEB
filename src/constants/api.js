@@ -62,5 +62,6 @@ export const GAME2_TASK_API = process.env.REACT_APP_GAME2_TASK_API;
 export const GAME2_EVALUATE_API = process.env.REACT_APP_GAME2_EVALUATE_API;
 
 // 채팅 소켓 API
-export const SOCKET_CHAT_ALL = process.env.REACT_APP_WS_CHAT_ALL_API;
+export const SOCKET_CHAT_ALL_SUB = process.env.REACT_APP_WS_CHAT_ALL_SUB_API;
+export const SOCKET_CHAT_ALL_PUB = process.env.REACT_APP_WS_CHAT_ALL_PUB_API;
 export const SOCKET_CHAT_PRIVATE = process.env.REACT_APP_WS_CHAT_PRIVATE_API;

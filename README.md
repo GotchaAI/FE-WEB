@@ -13,7 +13,7 @@
 
 ![image](https://github.com/GotchaAI/FE-WEB/blob/develop/src/assets/sample/main-page.png?raw=true)
 
-![image](https://github.com/GotchaAI/FE-WEB/blob/develop/src/assets/sample/game-ex1.png?raw=true)
+![image](https://github.com/GotchaAI/FE-WEB/blob/develop/src/assets/sample/game-ex1-2.png?raw=true)
 
 ![image](https://github.com/GotchaAI/FE-WEB/blob/develop/src/assets/sample/game-ex2.png?raw=true)
 

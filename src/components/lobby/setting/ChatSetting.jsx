@@ -7,9 +7,6 @@ import {
 import 'styles/components/lobby/setting/ChatSetting.scss';
 
 const ChatSetting = ({ save, setSave }) => {
-  // const NORMAL_CHAT_TYPE = ['ALLOW_ALL', 'ALLOW_FRIEND_ONLY', 'DISALLOW'];
-  // const WISPER_CHAT_TYPE = ['ALLOW', 'DISALLOW'];
-
   const [normalChatType, setNormalChatType] = useState('ALLOW_ALL');
   const [whisperChatType, setWhisperChatType] = useState('ALLOW');
 

@@ -45,13 +45,13 @@ const ChatSetting = ({ save, setSave }) => {
 
   const normalChatOptions = [
     { label: '모두 허용', value: 'ALLOW_ALL' },
-    { label: '친구만 허용', value: 'ALLOW_FRIEND_ONLY' },
-    { label: '모두 차단', value: 'DISALLOW' },
+    { label: '친구만 허용', value: 'FRIENDS_ONLY' },
+    { label: '모두 차단', value: 'DENY_ALL' },
   ];
 
   const whisperChatOptions = [
     { label: '허용', value: 'ALLOW' },
-    { label: '차단', value: 'DISALLOW' },
+    { label: '차단', value: 'DENY' },
   ];
 
   return (

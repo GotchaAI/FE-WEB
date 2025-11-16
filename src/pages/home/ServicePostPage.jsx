@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { postQnAAPI } from "services/home/serviceCenter";
 import "styles/pages/home/ServicePostPage.scss";
 
 const ServicePostPage = () => {
@@ -22,7 +23,7 @@ const ServicePostPage = () => {
     }
 
     try {
-      // await postInquiryAPI({ title, content });
+      await postQnAAPI(title, content);
       navigate("/service-center");
     } catch (err) {
       alert("등록 실패");

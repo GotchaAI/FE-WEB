@@ -12,3 +12,11 @@ export const getMyQnAListAPI = async (params = {}) => {
 export const getQnADetailAPI = async (qnaId) => {
   return await apiInterface("get", `${SERVICE_QNA_API}/${qnaId}`, {}, {}, false);
 };
+
+export const postQnAAPI = async (title, content) => {
+  return await apiInterface("post", SERVICE_LIST_API, {
+    title: title,
+    content: content,
+    isPrivate: false
+  }, {}, true);
+};

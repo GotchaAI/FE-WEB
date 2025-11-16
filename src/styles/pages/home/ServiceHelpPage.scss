@@ -18,6 +18,12 @@
       font-weight: 600;
       margin: 0;
     }
+
+    .servicehelp-right {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
   }
 
   .qna-list-container {

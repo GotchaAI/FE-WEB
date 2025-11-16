@@ -1,4 +1,5 @@
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
+import CheckBox from "commons/svgs/CheckBox";
 import Pagination from "commons/ui/Pagination";
 import HomeSearch from "components/home/HomeSearch";
 import { useEffect, useState } from "react";
@@ -17,16 +18,17 @@ const ServiceHelpPage = () => {
 
   const navigate = useNavigate();
 
-  // URL 파라미터에서 page, sort 가져오기
+  // URL 파라미터에서 page, keyword 가져오기
   const currentPage = Number(searchParams.get("page")) || 1;
+  const currentKeyword = searchParams.get("keyword") || "";
 
-  const fetchQnAList = async (page = 1, sort = "DATE_DESC") => {
+  const fetchQnAList = async (keyword = "", page = 1, sort = "DATE_DESC") => {
     setLoading(true);
     setError(null);
 
     try {
       const res = await getQnAListAPI({
-        keyword: "",
+        keyword,
         page: page - 1,
         sort,
       });
@@ -58,15 +60,26 @@ const ServiceHelpPage = () => {
 
   /** URL 변경 시마다 데이터 다시 불러오기 */
   useEffect(() => {
-    fetchQnAList(currentPage);
-  }, [currentPage]);
+    fetchQnAList(currentKeyword, currentPage);
+  }, [currentPage, currentKeyword]);
+
+  /** 키워드 검색 */
+  const handleSearch = (keyword) => {
+    setSearchParams({
+      // page: 1, // 검색시 1페이지로
+      keyword: keyword ?? "",
+    });
+  };
 
   return (
     <div className="servicehelp-page-container">
       <div className="servicehelp-top">
-        <h1 className="servicehelp-title">자주 묻는 질문</h1>
-        <div>
-          <HomeSearch />
+        <h1 className="servicehelp-title">도움말 검색</h1>
+        <div className="servicehelp-right">
+          <HomeSearch onSearch={handleSearch} />
+          <div>
+            <CheckBox /> 내가 쓴 글
+          </div>
         </div>
       </div>
 

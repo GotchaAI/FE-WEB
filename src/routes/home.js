@@ -7,6 +7,7 @@ import ServiceCenter from "pages/home/ServiceCenterPage";
 import ServiceHelpPage from "pages/home/ServiceHelpPage";
 import ServiceFAQPage from "pages/home/ServiceFAQPage";
 import ServiceCenterDetailPage from "pages/home/ServiceCenterDetailPage";
+import ServicePostPage from "pages/home/ServicePostPage";
 const home = [
   {
     path: "/",
@@ -45,6 +46,10 @@ const home = [
       {
         path: "service-center/FAQ",
         element: <ServiceFAQPage />
+      },
+      {
+        path: "service-center/post",
+        element: <ServicePostPage />
       }
     ],
   },

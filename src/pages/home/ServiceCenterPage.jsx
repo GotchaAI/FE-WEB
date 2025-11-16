@@ -3,6 +3,7 @@ import Pagination from "commons/ui/Pagination";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { getQnAListAPI } from "services/home/serviceCenter";
+import { userToken } from "store/auth";
 import "styles/pages/home/ServiceCenterPage.scss";
 
 const ServiceCenter = () => {
@@ -12,6 +13,8 @@ const ServiceCenter = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const { accessToken } = userToken();
 
   const navigate = useNavigate();
 
@@ -105,12 +108,14 @@ const ServiceCenter = () => {
       </div>
 
       <div className="mooni-container">
-        <button
-          className="mooni-btn"
-          onClick={() => navigate("/service-center/post")}
-        >
-          나도 문의하기
-        </button>
+        {accessToken && (
+          <button
+            className="mooni-btn"
+            onClick={() => navigate("/service-center/post")}
+          >
+            나도 문의하기
+          </button>
+        )}
       </div>
 
       <div className="qna-pagination">

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { LOCAL_SERVER_IP } from 'constants/api';
 import { REFRESH_TOKEN_EXPIRED } from 'constants/errorCode';
-import { REFRESH_TOKEN_EXPIRED } from 'constants/errorCode';
 import { SIGN_IN_URL } from 'constants/url';
 import { tokenReissueAPI } from 'services/auth/auth';
 import { getAuthToken, isTokenExpired } from 'utils/token';

@@ -1,5 +1,3 @@
-import AnnounceBear from "commons/svgs/AnnounceBear";
-import CloseButton from "commons/ui/button/CloseButton";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getQnADetailAPI } from "services/home/serviceCenter";
@@ -54,16 +52,18 @@ const ServiceCenterDetailPage = () => {
 
       <article className="qna-detail-container">
         <header className="qna-detail-header">
-          <span className="meta-date">{formatDate(qna.createdAt)}</span>
-          <CloseButton onClick={closeDetailPage} />
+          <h1 className="detail-title">{qna.title}</h1>
+          <span className="detail-date">{formatDate(qna.createdAt)}</span>
         </header>
 
-        <div className="qna-detail-content">
-          <div className="content-title">
-            <AnnounceBear />
-            {qna.title}
-          </div>
-          <div className="content-description">{qna.content}</div>
+        <section className="qna-detail-body">
+          <div className="detail-content-box">{qna.content}</div>
+        </section>
+
+        <div className="qna-detail-footer">
+          <button className="btn-exit" onClick={closeDetailPage}>
+            나가기
+          </button>
         </div>
       </article>
     </div>

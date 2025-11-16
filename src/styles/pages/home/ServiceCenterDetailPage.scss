@@ -27,11 +27,16 @@
     position: absolute;
     top: 301px;
 
-    background: #FFFFFF;
     border-width: 2px 2px 0px 2px;
     border-style: solid;
     border-color: #000000;
-    border-radius: 16px 16px 0px 0px;
+
+    background: #fff;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+
+    padding: 75px 86px;
+    box-sizing: border-box;
 
     opacity: 0;
     transform: translateY(calc(100vh - 301px));
@@ -49,63 +54,75 @@
       }
     }
 
+    /* ---------- Header ---------- */
     .qna-detail-header {
-      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-      .meta-date {
-        position: absolute;
-        left: 43px;
-        top: 34px;
+      margin-bottom: 21px;
+      padding: 0 27px;
 
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
-
-        display: flex;
-        align-items: center;
-
-        color: #999999;
-
+      .detail-title {
+        font-size: 24px;
+        font-weight: 600;
       }
 
-      .close-btn {
-        position: absolute;
-        right: 35px;
-        top: 29px;
+      .detail-date {
+        color: #999999;
+        font-size: 16px;
       }
     }
 
-    .qna-detail-content {
+    /* ---------- Body ---------- */
+    .qna-detail-body {
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      align-items: center;
-      padding-top: 127px;
-      gap: 43px;
 
-      .content-title {
-        display: flex;
-        gap: 33.42px;
-        height: 52px;
-        align-items: center;
+      .detail-content-box {
+        width: 100%;
+        min-height: 196px;
+        padding: 31px 27px;
+        border: 1px solid #999999;
+        border-radius: 16px;
+        font-size: 16px;
         font-weight: 500;
-        font-size: 24px;
-
-      }
-
-      .content-description {
-        width: 923px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: 200;
-        font-size: 20px;
-        text-align: center;
-        padding-top: 24px;
         white-space: pre-line;
+        line-height: 1.4;
+        background: #fff;
       }
+    }
+
+    /* ---------- Footer Buttons ---------- */
+    .qna-detail-footer {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+
+      .btn-exit {
+        margin-top: 39px;
+        width: 108px;
+        height: 36px;
+        border-radius: 10px;
+        border: 1.5px solid #000;
+        background: #F2F3F6;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      // .btn-next {
+      //   width: 150px;
+      //   height: 48px;
+      //   border-radius: 8px;
+      //   border: none;
+      //   background: #8CCF6A;
+      //   color: #fff;
+      //   font-size: 16px;
+      //   font-weight: 500;
+      //   cursor: pointer;
+      // }
     }
   }
+
 
 }

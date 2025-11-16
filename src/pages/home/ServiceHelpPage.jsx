@@ -140,12 +140,14 @@ const ServiceHelpPage = () => {
       </div>
 
       <div className="mooni-container">
-        <button
-          className="mooni-btn"
-          onClick={() => navigate("/service-center/post")}
-        >
-          나도 문의하기
-        </button>
+        {accessToken && (
+          <button
+            className="mooni-btn"
+            onClick={() => navigate("/service-center/post")}
+          >
+            나도 문의하기
+          </button>
+        )}
       </div>
 
       <div className="qna-pagination">

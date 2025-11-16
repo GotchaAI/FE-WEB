@@ -4,6 +4,7 @@ import HomeSearch from "components/home/HomeSearch";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { getQnAListAPI } from "services/home/serviceCenter";
+import { userToken } from "store/auth";
 import "styles/pages/home/ServiceHelpPage.scss";
 import { formatDate } from "utils/time";
 
@@ -16,6 +17,8 @@ const ServiceFAQPage = () => {
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
+
+  const { accessToken } = userToken();
 
   // URL 파라미터에서 page, keyword 가져오기
   const currentPage = Number(searchParams.get("page")) || 1;
@@ -110,12 +113,14 @@ const ServiceFAQPage = () => {
       </div>
 
       <div className="mooni-container">
-        <button
-          className="mooni-btn"
-          onClick={() => navigate("/service-center/post")}
-        >
-          나도 문의하기
-        </button>
+        {accessToken && (
+          <button
+            className="mooni-btn"
+            onClick={() => navigate("/service-center/post")}
+          >
+            나도 문의하기
+          </button>
+        )}
       </div>
 
       <div className="qna-pagination">

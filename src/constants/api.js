@@ -16,6 +16,7 @@ export const EMAIL_VERIFY_API = process.env.REACT_APP_EMAIL_VERIFY_API;
 // 사용자 정보 조회
 export const USER_ME_API = process.env.REACT_APP_USER_ME_API;
 export const NICKNAME_CHECK_API = process.env.REACT_APP_NICKNAME_CHECK_API;
+export const CHAT_SETTING_API = process.env.REACT_APP_CHAT_SETTING_API;
 
 // 이미지 전송 API
 export const IMAGE_UPLOAD_API = process.env.REACT_APP_IMAGE_UPLOAD_API;

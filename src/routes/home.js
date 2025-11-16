@@ -4,6 +4,7 @@ import Home from "components/home/Home";
 import AnnouncePage from "pages/home/AnnouncePage";
 import AnnounceDetailPage from "pages/home/AnnounceDetailPage";
 import ServiceCenter from "pages/home/ServiceCenterPage";
+import ServiceHelpPage from "pages/home/ServiceHelpPage";
 const home = [
   {
     path: "/",
@@ -29,7 +30,11 @@ const home = [
       },
       {
         path: "service-center",
-        element: <ServiceCenter />
+        element: <ServiceCenter />,
+      },
+      {
+        path: "service-center/help",
+        element: <ServiceHelpPage />
       }
     ],
   },

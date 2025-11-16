@@ -41,4 +41,87 @@
     }
   }
 
+  .qna-list-container {
+    position: relative;
+    min-height: 340px;
+    margin-top: 25px;
+
+    .qna-item {
+      width: 914px;
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      border-bottom: 1.5px solid #E0E0E0;
+      gap: 26px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .status-badge {
+        font-size: 13px;
+        font-weight: 500;
+
+        &.pending {
+          color: #F28110;
+        }
+
+        &.done {
+          color: #2286FF;
+        }
+      }
+
+      .title {
+        all: unset;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .date {
+        width: 100px;
+        text-align: right;
+        color: #999999;
+      }
+    }
+
+    .empty {
+      margin-top: 108px;
+    }
+  }
+
+  .mooni-container {
+    width: 878px;
+    display: flex;
+    justify-content: end;
+
+    .mooni-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 8px;
+      width: 119px;
+      height: 41px;
+
+      background: #FFC466;
+      border: 2px solid #F28110;
+      border-radius: 6px;
+
+    }
+  }
+
+  /* 페이지네이션 */
+  .qna-pagination {
+    margin: 16px 0 56px;
+    display: flex;
+    gap: 6.32px;
+    align-items: center;
+    justify-content: center;
+
+    .page-index {
+      font-family: YoonChild;
+      font-size: 16px;
+    }
+  }
 }

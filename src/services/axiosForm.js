@@ -5,8 +5,6 @@ import { REFRESH_TOKEN_EXPIRED } from 'constants/errorCode';
 import { SIGN_IN_URL } from 'constants/url';
 import { tokenReissueAPI } from 'services/auth/auth';
 import { getAuthToken, isTokenExpired } from 'utils/token';
-import { tokenReissueAPI } from 'services/auth/auth';
-import { getAuthToken, isTokenExpired } from 'utils/token';
 
 const baseConfig = {
   baseURL: LOCAL_SERVER_IP,

@@ -4,7 +4,8 @@ import Pagination from "commons/ui/Pagination";
 import HomeSearch from "components/home/HomeSearch";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { getQnAListAPI } from "services/home/serviceCenter";
+import { getMyQnAListAPI, getQnAListAPI } from "services/home/serviceCenter";
+import { userToken } from "store/auth";
 import "styles/pages/home/ServiceHelpPage.scss";
 import { formatDate } from "utils/time";
 
@@ -15,6 +16,9 @@ const ServiceHelpPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showMine, setShowMine] = useState(false);
+
+  const { accessToken } = userToken();
 
   const navigate = useNavigate();
 
@@ -27,13 +31,25 @@ const ServiceHelpPage = () => {
     setError(null);
 
     try {
-      const res = await getQnAListAPI({
-        keyword,
-        page: page - 1,
-        sort,
-      });
+      let res;
 
-      if (res?.content && res.content.length > 0) {
+      if (showMine) {
+        // 내가 쓴 글 조회 API
+        res = await getMyQnAListAPI({
+          keyword,
+          page: page - 1,
+          sort,
+        });
+      } else {
+        // 일반 전체 조회 API
+        res = await getQnAListAPI({
+          keyword,
+          page: page - 1,
+          sort,
+        });
+      }
+
+      if (res?.content?.length > 0) {
         setQnaList(res.content);
         setTotalPages(res.page.totalPages);
       } else {
@@ -61,7 +77,7 @@ const ServiceHelpPage = () => {
   /** URL 변경 시마다 데이터 다시 불러오기 */
   useEffect(() => {
     fetchQnAList(currentKeyword, currentPage);
-  }, [currentPage, currentKeyword]);
+  }, [currentPage, currentKeyword, showMine]);
 
   /** 키워드 검색 */
   const handleSearch = (keyword) => {
@@ -77,9 +93,15 @@ const ServiceHelpPage = () => {
         <h1 className="servicehelp-title">도움말 검색</h1>
         <div className="servicehelp-right">
           <HomeSearch onSearch={handleSearch} />
-          <div>
-            <CheckBox /> 내가 쓴 글
-          </div>
+          {accessToken && (
+            <div>
+              <CheckBox
+                checked={showMine}
+                onChange={(checked) => setShowMine(checked)}
+              />
+              내가 쓴 글
+            </div>
+          )}
         </div>
       </div>
 

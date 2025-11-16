@@ -67,3 +67,7 @@ export const SOCKET_CHAT_PRIVATE = process.env.REACT_APP_WS_CHAT_PRIVATE_API;
 
 // 공지사항 API
 export const ANNOUNCE_LIST_API = process.env.REACT_APP_ANNOUNCE_LIST_API;
+
+// 서비스센터 API
+export const SERVICE_LIST_API = process.env.REACT_APP_SERVICE_LIST_API;
+export const SERVICE_MY_LIST_API = process.env.REACT_APP_SERVICE_MY_LIST_API;

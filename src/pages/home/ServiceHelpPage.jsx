@@ -1,5 +1,6 @@
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import Pagination from "commons/ui/Pagination";
+import HomeSearch from "components/home/HomeSearch";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { getQnAListAPI } from "services/home/serviceCenter";
@@ -64,7 +65,9 @@ const ServiceHelpPage = () => {
     <div className="servicehelp-page-container">
       <div className="servicehelp-top">
         <h1 className="servicehelp-title">자주 묻는 질문</h1>
-        <div>검색영역</div>
+        <div>
+          <HomeSearch />
+        </div>
       </div>
 
       {/* 공지 리스트 */}

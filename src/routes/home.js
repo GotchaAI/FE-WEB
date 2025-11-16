@@ -6,6 +6,7 @@ import AnnounceDetailPage from "pages/home/AnnounceDetailPage";
 import ServiceCenter from "pages/home/ServiceCenterPage";
 import ServiceHelpPage from "pages/home/ServiceHelpPage";
 import ServiceFAQPage from "pages/home/ServiceFAQPage";
+import ServiceCenterDetailPage from "pages/home/ServiceCenterDetailPage";
 const home = [
   {
     path: "/",
@@ -32,6 +33,10 @@ const home = [
       {
         path: "service-center",
         element: <ServiceCenter />,
+      },
+      {
+        path: "service-center/:id",
+        element: <ServiceCenterDetailPage />,
       },
       {
         path: "service-center/help",

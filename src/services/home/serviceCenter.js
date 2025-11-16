@@ -1,4 +1,4 @@
-import { SERVICE_LIST_API, SERVICE_MY_LIST_API } from "constants/api";
+import { SERVICE_LIST_API, SERVICE_MY_LIST_API, SERVICE_QNA_API } from "constants/api";
 import { apiInterface } from "services/axiosForm";
 
 export const getQnAListAPI = async (params = {}) => {
@@ -7,4 +7,8 @@ export const getQnAListAPI = async (params = {}) => {
 
 export const getMyQnAListAPI = async (params = {}) => {
   return await apiInterface("get", SERVICE_MY_LIST_API, {}, params, true);
+};
+
+export const getQnADetailAPI = async (qnaId) => {
+  return await apiInterface("get", `${SERVICE_QNA_API}/${qnaId}`, {}, {}, false);
 };

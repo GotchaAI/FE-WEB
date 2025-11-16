@@ -1,0 +1,111 @@
+.qna-page-container {
+  width: 1187px;
+  min-height: 100vh;
+  padding-top: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: SUIT-Regular;
+
+  .qna-top {
+    width: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    .qna-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  .qna-detail-container {
+    width: 1278px;
+    height: calc(100vh - 301px);
+
+    position: absolute;
+    top: 301px;
+
+    background: #FFFFFF;
+    border-width: 2px 2px 0px 2px;
+    border-style: solid;
+    border-color: #000000;
+    border-radius: 16px 16px 0px 0px;
+
+    opacity: 0;
+    transform: translateY(calc(100vh - 301px));
+    animation: slideUpFade 0.4s ease-out forwards;
+
+    @keyframes slideUpFade {
+      0% {
+        opacity: 0;
+        transform: translateY(calc(100vh - 301px));
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .qna-detail-header {
+      position: relative;
+
+      .meta-date {
+        position: absolute;
+        left: 43px;
+        top: 34px;
+
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+
+        display: flex;
+        align-items: center;
+
+        color: #999999;
+
+      }
+
+      .close-btn {
+        position: absolute;
+        right: 35px;
+        top: 29px;
+      }
+    }
+
+    .qna-detail-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 127px;
+      gap: 43px;
+
+      .content-title {
+        display: flex;
+        gap: 33.42px;
+        height: 52px;
+        align-items: center;
+        font-weight: 500;
+        font-size: 24px;
+
+      }
+
+      .content-description {
+        width: 923px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 200;
+        font-size: 20px;
+        text-align: center;
+        padding-top: 24px;
+        white-space: pre-line;
+      }
+    }
+  }
+
+}

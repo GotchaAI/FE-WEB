@@ -71,3 +71,4 @@ export const ANNOUNCE_LIST_API = process.env.REACT_APP_ANNOUNCE_LIST_API;
 // 서비스센터 API
 export const SERVICE_LIST_API = process.env.REACT_APP_SERVICE_LIST_API;
 export const SERVICE_MY_LIST_API = process.env.REACT_APP_SERVICE_MY_LIST_API;
+export const SERVICE_QNA_API = process.env.REACT_APP_SERVICE_QNA;

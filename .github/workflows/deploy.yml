@@ -14,6 +14,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Create .env file from secret
+        run: echo "${{ secrets.ENV_FILE }}" > .env
+
       # Docker 이미지 build & push
       - name: Docker build & push
         run: |

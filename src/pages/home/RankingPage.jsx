@@ -23,27 +23,39 @@ const rightList = [
 
 const RankingPage = () => {
   return (
-    <div className="ranking-page">
-      {/* LEFT LIST */}
-      <SideRankingList title="상위 랭킹" list={leftList} />
+    <div className="ranking-page-wrapper">
+      <div className="ranking-page">
+        {/* LEFT LIST */}
+        <SideRankingList title="상위 랭킹" list={leftList} />
 
-      {/* CENTER */}
-      <div className="ranking-center">
-        <div className="my-rank">138 등</div>
+        {/* CENTER */}
+        <div className="ranking-center">
+          <div className="rank-label">내 등수</div>
+          <div className="my-rank">
+            <span className="rank-number">138</span>
+            <span className="rank-unit">등</span>
+          </div>
 
-        <div className="my-score-wrapper">
-          <div className="my-score">356 점</div>
+          <div className="score-row">
+            <span className="score-label">내 점수</span>
+            <span className="dashed-line"></span>
+            <span className="my-score">356 점</span>
+          </div>
         </div>
 
-        <p className="desc">50명만 더 높으면 등수를 앞지를 수 있어요!</p>
+        {/* RIGHT LIST */}
+        <SideRankingList
+          title="내 근처 랭킹"
+          list={rightList}
+          highlightRank={138}
+        />
       </div>
-
-      {/* RIGHT LIST */}
-      <SideRankingList
-        title="내 근처 랭킹"
-        list={rightList}
-        highlightRank={138}
-      />
+      <div className="bottom-banner">
+        <p>
+          <span className="banner-score">50</span>점만 더 높으면 등수를 앞지를
+          수 있어요!
+        </p>
+      </div>
     </div>
   );
 };

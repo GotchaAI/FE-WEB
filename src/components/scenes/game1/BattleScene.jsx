@@ -1,17 +1,17 @@
-import leftCloudImg from "assets/components/scenes/commons/left-cloud.png";
-import rightCloudImg from "assets/components/scenes/commons/right-cloud.png";
-import aiImg from "assets/components/scenes/game1/ai.png";
-import userImg from "assets/components/scenes/game1/player.png";
-import Timer from "commons/Timer";
-import { correctSFX, game1BattleBGM, incorrectSFX } from "constants/audio";
-import useAudio from "hooks/audio/useAudio";
-import useBattle from "hooks/game/game1/useBattle";
+import leftCloudImg from 'assets/components/scenes/commons/left-cloud.png';
+import rightCloudImg from 'assets/components/scenes/commons/right-cloud.png';
+import aiImg from 'assets/components/scenes/game1/ai.png';
+import userImg from 'assets/components/scenes/game1/player.png';
+import Timer from 'commons/Timer';
+import { correctSFX, game1BattleBGM, incorrectSFX } from 'constants/audio';
+import useAudio from 'hooks/audio/useAudio';
+import useBattle from 'hooks/game/game1/useBattle';
 // import useEffectSound from "hooks/game/game1/useEffectSound";
-import { useEffect, useRef, useState } from "react";
-import { useToastStore } from "store/toast";
-import "styles/components/scenes/game1/BattleScene.scss";
-import { isPressEnterKey } from "utils/keyDown";
-import { isBlank } from "utils/validation";
+import { useEffect, useRef, useState } from 'react';
+import { useToastStore } from 'store/toast';
+import 'styles/components/scenes/game1/BattleScene.scss';
+import { isPressEnterKey } from 'utils/keyDown';
+import { isBlank } from 'utils/validation';
 
 const BattleScene = ({ roomId, drawings }) => {
   // 배틀 씬 guess 상태 관리 훅 호출
@@ -29,7 +29,7 @@ const BattleScene = ({ roomId, drawings }) => {
   const { showToast } = useToastStore.getState();
 
   const inputRef = useRef(null);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [aiSaying, setAiSaying] = useState(true);
 
   useAudio(game1BattleBGM);
@@ -37,7 +37,7 @@ const BattleScene = ({ roomId, drawings }) => {
   // const { playEffect } = useEffectSound();
 
   useEffect(() => {
-    showToast("gamealert", "AI가 맞출 차례입니다!");
+    showToast('gamealert', 'AI가 맞출 차례입니다!');
   }, []);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const BattleScene = ({ roomId, drawings }) => {
       return () => clearTimeout(timer);
     } else {
       // ai 턴으로 이동
-      setInputValue("");
+      setInputValue('');
       setAiSaying(true);
     }
   }, [isAiguessTurn]);
@@ -66,11 +66,11 @@ const BattleScene = ({ roomId, drawings }) => {
     if (guessResult === null) return;
 
     if (guessResult) {
-      showToast("gameO");
+      showToast('gameO');
       playTrack(correctSFX);
       // playEffect("correct");
     } else {
-      showToast("gameX");
+      showToast('gameX');
       playTrack(incorrectSFX);
       // playEffect("incorrect");
     }
@@ -78,11 +78,11 @@ const BattleScene = ({ roomId, drawings }) => {
 
   const handleKeyDown = (e) => {
     if (isSubmit) return;
-    if (isPressEnterKey(e)) {
+    if (isPressEnterKey(e) && e.nativeEvent.isComposing === false) {
       e.preventDefault();
       if (!isBlank(inputValue)) {
-        inputRef.current?.blur();
         sendGuess(inputValue);
+        inputRef.current?.blur();
       }
     }
   };

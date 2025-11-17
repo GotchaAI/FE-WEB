@@ -1,0 +1,125 @@
+.qna-post-container {
+  width: 1187px;
+  min-height: 100vh;
+  padding-top: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: SUIT-Regular;
+
+  .qna-post-top {
+    width: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    .qna-post-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  .qna-post-create-container {
+    width: 1278px;
+    height: calc(100vh - 301px);
+
+    position: absolute;
+    top: 301px;
+
+    border-width: 2px 2px 0px 2px;
+    border-style: solid;
+    border-color: #000000;
+
+    background: #fff;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+
+    padding: 75px 86px;
+    box-sizing: border-box;
+
+    opacity: 0;
+    transform: translateY(calc(100vh - 301px));
+    animation: slideUpFade 0.4s ease-out forwards;
+
+    @keyframes slideUpFade {
+      0% {
+        opacity: 0;
+        transform: translateY(calc(100vh - 301px));
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 제목 입력 */
+    .title-box {
+      width: 100%;
+      margin-bottom: 40px;
+
+      .title-input {
+        width: 100%;
+        height: 46px;
+        background: #F2F3F6;
+        border-radius: 16px;
+        border: none;
+        padding: 0 20px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+
+    /* 본문 입력 */
+    .content-box {
+      width: 100%;
+      height: 196px;
+
+      .content-textarea {
+        width: 100%;
+        height: 100%;
+        background: #F2F3F6;
+        border-radius: 16px;
+        border: none;
+        padding: 31px 27px;
+        font-size: 16px;
+        font-family: SUIT-Regular;
+        font-weight: 500;
+        resize: none;
+      }
+    }
+
+    /* 하단 버튼들 */
+    .qna-post-create-footer {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+
+      .btn-exit {
+        width: 108px;
+        height: 36px;
+        border-radius: 10px;
+        border: 1.5px solid #000;
+        background: #F2F3F6;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .btn-submit {
+        width: 108px;
+        height: 36px;
+        border-radius: 10px;
+        border: 1.5px solid #000;
+        background: #89C881;
+        font-size: 14px;
+        font-weight: 500;
+
+      }
+    }
+  }
+
+
+
+}

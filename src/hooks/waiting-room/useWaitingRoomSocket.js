@@ -1,8 +1,8 @@
-import { SOCKET_ROOM_API, SOCKET_ROOM_ERROR_API } from "constants/api";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import { useGameSocketStore } from "store/socket";
-import { useToastStore } from "store/toast";
+import { SOCKET_ROOM_API, SOCKET_ROOM_ERROR_API } from 'constants/api';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { useGameSocketStore } from 'store/socket';
+import { useToastStore } from 'store/toast';
 
 /**
  * useWaitingRoom 커스텀 훅
@@ -10,19 +10,19 @@ import { useToastStore } from "store/toast";
  */
 
 const roomExitEX = {
-  eventType: "EXIT",
+  eventType: 'EXIT',
 };
 
 const gameStartEX = {
-  eventType: "START",
+  eventType: 'START',
 };
 
 const gameReadyEX = {
-  eventType: "READY",
+  eventType: 'READY',
 };
 
 const gameUnreadyEX = {
-  eventType: "UNREADY",
+  eventType: 'UNREADY',
 };
 
 const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
@@ -30,18 +30,19 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
   const { stompClient, isConnected } = useGameSocketStore();
   const [isGameStart, setIsGameStart] = useState(false);
   const [initGameInfo, setInitGameInfo] = useState(null);
+
   const { showToast } = useToastStore.getState();
   useEffect(() => {
     if (roomId === null) return;
     if (!isConnected) return;
-    console.log("방 입장 : " + roomId);
+    console.log('방 입장 : ' + roomId);
 
     const roomErrorSub = stompClient.subscribe(
       `${SOCKET_ROOM_ERROR_API}/${userUuid}`,
       (message) => {
         const payload = JSON.parse(message.body);
-        console.log("방 에러:", payload);
-      }
+        console.log('방 에러:', payload);
+      },
     );
 
     // 🔔 방 이벤트 여부 구독
@@ -49,57 +50,57 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
       `/sub${SOCKET_ROOM_API}/${roomId}`,
       (message) => {
         const payload = JSON.parse(message.body);
-        console.log("방 이벤트:", payload);
+        console.log('방 이벤트:', payload);
         const eventType = payload.type;
         const data = payload.data;
 
         switch (eventType) {
-          case "READY":
-            console.log("READY");
+          case 'READY':
+            console.log('READY');
             setRoomInfo((prev) => ({
               ...prev,
               userInfos: prev.userInfos.map((user) =>
-                user.userUuid === data ? { ...user, ready: true } : user
+                user.userUuid === data ? { ...user, ready: true } : user,
               ),
             }));
             break;
-          case "UNREADY":
-            console.log("UNREADY");
+          case 'UNREADY':
+            console.log('UNREADY');
             setRoomInfo((prev) => ({
               ...prev,
               userInfos: prev.userInfos.map((user) =>
-                user.userUuid === data ? { ...user, ready: false } : user
+                user.userUuid === data ? { ...user, ready: false } : user,
               ),
             }));
             break;
-          case "START":
-            console.log("START");
+          case 'START':
+            console.log('START');
             setIsGameStart(true);
             setInitGameInfo(data.gameData);
             break;
-          case "UPDATE":
-            console.log("UPDATE");
+          case 'UPDATE':
+            console.log('UPDATE');
             setRoomInfo(data);
             break;
-          case "JOIN":
-            console.log("JOIN");
+          case 'JOIN':
+            console.log('JOIN');
             setRoomInfo((prev) => ({
               ...prev,
               userInfos: data,
             }));
             break;
-          case "EXIT":
-            console.log("EXIT");
+          case 'EXIT':
+            console.log('EXIT');
             setRoomInfo((prev) => ({
               ...prev,
               userInfos: prev.userInfos.filter((user) => user.userUuid != data),
             }));
             break;
-          case "KICK":
-            console.log("KICK");
+          case 'KICK':
+            console.log('KICK');
             if (data == userUuid) {
-              navigate("/lobby");
-              showToast("alert", "나~~가 ㅋㅋ");
+              navigate('/lobby');
+              showToast('alert', '나~~가 ㅋㅋ');
             }
             setRoomInfo((prev) => ({
               ...prev,
@@ -110,7 +111,7 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
           default:
             break;
         }
-      }
+      },
     );
 
     // 🔕 대기방 이벤트 구독 해제
@@ -159,7 +160,7 @@ const useWaitingRoomSocket = ({ roomId, userUuid, setRoomInfo }) => {
 
     // body
     const roomUpdateEX = {
-      eventType: "UPDATE",
+      eventType: 'UPDATE',
       content: JSON.stringify(updateRoomDTO),
     };
 

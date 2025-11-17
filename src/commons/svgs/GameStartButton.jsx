@@ -1,16 +1,21 @@
-import game_start_active from "assets/commons/game-start-active.png";
-import game_start_btn from "assets/commons/game-start-btn.png";
-import game_start_hover_btn from "assets/commons/game-start-hover-btn.png";
-import { useState } from "react";
-import "styles/commons/svgs/GameStartButton.scss";
+import game_start_active from 'assets/commons/game-start-active.png';
+import game_start_btn from 'assets/commons/game-start-btn.png';
+import game_start_hover_btn from 'assets/commons/game-start-hover-btn.png';
+import { useState } from 'react';
+import { useToastStore } from 'store/toast';
+import 'styles/commons/svgs/GameStartButton.scss';
 
 const GameStartButton = ({ onClick }) => {
+  const { showToast } = useToastStore.getState();
   const [isHover, setIsHover] = useState(false);
   const [isClicked, setClicked] = useState(false);
 
   const handleClick = (e) => {
-    setClicked(!isClicked);
-    onClick?.(e); // 기존 클릭 핸들러 호출
+    if (onClick(e)) {
+      setClicked(!isClicked);
+      return;
+    }
+    showToast('alert', '모든 플레이어가 준비되어야 합니다!');
   };
 
   return (
@@ -30,13 +35,13 @@ const GameStartButton = ({ onClick }) => {
         <path
           className="svg-main-fill"
           d="M344.5 0.5V31.5625C344.5 49.2011 330.201 63.4999 312.562 63.5H0.5V0.5H344.5Z"
-          fill={isClicked ? "#F28110" : isHover ? "#f0a000" : "#FFC466"}
+          fill={isClicked ? '#F28110' : isHover ? '#f0a000' : '#FFC466'}
           stroke="black"
         />
         <path
           className="svg-sub-fill"
           d="M344.493 34.5C344.229 50.3954 331.395 63.229 315.5 63.4932V34.5H344.493Z"
-          fill={isClicked ? "#7E5615" : "#F28110"}
+          fill={isClicked ? '#7E5615' : '#F28110'}
           stroke="black"
         />
       </svg>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOCAL_SERVER_IP } from 'constants/api';
+import { AI_SERVER_IP, LOCAL_SERVER_IP } from 'constants/api';
 import { REFRESH_TOKEN_EXPIRED } from 'constants/errorCode';
 import { SIGN_IN_URL } from 'constants/url';
 import { tokenReissueAPI } from 'services/auth/auth';
@@ -15,12 +15,12 @@ const baseConfig = {
 };
 
 const multipartConfig = {
-  baseURL: LOCAL_SERVER_IP,
-  timeout: 3000,
+  baseURL: AI_SERVER_IP,
+  timeout: 60000,
   headers: {
     // "Content-Type": "multipart/form-data",  // 브라우저가 자동으로 붙여줌
   },
-  withCredentials: true,
+  withCredentials: false,
 };
 
 const tokenInstance = axios.create(baseConfig); // 토큰 인터셉터 적용

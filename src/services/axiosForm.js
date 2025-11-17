@@ -1,17 +1,9 @@
 import axios from 'axios';
-import { LOCAL_SERVER_IP } from 'constants/api';
-import {
-  CSRF_TOKEN_NOT_FOUND,
-  REFRESH_TOKEN_EXPIRED,
-} from 'constants/errorCode';
+import { AI_SERVER_IP, LOCAL_SERVER_IP } from 'constants/api';
+import { REFRESH_TOKEN_EXPIRED } from 'constants/errorCode';
 import { SIGN_IN_URL } from 'constants/url';
-import { csrfTokenRequestAPI, tokenReissueAPI } from 'services/auth/auth';
-import {
-  getAuthToken,
-  getCsrfToken,
-  isTokenExpired,
-  setCsrfToken,
-} from 'utils/token';
+import { tokenReissueAPI } from 'services/auth/auth';
+import { getAuthToken, isTokenExpired } from 'utils/token';
 
 const baseConfig = {
   baseURL: LOCAL_SERVER_IP,
@@ -23,50 +15,17 @@ const baseConfig = {
 };
 
 const multipartConfig = {
-  baseURL: LOCAL_SERVER_IP,
-  timeout: 3000,
+  baseURL: AI_SERVER_IP,
+  timeout: 60000,
   headers: {
     // "Content-Type": "multipart/form-data",  // 브라우저가 자동으로 붙여줌
   },
-  withCredentials: true,
+  withCredentials: false,
 };
 
 const tokenInstance = axios.create(baseConfig); // 토큰 인터셉터 적용
 const instance = axios.create(baseConfig); // 인터셉터 미적용
 const multipartInstance = axios.create(multipartConfig);
-
-function attachCsrfTokenInterceptors(instance) {
-  instance.interceptors.request.use((config) => {
-    const csrfToken = getCsrfToken(); // 저장된 토큰 불러오기
-    if (csrfToken) config.headers['X-XSRF-TOKEN'] = csrfToken;
-    return config;
-  });
-  // --- Response 인터셉터: csrf토큰 에러 시 재발급 후 요청 ---
-  instance.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-      const originalRequest = error.config;
-      if (
-        error.response?.status === 403 &&
-        error.response?.data.code === CSRF_TOKEN_NOT_FOUND
-      ) {
-        try {
-          const res = await csrfTokenRequestAPI();
-          const csrfToken = res.csrfToken;
-          setCsrfToken(csrfToken);
-
-          originalRequest.headers = {
-            ...originalRequest.headers,
-            'X-XSRF-TOKEN': `${csrfToken}`,
-          };
-          return axios.request(originalRequest);
-        } catch (err) {
-          return Promise.reject(err);
-        }
-      }
-    },
-  );
-}
 
 function attachTokenInterceptors(instance) {
   // --- Request 인터셉터: Access Token이 만료되었으면 재발급 ---
@@ -136,7 +95,6 @@ function attachTokenInterceptors(instance) {
     },
   );
 }
-attachCsrfTokenInterceptors(instance);
 attachTokenInterceptors(tokenInstance);
 attachTokenInterceptors(multipartInstance);
 // API 요청 함수 (옵션으로 인터셉터 선택)

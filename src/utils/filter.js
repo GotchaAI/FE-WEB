@@ -5,4 +5,7 @@ const getLastLocationPath = (path) => {
   return pathArr[pathArr.length - 1];
 };
 
-export { getLastLocationPath };
+const replaceUuid = (API, userUuid) => {
+  return API.replace("UUID", userUuid);
+};
+export { getLastLocationPath, replaceUuid };

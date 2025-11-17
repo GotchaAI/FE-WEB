@@ -16,6 +16,7 @@ export const EMAIL_VERIFY_API = process.env.REACT_APP_EMAIL_VERIFY_API;
 // 사용자 정보 조회
 export const USER_ME_API = process.env.REACT_APP_USER_ME_API;
 export const NICKNAME_CHECK_API = process.env.REACT_APP_NICKNAME_CHECK_API;
+export const CHAT_SETTING_API = process.env.REACT_APP_CHAT_SETTING_API;
 
 // 이미지 전송 API
 export const IMAGE_UPLOAD_API = process.env.REACT_APP_IMAGE_UPLOAD_API;
@@ -62,7 +63,8 @@ export const GAME2_TASK_API = process.env.REACT_APP_GAME2_TASK_API;
 export const GAME2_EVALUATE_API = process.env.REACT_APP_GAME2_EVALUATE_API;
 
 // 채팅 소켓 API
-export const SOCKET_CHAT_ALL = process.env.REACT_APP_WS_CHAT_ALL_API;
+export const SOCKET_CHAT_ALL_SUB = process.env.REACT_APP_WS_CHAT_ALL_SUB_API;
+export const SOCKET_CHAT_ALL_PUB = process.env.REACT_APP_WS_CHAT_ALL_PUB_API;
 export const SOCKET_CHAT_PRIVATE = process.env.REACT_APP_WS_CHAT_PRIVATE_API;
 
 // 공지사항 API
@@ -72,3 +74,5 @@ export const ANNOUNCE_LIST_API = process.env.REACT_APP_ANNOUNCE_LIST_API;
 export const SERVICE_LIST_API = process.env.REACT_APP_SERVICE_LIST_API;
 export const SERVICE_MY_LIST_API = process.env.REACT_APP_SERVICE_MY_LIST_API;
 export const SERVICE_QNA_API = process.env.REACT_APP_SERVICE_QNA;
+
+export const AI_SERVER_IP = process.env.REACT_APP_AI_SERVER_IP;

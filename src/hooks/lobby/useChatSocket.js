@@ -1,8 +1,12 @@
-import { SOCKET_CHAT_PRIVATE, SOCKET_CHAT_ALL } from "constants/api";
+import {
+  SOCKET_CHAT_PRIVATE,
+  SOCKET_CHAT_ALL_PUB,
+  SOCKET_CHAT_ALL_SUB,
+} from "constants/api";
 import { useEffect, useRef, useState } from "react";
 import { useGameSocketStore } from "store/socket";
+import { replaceUuid } from "utils/filter";
 import { getUserName } from "utils/user";
-
 const useChatSocket = ({ userUuid }) => {
   const { stompClient, isConnected } = useGameSocketStore();
   const clientRef = useRef(null);
@@ -10,7 +14,6 @@ const useChatSocket = ({ userUuid }) => {
   const [messages, setMessages] = useState([]);
   const [isRateLimited, setIsRateLimited] = useState(false);
   const [sendTimestamps, setSendTimestamps] = useState([]);
-
   const myName = getUserName();
   useEffect(() => {
     if (!isConnected || !userUuid) return;
@@ -18,7 +21,7 @@ const useChatSocket = ({ userUuid }) => {
     console.log("채팅 WebSocket 연결됨");
 
     const chatGlobalSub = stompClient.subscribe(
-      `/sub${SOCKET_CHAT_ALL}`,
+      `${replaceUuid(SOCKET_CHAT_ALL_SUB, userUuid)}`,
       (message) => {
         const body = JSON.parse(message.body);
         console.log(body);
@@ -90,10 +93,9 @@ const useChatSocket = ({ userUuid }) => {
     stompClient.publish({
       destination: receiverNickname
         ? `/pub${SOCKET_CHAT_PRIVATE}`
-        : `/pub${SOCKET_CHAT_ALL}`,
+        : `/pub${SOCKET_CHAT_ALL_PUB}`,
       body: JSON.stringify(payload),
     });
-
     setSendTimestamps([...recent, now]);
     return true;
   };

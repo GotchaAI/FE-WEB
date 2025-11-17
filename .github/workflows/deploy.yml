@@ -1,0 +1,51 @@
+name: Frontend Continuous Deployment
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+
+    steps:
+      # 코드 체크아웃
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create .env file from secret
+        run: echo "${{ secrets.ENV_FILE }}" > .env
+
+      # Docker 이미지 build & push
+      - name: Docker build & push
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/gotcha-fe:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/gotcha-fe:latest
+
+      # EC2로 배포 (프론트만 갱신)
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          port: ${{ secrets.SERVER_SSH_PORT }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_KEY }}
+
+          script: |
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+            echo "==== FRONTEND 컨테이너 중지 ===="
+            docker-compose stop frontend || true
+
+            echo "==== 오래된 FRONTEND 이미지 삭제 ===="
+            docker rmi ${{ secrets.DOCKER_USERNAME }}/gotcha-fe:latest || true
+
+            echo "==== FRONTEND 최신 이미지 pull ===="
+            docker pull ${{ secrets.DOCKER_USERNAME }}/gotcha-fe:latest
+
+            echo "==== FRONTEND 재시작 ===="
+            docker-compose up -d frontend
+
+            echo "==== FRONTEND 배포 완료! ===="

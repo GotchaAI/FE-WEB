@@ -16,11 +16,11 @@ const baseConfig = {
 
 const multipartConfig = {
   baseURL: AI_SERVER_IP,
-  timeout: 3000,
+  timeout: 60000,
   headers: {
     // "Content-Type": "multipart/form-data",  // 브라우저가 자동으로 붙여줌
   },
-  withCredentials: true,
+  withCredentials: false,
 };
 
 const tokenInstance = axios.create(baseConfig); // 토큰 인터셉터 적용

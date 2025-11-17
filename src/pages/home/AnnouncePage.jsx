@@ -7,6 +7,8 @@ import Pagination from "commons/ui/Pagination";
 import { getAnnounceListAPI } from "services/home/announce";
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import AnnounceSortButtons from "commons/ui/button/AnnounceSortButton";
+import useUserInformationStore from "store/userInformation";
+import { getAnnounceDetailLink } from "utils/user";
 
 const getTabClassName = (tabName, currentTab) => {
   const classes = ["tab"];
@@ -27,6 +29,10 @@ const AnnouncePage = () => {
   // URL 파라미터에서 page, sort 가져오기
   const currentPage = Number(searchParams.get("page")) || 1;
   const sortOrder = searchParams.get("sort") || "DATE_DESC";
+
+  const profile = useUserInformationStore((state) => state.profile);
+  const isAdmin =
+    profile?.role === "ADMIN" && window.location.href.includes("admin");
 
   /** 공지사항 API 호출 */
   const fetchNotices = async (page = 1, sort = "DATE_DESC") => {
@@ -122,7 +128,10 @@ const AnnouncePage = () => {
               key={`notice-${notice.notificationId}`}
               className="announce-item"
             >
-              <Link className="title" to={`/announce/${notice.notificationId}`}>
+              <Link
+                className="title"
+                to={getAnnounceDetailLink(isAdmin, notice.notificationId)}
+              >
                 {notice.title}
               </Link>
               <div className="meta">

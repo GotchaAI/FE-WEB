@@ -8,15 +8,15 @@ const SideRankingList = ({ title, list, highlightRank }) => {
       <div className="side-list">
         {list.map((item) => (
           <div
-            key={item.rank}
+            key={`rank-${item.rank}-${item.nickname}`}
             className={
               "side-item " + (item.rank === highlightRank ? "highlight" : "")
             }
           >
             <span className="rank">{item.rank}.</span>
-            <span className="name">{item.name}</span>
+            <span className="name">{item.nickname}</span>
             <span className="dashed-line"></span>
-            <span className="score">{item.score}점</span>
+            <span className="score">{item.exp}점</span>
           </div>
         ))}
       </div>

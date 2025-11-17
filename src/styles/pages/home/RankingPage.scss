@@ -1,0 +1,40 @@
+.ranking-page {
+  width: 1187px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 222px;
+  font-family: YoonChild;
+
+  .ranking-center {
+    text-align: center;
+    margin-top: 40px;
+
+    .my-rank {
+      font-family: SUIT-Regular;
+      font-size: 80px;
+      font-weight: 700;
+    }
+
+    .my-score-wrapper {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+
+      .my-score {
+        font-family: SUIT-Regular;
+        font-size: 32px;
+        font-weight: 700;
+        background: #ffe45b;
+        padding: 8px 20px;
+        border-radius: 6px;
+      }
+    }
+
+    .desc {
+      margin-top: 50px;
+      font-size: 18px;
+      color: #6f6f6f;
+    }
+  }
+}

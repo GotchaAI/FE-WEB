@@ -1,0 +1,50 @@
+.side-ranking {
+  width: 320px;
+
+  .side-title {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 35px;
+  }
+
+  .side-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16.47px;
+    font-family: SUIT-Regular;
+
+    .side-item {
+      display: flex;
+      font-size: 21px;
+      padding-left: 5px;
+      padding-right: 5px;
+      align-items: center;
+
+      &.highlight {
+        background: #FFDA37;
+      }
+
+      .rank {
+        padding-right: 10px;
+      }
+
+      .name {
+        padding-right: 5px;
+
+      }
+
+      .dashed-line {
+        flex: 1;
+        border-bottom: 2px dashed #D7CCCC;
+      }
+
+      .score {
+        width: 60px;
+        font-size: 16px;
+        text-align: right;
+      }
+    }
+  }
+
+
+}

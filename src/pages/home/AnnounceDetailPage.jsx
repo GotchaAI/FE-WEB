@@ -5,6 +5,8 @@ import "styles/pages/home/AnnounceDetailPage.scss";
 import { formatDate } from "utils/time";
 import { useEffect, useState } from "react";
 import { getAnnounceDetailAPI } from "services/home/announce";
+import useUserInformationStore from "store/userInformation";
+import { AnnounceManageBar } from "components/admin/AnnounceManageBar";
 
 /** 공통 상태 컴포넌트 */
 const AnnounceStatus = ({ type, message }) => (
@@ -19,6 +21,10 @@ const AnnounceDetailPage = () => {
   const { id } = useParams();
   const [notice, setNotice] = useState(null);
   const [status, setStatus] = useState({ loading: true, error: null });
+
+  const profile = useUserInformationStore((state) => state.profile);
+  const isAdminMode =
+    profile?.role === "ADMIN" && window.location.href.includes("admin");
 
   const closeDetailPage = () => navigate(-1);
 
@@ -67,6 +73,7 @@ const AnnounceDetailPage = () => {
             {notice.title}
           </div>
           <div className="content-description">{notice.content}</div>
+          {isAdminMode && <AnnounceManageBar />}
         </div>
       </article>
     </div>

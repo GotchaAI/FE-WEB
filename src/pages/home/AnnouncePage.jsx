@@ -31,7 +31,7 @@ const AnnouncePage = () => {
   const sortOrder = searchParams.get("sort") || "DATE_DESC";
 
   const profile = useUserInformationStore((state) => state.profile);
-  const isAdmin =
+  const isAdminMode =
     profile?.role === "ADMIN" && window.location.href.includes("admin");
 
   /** 공지사항 API 호출 */
@@ -130,7 +130,7 @@ const AnnouncePage = () => {
             >
               <Link
                 className="title"
-                to={getAnnounceDetailLink(isAdmin, notice.notificationId)}
+                to={getAnnounceDetailLink(isAdminMode, notice.notificationId)}
               >
                 {notice.title}
               </Link>

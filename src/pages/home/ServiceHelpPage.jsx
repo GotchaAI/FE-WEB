@@ -90,7 +90,7 @@ const ServiceHelpPage = () => {
   return (
     <div className="servicehelp-page-container">
       <div className="servicehelp-top">
-        <h1 className="servicehelp-title">도움말 검색</h1>
+        <h1 className="servicehelp-title">문의 내역</h1>
         <div className="servicehelp-right">
           <HomeSearch onSearch={handleSearch} />
           {accessToken && (

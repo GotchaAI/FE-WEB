@@ -1,12 +1,13 @@
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import Pagination from "commons/ui/Pagination";
-import HomeSearch from "components/home/HomeSearch";
+import { mockQnaList } from "constants/faqList";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { getQnAListAPI } from "services/home/serviceCenter";
-import { userToken } from "store/auth";
+import { Link, useSearchParams } from "react-router-dom";
 import "styles/pages/home/ServiceHelpPage.scss";
 import { formatDate } from "utils/time";
+
+// 한 페이지 5개 기준
+const PAGE_SIZE = 5;
 
 const ServiceFAQPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,83 +15,56 @@ const ServiceFAQPage = () => {
   const [qnaList, setQnaList] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
-
-  const { accessToken } = userToken();
-
-  // URL 파라미터에서 page, keyword 가져오기
+  // URL 파라미터에서 page, keyword
   const currentPage = Number(searchParams.get("page")) || 1;
   const currentKeyword = searchParams.get("keyword") || "";
 
-  const fetchQnAList = async (keyword = "", page = 1, sort = "DATE_DESC") => {
+  // ------------------------
+  // Mock 데이터 페이징 처리
+  // ------------------------
+  const fetchQnAList = (keyword = "", page = 1) => {
     setLoading(true);
-    setError(null);
 
-    try {
-      let res;
-
-      res = await getQnAListAPI({
-        keyword,
-        page: page - 1,
-        sort,
-        isSolved: true,
-      });
-
-      if (res?.content?.length > 0) {
-        setQnaList(res.content);
-        setTotalPages(res.page.totalPages);
-      } else {
-        setQnaList([]);
-        setTotalPages(0);
-      }
-    } catch (err) {
-      setError("QNA를 불러오는 중 오류가 발생했습니다.");
-      setTotalPages(0);
-    } finally {
-      setLoading(false);
+    // 1. 키워드 필터링
+    let filtered = mockQnaList;
+    if (keyword.trim() !== "") {
+      filtered = mockQnaList.filter((item) =>
+        item.title.toLowerCase().includes(keyword.toLowerCase())
+      );
     }
+
+    // 2. 총 페이지 계산
+    const pages = Math.ceil(filtered.length / PAGE_SIZE);
+    setTotalPages(pages);
+
+    // 3. 페이지 슬라이싱
+    const startIdx = (page - 1) * PAGE_SIZE;
+    const pagedData = filtered.slice(startIdx, startIdx + PAGE_SIZE);
+
+    setQnaList(pagedData);
+    setLoading(false);
   };
 
-  /** 페이지/정렬 변경 시 URL 갱신 */
-  const updateSearchParams = (page = currentPage) => {
-    setSearchParams({ page: String(page) });
-  };
-
-  /** 페이지 이동 핸들러 */
-  const handlePageChange = (newPage) => {
-    updateSearchParams(newPage);
-  };
-
-  /** URL 변경 시마다 데이터 다시 불러오기 */
+  // URL 변경 시마다 mock 데이터 로드
   useEffect(() => {
     fetchQnAList(currentKeyword, currentPage);
   }, [currentPage, currentKeyword]);
 
-  /** 키워드 검색 */
-  const handleSearch = (keyword) => {
-    setSearchParams({
-      // page: 1, // 검색시 1페이지로
-      keyword: keyword ?? "",
-    });
+  // 페이지 이동
+  const handlePageChange = (newPage) => {
+    setSearchParams({ page: String(newPage) });
   };
 
   return (
     <div className="servicehelp-page-container">
       <div className="servicehelp-top">
         <h1 className="servicehelp-title">자주 묻는 질문</h1>
-        <div className="servicehelp-right">
-          <HomeSearch onSearch={handleSearch} />
-        </div>
       </div>
 
-      {/* 공지 리스트 */}
       <div className="qna-list-container">
         {loading ? (
           <div className="empty">로딩 중...</div>
-        ) : error ? (
-          <div className="empty">{error}</div>
         ) : qnaList.length === 0 ? (
           <div className="empty">
             <EmptyContent />
@@ -99,7 +73,10 @@ const ServiceFAQPage = () => {
           qnaList.map((qna) => (
             <div key={`qna-${qna.inquiryId}`} className="qna-item">
               <div className="qna-item-left">
-                <Link className="title" to={`/service-center/${qna.inquiryId}`}>
+                <Link
+                  className="title"
+                  to={`/service-center/FAQ/${qna.inquiryId}`}
+                >
                   {qna.title}
                 </Link>
               </div>
@@ -109,17 +86,6 @@ const ServiceFAQPage = () => {
               </div>
             </div>
           ))
-        )}
-      </div>
-
-      <div className="mooni-container">
-        {accessToken && (
-          <button
-            className="mooni-btn"
-            onClick={() => navigate("/service-center/post")}
-          >
-            나도 문의하기
-          </button>
         )}
       </div>
 

@@ -1,0 +1,42 @@
+.announce-manage-button-bar {
+    display: flex;
+    align-items: center;
+    gap: 138px;
+    a {
+        text-decoration: none;
+    }
+    .button--edit {
+        padding: 8px 16px;
+        height: 40px;
+        width: 194px;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #F28110; 
+    }
+
+    .button--delete {
+        width: 194px;
+        padding: 8px 16px;
+        height: 40px;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #808080;
+    }
+
+}

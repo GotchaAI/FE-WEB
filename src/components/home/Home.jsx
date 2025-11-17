@@ -13,6 +13,7 @@ import "styles/components/home/Home.scss";
 import { getAuthToken } from "utils/token";
 import { getUserInfo } from "utils/user";
 import { RankingPreview } from "./RankingPreview";
+import EnterAdmin from "./EnterAdmin";
 const rankingData = [
   { username: "Player1", score: 1000 },
   { username: "Player2", score: 900 },
@@ -95,6 +96,7 @@ const Home = () => {
           <IntroduceCharacterPreview />
         </div>
       </div>
+      <EnterAdmin />
     </div>
   );
 };

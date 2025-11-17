@@ -2,12 +2,13 @@ import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import CheckBox from "commons/svgs/CheckBox";
 import Pagination from "commons/ui/Pagination";
 import HomeSearch from "components/home/HomeSearch";
+import { SERVICE_CENTER_POST_URL, SERVICE_CENTER_URL } from "constants/url";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { getMyQnAListAPI, getQnAListAPI } from "services/home/serviceCenter";
-import { userToken } from "store/auth";
 import "styles/pages/home/ServiceHelpPage.scss";
 import { formatDate } from "utils/time";
+import { getAuthToken } from "utils/token";
 
 const ServiceHelpPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,7 +19,7 @@ const ServiceHelpPage = () => {
   const [error, setError] = useState(null);
   const [showMine, setShowMine] = useState(false);
 
-  const { accessToken } = userToken();
+  const { accessToken } = getAuthToken();
 
   const navigate = useNavigate();
 
@@ -94,13 +95,13 @@ const ServiceHelpPage = () => {
         <div className="servicehelp-right">
           <HomeSearch onSearch={handleSearch} />
           {accessToken && (
-            <div>
+            <label style={{ width: "100px" }}>
               <CheckBox
                 checked={showMine}
                 onChange={(checked) => setShowMine(checked)}
               />
               내가 쓴 글
-            </div>
+            </label>
           )}
         </div>
       </div>
@@ -126,7 +127,10 @@ const ServiceHelpPage = () => {
                 >
                   {qna.isSolved ? "답변완료" : "답변대기"}
                 </span>
-                <Link className="title" to={`/service-center/${qna.inquiryId}`}>
+                <Link
+                  className="title"
+                  to={`${SERVICE_CENTER_URL}/${qna.inquiryId}`}
+                >
                   {qna.title}
                 </Link>
               </div>
@@ -143,7 +147,7 @@ const ServiceHelpPage = () => {
         {accessToken && (
           <button
             className="mooni-btn"
-            onClick={() => navigate("/service-center/post")}
+            onClick={() => navigate(`${SERVICE_CENTER_POST_URL}`)}
           >
             나도 문의하기
           </button>

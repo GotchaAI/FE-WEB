@@ -45,6 +45,7 @@ const ServicePostPage = () => {
             className="title-input"
             placeholder="제목"
             value={title}
+            maxLength={50}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
@@ -55,6 +56,7 @@ const ServicePostPage = () => {
             className="content-textarea"
             placeholder="문의 내용을 입력해주세요"
             value={content}
+            maxLength={200}
             onChange={(e) => setContent(e.target.value)}
           />
         </div>

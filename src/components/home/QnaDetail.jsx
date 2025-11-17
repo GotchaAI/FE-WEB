@@ -10,7 +10,7 @@ const QnaDetail = ({ type, title, createdAt, content, onClose }) => {
 
       <article className="qna-detail-container">
         <header className="qna-detail-header">
-          <h1 className="detail-title">{title}</h1>
+          <span className="detail-title">{title}</span>
           <span className="detail-date">{formatDate(createdAt)}</span>
         </header>
 

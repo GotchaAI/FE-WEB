@@ -1,6 +1,7 @@
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import Pagination from "commons/ui/Pagination";
 import { mockQnaList } from "constants/faqList";
+import { SERVICE_CENTER_FAQ_URL } from "constants/url";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import "styles/pages/home/ServiceHelpPage.scss";
@@ -53,7 +54,7 @@ const ServiceFAQPage = () => {
 
   // 페이지 이동
   const handlePageChange = (newPage) => {
-    setSearchParams({ page: String(newPage) });
+    setSearchParams({ page: newPage });
   };
 
   return (
@@ -75,7 +76,7 @@ const ServiceFAQPage = () => {
               <div className="qna-item-left">
                 <Link
                   className="title"
-                  to={`/service-center/FAQ/${qna.inquiryId}`}
+                  to={`${SERVICE_CENTER_FAQ_URL}/${qna.inquiryId}`}
                 >
                   {qna.title}
                 </Link>

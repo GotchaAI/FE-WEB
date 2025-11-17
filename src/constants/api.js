@@ -69,3 +69,5 @@ export const SOCKET_CHAT_PRIVATE = process.env.REACT_APP_WS_CHAT_PRIVATE_API;
 
 // 공지사항 API
 export const ANNOUNCE_LIST_API = process.env.REACT_APP_ANNOUNCE_LIST_API;
+
+export const AI_SERVER_IP = process.env.REACT_APP_AI_SERVER_IP;

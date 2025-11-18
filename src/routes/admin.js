@@ -1,4 +1,6 @@
 import AdminPage, { loader as adminLoader } from "pages/admin/AdminPage";
+import AnnounceEditPage from "pages/admin/AnnounceEditPage";
+import { CreateAnnouncePage } from "pages/admin/CreateAnnouncePage";
 import AnnounceDetailPage from "pages/home/AnnounceDetailPage";
 import AnnouncePage from "pages/home/AnnouncePage";
 
@@ -15,16 +17,18 @@ const admin = [
       {
         path: "announce",
         element: <AnnouncePage />,
-        children: [
-          {
-            index: true,
-            element: <AnnouncePage />,
-          },
-          {
-            path: "edit/:id",
-            element: <AnnounceDetailPage />,
-          },
-        ],
+      },
+      {
+        path: "announce/:id",
+        element: <AnnounceDetailPage />,
+      },
+      {
+        path: "announce/:id/edit",
+        element: <AnnounceEditPage />,
+      },
+      {
+        path: "announce/create",
+        element: <CreateAnnouncePage />,
       },
       {
         path: "user-manage",

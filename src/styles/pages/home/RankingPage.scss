@@ -1,0 +1,117 @@
+.ranking-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+
+  .ranking-page {
+    width: 1187px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 222px;
+    font-family: YoonChild;
+
+    .ranking-center {
+      position: relative;
+      margin-top: 90px;
+      width: 476px;
+
+      .rank-label {
+        font-size: 20px;
+      }
+
+      .my-rank {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 6px;
+
+        .rank-number {
+          font-family: SUIT-Regular;
+          font-size: 128px;
+          font-weight: 600;
+        }
+
+        .rank-unit {
+          font-family: SUIT-Regular;
+          font-size: 32px;
+          margin-bottom: 20px;
+          margin-left: 21px;
+        }
+      }
+
+      /* 점수 라인 */
+      .score-row {
+        margin-top: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+
+        .score-label {
+          font-size: 20px;
+        }
+
+        .dashed-line {
+          flex: 1;
+          border-bottom: 3px dashed #F6AA30;
+        }
+
+        .my-score {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          width: 152px;
+          height: 40px;
+
+          font-family: SUIT-Regular;
+          font-size: 32px;
+          font-weight: 700;
+
+          background: #FFDA37;
+
+          &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 9px;
+            height: 100%;
+            background: #FF9F03
+          }
+        }
+      }
+    }
+
+  }
+
+
+  .bottom-banner {
+    margin-top: 50px;
+    width: 100%;
+    height: 66px;
+    font-family: YoonChild-ManSeh;
+
+    background: #E9FF9F;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .banner-score {
+      font-size: 32px;
+      font-weight: 500px;
+    }
+  }
+}

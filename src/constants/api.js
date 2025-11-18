@@ -75,4 +75,7 @@ export const SERVICE_LIST_API = process.env.REACT_APP_SERVICE_LIST_API;
 export const SERVICE_MY_LIST_API = process.env.REACT_APP_SERVICE_MY_LIST_API;
 export const SERVICE_QNA_API = process.env.REACT_APP_SERVICE_QNA;
 
+export const RANKING_API = process.env.REACT_APP_RANKING_API;
+export const RANkING_MY_API = process.env.REACT_APP_MY_RANKING_API;
+
 export const AI_SERVER_IP = process.env.REACT_APP_AI_SERVER_IP;

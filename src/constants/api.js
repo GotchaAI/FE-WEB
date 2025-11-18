@@ -69,3 +69,9 @@ export const SOCKET_CHAT_PRIVATE = process.env.REACT_APP_WS_CHAT_PRIVATE_API;
 
 // 공지사항 API
 export const ANNOUNCE_LIST_API = process.env.REACT_APP_ANNOUNCE_LIST_API;
+
+// 관리자 API
+export const ADMIN_ANNOUNCE_MANAGE_API =
+  process.env.REACT_APP_ADMIN_ANNOUNCE_MANAGE_API;
+export const ADMIN_QNA_MANAGE_API = process.env.ADMIN_QNA_MANAGE_API;
+export const ADMIN_REPORT_API = process.env.REACT_APP_ADMIN_REPORT_API;

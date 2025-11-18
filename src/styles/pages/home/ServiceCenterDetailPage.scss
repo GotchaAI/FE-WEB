@@ -1,0 +1,128 @@
+.qna-page-container {
+  width: 1187px;
+  min-height: 100vh;
+  padding-top: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: SUIT-Regular;
+
+  .qna-top {
+    width: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    .qna-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  .qna-detail-container {
+    width: 1278px;
+    height: calc(100vh - 301px);
+
+    position: absolute;
+    top: 301px;
+
+    border-width: 2px 2px 0px 2px;
+    border-style: solid;
+    border-color: #000000;
+
+    background: #fff;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+
+    padding: 75px 86px;
+    box-sizing: border-box;
+
+    opacity: 0;
+    transform: translateY(calc(100vh - 301px));
+    animation: slideUpFade 0.4s ease-out forwards;
+
+    @keyframes slideUpFade {
+      0% {
+        opacity: 0;
+        transform: translateY(calc(100vh - 301px));
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- Header ---------- */
+    .qna-detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-bottom: 21px;
+      padding: 0 27px;
+
+      .detail-title {
+        font-size: 24px;
+        font-weight: 600;
+      }
+
+      .detail-date {
+        color: #999999;
+        font-size: 16px;
+      }
+    }
+
+    /* ---------- Body ---------- */
+    .qna-detail-body {
+      display: flex;
+      justify-content: center;
+
+      .detail-content-box {
+        width: 100%;
+        min-height: 196px;
+        padding: 31px 27px;
+        border: 1px solid #999999;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 500;
+        white-space: pre-line;
+        line-height: 1.4;
+        background: #fff;
+      }
+    }
+
+    /* ---------- Footer Buttons ---------- */
+    .qna-detail-footer {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+
+      .btn-exit {
+        margin-top: 39px;
+        width: 108px;
+        height: 36px;
+        border-radius: 10px;
+        border: 1.5px solid #000;
+        background: #F2F3F6;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      // .btn-next {
+      //   width: 150px;
+      //   height: 48px;
+      //   border-radius: 8px;
+      //   border: none;
+      //   background: #8CCF6A;
+      //   color: #fff;
+      //   font-size: 16px;
+      //   font-weight: 500;
+      //   cursor: pointer;
+      // }
+    }
+  }
+
+
+}

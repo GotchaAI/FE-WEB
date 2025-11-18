@@ -1,0 +1,127 @@
+.servicecenter-page-container {
+  width: 1187px;
+  min-height: 100vh;
+  padding-top: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: SUIT-Regular;
+
+  .servicecenter-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .qna-box-tabs {
+    display: flex;
+    gap: 11px;
+    margin-top: 45px;
+
+    .qna-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 451px;
+      height: 297px;
+
+      background: #89C881;
+      border: none;
+      border-radius: 16px;
+
+      font-weight: 500;
+      font-style: Medium;
+      font-size: 24px;
+
+      // 두 번째 박스 색상 변경
+      &:nth-child(2) {
+        background: #D3F16F;
+      }
+    }
+  }
+
+  .qna-list-container {
+    position: relative;
+    min-height: 340px;
+    margin-top: 25px;
+
+    .qna-item {
+      width: 914px;
+      height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      border-bottom: 1.5px solid #E0E0E0;
+      gap: 26px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .status-badge {
+        font-size: 13px;
+        font-weight: 500;
+
+        &.pending {
+          color: #F28110;
+        }
+
+        &.done {
+          color: #2286FF;
+        }
+      }
+
+      .title {
+        all: unset;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .date {
+        width: 100px;
+        text-align: right;
+        color: #999999;
+      }
+    }
+
+    .empty {
+      margin-top: 108px;
+    }
+  }
+
+  .mooni-container {
+    width: 878px;
+    display: flex;
+    justify-content: end;
+
+    .mooni-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 8px;
+      width: 119px;
+      height: 41px;
+
+      background: #FFC466;
+      border: 2px solid #F28110;
+      border-radius: 6px;
+
+    }
+  }
+
+  /* 페이지네이션 */
+  .qna-pagination {
+    margin: 16px 0 56px;
+    display: flex;
+    gap: 6.32px;
+    align-items: center;
+    justify-content: center;
+
+    .page-index {
+      font-family: YoonChild;
+      font-size: 16px;
+    }
+  }
+}

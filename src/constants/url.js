@@ -22,9 +22,13 @@ export const ANNOUNCE_URL = "/announce";
 export const RANKING_URL = "/ranking";
 export const CHARACTER_INTRO_URL = "/character-intro";
 export const SERVICE_CENTER_URL = "/service-center";
+export const SERVICE_CENTER_FAQ_URL = "/service-center/FAQ";
+export const SERVICE_CENTER_HELP_URL = "/service-center/help";
+export const SERVICE_CENTER_POST_URL = "/service-center/post";
 
 export const WAITING_ROOM_URL = "/lobby/waiting";
 export const SETTING_URL = "/lobby/setting";
 
 export const GAME1_ROBBY_URL = "/lobby/game1";
 export const GAME2_ROBBY_URL = "/lobby/game2";
+

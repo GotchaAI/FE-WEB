@@ -13,7 +13,7 @@ import "styles/components/home/Home.scss";
 import { getAuthToken } from "utils/token";
 import { getUserInfo } from "utils/user";
 import { RankingPreview } from "./RankingPreview";
-import EnterAdmin from "./EnterAdmin";
+import { EnterAdmin } from "components/home/EnterAdmin.jsx";
 const rankingData = [
   { username: "Player1", score: 1000 },
   { username: "Player2", score: 900 },

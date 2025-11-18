@@ -7,6 +7,7 @@ export const WITHDRAW_URL = "/withdraw"; // 비밀번호 찾기
 
 export const ADMIN_URL = "/admin";
 export const ADMIN_ANNOUNCE_URL = "/admin/announce";
+export const ADMIN_CREATE_ANNOUNCE_URL = "/admin/announce/create";
 
 export const LOBBY_URL = "/lobby"; // 로비
 export const MY_PAGE_URL = "/lobby/myinfo"; // 마이페이지

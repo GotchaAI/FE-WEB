@@ -1,3 +1,4 @@
+import { AdminHome } from "pages/admin/AdminHome";
 import AdminPage, { loader as adminLoader } from "pages/admin/AdminPage";
 import AnnounceEditPage from "pages/admin/AnnounceEditPage";
 import { CreateAnnouncePage } from "pages/admin/CreateAnnouncePage";
@@ -12,7 +13,7 @@ const admin = [
     children: [
       {
         index: true,
-        element: <AdminPage />,
+        element: <AdminHome />,
       },
       {
         path: "announce",

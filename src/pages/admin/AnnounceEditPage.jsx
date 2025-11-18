@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getAnnounceDetailAPI } from "services/home/announce";
 import useUserInformationStore from "store/userInformation";
 import { updateAnnounceAPI } from "services/admin/admin";
+import { ADMIN_ANNOUNCE_URL } from "constants/url";
 
 const AnnounceEditPage = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const AnnounceEditPage = () => {
     try {
       const notificationInfo = { id, title, content };
       await updateAnnounceAPI(notificationInfo);
-      navigate(`/admin/announce/${id}`);
+      navigate(`${ADMIN_ANNOUNCE_URL}/${id}`);
     } catch (err) {
       console.log(err);
       alert("공지 수정에 실패했습니다.");

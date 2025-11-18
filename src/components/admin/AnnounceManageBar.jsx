@@ -9,7 +9,7 @@ export const AnnounceManageBar = ({ notificationId }) => {
   const handleDelete = async () => {
     try {
       await eraseNotification(notificationId);
-      navigate(-1);
+      navigate(ADMIN_ANNOUNCE_URL);
     } catch (error) {
       console.error("삭제 실패:", error);
     }

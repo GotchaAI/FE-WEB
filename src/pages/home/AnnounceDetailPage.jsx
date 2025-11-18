@@ -73,7 +73,7 @@ const AnnounceDetailPage = () => {
             {notice.title}
           </div>
           <div className="content-description">{notice.content}</div>
-          {isAdminMode && <AnnounceManageBar />}
+          {isAdminMode && <AnnounceManageBar notificationId={id} />}
         </div>
       </article>
     </div>

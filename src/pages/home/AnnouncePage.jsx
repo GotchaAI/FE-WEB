@@ -9,6 +9,7 @@ import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import AnnounceSortButtons from "commons/ui/button/AnnounceSortButton";
 import useUserInformationStore from "store/userInformation";
 import { getAnnounceDetailLink } from "utils/user";
+import { ADMIN_CREATE_ANNOUNCE_URL } from "constants/url";
 
 const getTabClassName = (tabName, currentTab) => {
   const classes = ["tab"];
@@ -139,6 +140,14 @@ const AnnouncePage = () => {
               </div>
             </div>
           ))
+        )}
+        {isAdminMode && (
+          <Link
+            to={ADMIN_CREATE_ANNOUNCE_URL}
+            className="announce-create-button"
+          >
+            ✏️
+          </Link>
         )}
       </div>
 

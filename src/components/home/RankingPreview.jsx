@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getMyRankingAPI, getRankingListAPI } from "services/home/ranking";
+import { getRankingListAPI } from "services/home/ranking";
 import "styles/components/home/RankingPreview.scss";
+import { getAuthToken } from "utils/token";
 export const RankingPreview = () => {
   const [rankingData, setRankingData] = useState([]);
   const [myScore, setMyScore] = useState(null);
@@ -8,18 +9,25 @@ export const RankingPreview = () => {
   useEffect(() => {
     const fetchRanking = async () => {
       try {
-        // 🔹 내 랭킹 먼저 가져오기
-        const myRes = await getMyRankingAPI();
-        const me = myRes?.data || myRes;
-
-        if (me) {
-          setMyScore(me.exp);
-        }
-
-        // 🔹 전체 랭킹 가져오기
+        // 전체 랭킹 먼저 조회
         const listRes = await getRankingListAPI();
         const list = listRes?.data || listRes || [];
         setRankingData(list);
+
+        // 액세스 토큰이 있을 때만 내 랭킹 조회
+        const { accessToken } = getAuthToken();
+
+        if (accessToken) {
+          const myRes = 0;
+          const me = myRes?.data || myRes;
+
+          if (me) {
+            setMyScore(me.exp);
+          }
+        } else {
+          // 토큰 없으면 '-' 유지
+          setMyScore("-");
+        }
       } catch (e) {
         console.error("랭킹 프리뷰 조회 실패:", e);
       }
@@ -27,7 +35,7 @@ export const RankingPreview = () => {
 
     fetchRanking();
   }, []);
-  console.log(rankingData);
+
   return (
     <div className="ranking-preview-container">
       <h2>랭킹 </h2>

@@ -75,3 +75,9 @@ export const ADMIN_ANNOUNCE_MANAGE_API =
   process.env.REACT_APP_ADMIN_ANNOUNCE_MANAGE_API;
 export const ADMIN_QNA_MANAGE_API = process.env.ADMIN_QNA_MANAGE_API;
 export const ADMIN_REPORT_API = process.env.REACT_APP_ADMIN_REPORT_API;
+// 서비스센터 API
+export const SERVICE_LIST_API = process.env.REACT_APP_SERVICE_LIST_API;
+export const SERVICE_MY_LIST_API = process.env.REACT_APP_SERVICE_MY_LIST_API;
+export const SERVICE_QNA_API = process.env.REACT_APP_SERVICE_QNA;
+
+export const AI_SERVER_IP = process.env.REACT_APP_AI_SERVER_IP;

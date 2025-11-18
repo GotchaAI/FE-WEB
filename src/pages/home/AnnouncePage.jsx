@@ -27,9 +27,10 @@ const AnnouncePage = () => {
   // URL 파라미터에서 page, sort 가져오기
   const currentPage = Number(searchParams.get("page")) || 1;
   const sortOrder = searchParams.get("sort") || "DATE_DESC";
+  const tabType = searchParams.get("type") || "";
 
   /** 공지사항 API 호출 */
-  const fetchNotices = async (page = 1, sort = "DATE_DESC") => {
+  const fetchNotices = async (page = 1, sort = "DATE_DESC", type = "") => {
     try {
       setLoading(true);
       setError(null);
@@ -38,6 +39,7 @@ const AnnouncePage = () => {
         keyword: "",
         page: page - 1, // 서버는 0부터 시작
         sort,
+        type: type,
       });
 
       if (res?.content && res.content.length > 0) {
@@ -56,31 +58,41 @@ const AnnouncePage = () => {
   };
 
   /** 페이지/정렬 변경 시 URL 갱신 */
-  const updateSearchParams = (page = currentPage, sort = sortOrder) => {
-    setSearchParams({ page: String(page), sort });
+  const updateSearchParams = (
+    page = currentPage,
+    sort = sortOrder,
+    type = tabType
+  ) => {
+    setSearchParams({ page: String(page), sort, type });
   };
 
   /** 페이지 이동 핸들러 */
   const handlePageChange = (newPage) => {
-    updateSearchParams(newPage, sortOrder);
+    updateSearchParams(newPage, sortOrder, tabType);
   };
 
   /** 정렬 변경 핸들러 */
   const handleSortChange = (order) => {
     const newOrder = order === "DATE_DESC" ? "DATE_DESC" : "DATE_ASC";
-    updateSearchParams(1, newOrder); // 정렬 바꾸면 1페이지로 이동
+    updateSearchParams(1, newOrder, tabType); // 정렬 바꾸면 1페이지로 이동
   };
 
   /** 탭 클릭 시 1페이지로 리셋 */
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
-    updateSearchParams(1, sortOrder);
+    let newType = "";
+    if (tabName === "이벤트") {
+      newType = "EVENT";
+    } else if (tabName === "업데이트") {
+      newType = "UPDATE";
+    }
+    updateSearchParams(1, sortOrder, newType);
   };
 
   /** URL 변경 시마다 데이터 다시 불러오기 */
   useEffect(() => {
-    fetchNotices(currentPage, sortOrder);
-  }, [currentPage, sortOrder]);
+    fetchNotices(currentPage, sortOrder, tabType);
+  }, [currentPage, sortOrder, tabType]);
 
   return (
     <div className="announce-page-container">

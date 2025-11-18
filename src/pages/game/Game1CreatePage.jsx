@@ -119,6 +119,7 @@ const Game1CreatePage = () => {
           type="text"
           placeholder="방 제목을 입력해주세요."
           value={title}
+          maxLength={50}
           onChange={(e) => setTitle(e.target.value)}
         />
         {titleError && <span className="error-text">{titleError}</span>}

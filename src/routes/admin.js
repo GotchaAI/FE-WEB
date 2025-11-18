@@ -40,7 +40,7 @@ const admin = [
         element: <>신고 관리</>,
       },
       {
-        path: "service-center",
+        path: "customer-center",
         element: <>1ㄷ1 문의 관리</>,
       },
     ],

@@ -4,7 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "styles/components/home/EnterAdmin.scss";
 
-export default function EnterAdmin() {
+export const EnterAdmin = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -28,4 +28,4 @@ export default function EnterAdmin() {
       <AdminButton />
     </button>
   );
-}
+};

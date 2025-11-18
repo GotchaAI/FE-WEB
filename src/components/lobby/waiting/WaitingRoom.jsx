@@ -1,24 +1,28 @@
-import CheckBox from "commons/svgs/CheckBox";
-import GameReadyButton from "commons/svgs/GameReadyButton";
-import GameStartButton from "commons/svgs/GameStartButton";
-import PlayerSlot from "components/lobby/waiting/PlayerSlot";
-import useWaitingRoomSocket from "hooks/waiting-room/useWaitingRoomSocket";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { getRoomDetailAPI } from "services/lobby/waiting/waitingRoom";
-import "styles/components/lobby/waiting/WaitingRoom.scss";
-import { getUserUuid } from "utils/user";
+import CheckBox from 'commons/svgs/CheckBox';
+import GameReadyButton from 'commons/svgs/GameReadyButton';
+import GameStartButton from 'commons/svgs/GameStartButton';
+import PlayerSlot from 'components/lobby/waiting/PlayerSlot';
+import useWaitingRoomSocket from 'hooks/waiting-room/useWaitingRoomSocket';
+import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getRoomDetailAPI } from 'services/lobby/waiting/waitingRoom';
+import { useToastStore } from 'store/toast';
+import 'styles/components/lobby/waiting/WaitingRoom.scss';
+import { getUserUuid } from 'utils/user';
 
 const WaitingRoom = () => {
+  const { showToast } = useToastStore.getState();
   const navigate = useNavigate();
   const location = useLocation();
   const userUuid = getUserUuid();
 
   const [roomId, setRoomId] = useState(null); // 방번호
   const [roomInfo, setRoomInfo] = useState(null); // 방 전체 정보
-  const [selectedDifficulty, setSelectedDifficulty] = useState("BASIC"); // 난이도
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null); // 난이도
   const [isReady, setIsReady] = useState(false); // 준비 여부
   const [isOwner, setIsOwner] = useState(false);
+  const ownerIsMe = userUuid === roomInfo?.roomInfo.ownerUuid;
+  const userInfos = roomInfo?.userInfos || [];
 
   const {
     startGame,
@@ -35,7 +39,7 @@ const WaitingRoom = () => {
   // 최초 방정보 갱신
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const roomIdFromQuery = params.get("roomId");
+    const roomIdFromQuery = params.get('roomId');
 
     if (roomIdFromQuery) {
       setRoomId(roomIdFromQuery);
@@ -54,13 +58,14 @@ const WaitingRoom = () => {
     }
   };
 
+  const isFirstDifficultyInit = useRef(true);
   // 방정보 갱신 시 데이터 분배
   useEffect(() => {
     if (!roomInfo) return;
 
     // 내 정보 조회
     const myState = roomInfo.userInfos.find(
-      (user) => user.userUuid === userUuid
+      (user) => user.userUuid === userUuid,
     );
 
     const isMeOwner = roomInfo.roomInfo.ownerUuid === userUuid;
@@ -69,8 +74,20 @@ const WaitingRoom = () => {
 
     // 레디 여부 적용
     setIsReady(myState?.ready);
+
+    // 최초 난이도 세팅이면 토스트 스킵
+    if (isFirstDifficultyInit.current) {
+      isFirstDifficultyInit.current = false;
+      setSelectedDifficulty(roomInfo.roomInfo.difficulty);
+      return;
+    }
+
+    if (roomInfo.roomInfo.difficulty === selectedDifficulty) {
+      return;
+    }
     // 난이도 적용
     setSelectedDifficulty(roomInfo.roomInfo.difficulty);
+    showToast('alert', '로봇 성능이 변경되었습니다!');
   }, [roomInfo]);
 
   // 게임 시작
@@ -83,12 +100,14 @@ const WaitingRoom = () => {
   // 방 나가기
   const quitRoomHandler = () => {
     quitRoom(roomId);
-    navigate("/lobby");
+    navigate('/lobby');
   };
 
   // 게임 시작 요청
   const gameStartHandler = () => {
+    if (!userInfos.every((user) => user.ready)) return false;
     startGame(roomId);
+    return true;
   };
 
   // 게임 준비/취소
@@ -101,7 +120,10 @@ const WaitingRoom = () => {
 
   // 난이도 변경
   const updateDifficultyHandler = (difficulty) => {
-    if (!isOwner) return;
+    if (!isOwner) {
+      showToast('alert', '방장만 로봇 성능을 변경할 수 있습니다!');
+      return;
+    }
     if (difficulty === selectedDifficulty) return;
     setSelectedDifficulty(difficulty);
 
@@ -150,24 +172,24 @@ const WaitingRoom = () => {
               <div className="checkbox-options">
                 <CheckBox
                   label="초보"
-                  checked={selectedDifficulty === "BASIC"}
-                  onChange={() => updateDifficultyHandler("BASIC")}
+                  checked={selectedDifficulty === 'BASIC'}
+                  onChange={() => updateDifficultyHandler('BASIC')}
                 />
                 <CheckBox
                   label="고수"
-                  checked={selectedDifficulty === "ADVANCED"}
-                  onChange={() => updateDifficultyHandler("ADVANCED")}
+                  checked={selectedDifficulty === 'ADVANCED'}
+                  onChange={() => updateDifficultyHandler('ADVANCED')}
                 />
               </div>
             </div>
 
-            {userUuid === roomInfo.roomInfo.ownerUuid ? (
+            {ownerIsMe ? (
               <label className="start-btn-wrapper">
                 <GameStartButton onClick={gameStartHandler} />
               </label>
             ) : (
               <label className="ready-btn-wrapper">
-                <GameReadyButton onClick={gameReadyHandler} />
+                <GameReadyButton onClick={gameReadyHandler} isReady={isReady} />
               </label>
             )}
           </div>

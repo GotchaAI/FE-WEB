@@ -2,7 +2,7 @@ import {
   GAME1_ROBBY_URL,
   GAME2_ROBBY_URL,
   MY_PAGE_URL,
-  MY_RECORD_URL,
+  // MY_RECORD_URL,
   SETTING_URL,
 } from "constants/url";
 import { useEffect, useState } from "react";
@@ -21,10 +21,10 @@ const gameNav = [
 ];
 
 const myInfoNav = [
-  {
-    title: "전적",
-    url: MY_RECORD_URL,
-  },
+  // {
+  //   title: "전적",
+  //   url: MY_RECORD_URL,
+  // },
   {
     title: "내 정보",
     url: MY_PAGE_URL,

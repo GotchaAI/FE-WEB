@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRankingListAPI } from "services/home/ranking";
+import { getMyRankingAPI, getRankingListAPI } from "services/home/ranking";
 import "styles/components/home/RankingPreview.scss";
 import { getAuthToken } from "utils/token";
 export const RankingPreview = () => {
@@ -18,8 +18,9 @@ export const RankingPreview = () => {
         const { accessToken } = getAuthToken();
 
         if (accessToken) {
-          const myRes = 0;
+          const myRes = await getMyRankingAPI();
           const me = myRes?.data || myRes;
+          console.log(myRes);
 
           if (me) {
             setMyScore(me.exp);

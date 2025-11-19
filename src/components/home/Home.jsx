@@ -12,20 +12,8 @@ import { getUserInfoAPI } from "services/user/user";
 import "styles/components/home/Home.scss";
 import { getAuthToken } from "utils/token";
 import { getUserInfo } from "utils/user";
-import { RankingPreview } from "./RankingPreview";
 import { EnterAdmin } from "components/home/EnterAdmin.jsx";
-const rankingData = [
-  { username: "Player1", score: 1000 },
-  { username: "Player2", score: 900 },
-  { username: "Player3", score: 800 },
-  { username: "Player4", score: 700 },
-  { username: "Player5", score: 600 },
-  { username: "Player6", score: 500 },
-  { username: "Player7", score: 400 },
-  { username: "Player8", score: 300 },
-  { username: "Player9", score: 200 },
-  { username: "Player10", score: 100 },
-];
+import { RankingPreview } from "components/home/RankingPreview.jsx";
 const Home = () => {
   const navigate = useNavigate();
   const { isSignIn } = useOutletContext();
@@ -92,7 +80,7 @@ const Home = () => {
       <div className="home-middle-container">
         <InformationContainer />
         <div className="preview-container">
-          <RankingPreview rankingData={rankingData} />
+          <RankingPreview />
           <IntroduceCharacterPreview />
         </div>
       </div>

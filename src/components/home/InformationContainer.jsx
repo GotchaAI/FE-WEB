@@ -1,48 +1,59 @@
+import { ANNOUNCE_URL, SERVICE_CENTER_URL } from "constants/url";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getAnnounceListAPI } from "services/home/announce";
+import { getQnAListAPI } from "services/home/serviceCenter";
 import "styles/components/home/InformationContainer.scss";
+import { formatDate } from "utils/time";
 
 export const InformationContainer = () => {
   const [data, setData] = useState([]);
   const [navType, setNavType] = useState("notice"); // 상태로 관리
+
+  const fetchNotices = async (page = 1, sort = "DATE_DESC", type = "") => {
+    try {
+      const res = await getAnnounceListAPI({
+        keyword: "",
+        page: page - 1, // 서버는 0부터 시작
+        sort,
+        type: type,
+      });
+
+      if (res?.content && res.content.length > 0) {
+        setData(res.content.slice(0, 5));
+      } else {
+        setData([]);
+      }
+    } catch (err) {
+      console.error("공지사항 조회 에러");
+    }
+  };
+
+  const fetchQnAList = async (keyword = "", page = 1, sort = "DATE_DESC") => {
+    try {
+      let res;
+
+      res = await getQnAListAPI({
+        keyword,
+        page: page - 1,
+        sort,
+      });
+
+      if (res?.content && res.content.length > 0) {
+        setData(res.content.slice(0, 5));
+      } else {
+        setData([]);
+      }
+    } catch (err) {
+      console.error("문의목록 조회 에러");
+    }
+  };
+
   useEffect(() => {
     if (navType === "notice") {
-      // 공지사항 더미 데이터
-      setData([
-        { title: "상대방에게 욕설, 비난이 담긴 채팅 신고", date: "2025.06.21" },
-        { title: "2025. 07. 21 업데이트 안내", date: "2025.06.21" },
-        { title: "AI 업그레이드 안내", date: "2025.06.21" },
-        { title: "2026. 08. 21 점검 안내", date: "2025.06.21" },
-        { title: "상대방에게 욕설, 비난이 담긴 채팅 신고", date: "2025.06.21" },
-      ]);
+      fetchNotices();
     } else if (navType === "help") {
-      // 고객센터 더미 데이터
-      setData([
-        {
-          title: "게임이 실행되지 않아요0",
-          date: "2025.06.21",
-          answered: true,
-        },
-        {
-          title: "게임이 실행되지 않아요1",
-          date: "2025.06.21",
-          answered: false,
-        },
-        {
-          title: "게임이 실행되지 않아요2",
-          date: "2025.06.21",
-          answered: true,
-        },
-        {
-          title: "게임이 실행되지 않아요3",
-          date: "2025.06.21",
-          answered: false,
-        },
-        {
-          title: "게임이 실행되지 않아요4",
-          date: "2025.06.21",
-          answered: true,
-        },
-      ]);
+      fetchQnAList();
     }
   }, [navType]);
   return (
@@ -75,12 +86,26 @@ export const InformationContainer = () => {
                 ) : (
                   <span className="answer-wait">답변대기</span>
                 ))}
-              <span className="title">{item.title}</span>
-              <span className="date">{item.date}</span>
+              {navType === "help" ? (
+                <Link
+                  className="title"
+                  to={`${SERVICE_CENTER_URL}/${item.inquiryId}`}
+                >
+                  {item.title}
+                </Link>
+              ) : (
+                <Link
+                  className="title"
+                  to={`${ANNOUNCE_URL}/${item.notificationId}`}
+                >
+                  {item.title}
+                </Link>
+              )}
+              <span className="date">{formatDate(item.createdAt)}</span>
             </li>
           ))
         ) : (
-          <h2>공지사항이 존재하지 않습니다.</h2>
+          <h2>게시글이 존재하지 않습니다.</h2>
         )}
       </ul>
     </div>

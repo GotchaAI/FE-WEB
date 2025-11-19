@@ -9,6 +9,7 @@ import ServiceFAQPage from "pages/home/ServiceFAQPage";
 import ServiceCenterDetailPage from "pages/home/ServiceCenterDetailPage";
 import ServicePostPage from "pages/home/ServicePostPage";
 import FAQDetailPage from "pages/home/FAQDetailPage";
+import RankingPage from "pages/home/RankingPage";
 const home = [
   {
     path: "/",
@@ -19,7 +20,10 @@ const home = [
         index: true,
         element: <Home />,
       },
-
+      {
+        path: "ranking",
+        element: <RankingPage />,
+      },
       {
         path: "character-intro",
         element: <IntroducePage />,
@@ -55,7 +59,7 @@ const home = [
       {
         path: "service-center/post",
         element: <ServicePostPage />
-      }
+      },
     ],
   },
 ];

@@ -1,8 +1,8 @@
-import { SOCKET_GAME_API } from "constants/api";
-import { useCallback, useEffect, useState } from "react";
-import { useGameSocketStore } from "store/socket";
-import { useToastStore } from "store/toast";
-import { getUserUuid } from "utils/user";
+import { SOCKET_GAME_API } from 'constants/api';
+import { useCallback, useEffect, useState } from 'react';
+import { useGameSocketStore } from 'store/socket';
+import { useToastStore } from 'store/toast';
+import { getUserUuid } from 'utils/user';
 
 const useBattle = ({ roomId }) => {
   const userUuid = getUserUuid();
@@ -25,28 +25,29 @@ const useBattle = ({ roomId }) => {
       (message) => {
         const payload = JSON.parse(message.body);
         const { eventType: type, data } = payload;
+        const aiSay = JSON.parse(payload.aiSays)?.message;
 
         switch (type) {
-          case "GUESS_REQUEST":
+          case 'GUESS_REQUEST':
             setEndTime(data.guessEndTime);
             setGuessResult(null);
             setIsMyguessTurn(data.guesserUuid === userUuid);
-            setIsAiguessTurn(data.guesserUuid === "AI");
+            setIsAiguessTurn(data.guesserUuid === 'AI');
             setIsSubmit(false);
             break;
-          case "GUESS_SUBMIT":
+          case 'GUESS_SUBMIT':
             setGuessWord(data.guessWord);
-            setAiSays(payload.aiSays);
+            setAiSays(aiSay);
             break;
-          case "GUESS_RESULT":
+          case 'GUESS_RESULT':
             setGuessResult(data.correct);
-            setAiSays(payload.aiSays);
+            setAiSays(aiSay);
             setGuessWord(null);
             break;
           default:
             break;
         }
-      }
+      },
     );
 
     return () => sub.unsubscribe();
@@ -56,17 +57,17 @@ const useBattle = ({ roomId }) => {
     (guess) => {
       if (!isConnected) return;
       setIsSubmit(true);
-      showToast("alert", "제출 완료!");
+      showToast('alert', '제출 완료!');
 
       stompClient.publish({
         destination: `/pub${SOCKET_GAME_API}/${roomId}`,
         body: JSON.stringify({
-          eventType: "GUESS_SUBMIT",
+          eventType: 'GUESS_SUBMIT',
           data: { guessWord: guess },
         }),
       });
     },
-    [isConnected, stompClient, roomId]
+    [isConnected, stompClient, roomId],
   );
 
   return {

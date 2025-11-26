@@ -1,4 +1,5 @@
 .profile-container {
+  position: relative;
   width: 255px;
   height: 122px;
 
@@ -46,7 +47,7 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      font-family: "SUIT-Regular";
+      font-family: 'SUIT-Regular';
       font-size: 13px;
     }
   }
@@ -58,15 +59,20 @@
 
     .profile-img-container {
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 67px;
       height: 67px;
-      border: solid 1px;
-      background-color: #d9d9d9;
+      //border: solid 1px;
+      border-radius: 8px;
+
+      background-color: #f28110;
 
       overflow: hidden;
       img {
-        width: 67px;
-        height: 67px;
+        width: 30.67px;
+        height: 35.21px;
       }
     }
 
@@ -76,14 +82,14 @@
       align-items: center;
       justify-content: center;
 
-      width: 149px;
+      width: 129px;
 
-      font-family: "YoonChild";
+      font-family: 'YoonChild';
 
       .profile-detail {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: start;
         justify-content: center;
 
         width: 92px;
@@ -103,7 +109,7 @@
             align-items: center;
             font-size: 15px;
             font-weight: 600;
-            font-family: "YoonChild";
+            font-family: 'YoonChild';
           }
 
           .left-strip {
@@ -115,6 +121,20 @@
           }
         }
       }
+    }
+  }
+
+  .sign-out-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+
+    font-size: 10.5px;
+
+    &:hover {
+      color: red;
     }
   }
 }

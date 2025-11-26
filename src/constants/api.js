@@ -9,6 +9,7 @@ export const GUEST_SIGN_IN_API = process.env.REACT_APP_GUEST_SIGN_IN_API;
 export const GUEST_SIGN_UP_API = process.env.REACT_APP_GUEST_SIGN_UP_API;
 export const TOKEN_REISSUE_API = process.env.REACT_APP_TOKEN_REISSUE_API;
 export const CSRF_TOKEN_API = process.env.REACT_APP_CSRF_TOKEN_API;
+export const SIGN_OUT_API = process.env.REACT_APP_SIGN_OUT_API;
 
 export const EMAIL_SEND_API = process.env.REACT_APP_EMAIL_SEND_API;
 export const EMAIL_VERIFY_API = process.env.REACT_APP_EMAIL_VERIFY_API;

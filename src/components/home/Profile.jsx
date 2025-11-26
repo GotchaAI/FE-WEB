@@ -1,10 +1,21 @@
-import rabbit from "assets/rabbit-sample.png";
-import useUserInformationStore from "store/userInformation";
-import "styles/components/home/Profile.scss";
+import carrot from 'assets/commons/carrot.png';
+import { signOutAPI } from 'services/auth/auth';
+import useUserInformationStore from 'store/userInformation';
+import 'styles/components/home/Profile.scss';
 
 const Profile = () => {
   const profile = useUserInformationStore((state) => state.profile);
   const experience = useUserInformationStore((state) => state.experience);
+
+  const signOutHandler = async () => {
+    try {
+      await signOutAPI();
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <div className="profile-container">
       <div className="exp-container">
@@ -20,7 +31,7 @@ const Profile = () => {
       </div>
       <div className="profile-user-info-container">
         <div className="profile-img-container">
-          <img src={rabbit} alt="프로필 사진" />
+          <img src={carrot} alt="프로필 사진" />
         </div>
         <div className="profile-detail-container">
           <div className="profile-detail">
@@ -32,6 +43,10 @@ const Profile = () => {
           </div>
         </div>
       </div>
+
+      <button className="sign-out-btn" type="button" onClick={signOutHandler}>
+        로그아웃
+      </button>
     </div>
   );
 };

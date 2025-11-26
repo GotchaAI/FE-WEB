@@ -4,6 +4,7 @@ import {
   EMAIL_VERIFY_API,
   GUEST_SIGN_IN_API,
   SIGN_IN_API,
+  SIGN_OUT_API,
   SIGN_UP_API,
   TOKEN_REISSUE_API,
 } from 'constants/api';
@@ -15,6 +16,10 @@ export const signUpAPI = async (authForm) => {
 
 export const signInAPI = async (authForm) => {
   return await apiInterface('post', SIGN_IN_API, authForm, {}, false);
+};
+
+export const signOutAPI = async () => {
+  return await apiInterface('get', SIGN_OUT_API, {}, {}, true);
 };
 
 export const guestSignInAPI = async () => {

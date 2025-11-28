@@ -7,6 +7,9 @@ import Pagination from "commons/ui/Pagination";
 import { getAnnounceListAPI } from "services/home/announce";
 import { EmptyContent } from "commons/emptyContent/EmptyContent";
 import AnnounceSortButtons from "commons/ui/button/AnnounceSortButton";
+import useUserInformationStore from "store/userInformation";
+import { getAnnounceDetailLink } from "utils/user";
+import { ADMIN_CREATE_ANNOUNCE_URL } from "constants/url";
 
 const getTabClassName = (tabName, currentTab) => {
   const classes = ["tab"];
@@ -28,6 +31,10 @@ const AnnouncePage = () => {
   const currentPage = Number(searchParams.get("page")) || 1;
   const sortOrder = searchParams.get("sort") || "DATE_DESC";
   const tabType = searchParams.get("type") || "";
+
+  const profile = useUserInformationStore((state) => state.profile);
+  const isAdminMode =
+    profile?.role === "ADMIN" && window.location.href.includes("admin");
 
   /** 공지사항 API 호출 */
   const fetchNotices = async (page = 1, sort = "DATE_DESC", type = "") => {
@@ -134,7 +141,10 @@ const AnnouncePage = () => {
               key={`notice-${notice.notificationId}`}
               className="announce-item"
             >
-              <Link className="title" to={`/announce/${notice.notificationId}`}>
+              <Link
+                className="title"
+                to={getAnnounceDetailLink(isAdminMode, notice.notificationId)}
+              >
                 {notice.title}
               </Link>
               <div className="meta">
@@ -142,6 +152,14 @@ const AnnouncePage = () => {
               </div>
             </div>
           ))
+        )}
+        {isAdminMode && (
+          <Link
+            to={ADMIN_CREATE_ANNOUNCE_URL}
+            className="announce-create-button"
+          >
+            ✏️
+          </Link>
         )}
       </div>
 

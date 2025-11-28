@@ -12,8 +12,8 @@ import { getUserInfoAPI } from "services/user/user";
 import "styles/components/home/Home.scss";
 import { getAuthToken } from "utils/token";
 import { getUserInfo } from "utils/user";
+import { EnterAdmin } from "components/home/EnterAdmin.jsx";
 import { RankingPreview } from "components/home/RankingPreview.jsx";
-
 const Home = () => {
   const navigate = useNavigate();
   const { isSignIn } = useOutletContext();
@@ -84,6 +84,7 @@ const Home = () => {
           <IntroduceCharacterPreview />
         </div>
       </div>
+      <EnterAdmin />
     </div>
   );
 };

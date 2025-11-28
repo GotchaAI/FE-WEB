@@ -71,10 +71,16 @@ export const SOCKET_CHAT_PRIVATE = process.env.REACT_APP_WS_CHAT_PRIVATE_API;
 // 공지사항 API
 export const ANNOUNCE_LIST_API = process.env.REACT_APP_ANNOUNCE_LIST_API;
 
+// 관리자 API
+export const ADMIN_ANNOUNCE_MANAGE_API =
+  process.env.REACT_APP_ADMIN_ANNOUNCE_MANAGE_API;
+export const ADMIN_QNA_MANAGE_API = process.env.ADMIN_QNA_MANAGE_API;
+export const ADMIN_REPORT_API = process.env.REACT_APP_ADMIN_REPORT_API;
 // 서비스센터 API
 export const SERVICE_LIST_API = process.env.REACT_APP_SERVICE_LIST_API;
 export const SERVICE_MY_LIST_API = process.env.REACT_APP_SERVICE_MY_LIST_API;
 export const SERVICE_QNA_API = process.env.REACT_APP_SERVICE_QNA;
+
 
 export const RANKING_API = process.env.REACT_APP_RANKING_API;
 export const RANkING_MY_API = process.env.REACT_APP_MY_RANKING_API;

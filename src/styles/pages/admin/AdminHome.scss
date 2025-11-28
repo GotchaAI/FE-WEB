@@ -1,0 +1,16 @@
+.admin-home-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 300px;
+  font-size: 200px;
+  height: auto;
+  background-color: white;
+  img{
+    width: 400px;
+    height: auto;
+  }
+}

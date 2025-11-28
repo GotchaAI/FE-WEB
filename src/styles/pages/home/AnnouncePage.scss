@@ -102,6 +102,38 @@
     .empty {
       margin-top: 108px;
     }
+    .announce-create-button {
+      text-decoration: none;
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgb(17, 125, 202);
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: YoonChild;
+      font-size: 18px;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      z-index: 999;
+      user-select: none;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+
+      &:hover {
+        transform: translateY(-3px);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+
+    }
   }
 
   /* 페이지네이션 */

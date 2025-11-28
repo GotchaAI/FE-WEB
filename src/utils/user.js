@@ -1,3 +1,5 @@
+import { ADMIN_ANNOUNCE_URL, ANNOUNCE_URL } from "constants/url";
+
 // src/utils/getUserInfo.js
 const { default: useUserInformationStore } = require("store/userInformation");
 
@@ -34,4 +36,7 @@ const getUserName = () => {
   return nickname;
 };
 
-export { getUserInfo, getUserUuid, getUserName };
+const getAnnounceDetailLink = (isAdmin, id) => {
+  return isAdmin ? `${ADMIN_ANNOUNCE_URL}/${id}` : `${ANNOUNCE_URL}/${id}`;
+};
+export { getUserInfo, getUserUuid, getUserName, getAnnounceDetailLink };

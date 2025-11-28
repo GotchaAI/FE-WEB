@@ -5,6 +5,13 @@ export const SIGN_UP_URL = "/signup"; // 회원가입
 export const ACCOUNT_URL = "/find/account"; // 비밀번호 찾기
 export const WITHDRAW_URL = "/withdraw"; // 비밀번호 찾기
 
+export const ADMIN_URL = "/admin";
+export const ADMIN_ANNOUNCE_URL = "/admin/announce"; //공지사항 관리
+export const ADMIN_CREATE_ANNOUNCE_URL = "/admin/announce/create"; //공지 생성
+export const ADMIN_MANAGE_USER_URL = "/admin/user-manage"; // 유저 관리
+export const ADMIN_MANAGE_REPORT_URL = "/admin/report-manage"; //신고 관리
+export const ADMIN_MANAGE_CUSTOMER_URL = "/admin/customer-manage"; //고객센터 1ㄷ1 문의 관리
+
 export const LOBBY_URL = "/lobby"; // 로비
 export const MY_PAGE_URL = "/lobby/myinfo"; // 마이페이지
 export const MY_RECORD_URL = "/lobby/myinfo/record"; // 마이페이지 내 전적
